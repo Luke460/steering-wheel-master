@@ -10,6 +10,14 @@ In the following example you can see an example of a generated log file for a **
 
 Data aggregation is a widely used process that helps to extract the behavior of a set of raw data by eliminating reading errors. It's used mostly in advanced security and control systems (sensors networks, allarms). 
 
-With this utility, you can choose the degree of data aggregation
+With this utility, you can choose the degree of data aggregation by editing the ***config.json*** file:
+```
+{
+	"input_file":"example.csv",
+	"aggregation_order":5
+}
+```
 
 ![example](G29-GRAPH.png)
+
+To run the utility, just execute ***WheelCheckDataAggregator.jar*** ![icon](icon.png)
