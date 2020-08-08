@@ -30,7 +30,7 @@ If everything goes well, you should get the following output message:
 
 You can use generated log files as [***Lut Generator***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/) input to improve generated lut files:
 
-![success](images/comparison.png)
+![comparison](images/comparison.png)
 
 For more information, read the ***README*** file inside the program folder.
 
