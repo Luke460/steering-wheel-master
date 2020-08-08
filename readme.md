@@ -28,4 +28,6 @@ If everything goes well, you should get the following output message:
 
 ![success](success.png)
 
+For more information, read the ***README*** file inside the program folder.
+
 
