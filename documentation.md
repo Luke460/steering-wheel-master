@@ -6,4 +6,4 @@
 
 ## Data Aggregation example (with Logitech G29)
 
-![example](graph.png)
+![example](G29-GRAPH.png)
