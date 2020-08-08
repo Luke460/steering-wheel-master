@@ -34,4 +34,6 @@ You can use generated log files as [***Lut Generator***](https://www.racedepartm
 
 For more information, read the ***README*** file inside the program folder.
 
+## DOWNLOADS
 
+ + [***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases/tag/0.0.1)
