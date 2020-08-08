@@ -24,4 +24,8 @@ To run the utility, just execute ***WheelCheckDataAggregator.jar***
 
 ![icon](icon.png)
 
+If everithing goes well, you should obtain the following output message:
+
+![success](success.png)
+
 
