@@ -18,15 +18,19 @@ With this utility, you can choose the degree of data aggregation by editing the 
 }
 ```
 
-![example](G29-GRAPH.png)
+![example](images/G29-GRAPH.png)
 
 To run the utility, just execute ***WheelCheckDataAggregator.jar***
 
-![icon](icon.png)
+![icon](images/icon.png)
 
 If everything goes well, you should get the following output message:
 
-![success](success.png)
+![success](images/success.png)
+
+You can use generated log files as [***Lut Generator***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/) input to improve generated lut files:
+
+![success](images/comparison.png)
 
 For more information, read the ***README*** file inside the program folder.
 
