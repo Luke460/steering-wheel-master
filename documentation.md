@@ -6,4 +6,4 @@
 
 ## Data Aggregation example (with Logitech G29)
 
-![example](raw.githubusercontent.com/Luke460/wheel-check-data-aggregator/master/graph.png)
+![example](graph.png)
