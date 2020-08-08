@@ -20,4 +20,8 @@ With this utility, you can choose the degree of data aggregation by editing the 
 
 ![example](G29-GRAPH.png)
 
-To run the utility, just execute ***WheelCheckDataAggregator.jar*** ![icon](icon.png)
+To run the utility, just execute ***WheelCheckDataAggregator.jar***
+
+![icon](icon.png)
+
+
