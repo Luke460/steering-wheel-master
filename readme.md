@@ -20,7 +20,7 @@ With this utility, you can choose the degree of data aggregation (named aggregat
 }
 ```
 
-To run the utility, just execute ***WheelCheckDataAggregator.jar***
+To run the utility, just put your wheel's log file (example.csv) in the program folder and execute ***WheelCheckDataAggregator.jar***:
 
 ![icon](images/icon.png)
 
