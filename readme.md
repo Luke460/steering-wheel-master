@@ -12,7 +12,7 @@ In the following example you can see an example of a generated log file for a **
 
 ![example](images/G29-GRAPH.png)
 
-With this utility, you can choose the degree of data aggregation by editing the ***config.json*** file:
+With this utility, you can choose the degree of data aggregation (named aggregation order) by editing the ***config.json*** file:
 ```
 {
 	"input_file":"example.csv",
