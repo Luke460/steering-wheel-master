@@ -20,7 +20,7 @@ With this utility, you can choose the degree of data aggregation (named aggregat
 }
 ```
 
-To run the utility, just put your [***Wheel check***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/)'s log file (example.csv) in the program folder and execute ***WheelCheckDataAggregator.jar***:
+To run the utility, just put your [***Wheel check***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/)'s log file (*example.csv*) in the program folder and execute ***WheelCheckDataAggregator.jar***:
 
 ![icon](images/icon.png)
 
