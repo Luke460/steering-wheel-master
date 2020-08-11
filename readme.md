@@ -12,14 +12,15 @@ In the following graph you can see an example of a generated log file for a ***L
 
 ![example](images/G29-GRAPH.png)
 
-With this utility, you can choose the degree of data aggregation (named aggregation order) by editing the ***config.json*** file:
+With this utility, you can choose the degree of data aggregation (named aggregation order) by editing the ***config.json*** file.
+For a geared wheel - like the G29 - I suggest aggregation values between 3 and 5 (4 is perfect in my case).
 ```
 {
 	"input_file":"example.csv",
 	"aggregation_order":5
 }
 ```
-For a geared wheel - like the G29 - I suggest aggregation values between 3 and 5 (4 is perfect in my case).
+
 
 To run the utility, just put your [***Wheel check***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/)'s log file (*example.csv*) in the program folder and execute ***WheelCheckDataAggregator.jar***:
 
