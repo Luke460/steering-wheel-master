@@ -24,13 +24,11 @@ With this utility, you can choose the degree of data aggregation (named ***aggre
 	"aggregation_order":5
 }
 ```
-
+**NOTE:** Remember to update the name of the input file in ***config.json***!
 
 To run the utility, just put your [***Wheel check***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/)'s log file (***example.csv***) in the program folder and execute ***WheelCheckDataAggregator.jar***:
 
 ![icon](images/icon.png)
-
-**NOTE:** Remember to update the name of the input file in ***config.json***!
 
 If everything goes well, you should get the following output message:
 
