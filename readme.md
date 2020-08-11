@@ -12,7 +12,7 @@ In the following graph you can see an example of a generated log file for a ***L
 
 ![example](images/G29-GRAPH.png)
 
-With this utility, you can choose the degree of data aggregation (named aggregation order) by editing the ***config.json*** file:
+With this utility, you can choose the degree of data aggregation (named ***aggregation order***) by editing the ***config.json*** file:
 
  - For geared wheels - like Logitech G29 or G27 - I suggest aggregation values between 3 and 5 (4 is perfect in my case).
  - For mixed wheels - like Thrustmaster TXM or T150 - 3 should be fine.
