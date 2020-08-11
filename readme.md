@@ -30,6 +30,8 @@ To run the utility, just put your [***Wheel check***](https://www.racedepartment
 
 ![icon](images/icon.png)
 
+**NOTE:** Remember to update the name of the input file in ***config.json***!
+
 If everything goes well, you should get the following output message:
 
 ![success](images/success.png)
