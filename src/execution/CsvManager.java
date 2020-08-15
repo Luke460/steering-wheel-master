@@ -59,17 +59,28 @@ public class CsvManager {
 			}
 
 			// END READ
+			
+			// for more precision
+			java.util.ArrayList<Double> deltaXdouble = new java.util.ArrayList<Double>(); 
+			deltaXdouble = doubleListToIntegerList(deltaX);
+			
+			// BEGIN ERROR CORRECTION
+			
+			deltaXDeg = Corrector.adjust(deltaXDeg, "deltaXDeg");
+			deltaXdouble = Corrector.adjust(deltaXdouble, "deltaX");	
+			
+			// END ERROR CORRECTION	
+			
+			// BEGIN AGGREGATION
 
 			System.out.println("aggregation...");
 
 			aggregatedeltaXDeg = Aggregator.aggregate(deltaXDeg, aggregationOrder);
-
-			java.util.ArrayList<Double> deltaXdouble = new java.util.ArrayList<Double>();
-			deltaXdouble = doubleListToIntegerList(deltaX);
 			aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, aggregationOrder);
+			
+			// END AGGREGATION
+			
 			aggregateDeltaX = integerListToDoubleList(aggregateDeltaXdouble);
-
-
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
