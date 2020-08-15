@@ -11,7 +11,7 @@ Before to start: use at your own risk!!!
     2.2 set an aggregation order in the field "aggregation_order": 
         - a lower value makes your lut more similar to the original lut generation procedure
         - a higher value makes your lut smoother and more similar to your standard wheel behavior
-        - recommended values: 2 - 10
+        - recommended values: 2 - 6
         
 3. run 'WheelCheckDataAggregator.jar'
 
@@ -34,7 +34,7 @@ Prima di iniziare: usare a vostro rischio e pericolo!!!
     2.2 inserisci un ordine di aggregazione nel campo "aggregation_order":
         - un valore più basso renderà il lut file generato più simile alla normale procedura del lut generator
         - un valore più alto renderà il file di lut più morbido e simile al comportamento standard del tuo volante
-        - valore raccomandati: 2 - 10
+        - valori raccomandati: 2 - 6
         
 3. esegui 'WheelCheckDataAggregator.jar'
 
@@ -48,5 +48,5 @@ Example - Esempio (config.json):
 
 {
 	"input_file":"example.csv",
-	"aggregation_order":5
+	"aggregation_order":3
 }
