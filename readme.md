@@ -42,4 +42,4 @@ For more information, read the ***README*** file inside the program folder.
 
 ## DOWNLOADS
 
- + [***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases/tag/v1.1-beta)
+ + [***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases)
