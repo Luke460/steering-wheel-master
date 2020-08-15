@@ -15,32 +15,33 @@ public class Corrector {
 
 		for(int i = 1; i<=values.size()-2; i++) {
 
-			double valueI = values.get(i);
+			double valueI0 = values.get(i);
 			double valueIp1 = values.get(i+1);
-			double valueIp2 = valueIp1;
-			double valueIp3 = valueIp2;
+			double valueIm1 = values.get(i-1);
+			double deltaI = ((valueIp1-valueI0)+(valueI0-valueIm1))/2.0;
+			double valueIp2 = valueIp1 + deltaI;
+			double valueIp3 = valueIp2 + deltaI;
 			if(i <= values.size()-3) valueIp2 = values.get(i+2);
 			if(i <= values.size()-4) valueIp3 = values.get(i+3);
-			double valueIm1 = values.get(i-1);
-			double valueIm2 = valueIm1;
-			double valueIm3 = valueIm2;
+			double valueIm2 = valueIm1 - deltaI;
+			double valueIm3 = valueIm2 - deltaI;
 			if(i >= 2) valueIm2 = values.get(i-2);
 			if(i >= 3) valueIm3 = values.get(i-3);
 
-			if( (valueI < valueIm1 && valueI < valueIm2) ||
-					(valueI > valueIp1 && valueI > valueIp2) ) {
+			if( (valueI0 < valueIm1 && valueI0 < valueIm2) ||
+					(valueI0 > valueIp1 && valueI0 > valueIp2) ) {
 				
-				if(valueI < valueIm3 || valueI > valueIp3) {
+				if(valueI0 < valueIm3 || valueI0 > valueIp3) {
 					// error not acceptable - spike detected
-					valueI = (valueIm1 + valueIp1)/2.0;
+					valueI0 = (valueIm1 + valueIp1)/2.0;
 					spikeCounter++;
 				} else {
 					// minor error
-					valueI = (valueIm1 + valueIp1 + valueI)/3.0;
+					valueI0 = (valueIm1 + valueIp1 + valueI0)/3.0;
 					minorErrorCounter++;
 				}	
 			}
-			output.add(valueI);
+			output.add(valueI0);
 		}
 		
 		output.add(values.get(values.size()-1));
