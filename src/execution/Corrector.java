@@ -21,26 +21,42 @@ public class Corrector {
 			double deltaI = ((valueIp1-valueI0)+(valueI0-valueIm1))/2.0;
 			double valueIp2 = valueIp1 + deltaI;
 			double valueIp3 = valueIp2 + deltaI;
+			double valueIp4 = valueIp3 + deltaI;
 			if(i <= values.size()-3) valueIp2 = values.get(i+2);
 			if(i <= values.size()-4) valueIp3 = values.get(i+3);
+			if(i <= values.size()-5) valueIp4 = values.get(i+4);
 			double valueIm2 = valueIm1 - deltaI;
 			double valueIm3 = valueIm2 - deltaI;
+			double valueIm4 = valueIm3 - deltaI;
 			if(i >= 2) valueIm2 = values.get(i-2);
 			if(i >= 3) valueIm3 = values.get(i-3);
-
-			if( (valueI0 < valueIm1 && valueI0 < valueIm2) ||
-					(valueI0 > valueIp1 && valueI0 > valueIp2) ) {
-				
-				if(valueI0 < valueIm3 || valueI0 > valueIp3) {
-					// error not acceptable - spike detected
-					valueI0 = (valueIm1 + valueIp1)/2.0;
-					spikeCounter++;
-				} else {
-					// minor error
-					valueI0 = (valueIm1 + valueIp1 + valueI0)/3.0;
-					minorErrorCounter++;
-				}	
+			if(i >= 4) valueIm4 = values.get(i-4);
+			
+			int wrongMeasureCounter = 0;
+			
+			if(valueI0 < valueIm1 || valueI0 > valueIp1) {
+				wrongMeasureCounter++;
 			}
+			if(valueI0 < valueIm2 || valueI0 > valueIp2) {
+				wrongMeasureCounter++;
+			}
+			if(valueI0 < valueIm3 || valueI0 > valueIp3) {
+				wrongMeasureCounter++;
+			}
+			if(valueI0 < valueIm4 || valueI0 > valueIp4) {
+				wrongMeasureCounter++;
+			}
+			
+			if(wrongMeasureCounter==2) {
+				// minor error: ignored
+				// aggregation will fix this value
+				minorErrorCounter++;
+			} else if (wrongMeasureCounter>=3) {
+				// error not acceptable - spike detected
+				valueI0 = (valueIm1 + valueIp1)/2.0;
+				spikeCounter++;
+			}
+			
 			output.add(valueI0);
 		}
 		
@@ -48,7 +64,7 @@ public class Corrector {
 
 		System.out.println("[" + name + "] adjusted wrong values: ");
 		System.out.println(" - minor errors: " + minorErrorCounter);
-		System.out.println(" - spike errors: " + spikeCounter);
+		System.out.println(" - spikes corrected: " + spikeCounter);
 
 		return output;
 
