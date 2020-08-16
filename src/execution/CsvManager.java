@@ -33,10 +33,10 @@ public class CsvManager {
 		String title = null;
 
 		System.out.println("reading input file...");
+		
+		// BEGIN READ
 
 		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-
-			// BEGIN READ
 
 			while ((line = br.readLine()) != null) {
 
@@ -44,12 +44,14 @@ public class CsvManager {
 
 					line = line.replaceAll(" ", "");
 
-					String[] row = line.split(cvsSplitBy);
-					force.add(Integer.parseInt(row[0]));
-					startX.add(Integer.parseInt(row[1]));
-					endX.add(Integer.parseInt(row[2]));
-					deltaX.add(Integer.parseInt(row[3]));
-					deltaXDeg.add(Double.parseDouble(row[4]));
+					if(line!=null && !line.equals("")) {
+						String[] row = line.split(cvsSplitBy);
+						force.add(Integer.parseInt(row[0]));
+						startX.add(Integer.parseInt(row[1]));
+						endX.add(Integer.parseInt(row[2]));
+						deltaX.add(Integer.parseInt(row[3]));
+						deltaXDeg.add(Double.parseDouble(row[4]));
+					}
 
 				} else {
 					firstLine = false;
@@ -57,30 +59,6 @@ public class CsvManager {
 				}
 
 			}
-
-			// END READ
-			
-			// for more precision
-			java.util.ArrayList<Double> deltaXdouble = new java.util.ArrayList<Double>(); 
-			deltaXdouble = doubleListToIntegerList(deltaX);
-			
-			// BEGIN ERROR CORRECTION
-			
-			deltaXDeg = Corrector.adjust(deltaXDeg, "deltaXDeg");
-			deltaXdouble = Corrector.adjust(deltaXdouble, "deltaX");	
-			
-			// END ERROR CORRECTION	
-			
-			// BEGIN AGGREGATION
-
-			System.out.println("aggregation...");
-
-			aggregatedeltaXDeg = Aggregator.aggregate(deltaXDeg, aggregationOrder);
-			aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, aggregationOrder);
-			
-			// END AGGREGATION
-			
-			aggregateDeltaX = integerListToDoubleList(aggregateDeltaXdouble);
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -90,7 +68,41 @@ public class CsvManager {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: cannot read " + csvFile + "' file.");
 			return;
+		} catch ( NumberFormatException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: invalid input file '" + csvFile + "'.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Unexpected error while reading " + csvFile + "' file.");
+			return;
 		}
+		
+		// END READ
+		
+
+		// for more precision
+		java.util.ArrayList<Double> deltaXdouble = new java.util.ArrayList<Double>(); 
+		deltaXdouble = doubleListToIntegerList(deltaX);
+
+		// BEGIN ERROR CORRECTION
+
+		deltaXDeg = Corrector.adjust(deltaXDeg, "deltaXDeg");
+		deltaXdouble = Corrector.adjust(deltaXdouble, "deltaX");	
+
+		// END ERROR CORRECTION	
+
+		// BEGIN AGGREGATION
+
+		System.out.println("aggregation...");
+
+		aggregatedeltaXDeg = Aggregator.aggregate(deltaXDeg, aggregationOrder);
+		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, aggregationOrder);
+
+		// END AGGREGATION
+
+		aggregateDeltaX = integerListToDoubleList(aggregateDeltaXdouble);
+
+
 
 		// write results
 
