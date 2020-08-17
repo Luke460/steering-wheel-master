@@ -52,4 +52,4 @@ For more information, read the ***README*** file inside the program folder.
 
  - Spike detection and correction:
 
-![spike-detection](images/SpikeDetection.png)
+![spike-detection](images/MultipleSpikeDetection.png)
