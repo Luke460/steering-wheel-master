@@ -18,6 +18,8 @@ With this utility, you can choose the degree of data aggregation (named ***aggre
  - For mixed wheels - like Thrustmaster TXM or T150 - 3 should be fine.
  - For belt wheels - like Thrustmaster T300 - I suggest lower values like 3 or even 2.
  - For direct wheels 2 should be the perfect choice. 
+ 
+**NOTE:** these tips are based on a test with 100 reading values (*Wheel check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa).
 ```
 {
 	"input_file":"example.csv",
