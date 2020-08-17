@@ -50,6 +50,6 @@ For more information, read the ***README*** file inside the program folder.
  
 ## New Features
 
- - Spike detection and correction:
+ - v1.5: Multiple Spike detection and correction:
 
 ![spike-detection](images/MultipleSpikeDetection.png)
