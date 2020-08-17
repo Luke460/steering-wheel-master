@@ -5,13 +5,10 @@ import java.util.ArrayList;
 public class Corrector {
 
 	public static ArrayList<Double> adjust(ArrayList<Double> values, String name) {
-
-		ArrayList<Double> output = new ArrayList<Double>();
 		
 		int minorErrorCounter = 0;
 		int spikeCounter = 0;
-		
-		output.add(values.get(0));
+		boolean spikeDetected = false;
 
 		for(int i = 1; i<=values.size()-2; i++) {
 
@@ -51,22 +48,31 @@ public class Corrector {
 				// minor error: ignored
 				// aggregation will fix this value
 				minorErrorCounter++;
+				spikeDetected = false;
 			} else if (wrongMeasureCounter>=3) {
 				// error not acceptable - spike detected
-				valueI0 = (valueIm1 + valueIp1)/2.0;
+				if(!spikeDetected) {
+					valueI0 = (valueIm1 + valueIp1)/2.0;
+				} else {
+					// previous value was a spike too
+					valueIm1 = (valueIm2 + valueIp1)/2.0;
+					valueI0 = valueIm1;
+					values.set(i-1, valueIm1);
+				}
+				values.set(i, valueI0);
 				spikeCounter++;
+				spikeDetected = true;
+			} else {
+				spikeDetected = false;
 			}
 			
-			output.add(valueI0);
 		}
-		
-		output.add(values.get(values.size()-1));
 
 		System.out.println("[" + name + "] adjusted wrong values: ");
 		System.out.println(" - minor errors: " + minorErrorCounter);
 		System.out.println(" - spikes corrected: " + spikeCounter);
 
-		return output;
+		return values;
 
 	}
 

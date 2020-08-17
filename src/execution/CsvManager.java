@@ -140,7 +140,7 @@ public class CsvManager {
 	private static ArrayList<Integer> integerListToDoubleList(ArrayList<Double> input) {	
 		java.util.ArrayList<Integer> output = new java.util.ArrayList<Integer>();
 		for(double element:input) {
-			output.add((int) element);
+			output.add((int) Math.round(element));
 		}
 		return output;
 	}

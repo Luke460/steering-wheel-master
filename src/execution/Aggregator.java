@@ -4,24 +4,23 @@ import java.util.ArrayList;
 
 public class Aggregator {
 	
-	public static ArrayList<Double> aggregate(ArrayList<Double> deltaXDeg, int aggregationOrder) {
-		ArrayList<Double> output = deltaXDeg;
+	public static ArrayList<Double> aggregate(ArrayList<Double> values, int aggregationOrder) {
 		for(int state=0; state<aggregationOrder; state++) {
-			output = aggregateInternal(output);
+			values = aggregateInternal(values);
 		}
-		return output;
+		return values;
 	}
 
-	public static ArrayList<Double> aggregateInternal(ArrayList<Double> deltaXDeg) {
+	public static ArrayList<Double> aggregateInternal(ArrayList<Double> values) {
 		ArrayList<Double> aggregateOutput = new ArrayList<Double>();
-		aggregateOutput.add(deltaXDeg.get(0)); // first value
+		aggregateOutput.add(values.get(0)); // first value
 
-		for(int i = 1; i<deltaXDeg.size()-1; i++) {
-			double aggregateValue = (deltaXDeg.get(i-1) + deltaXDeg.get(i) + deltaXDeg.get(i+1))/3.0; 
+		for(int i = 1; i<values.size()-1; i++) {
+			double aggregateValue = (values.get(i-1) + values.get(i) + values.get(i+1))/3.0; 
 			aggregateOutput.add(aggregateValue);
 		}
 
-		aggregateOutput.add(deltaXDeg.get(deltaXDeg.size()-1)); // last value
+		aggregateOutput.add(values.get(values.size()-1)); // last value
 
 		return aggregateOutput;
 	}
