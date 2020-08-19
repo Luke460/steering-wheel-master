@@ -1,14 +1,13 @@
 package execution;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Corrector {
 
 	public static ArrayList<Double> adjust(ArrayList<Double> values, String name) {
 		
-		int minorErrorCounter = 0;
 		int spikeCounter = 0;
-		boolean spikeDetected = false;
 
 		for(int i = 1; i<=values.size()-2; i++) {
 
@@ -29,47 +28,30 @@ public class Corrector {
 			if(i >= 3) valueIm3 = values.get(i-3);
 			if(i >= 4) valueIm4 = values.get(i-4);
 			
-			int wrongMeasureCounter = 0;
+			ArrayList<Double> sortedValues = new ArrayList<Double>();
 			
-			if(valueI0 < valueIm1 || valueI0 > valueIp1) {
-				wrongMeasureCounter++;
-			}
-			if(valueI0 < valueIm2 || valueI0 > valueIp2) {
-				wrongMeasureCounter++;
-			}
-			if(valueI0 < valueIm3 || valueI0 > valueIp3) {
-				wrongMeasureCounter++;
-			}
-			if(valueI0 < valueIm4 || valueI0 > valueIp4) {
-				wrongMeasureCounter++;
-			}
+			sortedValues.add(valueIp1); // 0
+			sortedValues.add(valueIp2); // 1    - - - -
+			sortedValues.add(valueIp3); // 2 <- low value limit (after sorting)
+			sortedValues.add(valueIp4); // 3
+			sortedValues.add(valueI0);  // 4 <- mid value (after sorting)
+			sortedValues.add(valueIm1); // 5
+			sortedValues.add(valueIm2); // 6 <- high value limit (after sorting)
+			sortedValues.add(valueIm3); // 7    + + + +
+			sortedValues.add(valueIm4); // 8
 			
-			if(wrongMeasureCounter==2) {
-				// minor error: ignored
-				// aggregation will fix this value
-				minorErrorCounter++;
-				spikeDetected = false;
-			} else if (wrongMeasureCounter>=3) {
+			Collections.sort(sortedValues);
+			
+			if (valueI0 < sortedValues.get(2) || valueI0 > sortedValues.get(6)) {
 				// error not acceptable - spike detected
-				if(!spikeDetected) {
-					valueI0 = (valueIm1 + valueIp1)/2.0;
-				} else {
-					// previous value was a spike too
-					valueIm1 = (valueIm2 + valueIp1)/2.0;
-					valueI0 = valueIm1;
-					values.set(i-1, valueIm1);
-				}
+				valueI0 = sortedValues.get(4);
 				values.set(i, valueI0);
 				spikeCounter++;
-				spikeDetected = true;
-			} else {
-				spikeDetected = false;
 			}
 			
 		}
 
 		System.out.println("[" + name + "] adjusted wrong values: ");
-		System.out.println(" - minor errors: " + minorErrorCounter);
 		System.out.println(" - spikes corrected: " + spikeCounter);
 
 		return values;
