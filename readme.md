@@ -53,3 +53,7 @@ For more information, read the ***README*** file inside the program folder.
  - v1.5: Multiple Spike detection and correction:
 
 ![spike-detection](images/MultipleSpikeDetection.png)
+
+- v1.7: Error correction improvement:
+
+![spike-detection](images/v1.7-error-correction.png)
