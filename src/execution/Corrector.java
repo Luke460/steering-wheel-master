@@ -30,22 +30,25 @@ public class Corrector {
 			
 			ArrayList<Double> sortedValues = new ArrayList<Double>();
 			
-			sortedValues.add(valueIp1); // 0
-			sortedValues.add(valueIp2); // 1    - - - -
-			sortedValues.add(valueIp3); // 2 <- low value limit (after sorting)
-			sortedValues.add(valueIp4); // 3
+			sortedValues.add(valueIm1); // 0
+			sortedValues.add(valueIm2); // 1    - - - -
+			sortedValues.add(valueIm3); // 2 <- low value limit (after sorting)
+			sortedValues.add(valueIm4); // 3
 			sortedValues.add(valueI0);  // 4 <- mid value (after sorting)
-			sortedValues.add(valueIm1); // 5
-			sortedValues.add(valueIm2); // 6 <- high value limit (after sorting)
-			sortedValues.add(valueIm3); // 7    + + + +
-			sortedValues.add(valueIm4); // 8
+			sortedValues.add(valueIp1); // 5
+			sortedValues.add(valueIp2); // 6 <- high value limit (after sorting)
+			sortedValues.add(valueIp3); // 7    + + + +
+			sortedValues.add(valueIp4); // 8
 			
 			Collections.sort(sortedValues);
 			
-			if (valueI0 < sortedValues.get(2) || valueI0 > sortedValues.get(6)) {
+			if (valueI0 < sortedValues.get(2)) {
 				// error not acceptable - spike detected
-				valueI0 = sortedValues.get(4);
-				values.set(i, valueI0);
+				values.set(i, sortedValues.get(2));
+				spikeCounter++;
+			} else if(valueI0 > sortedValues.get(6)) {
+				// error not acceptable - spike detected
+				values.set(i, sortedValues.get(6));
 				spikeCounter++;
 			}
 			
