@@ -131,6 +131,8 @@ public class CsvManager {
 				ex.printStackTrace();
 			}
 		} 
+		
+		DrawGraph.createAndShowGui(deltaX, aggregateDeltaX);
 
 		System.out.println("DONE!");
 		JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newCsvFileName + "'.");
