@@ -14,7 +14,7 @@ In the following graph you can see an example of a generated log file for a ***L
 
 ![example](images/G29-GRAPH.png)
 
-To run the utility, just execute ***WheelCheckDataAggregator.jar***:
+To run the utility, just execute [***WheelCheckDataAggregator.jar***](https://github.com/Luke460/wheel-check-data-aggregator/releases):
 
 ![icon](images/icon.png)
 
