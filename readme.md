@@ -12,25 +12,20 @@ In the following graph you can see an example of a generated log file for a ***L
 
 ![example](images/G29-GRAPH.png)
 
-With this utility, you can choose the degree of data aggregation (named ***aggregation order***) by editing the ***config.json*** file:
+To run the utility, just execute ***WheelCheckDataAggregator.jar***:
+
+![icon](images/icon.png)
+
+Now you have to locate your [***Wheel check***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/)'s log file and choose the degree of data aggregation (named ***aggregation order***):
 
  - For geared wheels - like Logitech G29 or G27 - I suggest aggregation values between 3 and 5 (4 is perfect in my case).
  - For mixed wheels - like Thrustmaster TXM or T150 - 3 should be fine.
  - For belt wheels - like Thrustmaster T300 - I suggest lower values like 3 or even 2.
  - For direct wheels 2 should be the perfect choice. 
  
+![icon](images/menu.png)
+ 
 **NOTE:** these tips are based on a test with 100 reading values (*Wheel check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa).
-```
-{
-	"input_file":"example.csv",
-	"aggregation_order":5
-}
-```
-**NOTE:** Remember to update the name of the input file in ***config.json***!
-
-To run the utility, just put your [***Wheel check***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/)'s log file (***example.csv***) in the program folder and execute ***WheelCheckDataAggregator.jar***:
-
-![icon](images/icon.png)
 
 If everything goes well, you should get the following output message:
 
