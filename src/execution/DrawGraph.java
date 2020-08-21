@@ -128,11 +128,11 @@ public class DrawGraph extends JPanel {
 		return new Dimension(PREF_W, PREF_H);
 	}
 
-	public static void createAndShowGui(List<Integer> deltaX, List<Integer> aggregateDeltaX) {
+	public static void createAndShowGui(List<Integer> deltaX, List<Integer> aggregateDeltaX, String name) {
 
 		DrawGraph mainPanel = new DrawGraph(deltaX, aggregateDeltaX);
 
-		JFrame frame = new JFrame("DrawGraph");
+		JFrame frame = new JFrame(name);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(mainPanel);
 		frame.pack();

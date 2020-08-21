@@ -18,6 +18,7 @@ public class Main {
 		try {
 			config = new org.json.JSONObject(new String(Files.readAllBytes(Paths.get(JSON_CONFIG_PATH))));
 		} catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read '" + JSON_CONFIG_PATH + "' file.");
 			return;
 		}
@@ -30,12 +31,14 @@ public class Main {
 		try {
 			inputCsvPath = config.getString("input_file");
 		} catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read 'input_file' property in '" + JSON_CONFIG_PATH + "'.");
 			return;
 		}
 		try {
 			aggregationOrder = config.getInt("aggregation_order");
 		} catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read 'aggregation_order' property in '" + JSON_CONFIG_PATH + "'.");
 			return;
 		}
@@ -46,6 +49,7 @@ public class Main {
 		try {
 			CsvManager.generateCsv(inputCsvPath, aggregationOrder);
 		} catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error during aggregation process.");
 			return;
 		}

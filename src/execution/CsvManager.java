@@ -127,12 +127,16 @@ public class CsvManager {
 					bw.newLine();
 					bw.flush();
 				}
-			} catch(IOException ex) { 
-				ex.printStackTrace();
+			} catch(IOException e) { 
+				e.printStackTrace();
 			}
 		} 
 		
-		DrawGraph.createAndShowGui(deltaX, aggregateDeltaX);
+		try {
+			DrawGraph.createAndShowGui(deltaX, aggregateDeltaX, csvFile + " -> " + newCsvFileName);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 
 		System.out.println("DONE!");
 		JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newCsvFileName + "'.");
