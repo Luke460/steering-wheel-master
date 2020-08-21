@@ -33,6 +33,8 @@ If everything goes well, you should get the following output message:
 
 ![success](images/success.png)
 
+The generator file is located in the *Wheel Check Data Aggregator* folder.
+
 You can use generated log files as [***Lut Generator***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/) input to improve generated lut files:
 
 ![comparison](images/Comparison.png)
