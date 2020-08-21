@@ -23,7 +23,9 @@ Now you have to locate your [***Wheel check***](https://www.racedepartment.com/d
  - For belt wheels - like Thrustmaster T300 - I suggest lower values like 3 or even 2.
  - For direct wheels 2 should be the perfect choice. 
  
-![icon](images/menu.png)
+ **IN GENERAL** : lower values makes your lut file more similar to the standard lut generation procedure, while higher values makes your lut smoother and more similar to your standard wheel behavior. Don't go too high, or you will lose precision! Recommended values are between 2 and 6.
+ 
+![menu](images/menu.png)
  
 **NOTE:** these tips are based on a test with 100 reading values (*Wheel check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa).
 
@@ -52,3 +54,5 @@ For more information, read the ***README*** file inside the program folder.
 - [v1.7](https://github.com/Luke460/wheel-check-data-aggregator/releases): Error correction improvement:
 
 ![spike-detection](images/v1.7-error-correction.png)
+
+- [v2.0](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added user interface and output graph comparison.
