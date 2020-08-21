@@ -12,6 +12,10 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import process.Aggregator;
+import process.Corrector;
+import userInterface.DrawGraph;
+
 public class CsvManager {
 
 	public static void execute(org.json.JSONObject config, boolean save) {

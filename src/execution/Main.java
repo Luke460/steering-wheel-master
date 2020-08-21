@@ -6,11 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 
+import userInterface.Menu;
+
 public class Main {
 
 	public static void main(String[] args) {
 
-		System.out.println("BEGIN PROCEDURE");
+		System.out.println("START");
 		System.out.println("reading '" + JSON_CONFIG_PATH + "'...");
 
 		// Read Configuration
@@ -24,6 +26,7 @@ public class Main {
 		}
 		
 		// Open Menu
+		System.out.println("opening Menu...");
 		Menu menu = new Menu();
 		menu.showMenu(config);
 

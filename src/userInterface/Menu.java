@@ -1,8 +1,10 @@
-package execution;
+package userInterface;
 
 import javax.swing.*;
 
 import org.json.JSONObject;
+
+import execution.CsvManager;
 
 import static execution.Constants.JSON_CONFIG_PATH;
 
@@ -11,20 +13,22 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.*;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
-public class Menu{
-	
+public class Menu extends JPanel{
+
+	private static final long serialVersionUID = 1L;
 	private static final String INPUT_FILE = "input_file";
 	private static final String AGGREGATION_ORDER = "aggregation_order";
 	JButton previewButton;
 	JButton generateButton;
+	JButton fileBrowserButton;
 	JTextField inputFileText;
 	JTextField aggregationText;
 	JSONObject config;
-	
+
 
 	public void showMenu(org.json.JSONObject inputConfig){
 		this.config = inputConfig;
@@ -32,20 +36,20 @@ public class Menu{
 		JFrame frame= new JFrame(); 
 		frame.setTitle("Wheel Check Data Aggregator");
 
-		// Panel to define the layout. We are using GridBagLayout
+		// Panel to define the layout
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
 		JPanel headingPanel = new JPanel();
 		JLabel headingLabel = new JLabel("Settings:");
-		headingLabel.setFont(new Font(headingLabel.getFont().getFontName(), 2, 18));
+		headingLabel.setFont(new Font(headingLabel.getFont().getFontName(), 2, 16));
 		headingPanel.add(headingLabel);
 
-		// Panel to define the layout. We are using GridBagLayout
+		// Panel to define the layout
 		JPanel layoutPanel = new JPanel(new GridBagLayout());
 		// Constraints for the layout
 		GridBagConstraints constr = new GridBagConstraints();
-		constr.insets = new Insets(10, 10, 10, 10);     
+		constr.insets = new Insets(8, 8, 8, 8);     
 		constr.anchor = GridBagConstraints.WEST;
 
 
@@ -59,30 +63,31 @@ public class Menu{
 		aggregationText = new JTextField(2);
 		aggregationText.setText(config.getInt(AGGREGATION_ORDER) + "");
 
+		// create event listener for the buttons
+		PerformListener performListener = new PerformListener();
+
 		// Declare File Manager Button
-		JButton fileBrowserButton = new JButton("File browser");
+		fileBrowserButton = new JButton("File browser");
 
 		constr.gridx=0;
 		constr.gridy=0;
 		layoutPanel.add(inputFileLabel, constr);
-		
+
 		constr.gridx=1;
 		layoutPanel.add(inputFileText, constr);
-		
+
 		constr.gridx=2;
 		layoutPanel.add(fileBrowserButton, constr);
-		
+		fileBrowserButton.addActionListener(performListener);
+
 		constr.gridx=0; constr.gridy=1;
 		layoutPanel.add(aggregationLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(aggregationText, constr);
-		
-		// create event listener for the buttons
-		PerformListener performListener = new PerformListener();
 
 		previewButton = new JButton("Preview");
 		previewButton.addActionListener(performListener);
-		
+
 		generateButton = new JButton("Generate csv");
 		generateButton.addActionListener(performListener);
 
@@ -107,17 +112,17 @@ public class Menu{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
-	
+
 	public void updateConfig(org.json.JSONObject config) {
 		config.put(AGGREGATION_ORDER, Integer.valueOf(aggregationText.getText()));
 		config.put(INPUT_FILE, inputFileText.getText());
 		try {
-			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes(), StandardOpenOption.CREATE);
+			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	class PerformListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			updateConfig(config);
@@ -126,6 +131,15 @@ public class Menu{
 				CsvManager.execute(config, false);
 			} else if(src == generateButton){
 				CsvManager.execute(config, true);
+			} else if(src == fileBrowserButton){
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileFilter(new CsvFileFilter());
+				int n = fileChooser.showOpenDialog(Menu.this);
+				if (n == JFileChooser.APPROVE_OPTION) {
+					File f = fileChooser.getSelectedFile();	         
+					inputFileText.setText(f.getPath());
+				}
+
 			}
 		}
 	}
