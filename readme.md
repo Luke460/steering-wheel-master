@@ -44,12 +44,16 @@ For more information, read the ***README*** file inside the program folder.
 
 ## DOWNLOADS
 
- + [***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases)
+ + [***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases) ***(latest version)***
  
  ---
  
 ## New Features
 
- - v1.5: Multiple Spike detection and correction:
+ - [v1.5](https://github.com/Luke460/wheel-check-data-aggregator/releases): Multiple Spike detection and correction:
 
 ![spike-detection](images/MultipleSpikeDetection.png)
+
+- [v1.7](https://github.com/Luke460/wheel-check-data-aggregator/releases): Error correction improvement:
+
+![spike-detection](images/v1.7-error-correction.png)
