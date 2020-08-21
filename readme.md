@@ -1,6 +1,8 @@
 # Wheel Check Data Aggregator
 
-[***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases) is a useful tool that helps to improve [***Wheel check***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/)'s log files by aggregating data to emphasize the behavior of your steering wheel and eliminating reading errors.
+[***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases) is a useful tool that helps to improve the behavior of your steering wheel by aggregating data and eliminating reading errors.
+
+This procedure use as input the [***Wheel check***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/)'s log files and by processing them is able to produce an improved log file. Then you can use this file as *Lut Generator* input to improve generated lut files and thus also the behavior of your wheel.
 
 ...but what does it mean? what is data aggregation?
 
