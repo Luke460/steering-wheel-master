@@ -133,7 +133,6 @@ public class DrawGraph extends JPanel {
 		DrawGraph mainPanel = new DrawGraph(deltaX, aggregateDeltaX);
 
 		JFrame frame = new JFrame(name);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(mainPanel);
 		frame.pack();
 		frame.setLocationByPlatform(true);

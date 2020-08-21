@@ -1,5 +1,7 @@
 package execution;
 
+import static execution.Constants.JSON_CONFIG_PATH;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -12,7 +14,41 @@ import javax.swing.JOptionPane;
 
 public class CsvManager {
 
-	public static void generateCsv(String csvFile, int aggregationOrder) {
+	public static void execute(org.json.JSONObject config, boolean save) {
+
+		System.out.println("setup...");
+
+		String inputCsvPath = null;
+		int aggregationOrder = 0;
+		try {
+			inputCsvPath = config.getString("input_file");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read 'input_file' property in '" + JSON_CONFIG_PATH + "'.");
+			return;
+		}
+		try {
+			aggregationOrder = config.getInt("aggregation_order");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read 'aggregation_order' property in '" + JSON_CONFIG_PATH + "'.");
+			return;
+		}
+
+
+		System.out.println("starting generate csv procedure...");
+
+		try {
+			generateCsv(inputCsvPath, aggregationOrder, save);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error during aggregation process.");
+			return;
+		}
+
+	}
+
+	public static void generateCsv(String csvFile, int aggregationOrder, boolean save) {
 
 		System.out.println("setting up...");
 
@@ -33,7 +69,7 @@ public class CsvManager {
 		String title = null;
 
 		System.out.println("reading input file...");
-		
+
 		// BEGIN READ
 
 		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -76,9 +112,9 @@ public class CsvManager {
 			JOptionPane.showMessageDialog(null, "Unexpected error while reading " + csvFile + "' file.");
 			return;
 		}
-		
+
 		// END READ
-		
+
 
 		// for more precision
 		java.util.ArrayList<Double> deltaXdouble = new java.util.ArrayList<Double>(); 
@@ -103,43 +139,47 @@ public class CsvManager {
 		aggregateDeltaX = integerListToDoubleList(aggregateDeltaXdouble);
 
 
-
-		// write results
-
-		String newCsvFileName = "output-AG-" + aggregationOrder + "-T-" + System.currentTimeMillis() + ".csv";
-		System.out.println("generating new csv file '" + newCsvFileName + "'...");
-
-		for(int i = -1; i < force.size(); i++) {
-			try (BufferedWriter bw 
-					= new BufferedWriter(new FileWriter(newCsvFileName, true))) {
-				if(i == -1) {
-					bw.write(title);
-					bw.newLine();
-					bw.flush();
-				} else {
-					int adjustedEndX = startX.get(i) + aggregateDeltaX.get(i);
-					String s = force.get(i) + ", " + 
-							startX.get(i) + ", " +
-							adjustedEndX + ", " + 
-							aggregateDeltaX.get(i) + ", " +
-							aggregatedeltaXDeg.get(i);   
-					bw.write(s);
-					bw.newLine();
-					bw.flush();
-				}
-			} catch(IOException e) { 
-				e.printStackTrace();
-			}
-		} 
+		// print results
 		
 		try {
-			DrawGraph.createAndShowGui(deltaX, aggregateDeltaX, csvFile + " -> " + newCsvFileName);
+			DrawGraph.createAndShowGui(deltaX, aggregateDeltaX, csvFile);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 
-		System.out.println("DONE!");
-		JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newCsvFileName + "'.");
+		// write results
+
+		if(save) {
+			String newCsvFileName = "output-AG-" + aggregationOrder + "-T-" + System.currentTimeMillis() + ".csv";
+			System.out.println("generating new csv file '" + newCsvFileName + "'...");
+
+			for(int i = -1; i < force.size(); i++) {
+				try (BufferedWriter bw 
+						= new BufferedWriter(new FileWriter(newCsvFileName, true))) {
+					if(i == -1) {
+						bw.write(title);
+						bw.newLine();
+						bw.flush();
+					} else {
+						int adjustedEndX = startX.get(i) + aggregateDeltaX.get(i);
+						String s = force.get(i) + ", " + 
+								startX.get(i) + ", " +
+								adjustedEndX + ", " + 
+								aggregateDeltaX.get(i) + ", " +
+								aggregatedeltaXDeg.get(i);   
+						bw.write(s);
+						bw.newLine();
+						bw.flush();
+					}
+				} catch(IOException e) { 
+					e.printStackTrace();
+				}
+			} 
+
+			System.out.println("DONE!");
+			JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newCsvFileName + "'.");
+
+		}
 
 	}
 
