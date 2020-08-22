@@ -196,7 +196,7 @@ public class Manager {
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newLutFileName, true))) {
 						String s = index + "|" + value; 
 						index = index + 0.01;
-						index = Utility.roundBy2(index);
+						index = Utility.round(index,2);
 						bw.write(s);
 						bw.newLine();
 						bw.flush();

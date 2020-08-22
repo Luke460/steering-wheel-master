@@ -1,5 +1,7 @@
 package execution;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class Utility {
@@ -20,16 +22,12 @@ public class Utility {
 		return output;
 	}
 	
-	public static double roundBy2(double correctValue) {
-		long rcv = Math.round(correctValue*100);
-		correctValue = rcv/100.0;
-		return correctValue;
-	}
-	
-	public static double roundBy5(double correctValue) {
-		long rcv = Math.round(correctValue*100000.0);
-		correctValue = rcv/100000.0;
-		return correctValue;
+	public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = BigDecimal.valueOf(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_EVEN);
+	    return bd.doubleValue();
 	}
 
 }
