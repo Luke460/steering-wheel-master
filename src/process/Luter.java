@@ -15,30 +15,30 @@ public class Luter {
 
 		for(double i = 0; i<= 1; i+=0.01) {
 			i = Utility.round(i,2);
-			double targetDeltaXValue = i*maxDeltaX;
-			int x = findIndexOfLowerValue(aggregateDeltaXdouble, targetDeltaXValue);
+			double targetDeltaX = i*maxDeltaX;
+			int x = findIndexOfLowerValue(aggregateDeltaXdouble, targetDeltaX);
 			
 			double selectedForce = force.get(x);
 			double selectedDeltaX = aggregateDeltaXdouble.get(x);
-			double deltaPercentage = (targetDeltaXValue-selectedDeltaX) / maxDeltaX;
+			double deltaPercentage = (targetDeltaX-selectedDeltaX) / maxDeltaX;
 			double correctValue1 = (selectedForce*(1.0+deltaPercentage));
 			
 			double selectedForcePlus = force.get(x+1);
 			double selectedDeltaXPlus = aggregateDeltaXdouble.get(x+1);
-			double deltaMinusPercentage = (targetDeltaXValue-selectedDeltaXPlus) / maxDeltaX;
+			double deltaMinusPercentage = (targetDeltaX-selectedDeltaXPlus) / maxDeltaX;
 			double correctValue2 = (selectedForcePlus*(1.0+deltaMinusPercentage));
 			
-			double correctValue = (correctValue1 + correctValue2)/2.0;
-			if(correctValue>maxforce) {
-				correctValue = maxforce;
+			double correctForce = (correctValue1 + correctValue2)/2.0;
+			if(correctForce>maxforce) {
+				correctForce = maxforce;
 			}
 			// round
 			// correctValue = Utility.roundBy4(correctValue);
 			if(aggregateDeltaXdouble.get(x)==0) {
-				correctValue = 0;
+				correctForce = 0;
 			}
-			correctValue = Utility.round((correctValue/maxforce),5);
-			corrections.add(correctValue);
+			correctForce = Utility.round((correctForce/maxforce),3);
+			corrections.add(correctForce);
 		}
 
 		return corrections;
