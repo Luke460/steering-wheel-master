@@ -15,24 +15,30 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class DrawGraph extends JPanel {
-	private int maxValue;
 	private static final int PREF_W = 800;
 	private static final int PREF_H = 600;
 	private static final int BORDER_GAP = 30;
 	private static final Color GRAPH_COLOR_1 = Color.red;
 	private static final Color GRAPH_COLOR_2 = Color.blue;
+	private static final Color GRAPH_COLOR_3 = Color.green;
 	private static final Color GRAPH_POINT_COLOR_1 = Color.red;
 	private static final Color GRAPH_POINT_COLOR_2 = Color.blue;
+	private static final Color GRAPH_POINT_COLOR_3 = Color.green;
 	private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
 	private static final int GRAPH_POINT_WIDTH = 3;
 	private static final int Y_HATCH_CNT = 10;
-	private List<Integer> values1;
-	private List<Integer> values2;
+	private List<Double> deltaX;
+	private List<Double> aggDeltaX;
+	private List<Double> lutForce;
+	private Double maxDeltaValue;
+	private Double maxLutForceValue;
 
-	public DrawGraph(List<Integer> values1, List<Integer> values2) {
-		this.values1 = values1;
-		this.values2 = values2;
-		this.maxValue = Math.max(Collections.max(values1),Collections.max(values2));
+	public DrawGraph(List<Double> deltaX, List<Double> aggDeltaX, List<Double> lutForce) {
+		this.deltaX = deltaX;
+		this.aggDeltaX = aggDeltaX;
+		this.lutForce = lutForce;
+		this.maxLutForceValue = Collections.max(lutForce);
+		this.maxDeltaValue =  Math.max(Collections.max(deltaX),Collections.max(aggDeltaX));
 	}
 
 	@Override
@@ -41,21 +47,31 @@ public class DrawGraph extends JPanel {
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		double xScale = ((double) getWidth() - 2 * BORDER_GAP) / (values1.size() - 1);
-		double yScale = ((double) getHeight() - 2 * BORDER_GAP) / (maxValue - 1);
+		double xScale = ((double) getWidth() - 2 * BORDER_GAP) / (deltaX.size() - 1);
+		double yScale = ((double) getHeight() - 2 * BORDER_GAP) / (maxDeltaValue - 1);
 
 		List<Point> graphPoints1 = new ArrayList<Point>();
-		for (int i = 0; i < values1.size(); i++) {
+		for (int i = 0; i < deltaX.size(); i++) {
 			int x1 = (int) (i * xScale + BORDER_GAP);
-			int y1 = (int) ((maxValue - values1.get(i)) * yScale + BORDER_GAP);
+			int y1 = (int) ((maxDeltaValue - deltaX.get(i)) * yScale + BORDER_GAP);
 			graphPoints1.add(new Point(x1, y1));
 		}
 
 		List<Point> graphPoints2 = new ArrayList<Point>();
-		for (int i = 0; i < values2.size(); i++) {
+		for (int i = 0; i < deltaX.size(); i++) {
 			int x1 = (int) (i * xScale + BORDER_GAP);
-			int y1 = (int) ((maxValue - values2.get(i)) * yScale + BORDER_GAP);
+			int y1 = (int) ((maxDeltaValue - aggDeltaX.get(i)) * yScale + BORDER_GAP);
 			graphPoints2.add(new Point(x1, y1));
+		}
+		
+		List<Point> graphPoints3 = new ArrayList<Point>();
+		for (int i = 0; i < deltaX.size(); i++) {
+			int lutI = (lutForce.size() * i)/deltaX.size();
+			int x1 = (int) (lutI * xScale + BORDER_GAP);
+			double lutValue = lutForce.get(lutI);
+			double lutPrc = (maxLutForceValue - lutValue) * yScale * maxDeltaValue;
+			int y1 = (int) (lutPrc + BORDER_GAP);
+			graphPoints3.add(new Point(x1, y1));
 		}
 
 		// create x and y axes 
@@ -72,8 +88,8 @@ public class DrawGraph extends JPanel {
 		}
 
 		// and for x axis
-		for (int i = 0; i < values1.size() - 1; i++) {
-			int x0 = (i + 1) * (getWidth() - BORDER_GAP * 2) / (values1.size() - 1) + BORDER_GAP;
+		for (int i = 0; i < deltaX.size() - 1; i++) {
+			int x0 = (i + 1) * (getWidth() - BORDER_GAP * 2) / (deltaX.size() - 1) + BORDER_GAP;
 			int x1 = x0;
 			int y0 = getHeight() - BORDER_GAP;
 			int y1 = y0 - GRAPH_POINT_WIDTH;
@@ -94,11 +110,22 @@ public class DrawGraph extends JPanel {
 		Stroke oldStroke2 = g2.getStroke();
 		g2.setColor(GRAPH_COLOR_2);
 		g2.setStroke(GRAPH_STROKE);
-		for (int i = 0; i < graphPoints1.size() - 1; i++) {
+		for (int i = 0; i < graphPoints2.size() - 1; i++) {
 			int x1 = graphPoints2.get(i).x;
 			int y1 = graphPoints2.get(i).y;
 			int x2 = graphPoints2.get(i + 1).x;
 			int y2 = graphPoints2.get(i + 1).y;
+			g2.drawLine(x1, y1, x2, y2);         
+		}
+		
+		Stroke oldStroke3 = g2.getStroke();
+		g2.setColor(GRAPH_COLOR_3);
+		g2.setStroke(GRAPH_STROKE);
+		for (int i = 0; i < graphPoints3.size() - 1; i++) {
+			int x1 = graphPoints3.get(i).x;
+			int y1 = graphPoints3.get(i).y;
+			int x2 = graphPoints3.get(i + 1).x;
+			int y2 = graphPoints3.get(i + 1).y;
 			g2.drawLine(x1, y1, x2, y2);         
 		}
 
@@ -121,6 +148,16 @@ public class DrawGraph extends JPanel {
 			int ovalH = GRAPH_POINT_WIDTH;
 			g2.fillOval(x, y, ovalW, ovalH);
 		}
+		
+		g2.setStroke(oldStroke3);      
+		g2.setColor(GRAPH_POINT_COLOR_3);
+		for (int i = 0; i < graphPoints3.size(); i++) {
+			int x = graphPoints3.get(i).x - GRAPH_POINT_WIDTH / 2;
+			int y = graphPoints3.get(i).y - GRAPH_POINT_WIDTH / 2;;
+			int ovalW = GRAPH_POINT_WIDTH;
+			int ovalH = GRAPH_POINT_WIDTH;
+			g2.fillOval(x, y, ovalW, ovalH);
+		}
 	}
 
 	@Override
@@ -128,9 +165,9 @@ public class DrawGraph extends JPanel {
 		return new Dimension(PREF_W, PREF_H);
 	}
 
-	public static void createAndShowGui(List<Integer> deltaX, List<Integer> aggregateDeltaX, String name) {
+	public static void createAndShowGui(List<Double> deltaX, List<Double> aggregateDeltaX, List<Double> correctiveArray, String name) {
 
-		DrawGraph mainPanel = new DrawGraph(deltaX, aggregateDeltaX);
+		DrawGraph mainPanel = new DrawGraph(deltaX, aggregateDeltaX, correctiveArray);
 
 		JFrame frame = new JFrame(name);
 		frame.getContentPane().add(mainPanel);

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import org.json.JSONObject;
 
-import execution.CsvManager;
+import execution.Manager;
 
 import static execution.Constants.JSON_CONFIG_PATH;
 
@@ -23,7 +23,8 @@ public class Menu extends JPanel{
 	private static final String INPUT_FILE = "input_file";
 	private static final String AGGREGATION_ORDER = "aggregation_order";
 	JButton previewButton;
-	JButton generateButton;
+	JButton generateCsvButton;
+	JButton generateLutButton;
 	JButton fileBrowserButton;
 	JTextField inputFileText;
 	JTextField aggregationText;
@@ -88,8 +89,11 @@ public class Menu extends JPanel{
 		previewButton = new JButton("Preview");
 		previewButton.addActionListener(performListener);
 
-		generateButton = new JButton("Generate csv");
-		generateButton.addActionListener(performListener);
+		generateCsvButton = new JButton("Generate csv");
+		generateCsvButton.addActionListener(performListener);
+		
+		generateLutButton = new JButton("Generate lut");
+		generateLutButton.addActionListener(performListener);
 
 
 		// Add label and button to panel
@@ -99,7 +103,10 @@ public class Menu extends JPanel{
 		layoutPanel.add(previewButton, constr);
 		constr.gridx=1;
 		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(generateButton, constr);
+		layoutPanel.add(generateCsvButton, constr);
+		constr.gridx=2;
+		constr.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(generateLutButton, constr);
 
 		mainPanel.add(headingPanel);
 		mainPanel.add(layoutPanel);
@@ -128,9 +135,11 @@ public class Menu extends JPanel{
 			updateConfig(config);
 			Object src = e.getSource();
 			if (src == previewButton){
-				CsvManager.execute(config, false);
-			} else if(src == generateButton){
-				CsvManager.execute(config, true);
+				Manager.execute(config, false, false);
+			} else if(src == generateCsvButton){
+				Manager.execute(config, true, false);
+			}	else if(src == generateLutButton){
+				Manager.execute(config, false, true);
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new CsvFileFilter());
@@ -139,7 +148,6 @@ public class Menu extends JPanel{
 					File f = fileChooser.getSelectedFile();	         
 					inputFileText.setText(f.getPath());
 				}
-
 			}
 		}
 	}

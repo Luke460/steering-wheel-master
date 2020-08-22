@@ -14,11 +14,12 @@ import javax.swing.JOptionPane;
 
 import process.Aggregator;
 import process.Corrector;
+import process.Luter;
 import userInterface.DrawGraph;
 
-public class CsvManager {
+public class Manager {
 
-	public static void execute(org.json.JSONObject config, boolean save) {
+	public static void execute(org.json.JSONObject config, boolean saveCSV, boolean saveLUT) {
 
 		System.out.println("setup...");
 
@@ -43,7 +44,7 @@ public class CsvManager {
 		System.out.println("starting generate csv procedure...");
 
 		try {
-			generateCsv(inputCsvPath, aggregationOrder, save);
+			process(inputCsvPath, aggregationOrder, saveCSV, saveLUT);
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error during aggregation process.");
@@ -52,7 +53,7 @@ public class CsvManager {
 
 	}
 
-	public static void generateCsv(String csvFile, int aggregationOrder, boolean save) {
+	public static void process(String csvFile, int aggregationOrder, boolean saveCSV,  boolean saveLUT) {
 
 		System.out.println("setting up...");
 
@@ -122,7 +123,7 @@ public class CsvManager {
 
 		// for more precision
 		java.util.ArrayList<Double> deltaXdouble = new java.util.ArrayList<Double>(); 
-		deltaXdouble = doubleListToIntegerList(deltaX);
+		deltaXdouble = Utility.integerListToDoubleList(deltaX);
 
 		// BEGIN ERROR CORRECTION
 
@@ -140,26 +141,28 @@ public class CsvManager {
 
 		// END AGGREGATION
 
-		aggregateDeltaX = integerListToDoubleList(aggregateDeltaXdouble);
+		aggregateDeltaX = Utility.doubleListToIntegerList(aggregateDeltaXdouble);
 
+		// BEGIN LUT GENERATION
+		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(force, aggregateDeltaXdouble);
+		// END LUT GENERATION
 
 		// print results
 		
 		try {
-			DrawGraph.createAndShowGui(deltaX, aggregateDeltaX, csvFile);
+			DrawGraph.createAndShowGui(deltaXdouble, aggregateDeltaXdouble, correctiveMap, csvFile);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 
 		// write results
 
-		if(save) {
+		if(saveCSV) {
 			String newCsvFileName = "output-AG-" + aggregationOrder + "-T-" + System.currentTimeMillis() + ".csv";
 			System.out.println("generating new csv file '" + newCsvFileName + "'...");
 
 			for(int i = -1; i < force.size(); i++) {
-				try (BufferedWriter bw 
-						= new BufferedWriter(new FileWriter(newCsvFileName, true))) {
+				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newCsvFileName, true))) {
 					if(i == -1) {
 						bw.write(title);
 						bw.newLine();
@@ -180,27 +183,34 @@ public class CsvManager {
 				}
 			} 
 
-			System.out.println("DONE!");
+			System.out.println("CSV DONE!");
 			JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newCsvFileName + "'.");
 
 		}
+		
+		if(saveLUT) {
+			String newLutFileName = "LUT-AG-" + aggregationOrder + "-T-" + System.currentTimeMillis() + ".lut";
+			System.out.println("generating new lut file '" + newLutFileName + "'...");
+			double index = 0.0;
+			for(Double value: correctiveMap) {
+				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newLutFileName, true))) {
+						String s = index + "|" + value; 
+						index = index + 0.01;
+						index = Utility.roundBy2(index);
+						bw.write(s);
+						bw.newLine();
+						bw.flush();
+					
+				} catch(IOException e) { 
+					e.printStackTrace();
+				}
+			} 
 
-	}
+			System.out.println("LUT DONE!");
+			JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newLutFileName + "'.");
 
-	private static ArrayList<Integer> integerListToDoubleList(ArrayList<Double> input) {	
-		java.util.ArrayList<Integer> output = new java.util.ArrayList<Integer>();
-		for(double element:input) {
-			output.add((int) Math.round(element));
 		}
-		return output;
-	}
 
-	private static ArrayList<Double> doubleListToIntegerList(ArrayList<Integer> input) {		
-		java.util.ArrayList<Double> output = new java.util.ArrayList<Double>();
-		for(double element:input) {
-			output.add(element);
-		}
-		return output;
 	}
 
 }
