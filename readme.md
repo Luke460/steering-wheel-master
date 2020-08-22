@@ -31,7 +31,7 @@ Now you have to locate your [***Wheel check***](https://www.racedepartment.com/d
  
 **NOTE:** these tips are based on a test with 100 reading values (*Wheel check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa).
 
-If everything goes well, you should get the following output message:
+Now click on ***Generate csv*** and if everything goes well, you should get the following output message:
 
 ![success](images/success.png)
 
@@ -62,3 +62,6 @@ For more information, read the ***README*** file inside the program folder.
 - [v2.0](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added user interface and output graph comparison:
 
 ![user-interface](images/update-2.0.png)
+
+- [v2.1](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added direct lut generation (beta feature):
+![lut-generation](images/update-2.1.png)
