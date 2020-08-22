@@ -64,4 +64,5 @@ For more information, read the ***README*** file inside the program folder.
 ![user-interface](images/update-2.0.png)
 
 - [v2.1](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added direct lut generation (beta feature):
+
 ![lut-generation](images/update-2.1.png)
