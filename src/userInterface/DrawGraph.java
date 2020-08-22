@@ -4,19 +4,25 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import static execution.Constants.INFO_PATH;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class DrawGraph extends JPanel {
-	private static final int PREF_W = 800;
-	private static final int PREF_H = 600;
+	private static final int PREF_W = 700;
+	private static final int PREF_H = 700;
 	private static final int BORDER_GAP = 30;
 	private static final Color GRAPH_COLOR_1 = Color.red;
 	private static final Color GRAPH_COLOR_2 = Color.blue;
@@ -48,6 +54,7 @@ public class DrawGraph extends JPanel {
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		double xScale = ((double) getWidth() - 2 * BORDER_GAP) / (deltaX.size() - 1);
+		double xLutScale = ((double) getWidth() - 2 * BORDER_GAP) / (lutForce.size() - 1);
 		double yScale = ((double) getHeight() - 2 * BORDER_GAP) / (maxDeltaValue - 1);
 
 		List<Point> graphPoints1 = new ArrayList<Point>();
@@ -67,7 +74,7 @@ public class DrawGraph extends JPanel {
 		List<Point> graphPoints3 = new ArrayList<Point>();
 		for (int i = 0; i < deltaX.size(); i++) {
 			int lutI = (lutForce.size() * i)/deltaX.size();
-			int x1 = (int) (lutI * xScale + BORDER_GAP);
+			int x1 = (int) (lutI * xLutScale + BORDER_GAP);
 			double lutValue = lutForce.get(lutI);
 			double lutPrc = (maxLutForceValue - lutValue) * yScale * maxDeltaValue;
 			int y1 = (int) (lutPrc + BORDER_GAP);
@@ -167,10 +174,36 @@ public class DrawGraph extends JPanel {
 
 	public static void createAndShowGui(List<Double> deltaX, List<Double> aggregateDeltaX, List<Double> correctiveArray, String name) {
 
-		DrawGraph mainPanel = new DrawGraph(deltaX, aggregateDeltaX, correctiveArray);
+		BufferedImage myPicture;
+		JLabel picLabel = null;
+		try {
+			myPicture = ImageIO.read(new File(INFO_PATH));
+			picLabel = new JLabel(new ImageIcon(myPicture));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		DrawGraph graphPanel = new DrawGraph(deltaX, aggregateDeltaX, correctiveArray);
+		
+		JPanel main = new JPanel();
+		main.setPreferredSize(new Dimension(700,700));
+		main.setLayout(null);
+		
+		main.add(picLabel);
+		main.add(graphPanel);
+		
+		Insets insets = main.getInsets();
+		
+		Dimension graphSize = graphPanel.getPreferredSize();
+		graphPanel.setBounds(0 + insets.left, 0 + insets.top,
+				graphSize.width, graphSize.height);
+		
+		Dimension infoSize = picLabel.getPreferredSize();
+		picLabel.setBounds(0 + insets.left, 0 + insets.top,
+				infoSize.width, infoSize.height);
 
 		JFrame frame = new JFrame(name);
-		frame.getContentPane().add(mainPanel);
+		frame.getContentPane().add(main);
 		frame.pack();
 		frame.setLocationByPlatform(true);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

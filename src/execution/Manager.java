@@ -61,11 +61,11 @@ public class Manager {
 		String cvsSplitBy = ",";
 		boolean firstLine = true;
 
-		java.util.ArrayList<Integer> force = new java.util.ArrayList<Integer>();
+		java.util.ArrayList<Integer> inputForce = new java.util.ArrayList<Integer>();
 		java.util.ArrayList<Integer> startX = new java.util.ArrayList<Integer>();
 		java.util.ArrayList<Integer> endX = new java.util.ArrayList<Integer>();
-		java.util.ArrayList<Integer> deltaX = new java.util.ArrayList<Integer>();
-		java.util.ArrayList<Double> deltaXDeg = new java.util.ArrayList<Double>();
+		java.util.ArrayList<Integer> inputDeltaX = new java.util.ArrayList<Integer>();
+		java.util.ArrayList<Double> inputDeltaXDeg = new java.util.ArrayList<Double>();
 
 		java.util.ArrayList<Integer> aggregateDeltaX = null;
 		java.util.ArrayList<Double> aggregateDeltaXdouble = null;
@@ -87,11 +87,11 @@ public class Manager {
 
 					if(line!=null && !line.equals("")) {
 						String[] row = line.split(cvsSplitBy);
-						force.add(Integer.parseInt(row[0]));
+						inputForce.add(Integer.parseInt(row[0]));
 						startX.add(Integer.parseInt(row[1]));
 						endX.add(Integer.parseInt(row[2]));
-						deltaX.add(Integer.parseInt(row[3]));
-						deltaXDeg.add(Double.parseDouble(row[4]));
+						inputDeltaX.add(Integer.parseInt(row[3]));
+						inputDeltaXDeg.add(Double.parseDouble(row[4]));
 					}
 
 				} else {
@@ -123,11 +123,11 @@ public class Manager {
 
 		// for more precision
 		java.util.ArrayList<Double> deltaXdouble = new java.util.ArrayList<Double>(); 
-		deltaXdouble = Utility.integerListToDoubleList(deltaX);
+		deltaXdouble = Utility.integerListToDoubleList(inputDeltaX);
 
 		// BEGIN ERROR CORRECTION
 
-		deltaXDeg = Corrector.adjust(deltaXDeg, "deltaXDeg");
+		inputDeltaXDeg = Corrector.adjust(inputDeltaXDeg, "deltaXDeg");
 		deltaXdouble = Corrector.adjust(deltaXdouble, "deltaX");	
 
 		// END ERROR CORRECTION	
@@ -136,7 +136,7 @@ public class Manager {
 
 		System.out.println("aggregation...");
 
-		aggregatedeltaXDeg = Aggregator.aggregate(deltaXDeg, aggregationOrder);
+		aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, aggregationOrder);
 		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, aggregationOrder);
 
 		// END AGGREGATION
@@ -144,13 +144,16 @@ public class Manager {
 		aggregateDeltaX = Utility.doubleListToIntegerList(aggregateDeltaXdouble);
 
 		// BEGIN LUT GENERATION
-		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(force, aggregateDeltaXdouble);
+		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
+		correctiveMap = Aggregator.aggregate(correctiveMap,20);
+		correctiveMap = Utility.truncateArray(correctiveMap, 10);
+		
 		// END LUT GENERATION
 
 		// print results
 		
 		try {
-			DrawGraph.createAndShowGui(deltaXdouble, aggregateDeltaXdouble, correctiveMap, csvFile);
+			DrawGraph.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), aggregateDeltaXdouble, correctiveMap, csvFile);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -161,7 +164,7 @@ public class Manager {
 			String newCsvFileName = "output-AG-" + aggregationOrder + "-T-" + System.currentTimeMillis() + ".csv";
 			System.out.println("generating new csv file '" + newCsvFileName + "'...");
 
-			for(int i = -1; i < force.size(); i++) {
+			for(int i = -1; i < inputForce.size(); i++) {
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newCsvFileName, true))) {
 					if(i == -1) {
 						bw.write(title);
@@ -169,7 +172,7 @@ public class Manager {
 						bw.flush();
 					} else {
 						int adjustedEndX = startX.get(i) + aggregateDeltaX.get(i);
-						String s = force.get(i) + ", " + 
+						String s = inputForce.get(i) + ", " + 
 								startX.get(i) + ", " +
 								adjustedEndX + ", " + 
 								aggregateDeltaX.get(i) + ", " +
@@ -189,6 +192,7 @@ public class Manager {
 		}
 		
 		if(saveLUT) {
+			correctiveMap = Utility.round(correctiveMap,3);
 			String newLutFileName = "LUT-AG-" + aggregationOrder + "-T-" + System.currentTimeMillis() + ".lut";
 			System.out.println("generating new lut file '" + newLutFileName + "'...");
 			double index = 0.0;

@@ -13,8 +13,8 @@ public class Luter {
 		Double maxDeltaX = Collections.max(aggregateDeltaXdouble);
 		Double maxforce = Collections.max(force) + 0.0;
 
-		for(double i = 0; i<= 1; i+=0.01) {
-			i = Utility.round(i,2);
+		for(double i = 0; i<= 1; i+=0.001) {
+			i = Utility.round(i,3);
 			double targetDeltaX = i*maxDeltaX;
 			int x = findIndexOfLowerValue(aggregateDeltaXdouble, targetDeltaX);
 			
@@ -37,7 +37,7 @@ public class Luter {
 			if(aggregateDeltaXdouble.get(x)==0) {
 				correctForce = 0;
 			}
-			correctForce = Utility.round((correctForce/maxforce),3);
+			correctForce = (correctForce/maxforce);
 			corrections.add(correctForce);
 		}
 

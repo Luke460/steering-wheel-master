@@ -29,5 +29,21 @@ public class Utility {
 	    bd = bd.setScale(places, RoundingMode.HALF_EVEN);
 	    return bd.doubleValue();
 	}
+	
+	public static ArrayList<Double> round(ArrayList<Double> input, int places) {		
+		java.util.ArrayList<Double> output = new java.util.ArrayList<Double>();
+		for(double element:input) {
+			output.add(round(element, places));
+		}
+		return output;
+	}
+	
+	public static ArrayList<Double> truncateArray(ArrayList<Double> input, int places) {
+		java.util.ArrayList<Double> output = new java.util.ArrayList<Double>();
+		for(int i = 0; i<input.size(); i+= places) {
+			output.add(input.get(i));
+		}
+		return output;
+	}
 
 }
