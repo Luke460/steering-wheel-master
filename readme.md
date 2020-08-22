@@ -53,10 +53,12 @@ For more information, read the ***README*** file inside the program folder.
 
  - [v1.5](https://github.com/Luke460/wheel-check-data-aggregator/releases): Multiple Spike detection and correction:
 
-![spike-detection](images/MultipleSpikeDetection.png)
+![spike-detection](images/update-1.5.png)
 
 - [v1.7](https://github.com/Luke460/wheel-check-data-aggregator/releases): Error correction improvement:
 
-![spike-detection](images/v1.7-error-correction.png)
+![error-correction](images/update-1.7.png)
 
-- [v2.0](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added user interface and output graph comparison.
+- [v2.0](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added user interface and output graph comparison:
+
+![user-interface](images/update-2.0.png)
