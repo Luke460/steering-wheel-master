@@ -29,7 +29,7 @@ Now you have to locate your [***Wheel check***](https://www.racedepartment.com/d
  **IN GENERAL** : lower values makes your lut file more similar to the standard lut generation procedure, while higher values makes your lut smoother and more similar to your standard wheel behavior without a lut file. 
  - Don't go too high, or you will lose lut correction.
  - Don't go too low or you will not benefit of the aggregation procedure.
- - Recommended values are between 2 and 6. (3 is always a good start).
+ - Recommended values are between 2 and 6. (3 is always a good starting point).
  
 ![menu](images/menu.png)
  
