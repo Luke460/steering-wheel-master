@@ -145,7 +145,7 @@ public class Manager {
 
 		// BEGIN LUT GENERATION
 		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
-		correctiveMap = Aggregator.aggregate(correctiveMap,20);
+		//correctiveMap = Aggregator.aggregate(correctiveMap,20);
 		correctiveMap = Utility.truncateArray(correctiveMap, 10);
 		
 		// END LUT GENERATION

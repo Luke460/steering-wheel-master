@@ -97,9 +97,9 @@ public class Menu extends JPanel{
 
 
 		// Add label and button to panel
-		constr.gridx=0; constr.gridy=2;
-		constr.gridwidth = 2;
-		constr.anchor = GridBagConstraints.CENTER;
+		constr.gridx=1; constr.gridy=2;
+		constr.gridwidth = 3;
+		constr.anchor = GridBagConstraints.WEST;
 		layoutPanel.add(previewButton, constr);
 		constr.gridx=1;
 		constr.anchor = GridBagConstraints.CENTER;
