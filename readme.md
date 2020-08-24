@@ -20,18 +20,23 @@ To run the utility, just execute [***WheelCheckDataAggregator.jar***](https://gi
 
 Now you have to locate your [***Wheel check***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/)'s log file and choose the degree of data aggregation (named ***aggregation order***):
 
- - For geared wheels - like Logitech G29 or G27 - I suggest aggregation values between 3 and 5 (4 is perfect in my case).
- - For mixed wheels - like Thrustmaster TXM or T150 - 3 should be fine.
- - For belt wheels - like Thrustmaster T300 - I suggest lower values like 3 or even 2.
- - For direct wheels 2 should be the perfect choice. 
+ - For ***geared wheels*** - like Logitech G29 or G27 - I suggest 4 or 5 as aggregation order (5 is perfect in my case).
+ - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3 or 4.
+ - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest a lower value like 3.
+
+ Every steering wheel is different, you may need to find the perfect aggregation value for you device!
  
- **IN GENERAL** : lower values makes your lut file more similar to the standard lut generation procedure, while higher values makes your lut smoother and more similar to your standard wheel behavior. Don't go too high, or you will lose precision! Recommended values are between 2 and 6.
+ **IN GENERAL** : lower values makes your lut file more similar to the standard lut generation procedure, while higher values makes your lut smoother and more similar to your standard wheel behavior without a lut file. 
+ - Don't go too high, or you will lose lut correction.
+ - Don't go too low or you will not benefit of the aggregation procedure.
+ - Recommended values are between 2 and 6. (3 is always a good starting point).
+ - Experiment and play with the *preview* button!
  
 ![menu](images/menu.png)
  
 **NOTE:** these tips are based on a test with 100 reading values (*Wheel check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa).
 
-If everything goes well, you should get the following output message:
+Now click on ***Generate csv*** and if everything goes well, you should get the following output message:
 
 ![success](images/success.png)
 
@@ -62,3 +67,7 @@ For more information, read the ***README*** file inside the program folder.
 - [v2.0](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added user interface and output graph comparison:
 
 ![user-interface](images/update-2.0.png)
+
+- [v2.1-TEST](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added direct lut generation (beta feature):
+
+![lut-generation](images/update-2.1.png)
