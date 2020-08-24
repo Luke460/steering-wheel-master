@@ -36,17 +36,13 @@ public class DrawGraph extends JPanel {
 	private List<Double> deltaX;
 	private List<Double> aggDeltaX;
 	private List<Double> lutForce;
-	private Double maxRawDeltaValue;
-	private Double maxAggDeltaValue;
-	private Double maxLutForceValue;
+	private Double maxValue;
 
 	public DrawGraph(List<Double> deltaX, List<Double> aggDeltaX, List<Double> lutForce) {
 		this.deltaX = deltaX;
 		this.aggDeltaX = aggDeltaX;
 		this.lutForce = lutForce;
-		this.maxLutForceValue = Collections.max(lutForce);
-		this.maxRawDeltaValue =  Collections.max(deltaX);
-		this.maxAggDeltaValue =  Collections.max(aggDeltaX);
+		this.maxValue = Math.max(Math.max(Collections.max(lutForce), Collections.max(deltaX)),  Collections.max(aggDeltaX));
 	}
 
 	@Override
@@ -56,30 +52,26 @@ public class DrawGraph extends JPanel {
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		double xScale = ((double) getWidth() - 2 * BORDER_GAP) / (deltaX.size() - 1);
-		double xLutScale = ((double) getWidth() - 2 * BORDER_GAP) / (lutForce.size() - 1);
-		double yScale = ((double) getHeight() - 2 * BORDER_GAP) / (maxRawDeltaValue - 1);
+		double yScale = ((double) getHeight() - 2 * BORDER_GAP) / (maxValue - 1);
 
 		List<Point> graphPoints1 = new ArrayList<Point>();
 		for (int i = 0; i < deltaX.size(); i++) {
 			int x1 = (int) (i * xScale + BORDER_GAP);
-			int y1 = (int) ((maxRawDeltaValue - deltaX.get(i)) * yScale + BORDER_GAP);
+			int y1 = (int) ((maxValue - deltaX.get(i)) * yScale + BORDER_GAP);
 			graphPoints1.add(new Point(x1, y1));
 		}
 
 		List<Point> graphPoints2 = new ArrayList<Point>();
 		for (int i = 0; i < deltaX.size(); i++) {
 			int x1 = (int) (i * xScale + BORDER_GAP);
-			int y1 = (int) ((maxRawDeltaValue - aggDeltaX.get(i)) * yScale + BORDER_GAP);
+			int y1 = (int) ((maxValue - aggDeltaX.get(i)) * yScale + BORDER_GAP);
 			graphPoints2.add(new Point(x1, y1));
 		}
 		
 		List<Point> graphPoints3 = new ArrayList<Point>();
 		for (int i = 0; i < deltaX.size(); i++) {
-			int lutI = (lutForce.size() * i)/deltaX.size();
-			int x1 = (int) (lutI * xLutScale + BORDER_GAP);
-			double lutValue = lutForce.get(lutI);
-			double lutPrc = (maxLutForceValue - lutValue) * (yScale) * maxRawDeltaValue * (maxAggDeltaValue/maxRawDeltaValue) + (maxRawDeltaValue-maxAggDeltaValue) * yScale;
-			int y1 = (int) (lutPrc + BORDER_GAP);
+			int x1 = (int) (i * xScale + BORDER_GAP);
+			int y1 = (int) ((maxValue - lutForce.get(i)) * yScale + BORDER_GAP);
 			graphPoints3.add(new Point(x1, y1));
 		}
 

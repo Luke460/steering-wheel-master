@@ -3,6 +3,8 @@ package execution;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Utility {
 	
@@ -44,6 +46,19 @@ public class Utility {
 			output.add(input.get(i));
 		}
 		return output;
+	}
+
+	public static List<Double> correctArrayDimensionsAndValues(ArrayList<Double> input, int targetSize, Double targetMaxValue) {
+		List<Double> output = new ArrayList<Double>();
+		double inputMaxValue = Collections.max(input);
+		
+		for(int i = 0; i<targetSize; i++) {
+			double newValue = (input.get(i)*targetMaxValue)/inputMaxValue;
+			output.add(newValue);
+		}
+		
+		return output;
+		
 	}
 
 }
