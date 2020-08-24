@@ -53,8 +53,17 @@ public class Utility {
 		double inputMaxValue = Collections.max(input);
 		
 		for(int i = 0; i<targetSize; i++) {
-			double newValue = (input.get(i)*targetMaxValue)/inputMaxValue;
+			int j = (int) Math.round((i*(double)input.size())/targetSize);
+			double newValue = (input.get(j)*targetMaxValue)/inputMaxValue;
 			output.add(newValue);
+		}
+		
+		double diff = targetMaxValue-Collections.max(output);
+		if(diff > 0) {
+			for(int i=0; i<targetSize; i++) {
+				double correctedValue = output.get(i) + (((double)i/(double)(targetSize-1.0))*diff);
+				output.set(i, correctedValue);
+			}
 		}
 		
 		return output;
