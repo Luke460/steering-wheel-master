@@ -21,8 +21,7 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class DrawGraph extends JPanel {
-	private static final int PREF_W = 700;
-	private static final int PREF_H = 700;
+	private static final Dimension GRAPH_DIMENSION = new Dimension(700, 700);
 	private static final int BORDER_GAP = 30;
 	private static final Color GRAPH_COLOR_1 = Color.red;
 	private static final Color GRAPH_COLOR_2 = Color.blue;
@@ -163,7 +162,7 @@ public class DrawGraph extends JPanel {
 
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(PREF_W, PREF_H);
+		return GRAPH_DIMENSION;
 	}
 
 	public static void createAndShowGui(List<Double> deltaX, List<Double> aggregateDeltaX, List<Double> correctiveArray, String name) {
@@ -180,7 +179,7 @@ public class DrawGraph extends JPanel {
 		DrawGraph graphPanel = new DrawGraph(deltaX, aggregateDeltaX, correctiveArray);
 		
 		JPanel main = new JPanel();
-		main.setPreferredSize(new Dimension(700,700));
+		main.setPreferredSize(GRAPH_DIMENSION);
 		main.setLayout(null);
 		
 		main.add(picLabel);

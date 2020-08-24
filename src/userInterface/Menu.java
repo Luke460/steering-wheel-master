@@ -24,6 +24,7 @@ public class Menu extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private static final String INPUT_FILE = "input_file";
 	private static final String AGGREGATION_ORDER = "aggregation_order";
+	private static final Dimension MENU_DIMENSION = new Dimension(600, 240);
 	JButton previewButton;
 	JButton generateCsvButton;
 	JButton generateLutButton;
@@ -38,6 +39,7 @@ public class Menu extends JPanel{
 		// Create frame with title Wheel Check Data Aggregator
 		JFrame frame= new JFrame(); 
 		frame.setTitle("Wheel Check Data Aggregator");
+		frame.setMinimumSize(MENU_DIMENSION);
 
 		// Panel to define the layout
 		JPanel mainPanel = new JPanel();
@@ -136,7 +138,7 @@ public class Menu extends JPanel{
 		// Add panel to frame
 		frame.add(mainPanel);
 		frame.pack();
-		frame.setSize(600, 240);
+		frame.setSize(MENU_DIMENSION);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
