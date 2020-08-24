@@ -68,6 +68,4 @@ You can also use generated csv files as [***Lut Generator***](https://www.racede
 
 ![user-interface](images/update-2.0.png)
 
-- [v2.1-TEST](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added direct lut generation (beta feature):
-
-![lut-generation](images/update-2.1.png)
+- [v2.2](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added direct lut generation.
