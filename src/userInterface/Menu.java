@@ -17,6 +17,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Hashtable;
 
 public class Menu extends JPanel{
 
@@ -28,7 +29,7 @@ public class Menu extends JPanel{
 	JButton generateLutButton;
 	JButton fileBrowserButton;
 	JTextField inputFileText;
-	JTextField aggregationText;
+	JSlider aggregationSlider;
 	JSONObject config;
 
 
@@ -62,8 +63,24 @@ public class Menu extends JPanel{
 		// Declare Text fields
 		inputFileText = new JTextField(20);
 		inputFileText.setText(config.getString(INPUT_FILE));
-		aggregationText = new JTextField(2);
-		aggregationText.setText(config.getInt(AGGREGATION_ORDER) + "");
+		
+		aggregationSlider = new JSlider(0, 10, config.getInt(AGGREGATION_ORDER));
+		aggregationSlider.setPreferredSize(new Dimension(244, 48));
+		aggregationSlider.setMajorTickSpacing(5);
+		aggregationSlider.setMinorTickSpacing(1);
+		aggregationSlider.setPaintTicks(true);
+		
+		// Set the labels to be painted on the slider
+		aggregationSlider.setPaintLabels(true);   	
+		         
+		// Add positions label in the slider
+		Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
+		for(int i = 0; i<=10; i++) {
+			position.put(i, new JLabel(i+""));
+		}
+		
+		// Set the label to be drawn
+		aggregationSlider.setLabelTable(position); 
 
 		// create event listener for the buttons
 		PerformListener performListener = new PerformListener();
@@ -85,7 +102,7 @@ public class Menu extends JPanel{
 		constr.gridx=0; constr.gridy=1;
 		layoutPanel.add(aggregationLabel, constr);
 		constr.gridx=1;
-		layoutPanel.add(aggregationText, constr);
+		layoutPanel.add(aggregationSlider, constr);
 
 		previewButton = new JButton("Preview");
 		previewButton.addActionListener(performListener);
@@ -119,14 +136,14 @@ public class Menu extends JPanel{
 		// Add panel to frame
 		frame.add(mainPanel);
 		frame.pack();
-		frame.setSize(600, 200);
+		frame.setSize(600, 240);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 
 	public void updateConfig(org.json.JSONObject config) {
-		config.put(AGGREGATION_ORDER, Integer.valueOf(aggregationText.getText()));
+		config.put(AGGREGATION_ORDER, aggregationSlider.getValue());
 		config.put(INPUT_FILE, inputFileText.getText());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
