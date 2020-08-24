@@ -8,6 +8,7 @@ import execution.Manager;
 
 import static execution.Constants.JSON_CONFIG_PATH;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -95,17 +96,21 @@ public class Menu extends JPanel{
 		generateLutButton = new JButton("Generate lut");
 		generateLutButton.addActionListener(performListener);
 
+		Dimension buttonDimension = new Dimension(160, 30);
+		fileBrowserButton.setPreferredSize(buttonDimension);
+		previewButton.setPreferredSize(buttonDimension);
+		generateCsvButton.setPreferredSize(buttonDimension);
+		generateLutButton.setPreferredSize(buttonDimension);
+		
 
 		// Add label and button to panel
-		constr.gridx=1; constr.gridy=2;
+		constr.gridx=0; constr.gridy=2;
 		constr.gridwidth = 3;
 		constr.anchor = GridBagConstraints.WEST;
 		layoutPanel.add(previewButton, constr);
-		constr.gridx=1;
 		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(generateCsvButton, constr);
-		constr.gridx=2;
-		constr.anchor = GridBagConstraints.CENTER;
+		constr.anchor = GridBagConstraints.EAST;
 		layoutPanel.add(generateLutButton, constr);
 
 		mainPanel.add(headingPanel);
