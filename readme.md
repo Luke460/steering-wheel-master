@@ -24,7 +24,7 @@ Now you have to locate your [***Wheel check***](https://www.racedepartment.com/d
  - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3 or 4.
  - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest a lower value like 3.
 
- Every steering wheel is different, you may need to find the perfect aggregation value for you device!
+ Every steering wheel is different, you may need to find the perfect aggregation value for your device!
  
  **IN GENERAL** : lower values makes your lut file more similar to the standard lut generation procedure, while higher values makes your lut smoother. 
  - Don't go too high, or you will lose precision in lut correction.
