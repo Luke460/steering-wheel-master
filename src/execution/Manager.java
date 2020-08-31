@@ -13,6 +13,8 @@ import java.util.Collections;
 
 import javax.swing.JOptionPane;
 
+import org.json.JSONObject;
+
 import process.Aggregator;
 import process.Corrector;
 import process.Luter;
@@ -20,41 +22,39 @@ import userInterface.DrawGraph;
 
 public class Manager {
 
-	public static int execute(org.json.JSONObject config, boolean saveCSV, boolean saveLUT, boolean showPreview) {
+	public static ExecutionConfiguration execute(JSONObject config, ExecutionConfiguration exConf) {
 
 		System.out.println("setup...");
 
-		String inputCsvPath = null;
-		int aggregationOrder = 0;
 		try {
-			inputCsvPath = config.getString("input_file");
+			exConf.setInputCsvPath(config.getString("input_file"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read 'input_file' property in '" + JSON_CONFIG_PATH + "'.");
-			return -1;
+			return exConf;
 		}
 		try {
-			aggregationOrder = config.getInt("aggregation_order");
+			exConf.setAggregationOrder(config.getInt("aggregation_order"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read 'aggregation_order' property in '" + JSON_CONFIG_PATH + "'.");
-			return -1;
+			return exConf;
 		}
 
 
 		System.out.println("starting generate csv procedure...");
 
 		try {
-			return process(inputCsvPath, aggregationOrder, saveCSV, saveLUT, showPreview);
+			return process(exConf);
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error during aggregation process.");
-			return -1;
+			return exConf;
 		}
 
 	}
 
-	public static int process(String csvFile, int aggregationOrder, boolean saveCSV,  boolean saveLUT, boolean showPreview) {
+	public static ExecutionConfiguration process(ExecutionConfiguration exConf) {
 
 		System.out.println("setting up...");
 
@@ -78,7 +78,7 @@ public class Manager {
 
 		// BEGIN READ
 
-		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(exConf.getInputCsvPath()))) {
 
 			while ((line = br.readLine()) != null) {
 
@@ -104,19 +104,19 @@ public class Manager {
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: cannot find '" + csvFile + "' file.");
-			return aggregationOrder;
+			JOptionPane.showMessageDialog(null, "Error: cannot find '" + exConf.getInputCsvPath() + "' file.");
+			return exConf;
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: cannot read " + csvFile + "' file.");
-			return aggregationOrder;
+			JOptionPane.showMessageDialog(null, "Error: cannot read " + exConf.getInputCsvPath() + "' file.");
+			return exConf;
 		} catch ( NumberFormatException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: invalid input file '" + csvFile + "'.");
+			JOptionPane.showMessageDialog(null, "Error: invalid input file '" + exConf.getInputCsvPath() + "'.");
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Unexpected error while reading " + csvFile + "' file.");
-			return aggregationOrder;
+			JOptionPane.showMessageDialog(null, "Unexpected error while reading " + exConf.getInputCsvPath() + "' file.");
+			return exConf;
 		}
 
 		// END READ
@@ -133,16 +133,17 @@ public class Manager {
 
 		// END ERROR CORRECTION	
 		
-		if(!saveCSV && !saveLUT && !showPreview) {
-			return Aggregator.suggestedAggregationValue(deltaXdouble);
+		if(exConf.isAutoCalcAggregationOder()) {
+			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(deltaXdouble));
+			return exConf;
 		}
 
 		// BEGIN AGGREGATION
 
 		System.out.println("aggregation...");
 
-		aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, aggregationOrder);
-		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, aggregationOrder);
+		aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, exConf.getAggregationOrder());
+		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, exConf.getAggregationOrder());
 
 		// END AGGREGATION
 
@@ -156,12 +157,12 @@ public class Manager {
 		// END LUT GENERATION
 
 		// print results
-		if(showPreview) {
+		if(exConf.isShowPreview()) {
 			try {
 				DrawGraph.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValues(correctiveMap, aggregateDeltaXdouble.size(), Collections.max(aggregateDeltaXdouble)), 
-						csvFile);
+						exConf.inputCsvPath);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -169,8 +170,8 @@ public class Manager {
 
 		// write results
 
-		if(saveCSV) {
-			String newCsvFileName = "output-AG-" + aggregationOrder + "-T-" + System.currentTimeMillis() + ".csv";
+		if(exConf.isSaveCSV()) {
+			String newCsvFileName = "output-AG-" + exConf.getAggregationOrder() + "-T-" + System.currentTimeMillis() + ".csv";
 			System.out.println("generating new csv file '" + newCsvFileName + "'...");
 
 			for(int i = -1; i < inputForce.size(); i++) {
@@ -200,9 +201,9 @@ public class Manager {
 
 		}
 
-		if(saveLUT) {
+		if(exConf.isSaveLUT()) {
 			correctiveMap = Utility.round(correctiveMap,3);
-			String newLutFileName = "LUT-AG-" + aggregationOrder + "-T-" + System.currentTimeMillis() + ".lut";
+			String newLutFileName = "LUT-AG-" + exConf.getAggregationOrder() + "-T-" + System.currentTimeMillis() + ".lut";
 			System.out.println("generating new lut file '" + newLutFileName + "'...");
 			double index = 0.0;
 			for(Double value: correctiveMap) {
@@ -224,7 +225,7 @@ public class Manager {
 
 		}
 		
-		return aggregationOrder;
+		return exConf;
 
 	}
 

@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import org.json.JSONObject;
 
+import execution.ExecutionConfiguration;
 import execution.Manager;
 
 import static execution.Constants.JSON_CONFIG_PATH;
@@ -164,13 +165,23 @@ public class Menu extends JPanel{
 	class PerformListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			updateConfig(config);
+			ExecutionConfiguration exConf = new ExecutionConfiguration();
 			Object src = e.getSource();
 			if (src == previewButton){
-				Manager.execute(config, false, false, true);
+				exConf.setShowPreview(true);
+				Manager.execute(config, exConf);
 			} else if(src == generateCsvButton){
-				Manager.execute(config, true, false, true);
+				exConf.setShowPreview(true);
+				exConf.setSaveCSV(true);
+				Manager.execute(config, exConf);
 			}	else if(src == generateLutButton){
-				Manager.execute(config, false, true, true);
+				exConf.setShowPreview(true);
+				exConf.setSaveLUT(true);
+				Manager.execute(config, exConf);
+			} else if(src == autoButton) {
+				exConf.setAutoCalcAggregationOder(true);
+				exConf = Manager.execute(config, exConf);
+				aggregationSlider.setValue(exConf.getAggregationOrder());
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new CsvFileFilter());
@@ -178,11 +189,6 @@ public class Menu extends JPanel{
 				if (n == JFileChooser.APPROVE_OPTION) {
 					File f = fileChooser.getSelectedFile();	         
 					inputFileText.setText(f.getPath());
-				}
-			} else if(src == autoButton) {
-				int suggestedAggregationValue = Manager.execute(config, false, false, false);
-				if(suggestedAggregationValue!= -1) {
-					aggregationSlider.setValue(suggestedAggregationValue);
 				}
 			}
 		}
