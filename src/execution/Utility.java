@@ -69,5 +69,14 @@ public class Utility {
 		return output;
 		
 	}
+	
+	public static boolean isGrowing(List<Double> input) {
+		double prevValue = -1;
+		for(Double value:input) {
+			if(prevValue>value) return false;
+			prevValue = value;
+		}
+		return true;
+	}
 
 }

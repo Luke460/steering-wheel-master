@@ -87,5 +87,4 @@ public class Luter {
 		return 0;
 	}
 
-
 }

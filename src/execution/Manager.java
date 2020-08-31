@@ -20,7 +20,7 @@ import userInterface.DrawGraph;
 
 public class Manager {
 
-	public static void execute(org.json.JSONObject config, boolean saveCSV, boolean saveLUT) {
+	public static int execute(org.json.JSONObject config, boolean saveCSV, boolean saveLUT, boolean showPreview) {
 
 		System.out.println("setup...");
 
@@ -31,30 +31,30 @@ public class Manager {
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read 'input_file' property in '" + JSON_CONFIG_PATH + "'.");
-			return;
+			return -1;
 		}
 		try {
 			aggregationOrder = config.getInt("aggregation_order");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read 'aggregation_order' property in '" + JSON_CONFIG_PATH + "'.");
-			return;
+			return -1;
 		}
 
 
 		System.out.println("starting generate csv procedure...");
 
 		try {
-			process(inputCsvPath, aggregationOrder, saveCSV, saveLUT);
+			return process(inputCsvPath, aggregationOrder, saveCSV, saveLUT, showPreview);
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error during aggregation process.");
-			return;
+			return -1;
 		}
 
 	}
 
-	public static void process(String csvFile, int aggregationOrder, boolean saveCSV,  boolean saveLUT) {
+	public static int process(String csvFile, int aggregationOrder, boolean saveCSV,  boolean saveLUT, boolean showPreview) {
 
 		System.out.println("setting up...");
 
@@ -105,18 +105,18 @@ public class Manager {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: cannot find '" + csvFile + "' file.");
-			return;
+			return aggregationOrder;
 		} catch (IOException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: cannot read " + csvFile + "' file.");
-			return;
+			return aggregationOrder;
 		} catch ( NumberFormatException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: invalid input file '" + csvFile + "'.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Unexpected error while reading " + csvFile + "' file.");
-			return;
+			return aggregationOrder;
 		}
 
 		// END READ
@@ -132,6 +132,10 @@ public class Manager {
 		deltaXdouble = Corrector.adjust(deltaXdouble, "deltaX");	
 
 		// END ERROR CORRECTION	
+		
+		if(!saveCSV && !saveLUT && !showPreview) {
+			return Aggregator.suggestedAggregationValue(deltaXdouble);
+		}
 
 		// BEGIN AGGREGATION
 
@@ -148,18 +152,19 @@ public class Manager {
 		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
 		//correctiveMap = Aggregator.aggregate(correctiveMap,20);
 		correctiveMap = Utility.truncateArray(correctiveMap, 10);
-		
+
 		// END LUT GENERATION
 
 		// print results
-		
-		try {
-			DrawGraph.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
-										aggregateDeltaXdouble, 
-										Utility.correctArrayDimensionsAndValues(correctiveMap, aggregateDeltaXdouble.size(), Collections.max(aggregateDeltaXdouble)), 
-										csvFile);
-		} catch(Exception e) {
-			e.printStackTrace();
+		if(showPreview) {
+			try {
+				DrawGraph.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
+						aggregateDeltaXdouble, 
+						Utility.correctArrayDimensionsAndValues(correctiveMap, aggregateDeltaXdouble.size(), Collections.max(aggregateDeltaXdouble)), 
+						csvFile);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		// write results
@@ -194,7 +199,7 @@ public class Manager {
 			JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newCsvFileName + "'.");
 
 		}
-		
+
 		if(saveLUT) {
 			correctiveMap = Utility.round(correctiveMap,3);
 			String newLutFileName = "LUT-AG-" + aggregationOrder + "-T-" + System.currentTimeMillis() + ".lut";
@@ -202,13 +207,13 @@ public class Manager {
 			double index = 0.0;
 			for(Double value: correctiveMap) {
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newLutFileName, true))) {
-						String s = index + "|" + value; 
-						index = index + 0.01;
-						index = Utility.round(index,2);
-						bw.write(s);
-						bw.newLine();
-						bw.flush();
-					
+					String s = index + "|" + value; 
+					index = index + 0.01;
+					index = Utility.round(index,2);
+					bw.write(s);
+					bw.newLine();
+					bw.flush();
+
 				} catch(IOException e) { 
 					e.printStackTrace();
 				}
@@ -218,6 +223,8 @@ public class Manager {
 			JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newLutFileName + "'.");
 
 		}
+		
+		return aggregationOrder;
 
 	}
 

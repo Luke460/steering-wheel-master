@@ -2,6 +2,8 @@ package process;
 
 import java.util.ArrayList;
 
+import execution.Utility;
+
 public class Aggregator {
 	
 	public static ArrayList<Double> aggregate(ArrayList<Double> values, int aggregationOrder) {
@@ -23,6 +25,22 @@ public class Aggregator {
 		aggregateOutput.add(values.get(values.size()-1)); // last value
 
 		return aggregateOutput;
+	}
+	
+	public static int suggestedAggregationValue(ArrayList<Double> input) {
+		ArrayList<Double> aggregateInput = new ArrayList<Double>();
+		aggregateInput.addAll(input);
+		// This is possible because in vertical aggregation: 
+		// Ag_1(Ag_1(x)) = Ag_2(x)
+		int i;
+		for (i = 0; i<=4; i++) {
+			if(Utility.isGrowing(aggregateInput)) {
+				return i +2; //min value 2, max value 6
+			} else {
+				aggregateInput = aggregate(aggregateInput, 1);
+			}
+		}
+		return i;
 	}
 
 }

@@ -29,6 +29,7 @@ public class Menu extends JPanel{
 	JButton generateCsvButton;
 	JButton generateLutButton;
 	JButton fileBrowserButton;
+	JButton autoButton;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
 	JSONObject config;
@@ -106,6 +107,12 @@ public class Menu extends JPanel{
 		constr.gridx=1;
 		layoutPanel.add(aggregationSlider, constr);
 
+		autoButton = new JButton("Auto");
+		autoButton.addActionListener(performListener);
+		
+		constr.gridx=2;
+		layoutPanel.add(autoButton, constr);
+		
 		previewButton = new JButton("Preview");
 		previewButton.addActionListener(performListener);
 
@@ -159,11 +166,11 @@ public class Menu extends JPanel{
 			updateConfig(config);
 			Object src = e.getSource();
 			if (src == previewButton){
-				Manager.execute(config, false, false);
+				Manager.execute(config, false, false, true);
 			} else if(src == generateCsvButton){
-				Manager.execute(config, true, false);
+				Manager.execute(config, true, false, true);
 			}	else if(src == generateLutButton){
-				Manager.execute(config, false, true);
+				Manager.execute(config, false, true, true);
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new CsvFileFilter());
@@ -171,6 +178,11 @@ public class Menu extends JPanel{
 				if (n == JFileChooser.APPROVE_OPTION) {
 					File f = fileChooser.getSelectedFile();	         
 					inputFileText.setText(f.getPath());
+				}
+			} else if(src == autoButton) {
+				int suggestedAggregationValue = Manager.execute(config, false, false, false);
+				if(suggestedAggregationValue!= -1) {
+					aggregationSlider.setValue(suggestedAggregationValue);
 				}
 			}
 		}
