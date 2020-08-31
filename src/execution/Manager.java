@@ -169,7 +169,7 @@ public class Manager {
 			}
 		}
 		
-		correctiveMap = Utility.truncateArray(correctiveMap, 5); // 200 values in the output lut
+		//correctiveMap = Utility.truncateArray(correctiveMap, 5); // 200 values in the output lut
 
 		// write results
 
@@ -205,7 +205,7 @@ public class Manager {
 		}
 
 		if(exConf.isSaveLUT()) {
-			correctiveMap = Utility.round(correctiveMap,3);
+			correctiveMap = Utility.round(correctiveMap,4);
 			String newLutFileName = "LUT-AG-" + exConf.getAggregationOrder() + "-T-" + System.currentTimeMillis() + ".lut";
 			System.out.println("generating new lut file '" + newLutFileName + "'...");
 			double index = 0.0;
