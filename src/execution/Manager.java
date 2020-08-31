@@ -10,11 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import static execution.Constants.MAX_RESOLUTION;
 import javax.swing.JOptionPane;
-
 import org.json.JSONObject;
-
 import process.Aggregator;
 import process.Corrector;
 import process.Luter;
@@ -118,6 +116,11 @@ public class Manager {
 			JOptionPane.showMessageDialog(null, "Unexpected error while reading " + exConf.getInputCsvPath() + "' file.");
 			return exConf;
 		}
+		
+		if(inputDeltaX.size()>MAX_RESOLUTION) {
+			JOptionPane.showMessageDialog(null, "Input file exceeds the maximum resolution: " + MAX_RESOLUTION);
+			return exConf;
+		}
 
 		// END READ
 
@@ -151,8 +154,6 @@ public class Manager {
 
 		// BEGIN LUT GENERATION
 		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
-		//correctiveMap = Aggregator.aggregate(correctiveMap,20);
-		correctiveMap = Utility.truncateArray(correctiveMap, 10);
 
 		// END LUT GENERATION
 
@@ -167,6 +168,8 @@ public class Manager {
 				e.printStackTrace();
 			}
 		}
+		
+		correctiveMap = Utility.truncateArray(correctiveMap, 5); // 200 values in the output lut
 
 		// write results
 
@@ -209,8 +212,8 @@ public class Manager {
 			for(Double value: correctiveMap) {
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newLutFileName, true))) {
 					String s = index + "|" + value; 
-					index = index + 0.01;
-					index = Utility.round(index,2);
+					index = index + (1.0/(double)correctiveMap.size());
+					index = Utility.round(index,3);
 					bw.write(s);
 					bw.newLine();
 					bw.flush();
