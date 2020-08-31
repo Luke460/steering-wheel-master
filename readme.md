@@ -37,7 +37,8 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
  - Don't go too high, or you will lose precision in lut correction.
  - Don't go too low or you will not benefit of the aggregation procedure.
  - Recommended values are between 2 and 6. (3 is always a good starting point).
- - Experiment and play with the *preview* button!
+ - You can click on ***auto*** to (hopefully) calculate a good aggregation order for your wheel.
+ - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
  
