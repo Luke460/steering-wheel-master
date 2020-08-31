@@ -79,3 +79,5 @@ Keep in mind that my algoritm may not be the same, so the result may change a li
 ![user-interface](images/update-2.0.png)
 
 - [v2.2](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added direct lut generation feature.
+
+- [v2.3](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'Auto' button to suggest an aggregation order based on the given csv file.
