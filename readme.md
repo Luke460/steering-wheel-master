@@ -21,7 +21,7 @@ I recommend to execute a ***Step Log 2 (linear force test)*** with ***Max Count*
 
 ## Let's aggregate!
 
-To run ***Wheel Check Data Aggregator***, download the [***latest version***](https://github.com/Luke460/wheel-check-data-aggregator/releases), unzip the file and run ***WheelCheckDataAggregator.jar***:
+To run ***Wheel Check Data Aggregator***, download the [***latest version***](https://github.com/Luke460/wheel-check-data-aggregator/releases), unzip the file and run ***WheelCheckDataAggregator.jar*** (requires Java 7 or later):
 
 ![icon](images/icon.png)
 
@@ -37,7 +37,8 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
  - Don't go too high, or you will lose precision in lut correction.
  - Don't go too low or you will not benefit of the aggregation procedure.
  - Recommended values are between 2 and 6. (3 is always a good starting point).
- - Experiment and play with the *preview* button!
+ - You can click on ***auto*** to (hopefully) calculate a good aggregation order for your wheel.
+ - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
  
@@ -78,3 +79,5 @@ Keep in mind that my algoritm may not be the same, so the result may change a li
 ![user-interface](images/update-2.0.png)
 
 - [v2.2](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added direct lut generation feature.
+
+- [v2.3](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'Auto' button to suggest an aggregation order based on the given csv file.
