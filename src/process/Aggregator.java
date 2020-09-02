@@ -35,22 +35,20 @@ public class Aggregator {
 			plus = 1; 
 		} else if (input.size()<=101) {
 			plus = 2; 
-		} else if (input.size()<=201) {
-			plus = 3; 
 		} else {
-			plus = 4; 
+			plus = 3; 
 		}
 		// This is possible because in vertical aggregation: 
 		// Ag_1(Ag_1(x)) = Ag_2(x)
 		int i;
-		for (i = 0; i<=5; i++) {
+		for (i = 0; i<=6; i++) {
 			if(Utility.isGrowing(aggregateInput)) {
 				return i + plus; //i min value 0, i max value 5
 			} else {
 				aggregateInput = aggregate(aggregateInput, 1);
 			}
 		}
-		return i + plus;
+		return i + plus; // i max=7, plus max=3
 	}
 
 }
