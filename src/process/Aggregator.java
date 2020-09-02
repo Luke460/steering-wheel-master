@@ -30,12 +30,22 @@ public class Aggregator {
 	public static int suggestedAggregationValue(ArrayList<Double> input) {
 		ArrayList<Double> aggregateInput = new ArrayList<Double>();
 		aggregateInput.addAll(input);
+		int plus = 0;
+		if(input.size()<=51) {
+			plus = 1; 
+		} else if (input.size()<=101) {
+			plus = 2; 
+		} else if (input.size()<=201) {
+			plus = 3; 
+		} else {
+			plus = 4; 
+		}
 		// This is possible because in vertical aggregation: 
 		// Ag_1(Ag_1(x)) = Ag_2(x)
 		int i;
 		for (i = 0; i<=4; i++) {
 			if(Utility.isGrowing(aggregateInput)) {
-				return i +2; //min value 2, max value 6
+				return i + plus; //min value 2, max value 8
 			} else {
 				aggregateInput = aggregate(aggregateInput, 1);
 			}
