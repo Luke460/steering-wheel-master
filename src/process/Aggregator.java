@@ -43,14 +43,14 @@ public class Aggregator {
 		// This is possible because in vertical aggregation: 
 		// Ag_1(Ag_1(x)) = Ag_2(x)
 		int i;
-		for (i = 0; i<=4; i++) {
+		for (i = 0; i<=5; i++) {
 			if(Utility.isGrowing(aggregateInput)) {
-				return i + plus; //min value 2, max value 8
+				return i + plus; //i min value 0, i max value 5
 			} else {
 				aggregateInput = aggregate(aggregateInput, 1);
 			}
 		}
-		return i;
+		return i + plus;
 	}
 
 }
