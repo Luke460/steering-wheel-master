@@ -1,1 +1,1 @@
-{"input_file":"example.csv","aggregation_order":4}
+{"input_file":"example.csv","aggregation_order":5,"deadzone_enhancement":false}

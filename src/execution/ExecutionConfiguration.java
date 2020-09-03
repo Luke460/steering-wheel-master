@@ -8,6 +8,7 @@ public class ExecutionConfiguration {
 	boolean autoCalcAggregationOder;
 	String inputCsvPath;
 	int aggregationOrder;
+	boolean deadZoneEnhancement;
 	
 	public ExecutionConfiguration() {
 		this.saveCSV = false;
@@ -62,6 +63,14 @@ public class ExecutionConfiguration {
 
 	public void setAggregationOrder(int aggregationValue) {
 		this.aggregationOrder = aggregationValue;
+	}
+
+	public boolean getDeadZoneEnhancement() {
+		return deadZoneEnhancement;
+	}
+
+	public void setDeadZoneEnhancement(boolean deadZoneEnhancement) {
+		this.deadZoneEnhancement = deadZoneEnhancement;
 	}
 
 }

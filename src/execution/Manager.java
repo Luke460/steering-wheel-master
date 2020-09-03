@@ -38,6 +38,13 @@ public class Manager {
 			JOptionPane.showMessageDialog(null, "Error: unable to read 'aggregation_order' property in '" + JSON_CONFIG_PATH + "'.");
 			return exConf;
 		}
+		try {
+			exConf.setDeadZoneEnhancement(config.getBoolean("deadzone_enhancement"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_enhancement' property in '" + JSON_CONFIG_PATH + "'.");
+			return exConf;
+		}
 
 
 		System.out.println("starting generate csv procedure...");
@@ -157,12 +164,19 @@ public class Manager {
 
 		// END LUT GENERATION
 
+		// BEGIN DEAD_ZONE enhancement
+		if(exConf.getDeadZoneEnhancement()) {
+			correctiveMap = Luter.enhanceDeadZone(correctiveMap);
+		}
+		
+		// END DEAD_ZONE enhancement
+		
 		// print results
 		if(exConf.isShowPreview()) {
 			try {
 				DrawGraph.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
-						Utility.correctArrayDimensionsAndValues(correctiveMap, aggregateDeltaXdouble.size(), Collections.max(aggregateDeltaXdouble)), 
+						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, aggregateDeltaXdouble.size(), Collections.max(aggregateDeltaXdouble)), 
 						"[AG=" + exConf.aggregationOrder + "] " + exConf.inputCsvPath);
 			} catch(Exception e) {
 				e.printStackTrace();

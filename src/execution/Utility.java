@@ -48,13 +48,16 @@ public class Utility {
 		return output;
 	}
 
-	public static List<Double> correctArrayDimensionsAndValues(ArrayList<Double> input, int targetSize, Double targetMaxValue) {
+	public static List<Double> correctArrayDimensionsAndValuesForVisualizzation(ArrayList<Double> input, int targetSize, Double targetMaxValue) {
+		ArrayList<Double> roundedValues = new ArrayList<Double>();
+		roundedValues.addAll(input);
+		roundedValues = Utility.round(roundedValues, 4);
 		List<Double> output = new ArrayList<Double>();
-		double inputMaxValue = Collections.max(input);
+		double inputMaxValue = Collections.max(roundedValues);
 		
 		for(int i = 0; i<targetSize; i++) {
-			int j = (int) Math.round((i*(double)input.size())/targetSize);
-			double newValue = (input.get(j)*targetMaxValue)/inputMaxValue;
+			int j = (int) Math.round((i*(double)roundedValues.size())/targetSize);
+			double newValue = (roundedValues.get(j)*targetMaxValue)/inputMaxValue;
 			output.add(newValue);
 		}
 		

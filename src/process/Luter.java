@@ -19,12 +19,13 @@ public class Luter {
 			int x = findIndexOfLowerValue(aggregateDeltaXdouble, targetDeltaX);
 			
 			double correctForce = force.get(x);
+
+			correctForce = (correctForce/maxforce);
 			
 			if(correctForce>maxforce) {
 				correctForce = maxforce;
 			}
-
-			correctForce = (correctForce/maxforce);
+			
 			corrections.add(correctForce);
 		}
 
@@ -48,10 +49,25 @@ public class Luter {
 			} else {
 				newValue = currentValue;
 			}
+			if(newValue>1.0) {
+				newValue=1.0;
+			}
 			output.add(newValue);
 		}
 		output.set(0, 0.0);
 		output.set(input.size()-1, 1.0);
+		return output;
+	}
+	
+	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input){
+		ArrayList<Double> output = new ArrayList<Double>();
+		output.addAll(input);
+		// Fibonacci sequence
+		double[] percentages = new double[] {0.01, 0.01, 0.02, 0.03, 0.05, 0.08, 0.13, 0.21, 0.34, 0.55, 0.89};
+		for(int i=1; i<=percentages.length; i++) {
+			double percentage = percentages[percentages.length-i];
+			output.set(i, input.get(i)*(1.0-percentage));
+		}
 		return output;
 	}
 
