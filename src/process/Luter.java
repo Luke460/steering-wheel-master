@@ -23,11 +23,7 @@ public class Luter {
 			if(correctForce>maxforce) {
 				correctForce = maxforce;
 			}
-			// round
-			// correctValue = Utility.roundBy4(correctValue);
-			if(aggregateDeltaXdouble.get(x)==0) {
-				correctForce = 0;
-			}
+
 			correctForce = (correctForce/maxforce);
 			corrections.add(correctForce);
 		}
