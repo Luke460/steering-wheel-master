@@ -26,7 +26,7 @@ public class Menu extends JPanel{
 	private static final String INPUT_FILE = "input_file";
 	private static final String AGGREGATION_ORDER = "aggregation_order";
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
-	private static final Dimension MENU_DIMENSION = new Dimension(600, 268);
+	private static final Dimension MENU_DIMENSION = new Dimension(620, 272);
 	JButton previewButton;
 	JButton generateCsvButton;
 	JButton generateLutButton;
