@@ -163,7 +163,7 @@ public class Manager {
 				DrawGraph.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValues(correctiveMap, aggregateDeltaXdouble.size(), Collections.max(aggregateDeltaXdouble)), 
-						exConf.inputCsvPath);
+						"[AG=" + exConf.aggregationOrder + "] " + exConf.inputCsvPath);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
