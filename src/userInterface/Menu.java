@@ -88,7 +88,7 @@ public class Menu extends JPanel{
 		// Set the label to be drawn
 		aggregationSlider.setLabelTable(position); 
 		
-		deadZoneEnhancement = new JCheckBox("Dead zone enhancement");
+		deadZoneEnhancement = new JCheckBox("Dead zone enhancement (lut only)");
 		deadZoneEnhancement.setSelected(config.getBoolean(DEADZONE_ENHANCEMENT));
 		
 		// create event listener for the buttons
