@@ -63,7 +63,7 @@ public class Luter {
 		ArrayList<Double> output = new ArrayList<Double>();
 		output.addAll(input);
 		// Fibonacci sequence
-		double[] percentages = new double[] {0.01, 0.01, 0.02, 0.03, 0.05, 0.08, 0.13, 0.21, 0.34, 0.55, 0.89};
+		double[] percentages = new double[] {0.01, 0.01, 0.02, 0.03, 0.05, 0.08, 0.13, 0.21, 0.34, 0.55, 0.89, 0.99};
 		for(int i=1; i<=percentages.length; i++) {
 			double percentage = percentages[percentages.length-i];
 			output.set(i, input.get(i)*(1.0-percentage));
