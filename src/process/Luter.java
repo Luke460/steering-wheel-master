@@ -60,11 +60,11 @@ public class Luter {
 	}
 	
 	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, int deadZoneEnhancement){
-		// dead zone enhancement: 0% -> 10% [+1%]
+		// dead zone enhancement: 0% -> 5% [+0.5%]
 		ArrayList<Double> output = new ArrayList<Double>();
 		output.addAll(input);
 		ArrayList<Double> percentages = new ArrayList<Double>();
-		for(double i=1; i<=deadZoneEnhancement*10; i++) {
+		for(double i=1; i<=deadZoneEnhancement*5; i++) {
 			percentages.add(Math.max(0, Utility.round(i*0.01, 2)));
 		}
 		for(int i=1; i<=percentages.size(); i++) {
