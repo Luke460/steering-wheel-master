@@ -26,7 +26,7 @@ public class Menu extends JPanel{
 	private static final String INPUT_FILE = "input_file";
 	private static final String AGGREGATION_ORDER = "aggregation_order";
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
-	private static final Dimension MENU_DIMENSION = new Dimension(648, 290);
+	private static final Dimension MENU_DIMENSION = new Dimension(642, 298);
 	JButton previewButton;
 	JButton generateCsvButton;
 	JButton generateLutButton;
@@ -64,7 +64,8 @@ public class Menu extends JPanel{
 
 		// Declare Text fields
 		JLabel inputFileLabel = new JLabel("Input file:");
-		inputFileText = new JTextField(20);
+		inputFileText = new JTextField();
+		inputFileText.setPreferredSize(new Dimension(236, 22));
 		inputFileText.setText(config.getString(INPUT_FILE));
 		
 		// Add positions label in the slider

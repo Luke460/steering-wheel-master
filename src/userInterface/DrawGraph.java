@@ -21,8 +21,8 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class DrawGraph extends JPanel {
-	private static final Dimension GRAPH_DIMENSION = new Dimension(700, 700);
-	private static final int BORDER_GAP = 30;
+	private static final Dimension GRAPH_DIMENSION = new Dimension(680, 680);
+	private static final int BORDER_GAP = 20;
 	private static final Color GRAPH_COLOR_1 = Color.red;
 	private static final Color GRAPH_COLOR_2 = Color.blue;
 	private static final Color GRAPH_COLOR_3 = Color.green;
