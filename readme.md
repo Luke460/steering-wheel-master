@@ -86,3 +86,5 @@ Keep in mind that my algoritm may not be the same, so the result may change a li
 - [v2.4](https://github.com/Luke460/wheel-check-data-aggregator/releases): Higher lut file output resolution.
 
 - [v2.5](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'Dead zone enhancement' option (not needed on most steering wheels).
+
+- [v2.6](https://github.com/Luke460/wheel-check-data-aggregator/releases): Improved 'Dead zone enhancement': slider added.
