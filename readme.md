@@ -84,3 +84,5 @@ Keep in mind that my algoritm may not be the same, so the result may change a li
 - [v2.3](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'Auto' button to suggest an aggregation order based on the given csv file.
 
 - [v2.4](https://github.com/Luke460/wheel-check-data-aggregator/releases): Higher lut file output resolution.
+
+- [v2.5](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'Dead zone enhancement' option (not needed on most steering wheels).
