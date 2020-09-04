@@ -39,7 +39,7 @@ public class Manager {
 			return exConf;
 		}
 		try {
-			exConf.setDeadZoneEnhancement(config.getBoolean("deadzone_enhancement"));
+			exConf.setDeadZoneEnhancement(config.getInt("deadzone_enhancement"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_enhancement' property in '" + JSON_CONFIG_PATH + "'.");
@@ -165,8 +165,8 @@ public class Manager {
 		// END LUT GENERATION
 
 		// BEGIN DEAD_ZONE enhancement
-		if(exConf.getDeadZoneEnhancement()) {
-			correctiveMap = Luter.enhanceDeadZone(correctiveMap);
+		if(exConf.getDeadZoneEnhancement()>0) {
+			correctiveMap = Luter.enhanceDeadZone(correctiveMap, exConf.getDeadZoneEnhancement());
 		}
 		
 		// END DEAD_ZONE enhancement

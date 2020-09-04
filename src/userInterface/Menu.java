@@ -26,7 +26,7 @@ public class Menu extends JPanel{
 	private static final String INPUT_FILE = "input_file";
 	private static final String AGGREGATION_ORDER = "aggregation_order";
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
-	private static final Dimension MENU_DIMENSION = new Dimension(620, 272);
+	private static final Dimension MENU_DIMENSION = new Dimension(640, 290);
 	JButton previewButton;
 	JButton generateCsvButton;
 	JButton generateLutButton;
@@ -34,7 +34,7 @@ public class Menu extends JPanel{
 	JButton autoButton;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
-	JCheckBox deadZoneEnhancement;
+	JSlider deadZoneEnhancement;
 	JSONObject config;
 
 
@@ -60,13 +60,10 @@ public class Menu extends JPanel{
 		GridBagConstraints constr = new GridBagConstraints();
 		constr.insets = new Insets(8, 8, 8, 8);     
 		constr.anchor = GridBagConstraints.WEST;
-
-
-		// Declare the required Labels
-		JLabel inputFileLabel = new JLabel("Input file:");
-		JLabel aggregationLabel = new JLabel("Aggregation order:");
+		
 
 		// Declare Text fields
+		JLabel inputFileLabel = new JLabel("Input file:");
 		inputFileText = new JTextField(20);
 		inputFileText.setText(config.getString(INPUT_FILE));
 		
@@ -76,20 +73,24 @@ public class Menu extends JPanel{
 			position.put(i, new JLabel(i+""));
 		}
 		
+		JLabel aggregationLabel = new JLabel("Aggregation order:");
 		aggregationSlider = new JSlider(0, 10, config.getInt(AGGREGATION_ORDER));
 		aggregationSlider.setPreferredSize(new Dimension(244, 44));
 		aggregationSlider.setMajorTickSpacing(5);
 		aggregationSlider.setMinorTickSpacing(1);
 		aggregationSlider.setPaintTicks(true);
-		
-		// Set the labels to be painted on the slider
-		aggregationSlider.setPaintLabels(true);   	
-		         
-		// Set the label to be drawn
+		aggregationSlider.setPaintLabels(true);   		         
 		aggregationSlider.setLabelTable(position); 
 		
-		deadZoneEnhancement = new JCheckBox("Dead zone enhancement (lut only)");
-		deadZoneEnhancement.setSelected(config.getBoolean(DEADZONE_ENHANCEMENT));
+		JLabel deadZoneEnhancementLabel = new JLabel("Dead zone enhancement:");
+		deadZoneEnhancement = new JSlider(0, 10, config.getInt(DEADZONE_ENHANCEMENT));
+		deadZoneEnhancement.setPreferredSize(new Dimension(244, 44));
+		deadZoneEnhancement.setMajorTickSpacing(5);
+		deadZoneEnhancement.setMinorTickSpacing(1);
+		deadZoneEnhancement.setPaintTicks(true);
+		deadZoneEnhancement.setPaintLabels(true);
+		deadZoneEnhancement.setPaintTrack(true);
+		deadZoneEnhancement.setLabelTable(position); 
 		
 		// create event listener for the buttons
 		PerformListener performListener = new PerformListener();
@@ -119,10 +120,12 @@ public class Menu extends JPanel{
 		constr.gridx=2;
 		layoutPanel.add(autoButton, constr);
 		
-		constr.gridx=1; constr.gridy++;
-		layoutPanel.add(deadZoneEnhancement, constr);
 		constr.gridx=0; constr.gridy++;
+		layoutPanel.add(deadZoneEnhancementLabel, constr);
+		constr.gridx=1;
+		layoutPanel.add(deadZoneEnhancement, constr);
 		
+		constr.gridx=0; constr.gridy++;	
 		previewButton = new JButton("Preview");
 		previewButton.addActionListener(performListener);
 
@@ -164,7 +167,7 @@ public class Menu extends JPanel{
 	public void updateConfig(org.json.JSONObject config) {
 		config.put(AGGREGATION_ORDER, aggregationSlider.getValue());
 		config.put(INPUT_FILE, inputFileText.getText());
-		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancement.isSelected());
+		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancement.getValue());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
 		} catch (Exception e) {

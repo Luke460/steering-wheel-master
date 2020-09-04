@@ -59,13 +59,16 @@ public class Luter {
 		return output;
 	}
 	
-	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input){
+	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, int deadZoneEnhancement){
+		// dead zone enhancement: 0% -> 10% [+1%]
 		ArrayList<Double> output = new ArrayList<Double>();
 		output.addAll(input);
-		// Fibonacci sequence
-		double[] percentages = new double[] {0.01, 0.01, 0.02, 0.03, 0.05, 0.08, 0.13, 0.21, 0.34, 0.55, 0.89, 0.99};
-		for(int i=1; i<=percentages.length; i++) {
-			double percentage = percentages[percentages.length-i];
+		ArrayList<Double> percentages = new ArrayList<Double>();
+		for(double i=1; i<=deadZoneEnhancement*10; i++) {
+			percentages.add(Math.max(0, Utility.round(i*0.01, 2)));
+		}
+		for(int i=1; i<=percentages.size(); i++) {
+			double percentage = percentages.get(percentages.size()-i);
 			output.set(i, input.get(i)*(1.0-percentage));
 		}
 		return output;
