@@ -196,6 +196,7 @@ public class Menu extends JPanel{
 				exConf.setAutoCalcAggregationOder(true);
 				exConf = Manager.execute(config, exConf);
 				aggregationSlider.setValue(exConf.getAggregationOrder());
+				deadZoneEnhancement.setValue(exConf.getDeadZoneEnhancement());
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new CsvFileFilter());

@@ -19,6 +19,10 @@ import process.Luter;
 import userInterface.DrawGraph;
 
 public class Manager {
+	
+	public enum FileType {
+		csv, lut
+	}
 
 	public static ExecutionConfiguration execute(JSONObject config, ExecutionConfiguration exConf) {
 
@@ -145,6 +149,7 @@ public class Manager {
 		
 		if(exConf.isAutoCalcAggregationOder()) {
 			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(deltaXdouble));
+			exConf.setDeadZoneEnhancement(0);
 			return exConf;
 		}
 
@@ -177,7 +182,7 @@ public class Manager {
 				DrawGraph.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, aggregateDeltaXdouble.size(), Collections.max(aggregateDeltaXdouble)), 
-						"[AG=" + exConf.aggregationOrder + "] " + exConf.inputCsvPath);
+						"[AG=" + exConf.aggregationOrder + ",DZ=" + exConf.getDeadZoneEnhancement() + "] " + exConf.inputCsvPath);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -188,7 +193,7 @@ public class Manager {
 		// write results
 
 		if(exConf.isSaveCSV()) {
-			String newCsvFileName = "output-AG-" + exConf.getAggregationOrder() + "-T-" + System.currentTimeMillis() + ".csv";
+			String newCsvFileName = generateFileName(exConf, FileType.csv);
 			System.out.println("generating new csv file '" + newCsvFileName + "'...");
 
 			for(int i = -1; i < inputForce.size(); i++) {
@@ -220,7 +225,7 @@ public class Manager {
 
 		if(exConf.isSaveLUT()) {
 			correctiveMap = Utility.round(correctiveMap,4);
-			String newLutFileName = "LUT-AG-" + exConf.getAggregationOrder() + "-T-" + System.currentTimeMillis() + ".lut";
+			String newLutFileName = generateFileName(exConf, FileType.lut);
 			System.out.println("generating new lut file '" + newLutFileName + "'...");
 			double index = 0.0;
 			for(Double value: correctiveMap) {
@@ -244,6 +249,10 @@ public class Manager {
 		
 		return exConf;
 
+	}
+	
+	private static String generateFileName(ExecutionConfiguration exConf, FileType type) {
+		return "AG-" + exConf.getAggregationOrder() + "-DZ-" + exConf.getDeadZoneEnhancement() + "-T-" + System.currentTimeMillis() + "." + type.name();
 	}
 
 }
