@@ -16,10 +16,10 @@ In the following graph you can see an example of a generated log file for a ***L
 
 ![example](images/G29-GRAPH.png)
 
+## Let's aggregate!
+
 Before to start, you have to execute a calibration procedure by using ***Wheel Check***.
 I recommend to execute a ***Step Log 2 (linear force test)*** with ***Max Count*** set to ***100***.
-
-## Let's aggregate!
 
 To run ***Wheel Check Data Aggregator***, download the [***latest version***](https://github.com/Luke460/wheel-check-data-aggregator/releases), unzip the file and run ***WheelCheckDataAggregator.jar*** (requires Java 7 or later):
 
@@ -30,22 +30,22 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
  - For ***geared wheels*** - like Logitech G29 or G27 - I suggest 4 or 5 as aggregation order (4 is perfect in my case).
  - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3 or 4.
  - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest a lower value like 3.
-
- Every steering wheel is different, you may need to find the perfect aggregation value for your device!
+ - Recommended values are between 2 and 6. (3 is always a good starting point).
  
+  Every steering wheel is different, you may need to find the perfect aggregation value for your device!
+ 
+ **NOTE:** these tips are based on a test with 100 reading values (*Wheel Check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa).
+
  **IN GENERAL** : lower values makes your lut file more similar to the standard lut generation procedure, while higher values makes your lut smoother. 
  - Don't go too high, or you will lose precision in lut correction.
  - Don't go too low or you will not benefit of the aggregation procedure.
- - Recommended values are between 2 and 6. (3 is always a good starting point).
  - You can click on ***auto*** to (hopefully) calculate a good aggregation order for your wheel.
  - Don't use ***dead zone enhancement*** unless you have vibrations in the central area of the steering wheel and you don't want to increase the ***aggregation order*** too much.
  - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
- 
-**NOTE:** these tips are based on a test with 100 reading values (*Wheel Check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa).
 
-Now click on ***Generate lut*** and if everything goes well, you should get the following output message:
+Now click on ***Generate csv*** or ***Generate lut*** (depending on the purpose for which you will use this application) and if everything goes well, you should get the following output message:
 
 ![success](images/success.png)
 
