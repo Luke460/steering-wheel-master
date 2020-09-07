@@ -55,7 +55,7 @@ Now click on ***Generate csv*** or ***Generate lut*** (depending on the purpose 
 
 You can also use generated csv files as [***LUT Generator for AC***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/) input, but from version v2.2 you can directly generate your lut file from ***Wheel Check Data Aggregator***.
 
-Keep in mind that my algoritm may not be the same, so the result may change a little as well.
+Keep in mind that my algorithm may not be the same, so the result may change a little as well.
 
 ![comparison](images/Comparison.png)
 
