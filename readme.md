@@ -30,9 +30,9 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
  - For ***geared wheels*** - like Logitech G29 or G27 - I suggest 4 or 5 as aggregation order (4 is perfect in my case).
  - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3 or 4.
  - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest a lower value like 3.
- - Recommended values are between 2 and 6. (3 is always a good starting point).
  
   Every steering wheel is different, you may need to find the perfect aggregation value for your device!
+  - Recommended values are between 2 and 6. (3 is always a good starting point).
  
  **NOTE:** these tips are based on a test with 100 reading values (*Wheel Check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa).
 
