@@ -28,6 +28,8 @@ public class Luter {
 			
 			corrections.add(correctForce);
 		}
+		
+		corrections.set(corrections.size()-1, 1.0);
 
 		return correctLutArray(corrections);
 
@@ -36,9 +38,13 @@ public class Luter {
 	public static ArrayList<Double> correctLutArray(ArrayList<Double> input){
 		ArrayList<Double> output = new ArrayList<Double>();
 		for(int i=0; i<input.size(); i++) {
+			if(i>990) {
+				int fermatenattimo = 1;
+				fermatenattimo++;
+			}
 			double currentValue = input.get(i);
 			int indexStart = findIndexOfLowerValue(input, currentValue)+1;
-			int indexPlus = findIndexOfHigherValue(input, currentValue);;
+			int indexPlus = findIndexOfHigherValue(input, currentValue);
 			double plusValue = input.get(indexPlus);
 			double newValue = 0;
 			double deltaI = indexPlus - indexStart;
@@ -99,7 +105,7 @@ public class Luter {
 			}
 		}
 
-		return 0;
+		return input.size()-1;
 	}
 
 }
