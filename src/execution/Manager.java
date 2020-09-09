@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import process.Aggregator;
 import process.Corrector;
 import process.Luter;
-import userInterface.DrawGraph;
+import userInterface.DrawGraphHD;
 
 public class Manager {
 	
@@ -179,7 +179,7 @@ public class Manager {
 		// print results
 		if(exConf.isShowPreview()) {
 			try {
-				DrawGraph.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
+				DrawGraphHD.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, aggregateDeltaXdouble.size(), Collections.max(aggregateDeltaXdouble)), 
 						"[AG=" + exConf.aggregationOrder + ",DZ=" + exConf.getDeadZoneEnhancement() + "] " + exConf.inputCsvPath);
