@@ -9,6 +9,9 @@ import execution.Manager;
 
 import static execution.Constants.JSON_CONFIG_PATH;
 
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -16,6 +19,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Hashtable;
@@ -60,7 +66,6 @@ public class Menu extends JPanel{
 		GridBagConstraints constr = new GridBagConstraints();
 		constr.insets = new Insets(8, 8, 8, 8);     
 		constr.anchor = GridBagConstraints.WEST;
-		
 
 		// Declare Text fields
 		JLabel inputFileLabel = new JLabel("Input file:");
@@ -68,12 +73,42 @@ public class Menu extends JPanel{
 		inputFileText.setPreferredSize(new Dimension(236, 22));
 		inputFileText.setText(config.getString(INPUT_FILE));
 		
+		// Link label	
+		final String linkLabel = "Open documentation";
+		final JLabel documentationLink = new JLabel(linkLabel);
+		documentationLink.setForeground(Color.BLUE);
+		documentationLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		// Add Listener for the link	
+		documentationLink.addMouseListener(new MouseAdapter() {
+			 
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        try {            
+		            Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator"));  
+		        } catch (IOException | URISyntaxException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
+		    
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	documentationLink.setText(linkLabel);
+            }
+ 
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            	documentationLink.setText("<html><a href=''>" + linkLabel + "</a></html>");
+            }
+		
+		});
+
 		// Add positions label in the slider
 		Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
 		for(int i = 0; i<=10; i++) {
 			position.put(i, new JLabel(i+""));
 		}
-		
+
 		JLabel aggregationLabel = new JLabel("Aggregation order:");
 		aggregationSlider = new JSlider(0, 10, config.getInt(AGGREGATION_ORDER));
 		aggregationSlider.setPreferredSize(new Dimension(244, 44));
@@ -82,7 +117,7 @@ public class Menu extends JPanel{
 		aggregationSlider.setPaintTicks(true);
 		aggregationSlider.setPaintLabels(true);   		         
 		aggregationSlider.setLabelTable(position); 
-		
+
 		JLabel deadZoneEnhancementLabel = new JLabel("Dead zone enhancement:");
 		deadZoneEnhancement = new JSlider(0, 10, config.getInt(DEADZONE_ENHANCEMENT));
 		deadZoneEnhancement.setPreferredSize(new Dimension(244, 44));
@@ -92,7 +127,7 @@ public class Menu extends JPanel{
 		deadZoneEnhancement.setPaintLabels(true);
 		deadZoneEnhancement.setPaintTrack(true);
 		deadZoneEnhancement.setLabelTable(position); 
-		
+
 		// create event listener for the buttons
 		PerformListener performListener = new PerformListener();
 
@@ -117,14 +152,16 @@ public class Menu extends JPanel{
 
 		autoButton = new JButton("Auto");
 		autoButton.addActionListener(performListener);
-		
+
 		constr.gridx=2;
 		layoutPanel.add(autoButton, constr);
-		
+
 		constr.gridx=0; constr.gridy++;
 		layoutPanel.add(deadZoneEnhancementLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(deadZoneEnhancement, constr);
+		constr.gridx=2;
+		layoutPanel.add(documentationLink, constr);
 		
 		constr.gridx=0; constr.gridy++;	
 		previewButton = new JButton("Preview");
@@ -132,7 +169,7 @@ public class Menu extends JPanel{
 
 		generateCsvButton = new JButton("Generate csv");
 		generateCsvButton.addActionListener(performListener);
-		
+
 		generateLutButton = new JButton("Generate lut");
 		generateLutButton.addActionListener(performListener);
 
@@ -141,7 +178,6 @@ public class Menu extends JPanel{
 		previewButton.setPreferredSize(buttonDimension);
 		generateCsvButton.setPreferredSize(buttonDimension);
 		generateLutButton.setPreferredSize(buttonDimension);
-		
 
 		// Add label and button to panel
 		constr.gridx=0; constr.gridy++;
@@ -208,4 +244,5 @@ public class Menu extends JPanel{
 			}
 		}
 	}
+
 }
