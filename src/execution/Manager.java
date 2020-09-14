@@ -158,7 +158,7 @@ public class Manager {
 				DrawGraphHD.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)), 
-						"[AG=" + exConf.aggregationOrder + ",DZ=" + exConf.getDeadZoneEnhancement() + "] " + exConf.inputCsvPath);
+						"[AG=" + exConf.aggregationOrder + ",DZ=" + exConf.getDeadZoneEnhancement() + ",DZCO=" + exConf.isDeadZoneCorrectionOnly() + "] " + exConf.inputCsvPath);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
