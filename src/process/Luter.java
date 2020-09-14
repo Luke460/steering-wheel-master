@@ -59,22 +59,7 @@ public class Luter {
 		output.set(input.size()-1, 1.0);
 		return output;
 	}
-	/*
-	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, int deadZoneEnhancement){
-		// dead zone enhancement: 0% -> 5% [+0.5%]
-		ArrayList<Double> output = new ArrayList<Double>();
-		output.addAll(input);
-		ArrayList<Double> percentages = new ArrayList<Double>();
-		for(double i=1; i<=deadZoneEnhancement*5; i++) {
-			percentages.add(Math.max(0, Utility.round(i*0.01, 2)));
-		}
-		for(int i=1; i<=percentages.size(); i++) {
-			double percentage = percentages.get(percentages.size()-i);
-			output.set(i, input.get(i)*(1.0-percentage));
-		}
-		return output;
-	}
-	*/
+
 	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, int deadZoneEnhancement) {
 		// remove 
 		double totalDelta = deadZoneEnhancement*0.002;
