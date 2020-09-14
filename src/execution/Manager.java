@@ -120,6 +120,7 @@ public class Manager {
 		if(exConf.isAutoCalcAggregationOder()) {
 			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(deltaXdouble));
 			exConf.setDeadZoneEnhancement(0);
+			exConf.setDeadZoneCorrectionOnly(false);
 			return exConf;
 		}
 
