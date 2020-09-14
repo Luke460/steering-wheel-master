@@ -24,7 +24,7 @@ public class DrawGraphHD extends JPanel {
 	private static final Dimension GRAPH_DIMENSION = new Dimension(680, 680);
 	private static final int BORDER_GAP = 20;
 	private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
-	private static final int GRAPH_POINT_WIDTH = 10;
+	//private static final int GRAPH_POINT_WIDTH = 10;
 	private static final int X_HATCH_CNT = 20;
 	private static final int Y_HATCH_CNT = 20;
 	private List<LineOfValues> allLines;
@@ -49,9 +49,9 @@ public class DrawGraphHD extends JPanel {
 			int x0 = BORDER_GAP;
 			int x1 = 0;
 			if(i%2!=0){
-				x1 = GRAPH_POINT_WIDTH + BORDER_GAP;
+				x1 = (int) (x0 + BORDER_GAP*0.75);
 			} else {
-				x1 = (int) (GRAPH_POINT_WIDTH*0.5 + BORDER_GAP);
+				x1 = (int) (x0 + BORDER_GAP*0.5);
 			}
 			int y0 = getHeight() - (((i + 1) * (getHeight() - BORDER_GAP * 2)) / Y_HATCH_CNT + BORDER_GAP);
 			int y1 = y0;
@@ -65,9 +65,9 @@ public class DrawGraphHD extends JPanel {
 			int y0 = getHeight() - BORDER_GAP;
 			int y1 = 0;
 			if(i%2==0){
-				y1 = y0 - GRAPH_POINT_WIDTH;
+				y1 = (int) (y0 - BORDER_GAP*0.5);
 			} else {
-				y1 = (int) (y0 - GRAPH_POINT_WIDTH - GRAPH_POINT_WIDTH*0.5);
+				y1 = (int) (y0 - BORDER_GAP*0.75);
 			}
 			graph.drawLine(x0, y0, x1, y1);
 		}
