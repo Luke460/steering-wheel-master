@@ -33,6 +33,7 @@ public class Menu extends JPanel{
 	private static final String AGGREGATION_ORDER = "aggregation_order";
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
 	private static final String DEADZONE_CORRECTION_ONLY = "deadzone_correction_only";
+	private static final String ADD_TIMESTAMP = "add_timestamp";
 	private static final Dimension MENU_DIMENSION = new Dimension(642, 320);
 	JButton previewButton;
 	JButton generateCsvButton;
@@ -40,6 +41,7 @@ public class Menu extends JPanel{
 	JButton fileBrowserButton;
 	JButton autoButton;
 	JCheckBox deadZoneCorrectionOnly;
+	JCheckBox addTimestampInFilename;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
 	JSlider deadZoneEnhancement;
@@ -108,6 +110,10 @@ public class Menu extends JPanel{
 		deadZoneCorrectionOnly = new JCheckBox();
 		deadZoneCorrectionOnly.setText("Dead zone correction only");
 		deadZoneCorrectionOnly.setSelected(inputConfig.getBoolean(DEADZONE_CORRECTION_ONLY));
+		
+		addTimestampInFilename = new JCheckBox();
+		addTimestampInFilename.setText("Add timestamp");
+		addTimestampInFilename.setSelected(inputConfig.getBoolean(ADD_TIMESTAMP));
 
 		// Add positions label in the slider
 		Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
@@ -140,6 +146,8 @@ public class Menu extends JPanel{
 		// Declare File Manager Button
 		fileBrowserButton = new JButton("File browser");
 
+		// FIRST FOW
+		
 		constr.gridx=0;
 		constr.gridy=0;
 		layoutPanel.add(inputFileLabel, constr);
@@ -150,8 +158,11 @@ public class Menu extends JPanel{
 		constr.gridx=2;
 		layoutPanel.add(fileBrowserButton, constr);
 		fileBrowserButton.addActionListener(performListener);
+		
+		// SECOND ROW
+		constr.gridy++;
 
-		constr.gridx=0; constr.gridy++;
+		constr.gridx=0; 
 		layoutPanel.add(aggregationLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(aggregationSlider, constr);
@@ -161,16 +172,28 @@ public class Menu extends JPanel{
 
 		constr.gridx=2;
 		layoutPanel.add(autoButton, constr);
+		
+		// THIRD ROW
+		constr.gridy++;
 
-		constr.gridx=0; constr.gridy++;
+		constr.gridx=0; 
 		layoutPanel.add(deadZoneEnhancementLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(deadZoneEnhancement, constr);
+		
+		// FOURTH ROW
+		constr.gridy++;
+		
+		constr.gridx=0;
+		layoutPanel.add(addTimestampInFilename, constr);
+		
+		constr.gridx=1; 
+		layoutPanel.add(deadZoneCorrectionOnly, constr);
+		
 		constr.gridx=2;
 		layoutPanel.add(documentationLink, constr);
 		
-		constr.gridx=1; constr.gridy++;
-		layoutPanel.add(deadZoneCorrectionOnly, constr);
+		//FIFTH ROW
 		
 		constr.gridx=0; constr.gridy++;	
 		previewButton = new JButton("Preview");
@@ -215,6 +238,7 @@ public class Menu extends JPanel{
 		config.put(INPUT_FILE, inputFileText.getText());
 		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancement.getValue());
 		config.put(DEADZONE_CORRECTION_ONLY, deadZoneCorrectionOnly.isSelected());
+		config.put(ADD_TIMESTAMP, addTimestampInFilename.isSelected());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
 		} catch (Exception e) {
@@ -256,29 +280,36 @@ public class Menu extends JPanel{
 		}
 
 		private void transferJsonConfigIntoExConf(ExecutionConfiguration exConf) {
+			
 			try {
-				exConf.setInputCsvPath(config.getString("input_file"));
+				exConf.setInputCsvPath(config.getString(INPUT_FILE));
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read 'input_file' property in '" + JSON_CONFIG_PATH + "'.");
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + INPUT_FILE + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
-				exConf.setAggregationOrder(config.getInt("aggregation_order"));
+				exConf.setAggregationOrder(config.getInt(AGGREGATION_ORDER));
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read 'aggregation_order' property in '" + JSON_CONFIG_PATH + "'.");
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + AGGREGATION_ORDER + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
-				exConf.setDeadZoneEnhancement(config.getInt("deadzone_enhancement"));
+				exConf.setDeadZoneEnhancement(config.getInt(DEADZONE_ENHANCEMENT));
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_enhancement' property in '" + JSON_CONFIG_PATH + "'.");
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEADZONE_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
-				exConf.setDeadZoneCorrectionOnly(config.getBoolean("deadzone_correction_only"));
+				exConf.setDeadZoneCorrectionOnly(config.getBoolean(DEADZONE_CORRECTION_ONLY));
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_correction_only' property in '" + JSON_CONFIG_PATH + "'.");
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEADZONE_CORRECTION_ONLY + "' property in '" + JSON_CONFIG_PATH + "'.");
+			}
+			try {
+				exConf.setAddTimestamp(config.getBoolean(ADD_TIMESTAMP));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + ADD_TIMESTAMP + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 		}
 	}

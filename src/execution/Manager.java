@@ -228,7 +228,7 @@ public class Manager {
 	}
 	
 	private static String generateFileName(ExecutionConfiguration exConf, FileType type) {
-		return "AG-" + exConf.getAggregationOrder() + "-DZ-" + exConf.getDeadZoneEnhancement() + "-T-" + System.currentTimeMillis() + "." + type.name();
+		return "AG-" + exConf.getAggregationOrder() + "-DZ-" + exConf.getDeadZoneEnhancement() + (exConf.isDeadZoneCorrectionOnly()?"-DZCO":"") + (exConf.isAddTimestamp()?"-T-" + System.currentTimeMillis():"") + "." + type.name();
 	}
 
 }

@@ -7,6 +7,7 @@ public class ExecutionConfiguration {
 	boolean showPreview;
 	boolean autoCalcAggregationOder;
 	boolean deadZoneCorrectionOnly;
+	boolean addTimestamp;
 	String inputCsvPath;
 	int aggregationOrder;
 	int deadZoneEnhancement;
@@ -17,6 +18,7 @@ public class ExecutionConfiguration {
 		this.showPreview = false;
 		this.autoCalcAggregationOder = false;
 		this.deadZoneCorrectionOnly = false;
+		this.addTimestamp = true;
 	};
 
 	public boolean isSaveCSV() {
@@ -81,6 +83,14 @@ public class ExecutionConfiguration {
 
 	public void setDeadZoneCorrectionOnly(boolean deadZoneCorrectionOnly) {
 		this.deadZoneCorrectionOnly = deadZoneCorrectionOnly;
+	}
+
+	public boolean isAddTimestamp() {
+		return addTimestamp;
+	}
+
+	public void setAddTimestamp(boolean addTimestamp) {
+		this.addTimestamp = addTimestamp;
 	}
 
 }
