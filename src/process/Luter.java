@@ -100,7 +100,7 @@ public class Luter {
 
 	private static Double findTargetDelta(ArrayList<Double> input, int i) {
 		Double totalDelta = input.get(input.size()-1) - input.get(i);
-		return (totalDelta/(double)(input.size()-i));
+		return (totalDelta/(double)(input.size()-1-i));
 	}
 
 	private static int findIndexOfLowerValue(ArrayList<Double> input, double targetValue) {
