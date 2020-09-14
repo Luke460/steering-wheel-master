@@ -32,12 +32,14 @@ public class Menu extends JPanel{
 	private static final String INPUT_FILE = "input_file";
 	private static final String AGGREGATION_ORDER = "aggregation_order";
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
-	private static final Dimension MENU_DIMENSION = new Dimension(642, 298);
+	private static final String DEADZONE_CORRECTION_ONLY = "deadzone_correction_only";
+	private static final Dimension MENU_DIMENSION = new Dimension(642, 320);
 	JButton previewButton;
 	JButton generateCsvButton;
 	JButton generateLutButton;
 	JButton fileBrowserButton;
 	JButton autoButton;
+	JCheckBox deadZoneCorrectionOnly;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
 	JSlider deadZoneEnhancement;
@@ -102,6 +104,10 @@ public class Menu extends JPanel{
             }
 		
 		});
+		
+		deadZoneCorrectionOnly = new JCheckBox();
+		deadZoneCorrectionOnly.setText("Dead zone correction only");
+		deadZoneCorrectionOnly.setSelected(inputConfig.getBoolean(DEADZONE_CORRECTION_ONLY));
 
 		// Add positions label in the slider
 		Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
@@ -163,6 +169,9 @@ public class Menu extends JPanel{
 		constr.gridx=2;
 		layoutPanel.add(documentationLink, constr);
 		
+		constr.gridx=1; constr.gridy++;
+		layoutPanel.add(deadZoneCorrectionOnly, constr);
+		
 		constr.gridx=0; constr.gridy++;	
 		previewButton = new JButton("Preview");
 		previewButton.addActionListener(performListener);
@@ -205,6 +214,7 @@ public class Menu extends JPanel{
 		config.put(AGGREGATION_ORDER, aggregationSlider.getValue());
 		config.put(INPUT_FILE, inputFileText.getText());
 		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancement.getValue());
+		config.put(DEADZONE_CORRECTION_ONLY, deadZoneCorrectionOnly.isSelected());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
 		} catch (Exception e) {
@@ -224,7 +234,7 @@ public class Menu extends JPanel{
 				exConf.setShowPreview(true);
 				exConf.setSaveCSV(true);
 				Manager.execute(config, exConf);
-			}	else if(src == generateLutButton){
+			} else if(src == generateLutButton){
 				exConf.setShowPreview(true);
 				exConf.setSaveLUT(true);
 				Manager.execute(config, exConf);

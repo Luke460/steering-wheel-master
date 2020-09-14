@@ -74,6 +74,34 @@ public class Luter {
 		}
 		return output;
 	}
+	
+	public static ArrayList<Double> deadZoneCorrectionOnly(ArrayList<Double> input){
+		ArrayList<Double> output = new ArrayList<Double>();
+		output.addAll(input);
+		for(int i=0; i<input.size()-1; i++) {
+			Double targetDelta = findTargetDelta(input, i);
+			Double currentDelta = input.get(i+1) - input.get(i); 
+			if(targetDelta>=currentDelta) {
+				return linearizeAll(output,i,targetDelta);
+			}
+		}
+		return output;
+	}
+
+	private static ArrayList<Double> linearizeAll(ArrayList<Double> input, int x, double delta) {
+		ArrayList<Double> output = new ArrayList<Double>();
+		output.addAll(input);
+		for(int i = x; i<input.size()-1; i++) {
+			Double value = output.get(i-1) + delta;
+			output.set(i, value);
+		}
+		return output;
+	}
+
+	private static Double findTargetDelta(ArrayList<Double> input, int i) {
+		Double totalDelta = input.get(input.size()-1) - input.get(i);
+		return (totalDelta/(double)(input.size()-i));
+	}
 
 	private static int findIndexOfLowerValue(ArrayList<Double> input, double targetValue) {
 		

@@ -49,6 +49,13 @@ public class Manager {
 			JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_enhancement' property in '" + JSON_CONFIG_PATH + "'.");
 			return exConf;
 		}
+		try {
+			exConf.setDeadZoneCorrectionOnly(config.getBoolean("deadzone_correction_only"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_correction_only' property in '" + JSON_CONFIG_PATH + "'.");
+			return exConf;
+		}
 
 
 		System.out.println("starting generate csv procedure...");
@@ -168,6 +175,12 @@ public class Manager {
 		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
 
 		// END LUT GENERATION
+		
+		// BEGIN DEAD CORRECTION ONLY
+		if(exConf.isDeadZoneCorrectionOnly()) {
+			correctiveMap = Luter.deadZoneCorrectionOnly(correctiveMap);
+		}
+		// END DEAD CORRECTION ONLY
 
 		// BEGIN DEAD_ZONE enhancement
 		if(exConf.getDeadZoneEnhancement()>0) {

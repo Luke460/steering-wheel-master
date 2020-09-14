@@ -6,6 +6,7 @@ public class ExecutionConfiguration {
 	boolean saveLUT; 
 	boolean showPreview;
 	boolean autoCalcAggregationOder;
+	boolean deadZoneCorrectionOnly;
 	String inputCsvPath;
 	int aggregationOrder;
 	int deadZoneEnhancement;
@@ -15,6 +16,7 @@ public class ExecutionConfiguration {
 		this.saveLUT = false;
 		this.showPreview = false;
 		this.autoCalcAggregationOder = false;
+		this.deadZoneCorrectionOnly = false;
 	};
 
 	public boolean isSaveCSV() {
@@ -71,6 +73,14 @@ public class ExecutionConfiguration {
 
 	public void setDeadZoneEnhancement(int deadZoneEnhancement) {
 		this.deadZoneEnhancement = deadZoneEnhancement;
+	}
+
+	public boolean isDeadZoneCorrectionOnly() {
+		return deadZoneCorrectionOnly;
+	}
+
+	public void setDeadZoneCorrectionOnly(boolean deadZoneCorrectionOnly) {
+		this.deadZoneCorrectionOnly = deadZoneCorrectionOnly;
 	}
 
 }

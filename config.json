@@ -1,1 +1,1 @@
-{"input_file":"example.csv","aggregation_order":4,"deadzone_enhancement":0}
+{"deadzone_correction_only":false,"input_file":"example.csv","aggregation_order":5,"deadzone_enhancement":0}
