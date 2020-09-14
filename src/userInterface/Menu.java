@@ -34,7 +34,7 @@ public class Menu extends JPanel{
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
 	private static final String DEADZONE_CORRECTION_ONLY = "deadzone_correction_only";
 	private static final String ADD_TIMESTAMP = "add_timestamp";
-	private static final Dimension MENU_DIMENSION = new Dimension(642, 320);
+	private static final Dimension MENU_DIMENSION = new Dimension(648, 336);
 	JButton previewButton;
 	JButton generateCsvButton;
 	JButton generateLutButton;
@@ -80,6 +80,7 @@ public class Menu extends JPanel{
 		// Link label	
 		final String linkLabel = "Open documentation";
 		final JLabel documentationLink = new JLabel(linkLabel);
+		documentationLink.setFont(new Font(headingLabel.getFont().getFontName(), 2, 13));
 		documentationLink.setForeground(Color.BLUE);
 		documentationLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
@@ -98,11 +99,6 @@ public class Menu extends JPanel{
             @Override
             public void mouseExited(MouseEvent e) {
             	documentationLink.setText(linkLabel);
-            }
- 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	documentationLink.setText("<html><a href=''>" + linkLabel + "</a></html>");
             }
 		
 		});
@@ -187,11 +183,13 @@ public class Menu extends JPanel{
 		constr.gridx=0;
 		layoutPanel.add(addTimestampInFilename, constr);
 		
-		constr.gridx=1; 
+		constr.gridx=1;
+		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(deadZoneCorrectionOnly, constr);
 		
 		constr.gridx=2;
 		layoutPanel.add(documentationLink, constr);
+		constr.anchor = GridBagConstraints.WEST;
 		
 		//FIFTH ROW
 		

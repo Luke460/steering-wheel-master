@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import static execution.Constants.MAX_RESOLUTION;
@@ -33,7 +35,7 @@ public class Manager {
 
 	}
 
-	public static ExecutionConfiguration process(ExecutionConfiguration exConf) {
+	public static ExecutionConfiguration process(ExecutionConfiguration exConf) throws IOException {
 
 		System.out.println("setting up...");
 
@@ -172,7 +174,7 @@ public class Manager {
 		if(exConf.isSaveCSV()) {
 			String newCsvFileName = generateFileName(exConf, FileType.csv);
 			System.out.println("generating new csv file '" + newCsvFileName + "'...");
-
+			Files.deleteIfExists(Paths.get(newCsvFileName));
 			for(int i = -1; i < inputForce.size(); i++) {
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newCsvFileName, true))) {
 					if(i == -1) {
@@ -203,6 +205,7 @@ public class Manager {
 		if(exConf.isSaveLUT()) {
 			correctiveMap = Utility.round(correctiveMap,4);
 			String newLutFileName = generateFileName(exConf, FileType.lut);
+			Files.deleteIfExists(Paths.get(newLutFileName));
 			System.out.println("generating new lut file '" + newLutFileName + "'...");
 			double index = 0.0;
 			for(Double value: correctiveMap) {
