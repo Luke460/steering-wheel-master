@@ -1,1 +1,1 @@
-{"deadzone_correction_only":true,"input_file":"example.csv","add_timestamp":true,"aggregation_order":5,"deadzone_enhancement":6}
+{"deadzone_correction_only":false,"input_file":"example.csv","add_timestamp":true,"aggregation_order":5,"deadzone_enhancement":0}
