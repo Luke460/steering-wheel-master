@@ -226,21 +226,22 @@ public class Menu extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			updateConfig(config);
 			ExecutionConfiguration exConf = new ExecutionConfiguration();
+			transferJsonConfigIntoExConf(exConf);
 			Object src = e.getSource();
 			if (src == previewButton){
 				exConf.setShowPreview(true);
-				Manager.execute(config, exConf);
+				Manager.execute(exConf);
 			} else if(src == generateCsvButton){
 				exConf.setShowPreview(true);
 				exConf.setSaveCSV(true);
-				Manager.execute(config, exConf);
+				Manager.execute(exConf);
 			} else if(src == generateLutButton){
 				exConf.setShowPreview(true);
 				exConf.setSaveLUT(true);
-				Manager.execute(config, exConf);
+				Manager.execute(exConf);
 			} else if(src == autoButton) {
 				exConf.setAutoCalcAggregationOder(true);
-				exConf = Manager.execute(config, exConf);
+				exConf = Manager.execute(exConf);
 				aggregationSlider.setValue(exConf.getAggregationOrder());
 				deadZoneEnhancement.setValue(exConf.getDeadZoneEnhancement());
 			} else if(src == fileBrowserButton){
@@ -251,6 +252,33 @@ public class Menu extends JPanel{
 					File f = fileChooser.getSelectedFile();	         
 					inputFileText.setText(f.getPath());
 				}
+			}
+		}
+
+		private void transferJsonConfigIntoExConf(ExecutionConfiguration exConf) {
+			try {
+				exConf.setInputCsvPath(config.getString("input_file"));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error: unable to read 'input_file' property in '" + JSON_CONFIG_PATH + "'.");
+			}
+			try {
+				exConf.setAggregationOrder(config.getInt("aggregation_order"));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error: unable to read 'aggregation_order' property in '" + JSON_CONFIG_PATH + "'.");
+			}
+			try {
+				exConf.setDeadZoneEnhancement(config.getInt("deadzone_enhancement"));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_enhancement' property in '" + JSON_CONFIG_PATH + "'.");
+			}
+			try {
+				exConf.setDeadZoneCorrectionOnly(config.getBoolean("deadzone_correction_only"));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_correction_only' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 		}
 	}

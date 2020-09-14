@@ -1,7 +1,5 @@
 package execution;
 
-import static execution.Constants.JSON_CONFIG_PATH;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -12,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import static execution.Constants.MAX_RESOLUTION;
 import javax.swing.JOptionPane;
-import org.json.JSONObject;
 import process.Aggregator;
 import process.Corrector;
 import process.Luter;
@@ -24,41 +21,7 @@ public class Manager {
 		csv, lut
 	}
 
-	public static ExecutionConfiguration execute(JSONObject config, ExecutionConfiguration exConf) {
-
-		System.out.println("setup...");
-
-		try {
-			exConf.setInputCsvPath(config.getString("input_file"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: unable to read 'input_file' property in '" + JSON_CONFIG_PATH + "'.");
-			return exConf;
-		}
-		try {
-			exConf.setAggregationOrder(config.getInt("aggregation_order"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: unable to read 'aggregation_order' property in '" + JSON_CONFIG_PATH + "'.");
-			return exConf;
-		}
-		try {
-			exConf.setDeadZoneEnhancement(config.getInt("deadzone_enhancement"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_enhancement' property in '" + JSON_CONFIG_PATH + "'.");
-			return exConf;
-		}
-		try {
-			exConf.setDeadZoneCorrectionOnly(config.getBoolean("deadzone_correction_only"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: unable to read 'deadzone_correction_only' property in '" + JSON_CONFIG_PATH + "'.");
-			return exConf;
-		}
-
-
-		System.out.println("starting generate csv procedure...");
+	public static ExecutionConfiguration execute(ExecutionConfiguration exConf) {
 
 		try {
 			return process(exConf);
