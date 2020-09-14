@@ -24,7 +24,6 @@ public class DrawGraphHD extends JPanel {
 	private static final Dimension GRAPH_DIMENSION = new Dimension(680, 680);
 	private static final int BORDER_GAP = 20;
 	private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
-	//private static final int GRAPH_POINT_WIDTH = 10;
 	private static final int X_HATCH_CNT = 20;
 	private static final int Y_HATCH_CNT = 20;
 	private List<LineOfValues> allLines;
