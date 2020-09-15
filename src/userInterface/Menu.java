@@ -95,11 +95,27 @@ public class Menu extends JPanel{
 		            e1.printStackTrace();
 		        }
 		    }
-		    
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	documentationLink.setText(linkLabel);
-            }
+		
+		});
+		
+		// Updates label	
+		final String updatesLabel = "Check for updates";
+		final JLabel updatesLink = new JLabel(updatesLabel);
+		updatesLink.setFont(new Font(headingLabel.getFont().getFontName(), 2, 13));
+		updatesLink.setForeground(Color.BLUE);
+		updatesLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		// Add Listener for the link	
+		updatesLink.addMouseListener(new MouseAdapter() {
+			 
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        try {            
+		            Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator/releases"));  
+		        } catch (IOException | URISyntaxException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
 		
 		});
 		
@@ -176,6 +192,11 @@ public class Menu extends JPanel{
 		layoutPanel.add(deadZoneEnhancementLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(deadZoneEnhancement, constr);
+		
+		constr.gridx=2;
+		constr.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(updatesLink, constr);
+		constr.anchor = GridBagConstraints.WEST;
 		
 		// FOURTH ROW
 		constr.gridy++;
