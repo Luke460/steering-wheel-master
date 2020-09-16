@@ -1,8 +1,6 @@
 package userInterface;
 
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -50,6 +48,8 @@ public class Menu extends JPanel{
 	JSlider aggregationSlider;
 	JSlider deadZoneEnhancement;
 	JSONObject config;
+	JLabel documentationLink;
+	JLabel updatesLink;
 
 
 	public void showMenu(org.json.JSONObject inputConfig){
@@ -83,45 +83,17 @@ public class Menu extends JPanel{
 
 		// Link label	
 		final String linkLabel = "Open documentation";
-		final JLabel documentationLink = new JLabel(linkLabel);
+		documentationLink = new JLabel(linkLabel);
 		documentationLink.setFont(new Font(headingLabel.getFont().getFontName(), 2, 13));
 		documentationLink.setForeground(Color.BLUE);
 		documentationLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		// Add Listener for the link	
-		documentationLink.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {            
-					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator"));  
-				} catch (IOException | URISyntaxException e1) {
-					e1.printStackTrace();
-				}
-			}
-
-		});
-
 		// Updates label	
 		final String updatesLabel = "Check for updates";
-		final JLabel updatesLink = new JLabel(updatesLabel);
+		updatesLink = new JLabel(updatesLabel);
 		updatesLink.setFont(new Font(headingLabel.getFont().getFontName(), 2, 13));
 		updatesLink.setForeground(Color.BLUE);
 		updatesLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		// Add Listener for the link	
-		updatesLink.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {            
-					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator/releases"));  
-				} catch (IOException | URISyntaxException e1) {
-					e1.printStackTrace();
-				}
-			}
-
-		});
 
 		// create event listener for the buttons
 		PerformListener performListener = new PerformListener();
@@ -146,13 +118,6 @@ public class Menu extends JPanel{
 		deadZoneCorrectionOnly = new JCheckBox();
 		deadZoneCorrectionOnly.setText("Dead zone correction only");
 		deadZoneCorrectionOnly.setSelected(inputConfig.getBoolean(DEADZONE_CORRECTION_ONLY));
-		deadZoneCorrectionOnly.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				updateComponentsStatus();
-			}
-		});
 
 		addTimestampInFilename = new JCheckBox();
 		addTimestampInFilename.setText("Add timestamp");
@@ -183,16 +148,7 @@ public class Menu extends JPanel{
 		deadZoneEnhancement.setPaintTrack(true);
 		deadZoneEnhancement.setLabelTable(position); 
 
-		deadZoneEnhancement.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				updateComponentsStatus();
-			}
-		});
-
 		// FIRST FOW
-
 		constr.gridx=0;
 		constr.gridy=0;
 		layoutPanel.add(inputFileLabel, constr);
@@ -258,6 +214,7 @@ public class Menu extends JPanel{
 		mainPanel.add(headingPanel);
 		mainPanel.add(layoutPanel);
 		
+		addListeners();
 		updateComponentsStatus();
 
 		// Add panel to frame
@@ -267,6 +224,46 @@ public class Menu extends JPanel{
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+	}
+	
+	private void addListeners() {
+			
+		documentationLink.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {            
+					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator"));  
+				} catch (IOException | URISyntaxException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+			
+		updatesLink.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {            
+					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator/releases"));  
+				} catch (IOException | URISyntaxException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		deadZoneCorrectionOnly.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				updateComponentsStatus();
+			}
+		});
+		
+		deadZoneEnhancement.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				updateComponentsStatus();
+			}
+		});
 		
 	}
 	
