@@ -114,7 +114,9 @@ public class Manager {
 
 		// BEGIN ERROR CORRECTION
 
-		inputDeltaXDeg = Corrector.adjust(inputDeltaXDeg, "deltaXDeg");
+		if(exConf.isSaveCSV()) {
+			inputDeltaXDeg = Corrector.adjust(inputDeltaXDeg, "deltaXDeg");
+		}
 		deltaXdouble = Corrector.adjust(deltaXdouble, "deltaX");	
 
 		// END ERROR CORRECTION	
@@ -130,7 +132,9 @@ public class Manager {
 
 		System.out.println("aggregation...");
 
-		aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, exConf.isDeadZoneCorrectionOnly()?0:exConf.getAggregationOrder());
+		if(exConf.isSaveCSV()) {
+			aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, exConf.isDeadZoneCorrectionOnly()?0:exConf.getAggregationOrder());
+		}
 		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, exConf.isDeadZoneCorrectionOnly()?0:exConf.getAggregationOrder());
 
 		// END AGGREGATION
