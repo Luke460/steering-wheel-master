@@ -73,7 +73,9 @@ public class Manager {
 						startX.add(Integer.parseInt(row[1]));
 						endX.add(Integer.parseInt(row[2]));
 						inputDeltaX.add(Integer.parseInt(row[3]));
-						inputDeltaXDeg.add(Double.parseDouble(row[4]));
+						if(exConf.isSaveCSV()) {
+							inputDeltaXDeg.add(Double.parseDouble(row[4]));
+						}
 					}
 
 				} else {
