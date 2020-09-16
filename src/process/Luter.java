@@ -62,7 +62,7 @@ public class Luter {
 
 	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, int deadZoneEnhancement) {
 		// remove 
-		double totalDelta = deadZoneEnhancement*0.002;
+		double totalDelta = deadZoneEnhancement*0.005;
 		ArrayList<Double> output = new ArrayList<Double>();
 		output.addAll(input);
 		for(int i = 0; i<input.size()-1; i++) {
