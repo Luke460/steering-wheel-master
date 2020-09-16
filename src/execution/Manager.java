@@ -130,8 +130,8 @@ public class Manager {
 
 		System.out.println("aggregation...");
 
-		aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, exConf.getAggregationOrder());
-		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, exConf.getAggregationOrder());
+		aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, exConf.isDeadZoneCorrectionOnly()?0:exConf.getAggregationOrder());
+		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, exConf.isDeadZoneCorrectionOnly()?0:exConf.getAggregationOrder());
 
 		// END AGGREGATION
 
@@ -144,7 +144,7 @@ public class Manager {
 		
 		// BEGIN DEAD CORRECTION ONLY
 		if(exConf.isDeadZoneCorrectionOnly()) {
-			correctiveMap = Luter.deadZoneCorrectionOnly(correctiveMap);
+			correctiveMap = Luter.deadZoneCorrectionOnly(inputForce, aggregateDeltaXdouble);
 		}
 		// END DEAD CORRECTION ONLY
 
@@ -161,7 +161,7 @@ public class Manager {
 				DrawGraphHD.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)), 
-						"[AG=" + exConf.aggregationOrder + ",DZ=" + exConf.getDeadZoneEnhancement() + ",DZCO=" + exConf.isDeadZoneCorrectionOnly() + "] " + exConf.inputCsvPath);
+						"[AG=" + (exConf.isDeadZoneCorrectionOnly()?0:exConf.aggregationOrder) + ",DZ=" + exConf.getDeadZoneEnhancement() + ",DZCO=" + exConf.isDeadZoneCorrectionOnly() + "] " + exConf.inputCsvPath);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}

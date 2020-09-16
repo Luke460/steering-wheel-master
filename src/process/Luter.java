@@ -76,34 +76,25 @@ public class Luter {
 		return output;
 	}
 	
-	public static ArrayList<Double> deadZoneCorrectionOnly(ArrayList<Double> input){
+	public static ArrayList<Double> deadZoneCorrectionOnly(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble){
+		int x = findIndexOfLowerValue(aggregateDeltaXdouble, Collections.max(aggregateDeltaXdouble)*0.01);
+		double firstLutValue = (force.get(x)*1.0)/(Collections.max(force)*1.0);
+		return generateLinearizedLut(1000, firstLutValue);
+
+	}
+
+	private static ArrayList<Double> generateLinearizedLut(int size, double firstLutValue) {
 		ArrayList<Double> output = new ArrayList<Double>();
-		output.addAll(input);
-		for(int i=0; i<input.size()-1; i++) {
-			Double targetDelta = findTargetDelta(input, i);
-			Double currentDelta = input.get(i+1) - input.get(i); 
-			if(targetDelta>=currentDelta) {
-				return linearizeAll(output,i,targetDelta);
-			}
+		output.add(0.0);
+		output.add(firstLutValue);
+		double delta = (1-firstLutValue)/(size-1.0);
+		for(int i = 2; i<size; i++) {
+			output.add(output.get(i-1)+delta);
 		}
+		output.add(1.0);
 		return output;
 	}
-
-	private static ArrayList<Double> linearizeAll(ArrayList<Double> input, int x, double delta) {
-		ArrayList<Double> output = new ArrayList<Double>();
-		output.addAll(input);
-		for(int i = x; i<input.size()-1; i++) {
-			Double value = output.get(i-1) + delta;
-			output.set(i, value);
-		}
-		return output;
-	}
-
-	private static Double findTargetDelta(ArrayList<Double> input, int i) {
-		Double totalDelta = input.get(input.size()-1) - input.get(i);
-		return (totalDelta/(double)(input.size()-1-i));
-	}
-
+	
 	private static int findIndexOfLowerValue(ArrayList<Double> input, double targetValue) {
 		
 		if(targetValue==0) return 0;
