@@ -1,6 +1,10 @@
 package userInterface;
 
 import javax.swing.*;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.json.JSONObject;
 
@@ -76,53 +80,80 @@ public class Menu extends JPanel{
 		inputFileText = new JTextField();
 		inputFileText.setPreferredSize(new Dimension(236, 22));
 		inputFileText.setText(config.getString(INPUT_FILE));
-		
+
 		// Link label	
 		final String linkLabel = "Open documentation";
 		final JLabel documentationLink = new JLabel(linkLabel);
 		documentationLink.setFont(new Font(headingLabel.getFont().getFontName(), 2, 13));
 		documentationLink.setForeground(Color.BLUE);
 		documentationLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+
 		// Add Listener for the link	
 		documentationLink.addMouseListener(new MouseAdapter() {
-			 
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-		        try {            
-		            Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator"));  
-		        } catch (IOException | URISyntaxException e1) {
-		            e1.printStackTrace();
-		        }
-		    }
-		
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {            
+					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator"));  
+				} catch (IOException | URISyntaxException e1) {
+					e1.printStackTrace();
+				}
+			}
+
 		});
-		
+
 		// Updates label	
 		final String updatesLabel = "Check for updates";
 		final JLabel updatesLink = new JLabel(updatesLabel);
 		updatesLink.setFont(new Font(headingLabel.getFont().getFontName(), 2, 13));
 		updatesLink.setForeground(Color.BLUE);
 		updatesLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+
 		// Add Listener for the link	
 		updatesLink.addMouseListener(new MouseAdapter() {
-			 
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-		        try {            
-		            Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator/releases"));  
-		        } catch (IOException | URISyntaxException e1) {
-		            e1.printStackTrace();
-		        }
-		    }
-		
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {            
+					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator/releases"));  
+				} catch (IOException | URISyntaxException e1) {
+					e1.printStackTrace();
+				}
+			}
+
 		});
-		
+
+		// create event listener for the buttons
+		PerformListener performListener = new PerformListener();
+
+		fileBrowserButton = new JButton("File browser");
+
+		previewButton = new JButton("Preview");
+		previewButton.addActionListener(performListener);
+
+		generateCsvButton = new JButton("Generate csv");
+		generateCsvButton.addActionListener(performListener);
+
+		generateLutButton = new JButton("Generate lut");
+		generateLutButton.addActionListener(performListener);
+
+		Dimension buttonDimension = new Dimension(160, 30);
+		fileBrowserButton.setPreferredSize(buttonDimension);
+		previewButton.setPreferredSize(buttonDimension);
+		generateCsvButton.setPreferredSize(buttonDimension);
+		generateLutButton.setPreferredSize(buttonDimension);
+
 		deadZoneCorrectionOnly = new JCheckBox();
 		deadZoneCorrectionOnly.setText("Dead zone correction only");
 		deadZoneCorrectionOnly.setSelected(inputConfig.getBoolean(DEADZONE_CORRECTION_ONLY));
-		
+		deadZoneCorrectionOnly.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				updateComponentsStatus();
+			}
+		});
+
 		addTimestampInFilename = new JCheckBox();
 		addTimestampInFilename.setText("Add timestamp");
 		addTimestampInFilename.setSelected(inputConfig.getBoolean(ADD_TIMESTAMP));
@@ -152,14 +183,16 @@ public class Menu extends JPanel{
 		deadZoneEnhancement.setPaintTrack(true);
 		deadZoneEnhancement.setLabelTable(position); 
 
-		// create event listener for the buttons
-		PerformListener performListener = new PerformListener();
+		deadZoneEnhancement.addChangeListener(new ChangeListener() {
 
-		// Declare File Manager Button
-		fileBrowserButton = new JButton("File browser");
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				updateComponentsStatus();
+			}
+		});
 
 		// FIRST FOW
-		
+
 		constr.gridx=0;
 		constr.gridy=0;
 		layoutPanel.add(inputFileLabel, constr);
@@ -170,7 +203,7 @@ public class Menu extends JPanel{
 		constr.gridx=2;
 		layoutPanel.add(fileBrowserButton, constr);
 		fileBrowserButton.addActionListener(performListener);
-		
+
 		// SECOND ROW
 		constr.gridy++;
 
@@ -184,7 +217,7 @@ public class Menu extends JPanel{
 
 		constr.gridx=2;
 		layoutPanel.add(autoButton, constr);
-		
+
 		// THIRD ROW
 		constr.gridy++;
 
@@ -192,45 +225,27 @@ public class Menu extends JPanel{
 		layoutPanel.add(deadZoneEnhancementLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(deadZoneEnhancement, constr);
-		
+
 		constr.gridx=2;
 		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(updatesLink, constr);
 		constr.anchor = GridBagConstraints.WEST;
-		
+
 		// FOURTH ROW
 		constr.gridy++;
-		
+
 		constr.gridx=0;
 		layoutPanel.add(addTimestampInFilename, constr);
-		
+
 		constr.gridx=1;
 		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(deadZoneCorrectionOnly, constr);
-		
+
 		constr.gridx=2;
 		layoutPanel.add(documentationLink, constr);
 		constr.anchor = GridBagConstraints.WEST;
-		
+
 		//FIFTH ROW
-		
-		constr.gridx=0; constr.gridy++;	
-		previewButton = new JButton("Preview");
-		previewButton.addActionListener(performListener);
-
-		generateCsvButton = new JButton("Generate csv");
-		generateCsvButton.addActionListener(performListener);
-
-		generateLutButton = new JButton("Generate lut");
-		generateLutButton.addActionListener(performListener);
-
-		Dimension buttonDimension = new Dimension(160, 30);
-		fileBrowserButton.setPreferredSize(buttonDimension);
-		previewButton.setPreferredSize(buttonDimension);
-		generateCsvButton.setPreferredSize(buttonDimension);
-		generateLutButton.setPreferredSize(buttonDimension);
-
-		// Add label and button to panel
 		constr.gridx=0; constr.gridy++;
 		constr.gridwidth = 3;
 		constr.anchor = GridBagConstraints.WEST;
@@ -242,6 +257,8 @@ public class Menu extends JPanel{
 
 		mainPanel.add(headingPanel);
 		mainPanel.add(layoutPanel);
+		
+		updateComponentsStatus();
 
 		// Add panel to frame
 		frame.add(mainPanel);
@@ -250,6 +267,25 @@ public class Menu extends JPanel{
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+	}
+	
+	private void updateComponentsStatus() {
+		
+		//aggregationSlider
+		if(!deadZoneCorrectionOnly.isSelected()) {
+			aggregationSlider.setEnabled(true);
+		} else {
+			aggregationSlider.setEnabled(false);
+		}
+		
+		//generateCsvButton
+		if(!deadZoneCorrectionOnly.isSelected()&&deadZoneEnhancement.getValue()==0) {
+			generateCsvButton.setEnabled(true);
+		} else {
+			generateCsvButton.setEnabled(false);
+		}
+		
 	}
 
 	public void updateConfig(org.json.JSONObject config) {
@@ -300,7 +336,7 @@ public class Menu extends JPanel{
 		}
 
 		private void transferJsonConfigIntoExConf(ExecutionConfiguration exConf) {
-			
+
 			try {
 				exConf.setInputCsvPath(config.getString(INPUT_FILE));
 			} catch (Exception ex) {
