@@ -189,11 +189,12 @@ public class Manager {
 						bw.flush();
 					} else {
 						int adjustedEndX = startX.get(i) + aggregateDeltaX.get(i);
+						double adjustedAggregatedeltaXDegValue = Utility.round(aggregatedeltaXDeg.get(i),6);
 						String s = inputForce.get(i) + ", " + 
 								startX.get(i) + ", " +
 								adjustedEndX + ", " + 
 								aggregateDeltaX.get(i) + ", " +
-								aggregatedeltaXDeg.get(i);   
+								String.format("%.6f",adjustedAggregatedeltaXDegValue);  
 						bw.write(s);
 						bw.newLine();
 						bw.flush();
