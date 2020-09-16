@@ -8,8 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
+
 import static execution.Constants.MAX_RESOLUTION;
 import javax.swing.JOptionPane;
 import process.Aggregator;
@@ -194,7 +197,7 @@ public class Manager {
 								startX.get(i) + ", " +
 								adjustedEndX + ", " + 
 								aggregateDeltaX.get(i) + ", " +
-								String.format("%.6f",adjustedAggregatedeltaXDegValue);  
+								String.format(new Locale("en", "US"), "%.6f", adjustedAggregatedeltaXDegValue); 
 						bw.write(s);
 						bw.newLine();
 						bw.flush();
