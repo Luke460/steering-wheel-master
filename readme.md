@@ -26,8 +26,8 @@ To run ***Wheel Check Data Aggregator***, download the [***latest version***](ht
 Now you have to locate your ***Wheel Check***'s log file and choose the degree of data aggregation (named ***aggregation order***):
 
  - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest starting with a value like 3.
- - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3, 4 or even 5.
- - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to not use aggregation at all. Since geared wheels tend to have clipping problems that can invalidate wheel check readings, I suggest to try to enable *"Dead zone correction only"* and set *"Dead zone enhancement"* to 5 as starting point. Than you have to find the correct *"Dead zone enhancement"* value depending on your steering wheel dead zone. In this example I am using aggregation just to give you a complete example.
+ - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3 or 4.
+ - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to ***not use aggregation*** at all. Since geared wheels tend to have clipping problems that can invalidate wheel check readings, I suggest to try to enable *"Dead zone correction only"* and set *"Dead zone enhancement"* to 5 as starting point. Than you have to find the correct *"Dead zone enhancement"* value depending on your steering wheel dead zone. In this example I am using aggregation just to give you a complete example. If you still want to use aggregation, use a higher value like 4 or 5.
  
   Every steering wheel is different, you may need to find the perfect aggregation value for your device!
   - Recommended values are between 2 and 6. (3 is always a good starting point).
