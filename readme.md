@@ -25,9 +25,9 @@ To run ***Wheel Check Data Aggregator***, download the [***latest version***](ht
 
 Now you have to locate your ***Wheel Check***'s log file and choose the degree of data aggregation (named ***aggregation order***):
 
- - For ***geared wheels*** - like Logitech G29 or G27 - I suggest 4 or 5 as aggregation order (5 is perfect in my case).
- - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3 or 4.
- - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest a lower value like 3.
+ - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest starting with a value like 3.
+ - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3, 4 or even 5.
+ - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to not use aggregation at all. Since geared wheels tend to have clipping problems that can invalidate wheel check readings, I suggest to try to enable *"Dead zone correction only"* and set *"Dead zone enhancement"* to 5 as starting point. Than you have to find the correct *"Dead zone enhancement"* value depending on your steering wheel dead zone. In this example I am using aggregation just to give you a complete example.
  
   Every steering wheel is different, you may need to find the perfect aggregation value for your device!
   - Recommended values are between 2 and 6. (3 is always a good starting point).
@@ -38,7 +38,7 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
  - Don't go too high, or you will lose precision in force feedback correction.
  - Don't go too low or you will not benefit of the aggregation procedure.
  - You can click on ***auto*** to (hopefully) calculate a good aggregation order for your wheel.
- - Don't use ***dead zone enhancement*** unless you have vibrations in the central area of the steering wheel and you don't want to increase the ***aggregation order*** too much.
+ - Don't use ***dead zone enhancement*** unless you have vibrations in the central area of the steering wheel and you don't want to increase the ***aggregation order*** too much. Ignore this tip if you are using ***Dead zone correction only***.
  - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
