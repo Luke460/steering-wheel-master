@@ -43,6 +43,8 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
  
 ![menu](images/menu.png)
 
+ **NOTE:** these settings are not suggested for a Logitech G29! Since geared wheels tend to have clipping problems that can invalidate wheel check readings, I suggest to try to enable *"Dead zone correction only"* and set *"Dead zone enhancement"* to 5 as starting point. Than you have to find the correct *"Dead zone enhancement"* value depending on your steering wheel dead zone. In this example I am using aggregation just to give you a complete example.
+
 Now click on ***Generate csv*** or ***Generate lut*** (depending on the purpose for which you will use this application) and if everything goes well, you should get the following output message:
 
 ![success](images/success.png)
