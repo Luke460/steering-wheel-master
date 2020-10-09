@@ -34,7 +34,7 @@ public class Menu extends JPanel{
 	private static final String INPUT_FILE = "input_file";
 	private static final String AGGREGATION_ORDER = "aggregation_order";
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
-	private static final String DEADZONE_CORRECTION_ONLY = "deadzone_correction_only";
+	private static final String GENERATE_LINEAR_LUT = "generate_linear_lut";
 	private static final String PEAK_REDUCTION = "peak_reduction";
 	private static final String ADD_TIMESTAMP = "add_timestamp";
 	private static final Dimension MENU_DIMENSION = new Dimension(648, 400);
@@ -43,7 +43,7 @@ public class Menu extends JPanel{
 	JButton generateLutButton;
 	JButton fileBrowserButton;
 	JButton autoButton;
-	JCheckBox deadZoneCorrectionOnly;
+	JCheckBox generateLinearLut;
 	JCheckBox addTimestampInFilename;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
@@ -117,9 +117,9 @@ public class Menu extends JPanel{
 		generateCsvButton.setPreferredSize(buttonDimension);
 		generateLutButton.setPreferredSize(buttonDimension);
 
-		deadZoneCorrectionOnly = new JCheckBox();
-		deadZoneCorrectionOnly.setText("Dead zone correction only");
-		deadZoneCorrectionOnly.setSelected(inputConfig.getBoolean(DEADZONE_CORRECTION_ONLY));
+		generateLinearLut = new JCheckBox();
+		generateLinearLut.setText("Generate linear lut");
+		generateLinearLut.setSelected(inputConfig.getBoolean(GENERATE_LINEAR_LUT));
 
 		addTimestampInFilename = new JCheckBox();
 		addTimestampInFilename.setText("Add timestamp");
@@ -215,7 +215,7 @@ public class Menu extends JPanel{
 
 		constr.gridx=1;
 		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(deadZoneCorrectionOnly, constr);
+		layoutPanel.add(generateLinearLut, constr);
 
 		constr.gridx=2;
 		layoutPanel.add(documentationLink, constr);
@@ -271,7 +271,7 @@ public class Menu extends JPanel{
 			}
 		});
 		
-		deadZoneCorrectionOnly.addChangeListener(new ChangeListener() {
+		generateLinearLut.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				updateComponentsStatus();
@@ -297,14 +297,14 @@ public class Menu extends JPanel{
 	private void updateComponentsStatus() {
 		
 		//aggregationSlider
-		if(!deadZoneCorrectionOnly.isSelected()) {
+		if(!generateLinearLut.isSelected()) {
 			aggregationSlider.setEnabled(true);
 		} else {
 			aggregationSlider.setEnabled(false);
 		}
 		
 		//generateCsvButton
-		if(!deadZoneCorrectionOnly.isSelected()&&deadZoneEnhancementSlider.getValue()==0&&peakReductionSlider.getValue()==0) {
+		if(!generateLinearLut.isSelected()&&deadZoneEnhancementSlider.getValue()==0&&peakReductionSlider.getValue()==0) {
 			generateCsvButton.setEnabled(true);
 		} else {
 			generateCsvButton.setEnabled(false);
@@ -316,7 +316,7 @@ public class Menu extends JPanel{
 		config.put(AGGREGATION_ORDER, aggregationSlider.getValue());
 		config.put(INPUT_FILE, inputFileText.getText());
 		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue());
-		config.put(DEADZONE_CORRECTION_ONLY, deadZoneCorrectionOnly.isSelected());
+		config.put(GENERATE_LINEAR_LUT, generateLinearLut.isSelected());
 		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
 		config.put(ADD_TIMESTAMP, addTimestampInFilename.isSelected());
 		try {
@@ -349,7 +349,7 @@ public class Menu extends JPanel{
 				aggregationSlider.setValue(exConf.getAggregationOrder());
 				deadZoneEnhancementSlider.setValue(exConf.getDeadZoneEnhancement());
 				peakReductionSlider.setValue(exConf.getPeakReduction());
-				deadZoneCorrectionOnly.setSelected(exConf.isDeadZoneCorrectionOnly());
+				generateLinearLut.setSelected(exConf.isGenerateLinearLut());
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new CsvFileFilter());
@@ -382,10 +382,10 @@ public class Menu extends JPanel{
 				JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEADZONE_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
-				exConf.setDeadZoneCorrectionOnly(config.getBoolean(DEADZONE_CORRECTION_ONLY));
+				exConf.setGenerateLinearLut(config.getBoolean(GENERATE_LINEAR_LUT));
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEADZONE_CORRECTION_ONLY + "' property in '" + JSON_CONFIG_PATH + "'.");
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + GENERATE_LINEAR_LUT + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
 				exConf.setAddTimestamp(config.getBoolean(ADD_TIMESTAMP));

@@ -128,7 +128,7 @@ public class Manager {
 		if(exConf.isAutoCalcAggregationOder()) {
 			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(deltaXdouble));
 			exConf.setDeadZoneEnhancement(0);
-			exConf.setDeadZoneCorrectionOnly(false);
+			exConf.setGenerateLinearLut(false);
 			exConf.setPeakReduction(0);
 			return exConf;
 		}
@@ -138,9 +138,9 @@ public class Manager {
 		System.out.println("aggregation...");
 
 		if(exConf.isSaveCSV()) {
-			aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, exConf.isDeadZoneCorrectionOnly()?0:exConf.getAggregationOrder());
+			aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 		}
-		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, exConf.isDeadZoneCorrectionOnly()?0:exConf.getAggregationOrder());
+		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 
 		// END AGGREGATION
 
@@ -152,7 +152,7 @@ public class Manager {
 		// END LUT GENERATION
 		
 		// BEGIN DEAD CORRECTION ONLY
-		if(exConf.isDeadZoneCorrectionOnly()) {
+		if(exConf.isGenerateLinearLut()) {
 			correctiveMap = Luter.deadZoneCorrectionOnly(inputForce, aggregateDeltaXdouble);
 		}
 		// END DEAD CORRECTION ONLY
@@ -175,7 +175,7 @@ public class Manager {
 				DrawGraphHD.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), 
-						"[AG=" + (exConf.isDeadZoneCorrectionOnly()?0:exConf.aggregationOrder) + ",PR=" + exConf.getPeakReduction() + ",DZ=" + exConf.getDeadZoneEnhancement() + ",DZCO=" + exConf.isDeadZoneCorrectionOnly() + "] " + exConf.inputCsvPath);
+						"[AG=" + (exConf.isGenerateLinearLut()?0:exConf.aggregationOrder) + ",PR=" + exConf.getPeakReduction() + ",DZ=" + exConf.getDeadZoneEnhancement() + ",DZCO=" + exConf.isGenerateLinearLut() + "] " + exConf.inputCsvPath);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -245,7 +245,7 @@ public class Manager {
 	}
 	
 	private static String generateFileName(ExecutionConfiguration exConf, FileType type) {
-		return "AG" + (exConf.isDeadZoneCorrectionOnly()?0:exConf.aggregationOrder) + "-PR" + exConf.getPeakReduction() + "-DZ" + exConf.getDeadZoneEnhancement() + (exConf.isDeadZoneCorrectionOnly()?"-DZCO":"") + (exConf.isAddTimestamp()?"-T" + System.currentTimeMillis():"") + "." + type.name();
+		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.aggregationOrder) + "-PR" + exConf.getPeakReduction() + "-DZ" + exConf.getDeadZoneEnhancement() + (exConf.isGenerateLinearLut()?"-DZCO":"") + (exConf.isAddTimestamp()?"-T" + System.currentTimeMillis():"") + "." + type.name();
 	}
 
 }

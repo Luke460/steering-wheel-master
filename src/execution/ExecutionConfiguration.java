@@ -6,7 +6,7 @@ public class ExecutionConfiguration {
 	boolean saveLUT; 
 	boolean showPreview;
 	boolean autoCalcAggregationOder;
-	boolean deadZoneCorrectionOnly;
+	boolean generateLinearLut;
 	boolean addTimestamp;
 	String inputCsvPath;
 	int aggregationOrder;
@@ -18,7 +18,7 @@ public class ExecutionConfiguration {
 		this.saveLUT = false;
 		this.showPreview = false;
 		this.autoCalcAggregationOder = false;
-		this.deadZoneCorrectionOnly = false;
+		this.generateLinearLut = false;
 		this.addTimestamp = true;
 	};
 
@@ -78,12 +78,12 @@ public class ExecutionConfiguration {
 		this.deadZoneEnhancement = deadZoneEnhancement;
 	}
 
-	public boolean isDeadZoneCorrectionOnly() {
-		return deadZoneCorrectionOnly;
+	public boolean isGenerateLinearLut() {
+		return generateLinearLut;
 	}
 
-	public void setDeadZoneCorrectionOnly(boolean deadZoneCorrectionOnly) {
-		this.deadZoneCorrectionOnly = deadZoneCorrectionOnly;
+	public void setGenerateLinearLut(boolean deadZoneCorrectionOnly) {
+		this.generateLinearLut = deadZoneCorrectionOnly;
 	}
 
 	public boolean isAddTimestamp() {
