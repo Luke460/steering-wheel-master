@@ -175,7 +175,7 @@ public class Manager {
 				DrawGraphHD.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), 
-						"[AG=" + (exConf.isGenerateLinearLut()?0:exConf.aggregationOrder) + ",PR=" + exConf.getPeakReduction() + ",DZ=" + exConf.getDeadZoneEnhancement() + ",DZCO=" + exConf.isGenerateLinearLut() + "] " + exConf.inputCsvPath);
+						"[AG=" + (exConf.isGenerateLinearLut()?0:exConf.aggregationOrder) + ",PR=" + exConf.getPeakReduction() + ",DZ=" + exConf.getDeadZoneEnhancement() + ",LL=" + (exConf.isGenerateLinearLut()?1:0) + "] " + exConf.inputCsvPath);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -245,7 +245,7 @@ public class Manager {
 	}
 	
 	private static String generateFileName(ExecutionConfiguration exConf, FileType type) {
-		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.aggregationOrder) + "-PR" + exConf.getPeakReduction() + "-DZ" + exConf.getDeadZoneEnhancement() + (exConf.isGenerateLinearLut()?"-DZCO":"") + (exConf.isAddTimestamp()?"-T" + System.currentTimeMillis():"") + "." + type.name();
+		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.aggregationOrder) + "-PR" + exConf.getPeakReduction() + "-DZ" + exConf.getDeadZoneEnhancement() + (exConf.isGenerateLinearLut()?"-LL":"") + (exConf.isAddTimestamp()?"-T" + System.currentTimeMillis()/1000:"") + "." + type.name();
 	}
 
 }
