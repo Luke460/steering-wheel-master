@@ -82,6 +82,29 @@ public class Luter {
 		return generateLinearizedLut(1000, firstLutValue);
 
 	}
+	
+	public static ArrayList<Double> reduceForcePeaks(ArrayList<Double> input, int peakForceReduction) {
+		//peakForceReduction = 1,2,3,...,8,9,10
+		// 1  -> (100-1*5)*0.1 = 0.95
+		// 10 -> (100-10*5)*0.1 = 0.50
+		int startingPoint = (int) Math.round(input.size()*0.5);
+		double startingValue = input.get(startingPoint);
+		ArrayList<Double> output = new ArrayList<Double>();
+		output.addAll(input);
+		double c = 0.0;
+		double x = (peakForceReduction*0.05)/(input.size()-startingPoint);
+		for(int i = startingPoint; i<input.size(); i++) {
+			c += x;
+			double value = startingValue*(c) + input.get(i)*(1.0-c);
+			if(value<output.get(i-1)) {
+				value = output.get(i-1);
+			}
+			output.set(i, value);
+		}
+		return output;
+	}
+	
+	// private methods
 
 	private static ArrayList<Double> generateLinearizedLut(int size, double firstLutValue) {
 		ArrayList<Double> output = new ArrayList<Double>();

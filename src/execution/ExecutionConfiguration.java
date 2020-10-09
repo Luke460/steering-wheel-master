@@ -11,6 +11,7 @@ public class ExecutionConfiguration {
 	String inputCsvPath;
 	int aggregationOrder;
 	int deadZoneEnhancement;
+	int peakReduction;
 	
 	public ExecutionConfiguration() {
 		this.saveCSV = false;
@@ -91,6 +92,14 @@ public class ExecutionConfiguration {
 
 	public void setAddTimestamp(boolean addTimestamp) {
 		this.addTimestamp = addTimestamp;
+	}
+
+	public int getPeakReduction() {
+		return peakReduction;
+	}
+
+	public void setPeakReduction(int peakReduction) {
+		this.peakReduction = peakReduction;
 	}
 
 }

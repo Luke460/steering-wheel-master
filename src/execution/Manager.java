@@ -129,6 +129,7 @@ public class Manager {
 			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(deltaXdouble));
 			exConf.setDeadZoneEnhancement(0);
 			exConf.setDeadZoneCorrectionOnly(false);
+			exConf.setPeakReduction(0);
 			return exConf;
 		}
 
@@ -160,22 +161,25 @@ public class Manager {
 		if(exConf.getDeadZoneEnhancement()>0) {
 			correctiveMap = Luter.enhanceDeadZone(correctiveMap, exConf.getDeadZoneEnhancement());
 		}
-		
 		// END DEAD_ZONE enhancement
+		
+		// BEGIN PEAK_REDUCTION
+		if(exConf.getPeakReduction()>0) {
+			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getPeakReduction());
+		}
+		// END PEAK_REDUCTION
 		
 		// print results
 		if(exConf.isShowPreview()) {
 			try {
 				DrawGraphHD.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
-						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)), 
-						"[AG=" + (exConf.isDeadZoneCorrectionOnly()?0:exConf.aggregationOrder) + ",DZ=" + exConf.getDeadZoneEnhancement() + ",DZCO=" + exConf.isDeadZoneCorrectionOnly() + "] " + exConf.inputCsvPath);
+						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), 
+						"[AG=" + (exConf.isDeadZoneCorrectionOnly()?0:exConf.aggregationOrder) + ",PR=" + exConf.getPeakReduction() + ",DZ=" + exConf.getDeadZoneEnhancement() + ",DZCO=" + exConf.isDeadZoneCorrectionOnly() + "] " + exConf.inputCsvPath);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
-		//correctiveMap = Utility.truncateArray(correctiveMap, 5); // 200 values in the output lut
 
 		// write results
 
@@ -241,7 +245,7 @@ public class Manager {
 	}
 	
 	private static String generateFileName(ExecutionConfiguration exConf, FileType type) {
-		return "AG-" + (exConf.isDeadZoneCorrectionOnly()?0:exConf.aggregationOrder) + "-DZ-" + exConf.getDeadZoneEnhancement() + (exConf.isDeadZoneCorrectionOnly()?"-DZCO":"") + (exConf.isAddTimestamp()?"-T-" + System.currentTimeMillis():"") + "." + type.name();
+		return "AG" + (exConf.isDeadZoneCorrectionOnly()?0:exConf.aggregationOrder) + "-PR" + exConf.getPeakReduction() + "-DZ" + exConf.getDeadZoneEnhancement() + (exConf.isDeadZoneCorrectionOnly()?"-DZCO":"") + (exConf.isAddTimestamp()?"-T" + System.currentTimeMillis():"") + "." + type.name();
 	}
 
 }

@@ -35,8 +35,9 @@ public class Menu extends JPanel{
 	private static final String AGGREGATION_ORDER = "aggregation_order";
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
 	private static final String DEADZONE_CORRECTION_ONLY = "deadzone_correction_only";
+	private static final String PEAK_REDUCTION = "peak_reduction";
 	private static final String ADD_TIMESTAMP = "add_timestamp";
-	private static final Dimension MENU_DIMENSION = new Dimension(648, 336);
+	private static final Dimension MENU_DIMENSION = new Dimension(648, 400);
 	JButton previewButton;
 	JButton generateCsvButton;
 	JButton generateLutButton;
@@ -46,7 +47,8 @@ public class Menu extends JPanel{
 	JCheckBox addTimestampInFilename;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
-	JSlider deadZoneEnhancement;
+	JSlider peakReductionSlider;
+	JSlider deadZoneEnhancementSlider;
 	JSONObject config;
 	JLabel documentationLink;
 	JLabel updatesLink;
@@ -138,15 +140,25 @@ public class Menu extends JPanel{
 		aggregationSlider.setPaintLabels(true);   		         
 		aggregationSlider.setLabelTable(position); 
 
+		JLabel peakReductionLabel = new JLabel("FFB peak reduction:");
+		peakReductionSlider = new JSlider(0, 10, config.getInt(PEAK_REDUCTION));
+		peakReductionSlider.setPreferredSize(new Dimension(244, 44));
+		peakReductionSlider.setMajorTickSpacing(5);
+		peakReductionSlider.setMinorTickSpacing(1);
+		peakReductionSlider.setPaintTicks(true);
+		peakReductionSlider.setPaintLabels(true);
+		peakReductionSlider.setPaintTrack(true);
+		peakReductionSlider.setLabelTable(position); 
+		
 		JLabel deadZoneEnhancementLabel = new JLabel("Dead zone enhancement:");
-		deadZoneEnhancement = new JSlider(0, 10, config.getInt(DEADZONE_ENHANCEMENT));
-		deadZoneEnhancement.setPreferredSize(new Dimension(244, 44));
-		deadZoneEnhancement.setMajorTickSpacing(5);
-		deadZoneEnhancement.setMinorTickSpacing(1);
-		deadZoneEnhancement.setPaintTicks(true);
-		deadZoneEnhancement.setPaintLabels(true);
-		deadZoneEnhancement.setPaintTrack(true);
-		deadZoneEnhancement.setLabelTable(position); 
+		deadZoneEnhancementSlider = new JSlider(0, 10, config.getInt(DEADZONE_ENHANCEMENT));
+		deadZoneEnhancementSlider.setPreferredSize(new Dimension(244, 44));
+		deadZoneEnhancementSlider.setMajorTickSpacing(5);
+		deadZoneEnhancementSlider.setMinorTickSpacing(1);
+		deadZoneEnhancementSlider.setPaintTicks(true);
+		deadZoneEnhancementSlider.setPaintLabels(true);
+		deadZoneEnhancementSlider.setPaintTrack(true);
+		deadZoneEnhancementSlider.setLabelTable(position); 
 
 		// FIRST FOW
 		constr.gridx=0;
@@ -178,16 +190,24 @@ public class Menu extends JPanel{
 		constr.gridy++;
 
 		constr.gridx=0; 
+		layoutPanel.add(peakReductionLabel, constr);
+		constr.gridx=1;
+		layoutPanel.add(peakReductionSlider, constr);
+		
+		// FOURTH ROW
+		constr.gridy++;
+
+		constr.gridx=0; 
 		layoutPanel.add(deadZoneEnhancementLabel, constr);
 		constr.gridx=1;
-		layoutPanel.add(deadZoneEnhancement, constr);
+		layoutPanel.add(deadZoneEnhancementSlider, constr);
 
 		constr.gridx=2;
 		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(updatesLink, constr);
 		constr.anchor = GridBagConstraints.WEST;
 
-		// FOURTH ROW
+		// FIFTH ROW
 		constr.gridy++;
 
 		constr.gridx=0;
@@ -201,7 +221,7 @@ public class Menu extends JPanel{
 		layoutPanel.add(documentationLink, constr);
 		constr.anchor = GridBagConstraints.WEST;
 
-		//FIFTH ROW
+		//SIXTH ROW
 		constr.gridx=0; constr.gridy++;
 		constr.gridwidth = 3;
 		constr.anchor = GridBagConstraints.WEST;
@@ -258,7 +278,14 @@ public class Menu extends JPanel{
 			}
 		});
 		
-		deadZoneEnhancement.addChangeListener(new ChangeListener() {
+		deadZoneEnhancementSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				updateComponentsStatus();
+			}
+		});
+		
+		peakReductionSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				updateComponentsStatus();
@@ -277,7 +304,7 @@ public class Menu extends JPanel{
 		}
 		
 		//generateCsvButton
-		if(!deadZoneCorrectionOnly.isSelected()&&deadZoneEnhancement.getValue()==0) {
+		if(!deadZoneCorrectionOnly.isSelected()&&deadZoneEnhancementSlider.getValue()==0&&peakReductionSlider.getValue()==0) {
 			generateCsvButton.setEnabled(true);
 		} else {
 			generateCsvButton.setEnabled(false);
@@ -288,8 +315,9 @@ public class Menu extends JPanel{
 	public void updateConfig(org.json.JSONObject config) {
 		config.put(AGGREGATION_ORDER, aggregationSlider.getValue());
 		config.put(INPUT_FILE, inputFileText.getText());
-		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancement.getValue());
+		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue());
 		config.put(DEADZONE_CORRECTION_ONLY, deadZoneCorrectionOnly.isSelected());
+		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
 		config.put(ADD_TIMESTAMP, addTimestampInFilename.isSelected());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
@@ -319,7 +347,8 @@ public class Menu extends JPanel{
 				exConf.setAutoCalcAggregationOder(true);
 				exConf = Manager.execute(exConf);
 				aggregationSlider.setValue(exConf.getAggregationOrder());
-				deadZoneEnhancement.setValue(exConf.getDeadZoneEnhancement());
+				deadZoneEnhancementSlider.setValue(exConf.getDeadZoneEnhancement());
+				peakReductionSlider.setValue(exConf.getPeakReduction());
 				deadZoneCorrectionOnly.setSelected(exConf.isDeadZoneCorrectionOnly());
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
@@ -363,6 +392,12 @@ public class Menu extends JPanel{
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Error: unable to read '" + ADD_TIMESTAMP + "' property in '" + JSON_CONFIG_PATH + "'.");
+			}
+			try {
+				exConf.setPeakReduction(config.getInt(PEAK_REDUCTION));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + PEAK_REDUCTION + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 		}
 	}
