@@ -27,11 +27,11 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
 
  - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest starting with a value like 3.
  - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3 or 4.
- - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to ***not use aggregation*** at all. Since geared wheels tend to have clipping problems that can invalidate wheel check readings, I suggest to try to *"Generate a linear lut"*. In this example I am using aggregation just to give you a complete example. If you still want to use aggregation, use a higher value like 4 or 5. 
+ - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to ***not use aggregation*** at all. Since geared wheels tend to have clipping issues that can invalidate wheel check readings, I suggest to try to *"Generate a linear lut"*. In this example I am using aggregation just to give you a complete example. If you still want to use aggregation, use a higher value like 4 or 5. 
  The suggested settings are the following:
    - Enable *"Generate linear lut"*
-   - *FFB peak reduction*: start from 0 and increment this value if you have a clipping issue.
-   - *Dead zone enhancement*: this value depend on your steering wheel deadzone. 5 is a good starting point.
+   - *FFB peak reduction*: 5 is an average value for this kind of wheels. If clipping doesn't occur, you can turn it down.
+   - *Dead zone enhancement*: this value depend on your steering wheel deadzone. Again, 5 is a good starting point.
  
   Every steering wheel is different, you may need to find the perfect aggregation value for your device!
   - Recommended values are between 2 and 6. (3 is always a good starting point).
@@ -42,7 +42,7 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
  - Don't go too high, or you will lose precision in force feedback correction.
  - Don't go too low or you will not benefit of the aggregation procedure.
  - You can click on ***auto*** to (hopefully) calculate a good aggregation order for your steering wheel.
- - You can use ***FFB peak reduction*** if you have clipping issues with your steering wheel.
+ - You can use ***FFB peak reduction*** if you have clipping issues with your steering wheel or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, or the steering wheel resistence when your car is still.
  - You can use ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel and you don't want to increase the ***aggregation order*** too much.
  - Experiment and play with the ***preview*** button!
  
