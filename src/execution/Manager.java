@@ -156,18 +156,18 @@ public class Manager {
 			correctiveMap = Luter.deadZoneCorrectionOnly(inputForce, aggregateDeltaXdouble);
 		}
 		// END DEAD CORRECTION ONLY
-
-		// BEGIN DEAD_ZONE enhancement
-		if(exConf.getDeadZoneEnhancement()>0) {
-			correctiveMap = Luter.enhanceDeadZone(correctiveMap, exConf.getDeadZoneEnhancement());
-		}
-		// END DEAD_ZONE enhancement
 		
 		// BEGIN PEAK_REDUCTION
 		if(exConf.getPeakReduction()>0) {
 			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getPeakReduction());
 		}
 		// END PEAK_REDUCTION
+
+		// BEGIN DEAD_ZONE enhancement
+		if(exConf.getDeadZoneEnhancement()>0) {
+			correctiveMap = Luter.enhanceDeadZone(correctiveMap, exConf.getDeadZoneEnhancement());
+		}
+		// END DEAD_ZONE enhancement
 		
 		// print results
 		if(exConf.isShowPreview()) {
