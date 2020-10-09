@@ -37,7 +37,7 @@ public class Menu extends JPanel{
 	private static final String GENERATE_LINEAR_LUT = "generate_linear_lut";
 	private static final String PEAK_REDUCTION = "peak_reduction";
 	private static final String ADD_TIMESTAMP = "add_timestamp";
-	private static final Dimension MENU_DIMENSION = new Dimension(648, 400);
+	private static final Dimension MENU_DIMENSION = new Dimension(648, 404);
 	JButton previewButton;
 	JButton generateCsvButton;
 	JButton generateLutButton;
