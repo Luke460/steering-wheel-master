@@ -27,7 +27,7 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
 
  - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest starting with a value like 3.
  - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest 3 or 4.
- - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to ***not use aggregation*** at all. Since geared wheels tend to have clipping problems that can invalidate wheel check readings, I suggest to try to enable *"Dead zone correction only"* and set *"Dead zone enhancement"* to 5 as starting point. Than you have to find the correct *"Dead zone enhancement"* value depending on your steering wheel dead zone. In this example I am using aggregation just to give you a complete example. If you still want to use aggregation, use a higher value like 4 or 5.
+ - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to ***not use aggregation*** at all. Since geared wheels tend to have clipping problems that can invalidate wheel check readings, I suggest to try to enable *"Generate linear lut"* and set *"Dead zone enhancement"* to 5 as starting point. Than you have to find the correct *"Dead zone enhancement"* value depending on your steering wheel dead zone. In this example I am using aggregation just to give you a complete example. If you still want to use aggregation, use a higher value like 4 or 5.
  
   Every steering wheel is different, you may need to find the perfect aggregation value for your device!
   - Recommended values are between 2 and 6. (3 is always a good starting point).
@@ -37,19 +37,25 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
  **IN GENERAL** : lower values makes your force feedback correction more precise, while higher values makes your force feedback smoother.
  - Don't go too high, or you will lose precision in force feedback correction.
  - Don't go too low or you will not benefit of the aggregation procedure.
- - You can click on ***auto*** to (hopefully) calculate a good aggregation order for your wheel.
- - Don't use ***dead zone enhancement*** unless you have vibrations in the central area of the steering wheel and you don't want to increase the ***aggregation order*** too much. Ignore this tip if you are using ***Dead zone correction only***.
+ - You can click on ***auto*** to (hopefully) calculate a good aggregation order for your steering wheel.
+ - You can use ***FFB peak reduction*** if you have clipping issues with your steering wheel.
+ - You can use ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel and you don't want to increase the ***aggregation order*** too much.
  - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
-
- **NOTE:** these settings are not suggested for a Logitech G29! Since geared wheels tend to have clipping problems that can invalidate wheel check readings, I suggest to try to enable *"Dead zone correction only"* and set *"Dead zone enhancement"* to 5 as starting point. Than you have to find the correct *"Dead zone enhancement"* value depending on your steering wheel dead zone. In this example I am using aggregation just to give you a complete example.
 
 Now click on ***Generate csv*** or ***Generate lut*** (depending on the purpose for which you will use this application) and if everything goes well, you should get the following output message:
 
 ![success](images/success.png)
 
 **DONE:** The generated file is located in the *Wheel Check Data Aggregator* folder.
+
+---
+
+**NOTE:** these settings are not suggested for a Logitech G29! Since geared wheels tend to have clipping problems that can invalidate wheel check readings, I suggest to try to enable *"Generate linear lut"* and set *"Dead zone enhancement"* to 5 as starting point. Than you have to find the correct *"Dead zone enhancement"* value depending on your steering wheel dead zone. In this example I am using aggregation just to give you a complete example. Try these settings if you have a G27 or a G29:
+ - Enable *"Generate linear lut"*
+ - FFB peak reduction: 5
+ - Dead zone enhancement: 5
 
 ---
 
@@ -90,3 +96,5 @@ Keep in mind that my algorithm may not be the same, so the result may change a l
 - [v2.6](https://github.com/Luke460/wheel-check-data-aggregator/releases): Improved 'Dead zone enhancement': slider added.
 
 - [v2.8](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added option to perform dead zone correction only.
+
+- [v2.9](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'FFB peak reduction' feature.
