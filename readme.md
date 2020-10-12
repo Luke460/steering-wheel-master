@@ -24,16 +24,14 @@ To run ***Wheel Check Data Aggregator***, download the [***latest version***](ht
 ![icon](images/icon.png)
 
 Now you have to locate your ***Wheel Check***'s log file and choose the degree of data aggregation (named ***aggregation order***):
-
- - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest starting with a value like 2 or 3.
- - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest starting with a value like 3 or 4.
- - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to ***not use aggregation***. Since geared wheels tend to have clipping issues that can invalidate wheel check readings, I suggest to:
-   - enable the option *"generate linear lut"*
-   - set *"FFB peak reduction"* to 5 (enabling this option will extend the lifespan of your wheel)
-   - set *"Dead zone enhancement"* to 5 (this value depend on your steering wheel deadzone)
    
-   If you still want to use aggregation, than use a higher value like 4 or 5. 
- 
+| **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
+|-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
+| ***direct wheels***     | Fanatec Podium DD2           | 2                                  | 0                      | 0                                                           |
+| ***belt wheels***       | Thrustmaster T300            | 3                                  | 0                      | 0                                                           |
+| ***mixed wheels***      | Thrustmaster TXM or T150     | 4                                  | from 0 to 5            | 0                                                           |
+| ***geared wheels***     | Logitech G29 or G27          | activate ***generate linear lut*** | from 5 to 10           | 5                                                           |
+
   Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
   - Recommended values are between 2 and 6. (3 is always a good starting point).
  
