@@ -27,10 +27,12 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
 
  - For ***belt wheels*** and ***direct wheels*** - like Thrustmaster T300 - I suggest starting with a value like 2 or 3.
  - For ***mixed wheels*** - like Thrustmaster TXM or T150 - I suggest starting with a value like 3 or 4.
- - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to:
+ - For ***geared wheels*** - like Logitech G29 or G27 - I suggest to ***not use aggregation***. Since geared wheels tend to have clipping issues that can invalidate wheel check readings, I suggest to:
    - enable the option *"generate linear lut"*
    - set *"FFB peak reduction"* to 5 (enabling this option will extend the lifespan of your wheel)
    - set *"Dead zone enhancement"* to 5 (this value depend on your steering wheel deadzone)
+   
+   If you still want to use aggregation, than use a higher value like 4 or 5. 
  
   Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
   - Recommended values are between 2 and 6. (3 is always a good starting point).
@@ -41,8 +43,8 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
  - Don't go too high, or you will lose precision in force feedback correction.
  - Don't go too low or you will not benefit of the aggregation procedure.
  - You can click on ***auto*** to (hopefully) calculate a good aggregation order for your steering wheel.
- - You can use ***FFB peak reduction*** if you have clipping issues with your steering wheel or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan.
- - You can use ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel and you don't want to increase the ***aggregation order*** too much.
+ - You can use ***FFB peak reduction*** if you have clipping issues with your steering wheel or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan. Highly recommended for geared wheels.
+ - You can use ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
