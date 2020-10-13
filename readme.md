@@ -32,17 +32,14 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
 | ***direct wheels***     | Fanatec Podium DD2           | 2                                  | 0                      | 0                                                           |
 | ***belt wheels***       | Thrustmaster T300            | 3                                  | 0                      | 0                                                           |
 | ***mixed wheels***      | Thrustmaster TXM or T150     | 4                                  | from 0 to 5            | 0                                                           |
-| ***geared wheels***     | Logitech G29 or G27          | activate option ***Generate linear lut*** | 5                      | 5                                                           |
+| ***geared wheels***     | Logitech G29 or G27          | activate option: ***Generate linear lut*** | 5                      | 5                                                           |
 
-  Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
-  - Recommended values are between 2 and 6. (3 is always a good starting point).
- 
- **NOTE:** these tips are based on a test with 100 reading values (*Wheel Check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa).
+ **NOTE:** these tips are based on a test with 100 reading values (*Wheel Check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa). Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
 
- **IN GENERAL** : lower values makes your force feedback correction more precise, while higher values makes your force feedback smoother.
+ **IN GENERAL** : lower values of *aggregation order* makes your force feedback correction more precise, while higher values makes your force feedback smoother.
  - Don't go too high, or you will lose precision in force feedback correction.
  - Don't go too low or you will not benefit of the aggregation procedure.
- - You can click on ***auto*** to (hopefully) calculate a good aggregation order for your steering wheel.
+ - You can click on ***auto*** to (hopefully) calculate a good *aggregation order* for your steering wheel.
  - You can use ***FFB peak reduction*** if you have clipping issues with your steering wheel or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan. Highly recommended for geared wheels.
  - You can use ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - Experiment and play with the ***preview*** button!
