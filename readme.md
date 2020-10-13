@@ -14,10 +14,12 @@ In the following graph you can see an example of a generated log file for a ***L
 
 ![example](images/G29-GRAPH.png)
 
-## Let's aggregate!
+## Before to start
 
 Before to start, you have to execute a calibration procedure by using ***Wheel Check***, a tool made by David Tucker of iRacing.com that measures the change in the steering wheel position for each input applied.
 I recommend to execute a ***Step Log 2 (linear force test)*** with ***Max Count*** set to ***100***.
+
+## Let's aggregate!
 
 To run ***Wheel Check Data Aggregator***, download the [***latest version***](https://github.com/Luke460/wheel-check-data-aggregator/releases), unzip the file and run ***WheelCheckDataAggregator.jar*** (requires Java 7 or later):
 
@@ -30,7 +32,7 @@ Now you have to locate your ***Wheel Check***'s log file and choose the degree o
 | ***direct wheels***     | Fanatec Podium DD2           | 2                                  | 0                      | 0                                                           |
 | ***belt wheels***       | Thrustmaster T300            | 3                                  | 0                      | 0                                                           |
 | ***mixed wheels***      | Thrustmaster TXM or T150     | 4                                  | from 0 to 5            | 0                                                           |
-| ***geared wheels***     | Logitech G29 or G27          | activate ***generate linear lut*** | from 5 to 10           | 5                                                           |
+| ***geared wheels***     | Logitech G29 or G27          | activate option ***Generate linear lut*** | 5                      | 5                                                           |
 
   Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
   - Recommended values are between 2 and 6. (3 is always a good starting point).
