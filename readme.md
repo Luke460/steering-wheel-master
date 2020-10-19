@@ -25,16 +25,31 @@ To run ***Wheel Check Data Aggregator***, download the [***latest version***](ht
 
 ![icon](images/icon.png)
 
-Now you have to locate your ***Wheel Check***'s log file and choose the degree of data aggregation (named ***aggregation order***):
-   
-| **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
-|-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
-| ***direct wheels***     | Fanatec Podium DD2           | 2                                  | 0                      | 0                                                           |
-| ***belt wheels***       | Thrustmaster T300            | 3                                  | 0                      | 0                                                           |
-| ***mixed wheels***      | Thrustmaster TXM or T150     | 4                                  | from 0 to 5            | 0                                                           |
-| ***geared wheels***     | Logitech G29 or G27          | activate option: ***Generate linear lut*** | 5                      | 5                                                           |
+Now you have to locate your ***Wheel Check***'s log file and configure ***Wheel Check Data Aggregator***.
 
- **NOTE:** these tips are based on a test with 100 reading values (*Wheel Check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa). Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
+
+You can choose between **advanced lut generation** and **linear lut generation**.
+ - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering reactions.
+   
+   | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
+   |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
+   | ***direct wheels***     | Fanatec Podium DD2           | 2                                  | 0                      | 0                                                           |
+   | ***belt wheels***       | Thrustmaster T300            | 3                                  | 0                      | 0                                                           |
+   | ***mixed wheels***      | Thrustmaster TXM or T150     | 4                                  | from 0 to 5            | 0                                                           |
+   | ***geared wheels***     | Logitech G29 or G27          | 4                                  | 5                      | 0                                                           |
+
+ - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.
+   
+   | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
+   |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
+   | ***direct wheels***     | Fanatec Podium DD2           | activate option: ***Generate linear lut*** | 0                      | 5                                                           |
+   | ***belt wheels***       | Thrustmaster T300            | activate option: ***Generate linear lut*** | 0                      | 5                                                           |
+   | ***mixed wheels***      | Thrustmaster TXM or T150     | activate option: ***Generate linear lut*** | from 0 to 5            | 5                                                           |
+   | ***geared wheels***     | Logitech G29 or G27          | activate option: ***Generate linear lut*** | 5                      | 5                                                           |
+
+**NOTE:** these tips are based on a test with 100 reading values (*Wheel Check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa). Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
+
+Since ***geared wheels*** tend to have clipping issues that can invalidate wheel check readings, I highly recommend to enable ***Generate linear lut***.
 
  **IN GENERAL** : lower values of *aggregation order* makes your force feedback correction more precise, while higher values makes your force feedback smoother.
  - Don't go too high, or you will lose precision in force feedback correction.
