@@ -35,8 +35,8 @@ You can choose between **advanced lut generation** and **linear lut generation**
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
    | ***direct wheels***     | Fanatec Podium DD2           | 2                                  | 0                      | 0                                                           |
    | ***belt wheels***       | Thrustmaster T300            | 3                                  | 0                      | 0                                                           |
-   | ***mixed wheels***      | Thrustmaster TXM or T150     | 4                                  | from 0 to 5            | 0                                                           |
-   | ***geared wheels***     | Logitech G29 or G27          | 4                                  | 5                      | 0                                                           |
+   | ***mixed wheels***      | Thrustmaster TXM or T150     | 4                                  | 0                      | 0                                                           |
+   | ***geared wheels***     | Logitech G29 or G27          | 4                                  | 0                      | 0                                                           |
 
  - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.
    
