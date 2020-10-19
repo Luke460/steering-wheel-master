@@ -29,7 +29,7 @@ Now you have to locate your ***Wheel Check***'s log file and configure ***Wheel 
 
 
 You can choose between **advanced lut generation** and **linear lut generation**.
- - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering reactions.
+ - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
@@ -47,9 +47,9 @@ You can choose between **advanced lut generation** and **linear lut generation**
    | ***mixed wheels***      | Thrustmaster TXM or T150     | activate option: ***Generate linear lut*** | from 0 to 5            | 5                                                           |
    | ***geared wheels***     | Logitech G29 or G27          | activate option: ***Generate linear lut*** | 5                      | 5                                                           |
 
-**NOTE:** these tips are based on a test with 100 reading values (*Wheel Check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa). Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
-
 Since ***geared wheels*** tend to have clipping issues that can invalidate wheel check readings, I highly recommend to enable ***Generate linear lut***.
+
+**NOTE:** these tips are based on a test with 100 reading values (*Wheel Check: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa). Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
 
  **IN GENERAL** : lower values of *aggregation order* makes your force feedback correction more precise, while higher values makes your force feedback smoother.
  - Don't go too high, or you will lose precision in force feedback correction.
