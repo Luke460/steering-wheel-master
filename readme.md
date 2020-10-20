@@ -23,7 +23,7 @@ I recommend to execute a ***Step Log 2 (linear force test)*** with ***Max Count*
 
 To run ***Wheel Check Data Aggregator***, download the [***latest version***](https://github.com/Luke460/wheel-check-data-aggregator/releases), unzip the file and run ***WheelCheckDataAggregator.jar*** (requires Java 7 or later):
 
-![icon](images/icon.png)
+[![icon](images/icon.png)](https://github.com/Luke460/wheel-check-data-aggregator/releases)
 
 Now you have to locate your ***Wheel Check***'s log file and configure ***Wheel Check Data Aggregator***.
 
