@@ -67,13 +67,29 @@ Now click on ***Generate csv*** or ***Generate lut*** (depending on the purpose 
 
 **DONE:** The generated file is located in the *Wheel Check Data Aggregator* folder.
 
----
 
-You can also use generated csv files as [***LUT Generator for AC***](https://www.racedepartment.com/downloads/lut-generator-for-ac.9740/) input, but from version v2.2 you can directly generate your lut file from ***Wheel Check Data Aggregator***.
+## How to use LUT files in *Assetto Corsa* and *Assetto Corsa Competizione*
 
-Keep in mind that my algorithm may not be the same, so the result may change a little as well.
+To allow *AC* and *ACC* to use your lut file, you need to create a text file named *ff_post_process.ini*
 
-![comparison](images/Comparison.png)
+Here is an example:
+```
+[HEADER]
+VERSION=1
+TYPE=LUT
+ENABLED=1
+
+[GAMMA]
+VALUE=1
+
+[LUT]
+CURVE=AG0-PR5-DZ5-LL.lut
+```
+**NOTE:** You need to set the ***CURVE*** variable with the name of ***your*** LUT file.
+
+Now you need to place both the .lut file and the .ini file in the following folder:
+ - For AC: ```C:\Users\<user_name>\Documents\Assetto Corsa\cfg```
+ - For ACC: ```C:\Users\<user_name>\Documents\Assetto Corsa Competizione\Config```
 
 ## DOWNLOADS
 
