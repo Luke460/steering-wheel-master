@@ -17,7 +17,7 @@ In the following graph you can see an example of a generated log file for a ***L
 ## Before to start
 
 Before to start, you have to execute a calibration procedure by using ***iRacing force feedback test***, a tool made by David Tucker of iRacing.com that measures the change in the steering wheel position for each input applied.
-I recommend to execute a ***Step Log 2 (linear force test)*** with ***Max Count*** set to ***100***. Leave all other settings at their default values. This procedure is intended to work with ***iRacing force feedback test*** v1.72 or or later.
+I recommend to execute a ***Step Log 2 (linear force test)*** with ***Max Count*** set to ***100***. Leave all other settings at their default values.
 
 ## Let's aggregate!
 
