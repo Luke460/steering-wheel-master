@@ -1,3 +1,9 @@
+## DOWNLOAD
+
+ + [***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases) ***(latest version)***
+
+---
+
 # Wheel Check Data Aggregator
 
 [***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases) is a useful tool that helps to improve the behavior of your steering wheel by aggregating data and eliminating reading errors, dead zones and clipping problems.
@@ -90,10 +96,6 @@ CURVE=AG0-PR5-DZ5-LL.lut
 Now just place both the .lut file and the .ini file in the following folder:
  - For AC: ```C:\Users\<user_name>\Documents\Assetto Corsa\cfg```
  - For ACC: ```C:\Users\<user_name>\Documents\Assetto Corsa Competizione\Config```
-
-## DOWNLOADS
-
- + [***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases) ***(latest version)***
  
  ---
  
