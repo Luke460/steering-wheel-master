@@ -35,7 +35,7 @@ Now you have to locate your ***iRacing force feedback test***'s log file and con
 
 
 You can choose between **advanced lut generation** and **linear lut generation**.
- - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"Generate linear lut"*** for this type of wheel instead.
+ - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"linear lut generation"*** for this type of wheel instead.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
