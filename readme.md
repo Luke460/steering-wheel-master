@@ -35,7 +35,7 @@ Now you have to locate your ***iRacing force feedback test***'s log file and con
 
 
 You can choose between **advanced lut generation** and **linear lut generation**.
- - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions.
+ - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"Generate linear lut"*** for this type of wheel instead.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
@@ -52,8 +52,6 @@ You can choose between **advanced lut generation** and **linear lut generation**
    | ***belt wheels***       | Thrustmaster T300            | activate option: ***Generate linear lut*** | 0                      | 5                                                           |
    | ***mixed wheels***      | Thrustmaster TXM or T150     | activate option: ***Generate linear lut*** | from 0 to 5            | 5                                                           |
    | ***geared wheels***     | Logitech G29 or G27          | activate option: ***Generate linear lut*** | 5                      | 5                                                           |
-
-Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to enable ***Generate linear lut***.
 
 **NOTE:** these tips are based on a test with 100 reading values (*iRacing force feedback test: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa). Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
 
