@@ -35,7 +35,7 @@ Now you have to locate your ***iRacing force feedback test***'s log file and con
 
 
 You can choose between **advanced lut generation** and **linear lut generation**.
- - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"linear lut generation"*** for this type of wheel instead.
+ - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"linear lut generation"*** for this type of wheel instead. With this option you can either improve the input csv file or create a lut file.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
@@ -44,7 +44,7 @@ You can choose between **advanced lut generation** and **linear lut generation**
    | ***mixed wheels***      | Thrustmaster TXM or T150     | 4                                  | 0                      | 0                                                           |
    | ***geared wheels***     | Logitech G29 or G27          | 4                                  | 0                      | 0                                                           |
 
- - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.
+ - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel. With this option you can only generate a lut file.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
