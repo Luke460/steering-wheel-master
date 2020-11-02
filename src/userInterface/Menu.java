@@ -156,7 +156,7 @@ public class Menu extends JPanel{
 		peakReductionSlider.setLabelTable(position1); 
 		
 		JLabel deadZoneEnhancementLabel = new JLabel("Dead zone enhancement:");
-		deadZoneEnhancementSlider = new JSlider(0, 20, config.getInt(DEADZONE_ENHANCEMENT));
+		deadZoneEnhancementSlider = new JSlider(0, 20, config.getInt(DEADZONE_ENHANCEMENT)*2);
 		deadZoneEnhancementSlider.setPreferredSize(new Dimension(244, 44));
 		deadZoneEnhancementSlider.setMajorTickSpacing(2);
 		deadZoneEnhancementSlider.setMinorTickSpacing(1);
