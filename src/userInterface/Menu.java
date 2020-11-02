@@ -126,10 +126,15 @@ public class Menu extends JPanel{
 		addTimestampInFilename.setSelected(inputConfig.getBoolean(ADD_TIMESTAMP));
 
 		// Add positions label in the slider
-		Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
+		Hashtable<Integer, JLabel> position1 = new Hashtable<Integer, JLabel>();
 		for(int i = 0; i<=10; i++) {
-			position.put(i, new JLabel(i+""));
+			position1.put(i, new JLabel(i+""));
 		}
+		
+		Hashtable<Integer, JLabel> position2 = new Hashtable<Integer, JLabel>();
+		for(int i = 0; i<=20; i+=2) {
+			position2.put(i, new JLabel(i/2+""));
+		}		
 
 		JLabel aggregationLabel = new JLabel("Aggregation order:");
 		aggregationSlider = new JSlider(0, 10, config.getInt(AGGREGATION_ORDER));
@@ -138,7 +143,7 @@ public class Menu extends JPanel{
 		aggregationSlider.setMinorTickSpacing(1);
 		aggregationSlider.setPaintTicks(true);
 		aggregationSlider.setPaintLabels(true);   		         
-		aggregationSlider.setLabelTable(position); 
+		aggregationSlider.setLabelTable(position1); 
 
 		JLabel peakReductionLabel = new JLabel("FFB peak reduction:");
 		peakReductionSlider = new JSlider(0, 10, config.getInt(PEAK_REDUCTION));
@@ -148,17 +153,17 @@ public class Menu extends JPanel{
 		peakReductionSlider.setPaintTicks(true);
 		peakReductionSlider.setPaintLabels(true);
 		peakReductionSlider.setPaintTrack(true);
-		peakReductionSlider.setLabelTable(position); 
+		peakReductionSlider.setLabelTable(position1); 
 		
 		JLabel deadZoneEnhancementLabel = new JLabel("Dead zone enhancement:");
-		deadZoneEnhancementSlider = new JSlider(0, 10, config.getInt(DEADZONE_ENHANCEMENT));
+		deadZoneEnhancementSlider = new JSlider(0, 20, config.getInt(DEADZONE_ENHANCEMENT));
 		deadZoneEnhancementSlider.setPreferredSize(new Dimension(244, 44));
-		deadZoneEnhancementSlider.setMajorTickSpacing(5);
+		deadZoneEnhancementSlider.setMajorTickSpacing(2);
 		deadZoneEnhancementSlider.setMinorTickSpacing(1);
 		deadZoneEnhancementSlider.setPaintTicks(true);
 		deadZoneEnhancementSlider.setPaintLabels(true);
 		deadZoneEnhancementSlider.setPaintTrack(true);
-		deadZoneEnhancementSlider.setLabelTable(position); 
+		deadZoneEnhancementSlider.setLabelTable(position2); 
 
 		// FIRST FOW
 		constr.gridx=0;
@@ -315,7 +320,7 @@ public class Menu extends JPanel{
 	public void updateConfig(org.json.JSONObject config) {
 		config.put(AGGREGATION_ORDER, aggregationSlider.getValue());
 		config.put(INPUT_FILE, inputFileText.getText());
-		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue());
+		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue()/2.0);
 		config.put(GENERATE_LINEAR_LUT, generateLinearLut.isSelected());
 		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
 		config.put(ADD_TIMESTAMP, addTimestampInFilename.isSelected());
@@ -347,7 +352,7 @@ public class Menu extends JPanel{
 				exConf.setAutoCalcAggregationOder(true);
 				exConf = Manager.execute(exConf);
 				aggregationSlider.setValue(exConf.getAggregationOrder());
-				deadZoneEnhancementSlider.setValue(exConf.getDeadZoneEnhancement());
+				deadZoneEnhancementSlider.setValue((int)(exConf.getDeadZoneEnhancement()*2));
 				peakReductionSlider.setValue(exConf.getPeakReduction());
 				generateLinearLut.setSelected(exConf.isGenerateLinearLut());
 			} else if(src == fileBrowserButton){
@@ -376,7 +381,7 @@ public class Menu extends JPanel{
 				JOptionPane.showMessageDialog(null, "Error: unable to read '" + AGGREGATION_ORDER + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
-				exConf.setDeadZoneEnhancement(config.getInt(DEADZONE_ENHANCEMENT));
+				exConf.setDeadZoneEnhancement(config.getDouble(DEADZONE_ENHANCEMENT));
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEADZONE_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");

@@ -10,7 +10,7 @@ public class ExecutionConfiguration {
 	boolean addTimestamp;
 	String inputCsvPath;
 	int aggregationOrder;
-	int deadZoneEnhancement;
+	double deadZoneEnhancement;
 	int peakReduction;
 	
 	public ExecutionConfiguration() {
@@ -70,11 +70,11 @@ public class ExecutionConfiguration {
 		this.aggregationOrder = aggregationValue;
 	}
 
-	public int getDeadZoneEnhancement() {
+	public double getDeadZoneEnhancement() {
 		return deadZoneEnhancement;
 	}
 
-	public void setDeadZoneEnhancement(int deadZoneEnhancement) {
+	public void setDeadZoneEnhancement(double deadZoneEnhancement) {
 		this.deadZoneEnhancement = deadZoneEnhancement;
 	}
 
