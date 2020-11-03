@@ -72,6 +72,15 @@ Now click on ***Generate csv*** or ***Generate lut*** (depending on the purpose 
 
 **DONE:** The generated file is located in the *Wheel Check Data Aggregator* folder.
 
+## My personal settings - Logitech G29
+
+The following are the settings I currently use on my personal steering wheel. My in-game FFB gain is set to 100%:
+
+ - ***Aggregation order***: disabled (because I want to use a linear lut)
+ - ***FFB Peak reduction***: 0 (personal preference, I like to feel every curb at 100%)
+ - ***Dead zone enhancement***: 6.5 (this value depends on your wheel dead zone, but should be similar to this value)
+ - ***Generate linear lut***: selected
+
 
 ## How to use LUT files in *Assetto Corsa* and *Assetto Corsa Competizione*
 
