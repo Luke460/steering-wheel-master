@@ -245,13 +245,10 @@ public class Manager {
 	}
 	
 	private static String generateFileName(ExecutionConfiguration exConf, FileType type) {
-		String deadZoneEnhancement = "";
-		if (exConf.getDeadZoneEnhancement()%1 == 0) {
-			deadZoneEnhancement = "" + (int)exConf.getDeadZoneEnhancement();
-		} else {
-			deadZoneEnhancement = "" + (int)exConf.getDeadZoneEnhancement() + "p";
+		String deadZoneEnhancement = "" + (int)exConf.getDeadZoneEnhancement();
+		if (exConf.getDeadZoneEnhancement()%1 != 0) {
+			deadZoneEnhancement += "p";
 		}
-		
 		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.aggregationOrder) + "-PR" + exConf.getPeakReduction() + "-DZ" + (deadZoneEnhancement) + (exConf.isGenerateLinearLut()?"-LL":"") + (exConf.isAddTimestamp()?"-T" + System.currentTimeMillis()/1000:"") + "." + type.name();
 	}
 
