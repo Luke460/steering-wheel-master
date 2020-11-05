@@ -138,9 +138,9 @@ public class Manager {
 		System.out.println("aggregation...");
 
 		if(exConf.isSaveCSV()) {
-			aggregatedeltaXDeg = Aggregator.aggregate(inputDeltaXDeg, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+			aggregatedeltaXDeg = Aggregator.performAggregation(inputDeltaXDeg, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 		}
-		aggregateDeltaXdouble = Aggregator.aggregate(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+		aggregateDeltaXdouble = Aggregator.performAggregation(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 
 		// END AGGREGATION
 
