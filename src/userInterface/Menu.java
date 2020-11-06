@@ -131,9 +131,9 @@ public class Menu extends JPanel{
 			position1.put(i, new JLabel(i+""));
 		}
 		
-		Hashtable<Integer, JLabel> position2 = new Hashtable<Integer, JLabel>();
+		Hashtable<Integer, JLabel> positionHighPrecision = new Hashtable<Integer, JLabel>();
 		for(int i = 0; i<=20; i+=2) {
-			position2.put(i, new JLabel(i/2+""));
+			positionHighPrecision.put(i, new JLabel(i/2+""));
 		}		
 
 		JLabel aggregationLabel = new JLabel("Aggregation order:");
@@ -163,7 +163,7 @@ public class Menu extends JPanel{
 		deadZoneEnhancementSlider.setPaintTicks(true);
 		deadZoneEnhancementSlider.setPaintLabels(true);
 		deadZoneEnhancementSlider.setPaintTrack(true);
-		deadZoneEnhancementSlider.setLabelTable(position2); 
+		deadZoneEnhancementSlider.setLabelTable(positionHighPrecision); 
 
 		// FIRST FOW
 		constr.gridx=0;
@@ -275,11 +275,19 @@ public class Menu extends JPanel{
 				}
 			}
 		});
-		
-		generateLinearLut.addChangeListener(new ChangeListener() {
+
+		generateLinearLut.addItemListener(new ItemListener() {
+
 			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				updateComponentsStatus();
+			public void itemStateChanged(ItemEvent arg0) {
+				int newDeadzoneValue = 0;
+				if(generateLinearLut.isSelected()) {
+					newDeadzoneValue = deadZoneEnhancementSlider.getValue() + 10;
+				} else {
+					newDeadzoneValue = deadZoneEnhancementSlider.getValue() - 10;
+				}
+				// updateComponentsStatus will be triggered automatically
+				deadZoneEnhancementSlider.setValue(newDeadzoneValue);
 			}
 		});
 		
@@ -300,7 +308,7 @@ public class Menu extends JPanel{
 	}
 	
 	private void updateComponentsStatus() {
-		
+
 		//aggregationSlider
 		if(!generateLinearLut.isSelected()) {
 			aggregationSlider.setEnabled(true);
@@ -355,6 +363,7 @@ public class Menu extends JPanel{
 				deadZoneEnhancementSlider.setValue((int)(exConf.getDeadZoneEnhancement()*2));
 				peakReductionSlider.setValue(exConf.getPeakReduction());
 				generateLinearLut.setSelected(exConf.isGenerateLinearLut());
+				updateComponentsStatus();
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new CsvFileFilter());
