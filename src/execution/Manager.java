@@ -22,7 +22,7 @@ import process.Luter;
 import userInterface.DrawGraphHD;
 
 public class Manager {
-	
+
 	public enum FileType {
 		csv, lut
 	}
@@ -105,7 +105,7 @@ public class Manager {
 			JOptionPane.showMessageDialog(null, "Unexpected error while reading " + exConf.getInputCsvPath() + "' file.");
 			return exConf;
 		}
-		
+
 		if(inputDeltaX.size()>MAX_RESOLUTION) {
 			JOptionPane.showMessageDialog(null, "Input file exceeds the maximum resolution: " + MAX_RESOLUTION);
 			return exConf;
@@ -126,7 +126,7 @@ public class Manager {
 		deltaXdouble = Corrector.adjust(deltaXdouble, "deltaX");	
 
 		// END ERROR CORRECTION	
-		
+
 		if(exConf.isAutoCalcAggregationOder()) {
 			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(deltaXdouble));
 			exConf.setDeadZoneEnhancement(0);
@@ -139,10 +139,17 @@ public class Manager {
 
 		System.out.println("aggregation...");
 
-		if(exConf.isSaveCSV()) {
-			aggregatedeltaXDeg = Aggregator.performAggregation(inputDeltaXDeg, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+		if(exConf.isExperimentalAggregation()) {
+			if(exConf.isSaveCSV()) {
+				aggregatedeltaXDeg = Aggregator.performExperimentalAggregation(inputDeltaXDeg, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+			}
+			aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+		} else {
+			if(exConf.isSaveCSV()) {
+				aggregatedeltaXDeg = Aggregator.performAggregation(inputDeltaXDeg, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+			}
+			aggregateDeltaXdouble = Aggregator.performAggregation(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 		}
-		aggregateDeltaXdouble = Aggregator.performAggregation(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 
 		// END AGGREGATION
 
@@ -152,13 +159,13 @@ public class Manager {
 		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
 
 		// END LUT GENERATION
-		
+
 		// BEGIN DEAD CORRECTION ONLY
 		if(exConf.isGenerateLinearLut()) {
 			correctiveMap = Luter.deadZoneCorrectionOnly(inputForce, aggregateDeltaXdouble);
 		}
 		// END DEAD CORRECTION ONLY
-		
+
 		// BEGIN PEAK_REDUCTION
 		if(exConf.getPeakReduction()>0) {
 			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getPeakReduction());
@@ -170,7 +177,7 @@ public class Manager {
 			correctiveMap = Luter.enhanceDeadZone(correctiveMap, exConf.getDeadZoneEnhancement());
 		}
 		// END DEAD_ZONE enhancement
-		
+
 		// print results
 		if(exConf.isShowPreview()) {
 			try {
@@ -241,17 +248,17 @@ public class Manager {
 			JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newLutFileName + "'.");
 
 		}
-		
+
 		return exConf;
 
 	}
-	
+
 	private static String generateFileName(ExecutionConfiguration exConf, FileType type) {
 		String deadZoneEnhancement = "" + (int)exConf.getDeadZoneEnhancement();
 		if (exConf.getDeadZoneEnhancement()%1 != 0) {
 			deadZoneEnhancement += "p";
 		}
-		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + "-PR" + exConf.getPeakReduction() + "-DZ" + (deadZoneEnhancement) + (exConf.isGenerateLinearLut()?"-LL":"") + (exConf.isAddTimestamp()?"-T" + System.currentTimeMillis()/1000:"") + "." + type.name();
+		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + "-PR" + exConf.getPeakReduction() + "-DZ" + (deadZoneEnhancement) + (exConf.isGenerateLinearLut()?"-LL":"") + "." + type.name();
 	}
 
 }

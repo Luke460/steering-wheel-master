@@ -7,7 +7,7 @@ public class ExecutionConfiguration {
 	boolean showPreview;
 	boolean autoCalcAggregationOder;
 	boolean generateLinearLut;
-	boolean addTimestamp;
+	boolean experimentalAggregation;
 	String inputCsvPath;
 	int aggregationOrder;
 	double deadZoneEnhancement;
@@ -19,7 +19,7 @@ public class ExecutionConfiguration {
 		this.showPreview = false;
 		this.autoCalcAggregationOder = false;
 		this.generateLinearLut = false;
-		this.addTimestamp = true;
+		this.experimentalAggregation = false;
 	};
 
 	public boolean isSaveCSV() {
@@ -86,12 +86,12 @@ public class ExecutionConfiguration {
 		this.generateLinearLut = deadZoneCorrectionOnly;
 	}
 
-	public boolean isAddTimestamp() {
-		return addTimestamp;
+	public boolean isExperimentalAggregation() {
+		return experimentalAggregation;
 	}
 
-	public void setAddTimestamp(boolean addTimestamp) {
-		this.addTimestamp = addTimestamp;
+	public void setExperimentalAggregation(boolean experimentalAggregation) {
+		this.experimentalAggregation = experimentalAggregation;
 	}
 
 	public int getPeakReduction() {

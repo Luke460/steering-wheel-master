@@ -36,7 +36,7 @@ public class Menu extends JPanel{
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
 	private static final String GENERATE_LINEAR_LUT = "generate_linear_lut";
 	private static final String PEAK_REDUCTION = "peak_reduction";
-	private static final String ADD_TIMESTAMP = "add_timestamp";
+	private static final String EXPERIMENTAL_AGGREGATION = "experimental_aggregation";
 	private static final Dimension MENU_DIMENSION = new Dimension(648, 404);
 	JButton previewButton;
 	JButton generateCsvButton;
@@ -44,7 +44,7 @@ public class Menu extends JPanel{
 	JButton fileBrowserButton;
 	JButton autoButton;
 	JCheckBox generateLinearLut;
-	JCheckBox addTimestampInFilename;
+	JCheckBox experimentalAggregation;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
 	JSlider peakReductionSlider;
@@ -121,9 +121,9 @@ public class Menu extends JPanel{
 		generateLinearLut.setText("Generate linear lut");
 		generateLinearLut.setSelected(inputConfig.getBoolean(GENERATE_LINEAR_LUT));
 
-		addTimestampInFilename = new JCheckBox();
-		addTimestampInFilename.setText("Add timestamp");
-		addTimestampInFilename.setSelected(inputConfig.getBoolean(ADD_TIMESTAMP));
+		experimentalAggregation = new JCheckBox();
+		experimentalAggregation.setText("Linearize near zero");
+		experimentalAggregation.setSelected(inputConfig.getBoolean(EXPERIMENTAL_AGGREGATION));
 
 		// Add positions label in the slider
 		Hashtable<Integer, JLabel> position1 = new Hashtable<Integer, JLabel>();
@@ -216,7 +216,7 @@ public class Menu extends JPanel{
 		constr.gridy++;
 
 		constr.gridx=0;
-		layoutPanel.add(addTimestampInFilename, constr);
+		layoutPanel.add(experimentalAggregation, constr);
 
 		constr.gridx=1;
 		constr.anchor = GridBagConstraints.CENTER;
@@ -280,14 +280,21 @@ public class Menu extends JPanel{
 
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				int newDeadzoneValue = 0;
-				if(generateLinearLut.isSelected()) {
-					newDeadzoneValue = deadZoneEnhancementSlider.getValue() + 10;
+				if(!experimentalAggregation.isSelected()) {
+					updateDeadzoneSlider(generateLinearLut.isSelected());
 				} else {
-					newDeadzoneValue = deadZoneEnhancementSlider.getValue() - 10;
+					updateComponentsStatus();
 				}
-				// updateComponentsStatus will be triggered automatically
-				deadZoneEnhancementSlider.setValue(newDeadzoneValue);
+			}
+
+
+		});
+		
+		experimentalAggregation.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				updateDeadzoneSlider(experimentalAggregation.isSelected());
 			}
 		});
 		
@@ -323,6 +330,24 @@ public class Menu extends JPanel{
 			generateCsvButton.setEnabled(false);
 		}
 		
+		//linearization
+		if(generateLinearLut.isSelected()) {
+			experimentalAggregation.setEnabled(false);
+		} else {
+			experimentalAggregation.setEnabled(true);
+		}
+		
+	}
+	
+	private void updateDeadzoneSlider(boolean add) {
+		int newDeadzoneValue = 0;
+		if(add) {
+			newDeadzoneValue = deadZoneEnhancementSlider.getValue() + 10;
+		} else {
+			newDeadzoneValue = deadZoneEnhancementSlider.getValue() - 10;
+		}
+		// updateComponentsStatus will be triggered automatically
+		deadZoneEnhancementSlider.setValue(newDeadzoneValue);
 	}
 
 	public void updateConfig(org.json.JSONObject config) {
@@ -331,7 +356,7 @@ public class Menu extends JPanel{
 		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue()/2.0);
 		config.put(GENERATE_LINEAR_LUT, generateLinearLut.isSelected());
 		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
-		config.put(ADD_TIMESTAMP, addTimestampInFilename.isSelected());
+		config.put(EXPERIMENTAL_AGGREGATION, experimentalAggregation.isSelected());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
 		} catch (Exception e) {
@@ -363,6 +388,7 @@ public class Menu extends JPanel{
 				deadZoneEnhancementSlider.setValue((int)(exConf.getDeadZoneEnhancement()*2));
 				peakReductionSlider.setValue(exConf.getPeakReduction());
 				generateLinearLut.setSelected(exConf.isGenerateLinearLut());
+				experimentalAggregation.setSelected(false);
 				updateComponentsStatus();
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
@@ -402,10 +428,10 @@ public class Menu extends JPanel{
 				JOptionPane.showMessageDialog(null, "Error: unable to read '" + GENERATE_LINEAR_LUT + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
-				exConf.setAddTimestamp(config.getBoolean(ADD_TIMESTAMP));
+				exConf.setExperimentalAggregation(config.getBoolean(EXPERIMENTAL_AGGREGATION));
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + ADD_TIMESTAMP + "' property in '" + JSON_CONFIG_PATH + "'.");
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + EXPERIMENTAL_AGGREGATION + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
 				exConf.setPeakReduction(config.getInt(PEAK_REDUCTION));

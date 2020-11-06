@@ -6,7 +6,7 @@ import execution.Utility;
 
 public class Aggregator {
 	
-	public static ArrayList<Double> sperimentalAggregation(ArrayList<Double> values, int aggregationOrder) {
+	public static ArrayList<Double> performExperimentalAggregation(ArrayList<Double> values, int aggregationOrder) {
 		if(aggregationOrder<1) return values;
 		values = prepareFirstValuesForAggregation(values);
 		values = performAggregation(values, aggregationOrder);

@@ -1,1 +1,1 @@
-{"input_file":"example.csv","add_timestamp":false,"aggregation_order":5,"peak_reduction":0,"deadzone_enhancement":0,"generate_linear_lut":false}
+{"experimental_aggregation":false,"input_file":"example.csv","aggregation_order":5,"peak_reduction":0,"deadzone_enhancement":0,"generate_linear_lut":false}
