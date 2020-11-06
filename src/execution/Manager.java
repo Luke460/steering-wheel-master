@@ -14,6 +14,8 @@ import java.util.Locale;
 
 import static execution.Constants.MAX_RESOLUTION;
 import javax.swing.JOptionPane;
+
+import model.ExecutionConfiguration;
 import process.Aggregator;
 import process.Corrector;
 import process.Luter;
@@ -175,7 +177,7 @@ public class Manager {
 				DrawGraphHD.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), 
-						"[AG=" + (exConf.isGenerateLinearLut()?0:exConf.aggregationOrder) + ",PR=" + exConf.getPeakReduction() + ",DZ=" + exConf.getDeadZoneEnhancement() + ",LL=" + (exConf.isGenerateLinearLut()?1:0) + "] " + exConf.inputCsvPath);
+						"[AG=" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + ",PR=" + exConf.getPeakReduction() + ",DZ=" + exConf.getDeadZoneEnhancement() + ",LL=" + (exConf.isGenerateLinearLut()?1:0) + "] " + exConf.getInputCsvPath());
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -249,7 +251,7 @@ public class Manager {
 		if (exConf.getDeadZoneEnhancement()%1 != 0) {
 			deadZoneEnhancement += "p";
 		}
-		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.aggregationOrder) + "-PR" + exConf.getPeakReduction() + "-DZ" + (deadZoneEnhancement) + (exConf.isGenerateLinearLut()?"-LL":"") + (exConf.isAddTimestamp()?"-T" + System.currentTimeMillis()/1000:"") + "." + type.name();
+		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + "-PR" + exConf.getPeakReduction() + "-DZ" + (deadZoneEnhancement) + (exConf.isGenerateLinearLut()?"-LL":"") + (exConf.isAddTimestamp()?"-T" + System.currentTimeMillis()/1000:"") + "." + type.name();
 	}
 
 }

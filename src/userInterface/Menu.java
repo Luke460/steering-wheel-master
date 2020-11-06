@@ -6,8 +6,8 @@ import javax.swing.event.ChangeListener;
 
 import org.json.JSONObject;
 
-import execution.ExecutionConfiguration;
 import execution.Manager;
+import model.ExecutionConfiguration;
 
 import static execution.Constants.JSON_CONFIG_PATH;
 
