@@ -62,6 +62,7 @@ You can choose between **advanced lut generation** and **linear lut generation**
  - You can increase ***FFB peak reduction*** if you have clipping issues with your steering wheel or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - You can decrease ***dead zone enhancement*** if you still have a FFB deadzone with the generated lut.
+ - You can select ***linearize near zero*** to change the aggregation strategy for low values of the force feedback. It can help remove vibrations in the center of some steering wheels.
  - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
@@ -134,3 +135,5 @@ Now just place both the .lut file and the .ini file in the following folder:
 - [v2.8](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added option to perform dead zone correction only.
 
 - [v2.9](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'FFB peak reduction' feature.
+
+- [v2.10](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'Linearize near zero' feature.
