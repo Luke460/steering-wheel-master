@@ -183,8 +183,7 @@ public class Manager {
 			try {
 				DrawGraphHD.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
 						aggregateDeltaXdouble, 
-						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), 
-						"[AG=" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + ",PR=" + exConf.getPeakReduction() + ",DZ=" + exConf.getDeadZoneEnhancement() + ",LL=" + (exConf.isGenerateLinearLut()?1:0) + "] " + exConf.getInputCsvPath());
+						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), generateDescriptionName(exConf));
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -258,7 +257,21 @@ public class Manager {
 		if (exConf.getDeadZoneEnhancement()%1 != 0) {
 			deadZoneEnhancement += "p";
 		}
-		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + "-PR" + exConf.getPeakReduction() + "-DZ" + (deadZoneEnhancement) + (exConf.isGenerateLinearLut()?"-LL":"") + "." + type.name();
+		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + 
+				"-PR" + exConf.getPeakReduction() + 
+				"-DZ" + (deadZoneEnhancement) + 
+				(exConf.isExperimentalAggregation()&&!exConf.isGenerateLinearLut()?"-LNZ":"") + 
+				(exConf.isGenerateLinearLut()?"-LL":"") 
+				+ "." + type.name();
+	}
+	
+	private static String generateDescriptionName(ExecutionConfiguration exConf) {
+		return "[AG=" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + 
+				",PR=" + exConf.getPeakReduction() + 
+				",DZ=" + exConf.getDeadZoneEnhancement() + 
+				",LNZ=" + (exConf.isExperimentalAggregation()&&!exConf.isGenerateLinearLut()?1:0) + 
+				",LL=" + (exConf.isGenerateLinearLut()?1:0) + 
+				"] " + exConf.getInputCsvPath();
 	}
 
 }
