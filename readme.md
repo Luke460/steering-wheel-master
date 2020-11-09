@@ -34,8 +34,8 @@ To run ***Wheel Check Data Aggregator***, download the [***latest version***](ht
 Now you have to locate your ***iRacing force feedback test***'s log file and configure ***Wheel Check Data Aggregator***.
 
 
-You can choose between **advanced lut generation** and **linear lut generation**.
- - The **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. With this option you can either improve the input csv file or create a lut file. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"linear lut generation"*** for this type of wheel instead.
+You can choose between **standard generation** and **linear lut generation**.
+ - The **standard generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. With this option you can either improve the input csv file or create a lut file. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***linear lut generation*** for this type of wheel instead.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
