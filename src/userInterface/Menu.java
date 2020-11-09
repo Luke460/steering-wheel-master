@@ -280,21 +280,15 @@ public class Menu extends JPanel{
 
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				if(!experimentalAggregation.isSelected()) {
-					updateDeadzoneSlider(generateLinearLut.isSelected());
-				} else {
-					updateComponentsStatus();
-				}
+				updateComponentsStatus();
 			}
-
-
 		});
 		
 		experimentalAggregation.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				updateDeadzoneSlider(experimentalAggregation.isSelected());
+				updateComponentsStatus();
 			}
 		});
 		
@@ -337,17 +331,6 @@ public class Menu extends JPanel{
 			experimentalAggregation.setEnabled(true);
 		}
 		
-	}
-	
-	private void updateDeadzoneSlider(boolean add) {
-		int newDeadzoneValue = 0;
-		if(add) {
-			newDeadzoneValue = deadZoneEnhancementSlider.getValue() + 10;
-		} else {
-			newDeadzoneValue = deadZoneEnhancementSlider.getValue() - 10;
-		}
-		// updateComponentsStatus will be triggered automatically
-		deadZoneEnhancementSlider.setValue(newDeadzoneValue);
 	}
 
 	public void updateConfig(org.json.JSONObject config) {
