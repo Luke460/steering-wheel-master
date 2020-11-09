@@ -35,23 +35,23 @@ Now you have to locate your ***iRacing force feedback test***'s log file and con
 
 
 You can choose between **standard generation** and **linear lut generation**.
- - The **standard generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. With this option you can either improve the input csv file or create a lut file. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***linear lut generation*** for this type of wheel instead.
+ - The **standard generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. With this option you can either improve the input csv file or create a lut file. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"linear lut generation"*** for this type of wheel instead.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
-   | ***direct wheels***     | Fanatec Podium DD2           | 2                                  | 0                      | 0                                                           |
-   | ***belt wheels***       | Thrustmaster T300            | 3                                  | 0                      | 0                                                           |
-   | ***mixed wheels***      | Thrustmaster TXM or T150     | 4                                  | 0                      | 0                                                           |
-   | ***geared wheels***     | Logitech G29 or G27          | 4                                  | 0                      | 0                                                           |
+   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | 2                                 | 0                      | 0                                                           |
+   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | 3               | 0                      | 0                                                           |
+   | ***mixed wheels***      | Thrustmaster TXM or T150  | 4                                  | 0                      | 0                                                           |
+   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | 4     | 0                      | 0                                                           |
 
  - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel. With this option you can only generate a lut file.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
-   | ***direct wheels***     | Fanatec Podium DD2           | activate option: ***Generate linear lut*** | 0                      | 5                                                           |
-   | ***belt wheels***       | Thrustmaster T300            | activate option: ***Generate linear lut*** | 0                      | 5                                                           |
+   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | activate option: ***Generate linear lut*** | 0                      | 5                                                           |
+   | ***belt wheels***       |  Thrustmaster T300, T500 or Fanatec CSL elite | activate option: ***Generate linear lut*** | 0                      | 5                                                           |
    | ***mixed wheels***      | Thrustmaster TXM or T150     | activate option: ***Generate linear lut*** | from 0 to 5            | 5                                                           |
-   | ***geared wheels***     | Logitech G29 or G27          | activate option: ***Generate linear lut*** | from 0 to 5            | 5                                                           |
+   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | activate option: ***Generate linear lut*** | from 0 to 5            | 5                                                           |
 
 **NOTE:** these tips are based on a test with 100 reading values (*iRacing force feedback test: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa). Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
 
