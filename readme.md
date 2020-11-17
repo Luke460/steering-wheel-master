@@ -39,7 +39,7 @@ Now you have to locate your ***iRacing force feedback test***'s log file and con
 
 
 You can choose between **standard generation** and **linear lut generation**.
- - The **standard generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. With this option you can either improve the input csv file or create a lut file. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"linear lut generation"*** for this type of wheel instead.
+ - The **standard generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. With this option you can either improve the input csv file or create a lut file. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel instead.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
@@ -82,8 +82,8 @@ Now click on ***Generate csv*** or ***Generate lut*** (depending on the purpose 
 The following are the settings I currently use on my personal steering wheel. My in-game FFB gain is set to 100%:
 
  - ***Aggregation order***: disabled (because I want to use a linear lut)
- - ***FFB Peak reduction***: 0 (personal preference, I like to feel every curb at 100%)
- - ***Dead zone enhancement***: 6.5 (this value depends on your wheel dead zone, but should be similar to this value)
+ - ***FFB Peak reduction***: 5 (personal preference, it makes my steering wheel noticeably quieter)
+ - ***Dead zone enhancement***: 6 (this value depends on your wheel dead zone, but should be similar to this value)
  - ***Generate linear lut***: selected
 
 
