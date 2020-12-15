@@ -104,6 +104,24 @@ public class Luter {
 		return output;
 	}
 	
+	public static ArrayList<Double> enableFullPower(ArrayList<Double> input) {
+		ArrayList<Double> output = new ArrayList<Double>();
+		double maxValue = Collections.max(input);
+		double len = (double) input.size();
+		output.add(input.get(0));
+		double maxM = 1/maxValue;
+		for(int i = 1; i<=input.size()-2; i++) {
+			double multiplier = ((maxM-1)/len)*((double)i) + 1.0;
+			      	//^ deve dare 1 quando i è 0, oppure 1/maxValue quando i è = len
+			System.out.println("multiplier: " + multiplier);
+			double newValue = input.get(i) * multiplier;
+			System.out.println("newValue: " + newValue);
+			output.add(newValue);
+		}
+		output.add(1.0);
+		return output;
+	}
+	
 	// private methods
 
 	private static ArrayList<Double> generateLinearizedLut(int size, double firstLutValue) {

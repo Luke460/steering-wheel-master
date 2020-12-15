@@ -36,6 +36,7 @@ public class Menu extends JPanel{
 	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
 	private static final String GENERATE_LINEAR_LUT = "generate_linear_lut";
 	private static final String PEAK_REDUCTION = "peak_reduction";
+	private static final String MAXIMUM_FFB = "maximum_ffb";
 	private static final String EXPERIMENTAL_AGGREGATION = "experimental_aggregation";
 	private static final Dimension MENU_DIMENSION = new Dimension(648, 404);
 	JButton previewButton;
@@ -48,6 +49,7 @@ public class Menu extends JPanel{
 	JTextField inputFileText;
 	JSlider aggregationSlider;
 	JSlider peakReductionSlider;
+	JCheckBox maximumFFB;
 	JSlider deadZoneEnhancementSlider;
 	JSONObject config;
 	JLabel documentationLink;
@@ -153,7 +155,11 @@ public class Menu extends JPanel{
 		peakReductionSlider.setPaintTicks(true);
 		peakReductionSlider.setPaintLabels(true);
 		peakReductionSlider.setPaintTrack(true);
-		peakReductionSlider.setLabelTable(position1); 
+		peakReductionSlider.setLabelTable(position1);
+		
+		maximumFFB = new JCheckBox();
+		maximumFFB.setText("Maximum FFB");
+		maximumFFB.setSelected(inputConfig.getBoolean(MAXIMUM_FFB));
 		
 		JLabel deadZoneEnhancementLabel = new JLabel("Dead zone enhancement:");
 		deadZoneEnhancementSlider = new JSlider(0, 20, (int)(config.getDouble(DEADZONE_ENHANCEMENT)*2));
@@ -198,6 +204,8 @@ public class Menu extends JPanel{
 		layoutPanel.add(peakReductionLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(peakReductionSlider, constr);
+		constr.gridx=2;
+		layoutPanel.add(maximumFFB, constr);
 		
 		// FOURTH ROW
 		constr.gridy++;
@@ -331,6 +339,12 @@ public class Menu extends JPanel{
 			experimentalAggregation.setEnabled(true);
 		}
 		
+		//compensation
+		if(peakReductionSlider.getValue()==0) {
+			maximumFFB.setEnabled(false);
+		} else {
+			maximumFFB.setEnabled(true);
+		}
 	}
 
 	public void updateConfig(org.json.JSONObject config) {
@@ -340,6 +354,7 @@ public class Menu extends JPanel{
 		config.put(GENERATE_LINEAR_LUT, generateLinearLut.isSelected());
 		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
 		config.put(EXPERIMENTAL_AGGREGATION, experimentalAggregation.isSelected());
+		config.put(MAXIMUM_FFB, maximumFFB.isSelected());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
 		} catch (Exception e) {
@@ -372,6 +387,7 @@ public class Menu extends JPanel{
 				peakReductionSlider.setValue(exConf.getPeakReduction());
 				generateLinearLut.setSelected(exConf.isGenerateLinearLut());
 				experimentalAggregation.setSelected(false);
+				maximumFFB.setSelected(false);
 				updateComponentsStatus();
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
@@ -421,6 +437,12 @@ public class Menu extends JPanel{
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Error: unable to read '" + PEAK_REDUCTION + "' property in '" + JSON_CONFIG_PATH + "'.");
+			}
+			try {
+				exConf.setMaximumFFB(config.getBoolean(MAXIMUM_FFB));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + MAXIMUM_FFB + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 		}
 	}
