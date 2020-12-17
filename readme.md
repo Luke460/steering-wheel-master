@@ -64,7 +64,7 @@ You can choose between **standard generation** and **linear lut generation**.
  - Don't go too low or you will not benefit of the aggregation procedure.
  - You can click on ***auto*** to (hopefully) calculate a good *aggregation order* for your steering wheel.
  - You can increase ***FFB peak reduction*** if you have clipping issues with your steering wheel or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan.
- - You can enable ***maximum FFB*** to boost your wheel FFB strength. In this case use the ***FFB peak reduction*** slider to increase the power enhancement. This option may reduce your steering wheel lifespan or cause clipping issues, especially on low end devices.
+ - You can enable ***maximum FFB*** to boost your wheel FFB strength. In this case use the ***FFB peak reduction*** slider to increase the power enhancement. It's mostly intended for steering wheel with low engine power. This option increases the low and medium values of FFB in a progressive manner.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - You can decrease ***dead zone enhancement*** if you still have a FFB deadzone with the generated lut.
  - You can select ***linearize near zero*** to change the aggregation strategy for low values of the force feedback. It can help remove vibrations in the center of some steering wheels. Activating this option requires you to also increase the ***deadzone enhancement*** value.
