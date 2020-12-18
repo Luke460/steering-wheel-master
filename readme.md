@@ -80,7 +80,7 @@ Now click on ***Generate csv*** or ***Generate lut*** (depending on the purpose 
 
 ## My personal settings - Logitech G29
 
-The following are the settings I currently use on my personal steering wheel. The in-game FFB gain must be set to 100%.
+The following are the settings I currently use on my personal steering wheel. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%.
 
 ### Silent mode
 This preset is noticeably quieter, although the force feedback is slightly weaker:
