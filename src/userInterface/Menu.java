@@ -80,7 +80,7 @@ public class Menu extends JPanel{
 		constr.anchor = GridBagConstraints.WEST;
 
 		// Declare Text fields
-		JLabel inputFileLabel = new JLabel("Input file:");
+		JLabel inputFileLabel = new JLabel("Input calibration file:");
 		inputFileText = new JTextField();
 		inputFileText.setPreferredSize(new Dimension(236, 22));
 		inputFileText.setText(config.getString(INPUT_FILE));
