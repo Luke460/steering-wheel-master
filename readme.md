@@ -80,14 +80,31 @@ Now click on ***Generate csv*** or ***Generate lut*** (depending on the purpose 
 
 ## My personal settings - Logitech G29
 
-The following are the settings I currently use on my personal steering wheel. My in-game FFB gain is set to 100%:
+The following are the settings I currently use on my personal steering wheel. The in-game FFB gain must be set to 100%.
 
- - ***Aggregation order***: disabled (because I want to use a linear lut)
- - ***FFB Peak reduction***: 5 (personal preference, it makes my steering wheel noticeably quieter)
- - ***Maximum FFB***: disabled
+### Silent mode
+This preset is noticeably quieter, although the force feedback is slightly weaker:
+ - ***Aggregation order***: disabled (because we are going to make a linear lut)
+ - ***FFB Peak reduction***: 5 (this option slightly reduce the overall noise of your steering wheel and extend its lifespan)
+ - ***Maximum FFB***: 0
+ - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
+ - ***Generate linear lut***: selected
+ 
+### Standard mode
+This preset offers a good compromise between strength and quietness:
+ - ***Aggregation order***: disabled (because we are going to make a linear lut)
+ - ***FFB Peak reduction***: 0
+ - ***Maximum FFB***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
  - ***Generate linear lut***: selected
 
+### Competitive mode
+This preset makes force feedback noticeably stronger, but makes the steering wheel slightly noisy:
+ - ***Aggregation order***: disabled (because we are going to make a linear lut)
+ - ***FFB Peak reduction***: 0
+ - ***Maximum FFB***: 5
+ - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
+ - ***Generate linear lut***: selected
 
 ## How to use LUT files in *Assetto Corsa* and *Assetto Corsa Competizione*
 
