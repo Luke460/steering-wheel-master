@@ -12,7 +12,7 @@ public class ExecutionConfiguration {
 	int aggregationOrder;
 	double deadZoneEnhancement;
 	int peakReduction;
-	boolean compensateFFB;
+	int ffbPowerEnhacement;
 
 	public ExecutionConfiguration() {
 		this.saveCSV = false;
@@ -21,7 +21,6 @@ public class ExecutionConfiguration {
 		this.autoCalcAggregationOder = false;
 		this.generateLinearLut = false;
 		this.experimentalAggregation = false;
-		this.compensateFFB = false;
 	};
 
 	public boolean isSaveCSV() {
@@ -104,12 +103,12 @@ public class ExecutionConfiguration {
 		this.peakReduction = peakReduction;
 	}
 	
-	public boolean isMaximumFFB() {
-		return compensateFFB;
+	public int getFfbPowerEnhacement() {
+		return ffbPowerEnhacement;
 	}
 
-	public void setMaximumFFB(boolean maximumFFB) {
-		this.compensateFFB = maximumFFB;
+	public void setFfbPowerEnhacement(int ffbPowerEnhacement) {
+		this.ffbPowerEnhacement = ffbPowerEnhacement;
 	}
 
 }

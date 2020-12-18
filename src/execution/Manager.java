@@ -132,6 +132,8 @@ public class Manager {
 			exConf.setDeadZoneEnhancement(0);
 			exConf.setGenerateLinearLut(false);
 			exConf.setPeakReduction(0);
+			exConf.setExperimentalAggregation(false);
+			exConf.setFfbPowerEnhacement(0);
 			return exConf;
 		}
 
@@ -167,7 +169,7 @@ public class Manager {
 		// END DEAD CORRECTION ONLY
 
 		// BEGIN PEAK_REDUCTION
-		if(exConf.getPeakReduction()>0) {
+		if(exConf.getPeakReduction()>0 && exConf.getFfbPowerEnhacement()==0) {
 			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getPeakReduction());
 		}
 		// END PEAK_REDUCTION
@@ -178,11 +180,12 @@ public class Manager {
 		}
 		// END DEAD_ZONE enhancement
 		
-		// BEGIN FULL POWER
-		if(exConf.isMaximumFFB()) {
+		// BEGIN FFB POWER ENHANCEMENT
+		if(exConf.getFfbPowerEnhacement()>0 && exConf.getPeakReduction()==0) {
+			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getFfbPowerEnhacement());
 			correctiveMap = Luter.enableFullPower(correctiveMap);
 		}
-		// END FULL POWER
+		// END FFB POWER ENHANCEMENT
 
 		// print results
 		if(exConf.isShowPreview()) {
@@ -265,7 +268,7 @@ public class Manager {
 		}
 		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + 
 				"-PR" + exConf.getPeakReduction() + 
-				(exConf.isMaximumFFB()?"M":"") +
+				"-PE" + exConf.getFfbPowerEnhacement() + 
 				"-DZ" + (deadZoneEnhancement) + 
 				(exConf.isExperimentalAggregation()&&!exConf.isGenerateLinearLut()?"-LNZ":"") + 
 				(exConf.isGenerateLinearLut()?"-LL":"") 
@@ -274,7 +277,8 @@ public class Manager {
 	
 	private static String generateDescriptionName(ExecutionConfiguration exConf) {
 		return "[AG=" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + 
-				",PR=" + exConf.getPeakReduction() + (exConf.isMaximumFFB()?"M":"") +
+				",PR=" + exConf.getPeakReduction() + 
+				",PE=" + exConf.getFfbPowerEnhacement() +
 				",DZ=" + exConf.getDeadZoneEnhancement() + 
 				",LNZ=" + (exConf.isExperimentalAggregation()&&!exConf.isGenerateLinearLut()?1:0) + 
 				",LL=" + (exConf.isGenerateLinearLut()?1:0) + 
