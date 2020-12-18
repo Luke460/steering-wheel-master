@@ -345,7 +345,7 @@ public class Menu extends JPanel{
 		}
 		
 		//generateCsvButton
-		if(!generateLinearLut.isSelected()&&deadZoneEnhancementSlider.getValue()==0&&peakReductionSlider.getValue()==0) {
+		if(!generateLinearLut.isSelected()&&deadZoneEnhancementSlider.getValue()==0&&peakReductionSlider.getValue()==0 && ffbPowerEnhacementSlider.getValue()==0) {
 			generateCsvButton.setEnabled(true);
 		} else {
 			generateCsvButton.setEnabled(false);
