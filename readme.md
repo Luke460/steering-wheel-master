@@ -41,21 +41,21 @@ Now you have to locate your ***iRacing force feedback test***'s log file and con
 You can choose between **standard generation** and **linear lut generation**.
  - The **standard generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. With this option you can either improve the input csv file or create a lut file. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel instead.
    
-   | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
-   |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
-   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | 2                                 | 0                      | 0                                                           |
-   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | 3               | 0                      | 0                                                           |
-   | ***mixed wheels***      | Thrustmaster TXM or T150  | 4                                  | 0                      | 0                                                           |
-   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | 4     | 0                      | 0                                                           |
+   | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
+   |-------------------------|---------------|------------------------------------|------------------------|---------------------------|---------------------------------------------------------------|
+   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | 2                                 | 0 | 0                     | 0                                                           |
+   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | 3               | 0 | 0                  | 0                                                           |
+   | ***mixed wheels***      | Thrustmaster TXM or T150  | 4                                  | 0 | 0                     | 0                                                           |
+   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | 4     | 0 | 0                    | 0                                                           |
 
  - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel. With this option you can only generate a lut file.
    
-   | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **dead zone enhancement** (depends on your wheel dead zone) |
-   |-------------------------|------------------------------|------------------------------------|------------------------|-------------------------------------------------------------|
-   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | activate option: ***Generate linear lut*** | 0                      | 5                                                           |
-   | ***belt wheels***       |  Thrustmaster T300, T500 or Fanatec CSL elite | activate option: ***Generate linear lut*** | 0                      | 5                                                           |
-   | ***mixed wheels***      | Thrustmaster TXM or T150     | activate option: ***Generate linear lut*** | from 0 to 5 (Maximum FFB disabled) | 5                                                           |
-   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | activate option: ***Generate linear lut*** | from 0 to 5 (Maximum FFB disabled) | 5                                                           |
+   | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
+   |-------------------------|---------------|------------------------------------|------------------------|---------------------------|---------------------------------|
+   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | activate option: ***Generate linear lut*** | 0 | 0                      | 5                                                           |
+   | ***belt wheels***       |  Thrustmaster T300, T500 or Fanatec CSL elite | activate option: ***Generate linear lut*** | 0 | 0                      | 5                                                           |
+   | ***mixed wheels***      | Thrustmaster TXM or T150     | activate option: ***Generate linear lut*** | from 0 to 5 | 0 | 5                                                           |
+   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | activate option: ***Generate linear lut*** | from 0 to 5 | 0 | 5                                                           |
 
 **NOTE:** these tips are based on a test with 100 reading values (*iRacing force feedback test: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa). Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
 
@@ -64,7 +64,7 @@ You can choose between **standard generation** and **linear lut generation**.
  - Don't go too low or you will not benefit of the aggregation procedure.
  - You can click on ***auto*** to (hopefully) calculate a good *aggregation order* for your steering wheel.
  - You can increase ***FFB peak reduction*** if you have clipping issues with your steering wheel or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan.
- - You can enable ***maximum FFB*** to boost your wheel FFB strength. In this case use the ***FFB peak reduction*** slider to increase the power enhancement. It's mostly intended for steering wheel with low engine power. This option increases the low and medium values of FFB in a progressive manner.
+ - You can use ***FFB power enhancement*** to boost your wheel FFB strength. It's mostly intended for steering wheel with low engine power. This option increases the low and medium values of FFB in a progressive manner.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - You can decrease ***dead zone enhancement*** if you still have a FFB deadzone with the generated lut.
  - You can select ***linearize near zero*** to change the aggregation strategy for low values of the force feedback. It can help remove vibrations in the center of some steering wheels. Activating this option requires you to also increase the ***deadzone enhancement*** value.
@@ -144,4 +144,4 @@ Now just place both the .lut file and the .ini file in the following folder:
 
 - [v2.10](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'Linearize near zero' feature.
 
-- [v2.11](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'Maximum FFB' feature.
+- [v2.11](https://github.com/Luke460/wheel-check-data-aggregator/releases): Added 'FFB power enhancement' feature.
