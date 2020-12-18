@@ -85,7 +85,7 @@ The following are the settings I currently use on my personal steering wheel. My
  - ***Aggregation order***: disabled (because I want to use a linear lut)
  - ***FFB Peak reduction***: 5 (personal preference, it makes my steering wheel noticeably quieter)
  - ***Maximum FFB***: disabled
- - ***Dead zone enhancement***: 6 (this value depends on your wheel dead zone, but should be similar to this value)
+ - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
  - ***Generate linear lut***: selected
 
 
