@@ -108,7 +108,7 @@ public class Menu extends JPanel{
 		previewButton = new JButton("Preview");
 		previewButton.addActionListener(performListener);
 
-		donateButton = new JButton("DONATE <3");
+		donateButton = new JButton("Donation page");
 		donateButton.addActionListener(performListener);
 
 		generateLutButton = new JButton("Generate lut");
