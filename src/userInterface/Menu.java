@@ -176,6 +176,8 @@ public class Menu extends JPanel{
 		deadZoneEnhancementSlider.setPaintLabels(true);
 		deadZoneEnhancementSlider.setPaintTrack(true);
 		deadZoneEnhancementSlider.setLabelTable(positionHighPrecision); 
+		
+		// UI SETUP
 
 		// FIRST FOW
 		constr.gridx=0;

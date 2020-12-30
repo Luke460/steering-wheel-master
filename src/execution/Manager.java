@@ -47,8 +47,6 @@ public class Manager {
 		boolean firstLine = true;
 
 		java.util.ArrayList<Integer> inputForce = new java.util.ArrayList<Integer>();
-		java.util.ArrayList<Integer> startX = new java.util.ArrayList<Integer>();
-		java.util.ArrayList<Integer> endX = new java.util.ArrayList<Integer>();
 		java.util.ArrayList<Integer> inputDeltaX = new java.util.ArrayList<Integer>();
 		java.util.ArrayList<Double> aggregateDeltaXdouble = null;
 
@@ -67,8 +65,6 @@ public class Manager {
 					if(line!=null && !line.equals("")) {
 						String[] row = line.split(cvsSplitBy);
 						inputForce.add(Integer.parseInt(row[0]));
-						startX.add(Integer.parseInt(row[1]));
-						endX.add(Integer.parseInt(row[2]));
 						inputDeltaX.add(Integer.parseInt(row[3]));
 					}
 
