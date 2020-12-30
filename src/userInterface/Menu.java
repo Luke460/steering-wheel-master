@@ -306,7 +306,7 @@ public class Menu extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {            
-					Desktop.getDesktop().browse(new URI("https://www.paypal.com/paypalme/furlanoluca"));  
+					Desktop.getDesktop().browse(new URI("https://www.paypal.com/donate?hosted_button_id=WVSY5VX8TA4ZE"));  
 				} catch (IOException | URISyntaxException e1) {
 					e1.printStackTrace();
 				}
