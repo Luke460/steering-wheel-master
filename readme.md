@@ -133,7 +133,7 @@ Now just place both the .lut file and the .ini file in the following folder:
 ## Donate
 
 Donations are not required, but always accepted with pleasure. Thanks for your support!
- - [***Go to the donation page***](https://www.paypal.com/paypalme/furlanoluca)
+ - [***Go to the donation page***](https://www.paypal.com/donate?hosted_button_id=WVSY5VX8TA4ZE)
 
  
 ## New Features
