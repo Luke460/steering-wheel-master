@@ -10,6 +10,7 @@ import execution.Manager;
 import model.ExecutionConfiguration;
 
 import static execution.Constants.JSON_CONFIG_PATH;
+import static userInterface.TooltipsText.*;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -45,7 +46,7 @@ public class Menu extends JPanel{
 	JButton fileBrowserButton;
 	JButton autoButton;
 	JCheckBox generateLinearLut;
-	JCheckBox experimentalAggregation;
+	JCheckBox linearizeNearZero;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
 	JSlider peakReductionSlider;
@@ -123,9 +124,9 @@ public class Menu extends JPanel{
 		generateLinearLut.setText("Generate linear lut");
 		generateLinearLut.setSelected(inputConfig.getBoolean(GENERATE_LINEAR_LUT));
 
-		experimentalAggregation = new JCheckBox();
-		experimentalAggregation.setText("Linearize near zero");
-		experimentalAggregation.setSelected(inputConfig.getBoolean(EXPERIMENTAL_AGGREGATION));
+		linearizeNearZero = new JCheckBox();
+		linearizeNearZero.setText("Linearize near zero");
+		linearizeNearZero.setSelected(inputConfig.getBoolean(EXPERIMENTAL_AGGREGATION));
 
 		// Add positions label in the slider
 		Hashtable<Integer, JLabel> position1 = new Hashtable<Integer, JLabel>();
@@ -177,6 +178,23 @@ public class Menu extends JPanel{
 		deadZoneEnhancementSlider.setPaintTrack(true);
 		deadZoneEnhancementSlider.setLabelTable(positionHighPrecision); 
 		
+		autoButton = new JButton("Auto");
+		autoButton.addActionListener(performListener);
+		
+		// TOOLTIPS SETUP
+		String htmlBegin = "<html><p width=\"360\">";
+		String htmlEnd = "</p></html>";
+		
+		fileBrowserButton.setToolTipText(htmlBegin + FILE_BROWSER_DESCRIPTION + htmlEnd);
+		aggregationSlider.setToolTipText(htmlBegin + AGGREGATION_ORDER_DESCRIPTION + htmlEnd);
+		autoButton.setToolTipText(htmlBegin + AUTO_DESCRIPTION + htmlEnd);
+		peakReductionSlider.setToolTipText(htmlBegin + PEAK_REDUCTION_DESCRIPTION + htmlEnd);
+		ffbPowerEnhacementSlider.setToolTipText(htmlBegin + POWER_ENHANCEMENT_DESCRIPTION + htmlEnd);
+		deadZoneEnhancementSlider.setToolTipText(htmlBegin + DZ_ENHANCEMENT_DESCRIPTION + htmlEnd);
+		linearizeNearZero.setToolTipText(htmlBegin + LINEARIZE_NEAR_ZERO_DESCRIPTION + htmlEnd);
+		generateLinearLut.setToolTipText(htmlBegin + GENERATE_LINEAR_LUT_DESCRIPTION + htmlEnd);
+		donateButton.setToolTipText(htmlBegin + DONATION_DESCRIPTION + htmlEnd);
+		
 		// UI SETUP
 
 		// FIRST FOW
@@ -198,9 +216,6 @@ public class Menu extends JPanel{
 		layoutPanel.add(aggregationLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(aggregationSlider, constr);
-
-		autoButton = new JButton("Auto");
-		autoButton.addActionListener(performListener);
 
 		constr.gridx=2;
 		layoutPanel.add(autoButton, constr);
@@ -238,7 +253,7 @@ public class Menu extends JPanel{
 		constr.gridy++;
 
 		constr.gridx=0;
-		layoutPanel.add(experimentalAggregation, constr);
+		layoutPanel.add(linearizeNearZero, constr);
 
 		constr.gridx=1;
 		constr.anchor = GridBagConstraints.CENTER;
@@ -317,7 +332,7 @@ public class Menu extends JPanel{
 			}
 		});
 		
-		experimentalAggregation.addItemListener(new ItemListener() {
+		linearizeNearZero.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
@@ -359,9 +374,9 @@ public class Menu extends JPanel{
 		
 		//linearization
 		if(generateLinearLut.isSelected()) {
-			experimentalAggregation.setEnabled(false);
+			linearizeNearZero.setEnabled(false);
 		} else {
-			experimentalAggregation.setEnabled(true);
+			linearizeNearZero.setEnabled(true);
 		}
 		
 		//compensation
@@ -384,7 +399,7 @@ public class Menu extends JPanel{
 		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue()/2.0);
 		config.put(GENERATE_LINEAR_LUT, generateLinearLut.isSelected());
 		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
-		config.put(EXPERIMENTAL_AGGREGATION, experimentalAggregation.isSelected());
+		config.put(EXPERIMENTAL_AGGREGATION, linearizeNearZero.isSelected());
 		config.put(FFB_POWER_ENHANCEMENT, ffbPowerEnhacementSlider.getValue());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
@@ -413,7 +428,7 @@ public class Menu extends JPanel{
 				deadZoneEnhancementSlider.setValue((int)(exConf.getDeadZoneEnhancement()*2));
 				peakReductionSlider.setValue(exConf.getPeakReduction());
 				generateLinearLut.setSelected(exConf.isGenerateLinearLut());
-				experimentalAggregation.setSelected(exConf.isExperimentalAggregation());
+				linearizeNearZero.setSelected(exConf.isExperimentalAggregation());
 				ffbPowerEnhacementSlider.setValue(exConf.getFfbPowerEnhacement());
 				updateComponentsStatus();
 			} else if(src == fileBrowserButton){
