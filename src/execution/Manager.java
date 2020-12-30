@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import static execution.Constants.MAX_RESOLUTION;
+import static execution.Constants.INPUT_FORCE_COLUMN_INDEX;
+import static execution.Constants.MOVEMENT_DELTA_COLUMN_INDEX;
 import javax.swing.JOptionPane;
 
 import model.ExecutionConfiguration;
@@ -47,7 +49,7 @@ public class Manager {
 		boolean firstLine = true;
 
 		java.util.ArrayList<Integer> inputForce = new java.util.ArrayList<Integer>();
-		java.util.ArrayList<Integer> inputDeltaX = new java.util.ArrayList<Integer>();
+		java.util.ArrayList<Double> inputDeltaX = new java.util.ArrayList<Double>();
 		java.util.ArrayList<Double> aggregateDeltaXdouble = null;
 
 		System.out.println("reading input file...");
@@ -64,8 +66,8 @@ public class Manager {
 
 					if(line!=null && !line.equals("")) {
 						String[] row = line.split(cvsSplitBy);
-						inputForce.add(Integer.parseInt(row[0]));
-						inputDeltaX.add(Integer.parseInt(row[3]));
+						inputForce.add(Integer.parseInt(row[INPUT_FORCE_COLUMN_INDEX]));
+						inputDeltaX.add(Double.parseDouble(row[MOVEMENT_DELTA_COLUMN_INDEX]));
 					}
 
 				} else {
@@ -98,19 +100,15 @@ public class Manager {
 
 		// END READ
 
-
-		// for more precision
-		java.util.ArrayList<Double> deltaXdouble = new java.util.ArrayList<Double>(); 
-		deltaXdouble = Utility.integerListToDoubleList(inputDeltaX);
-
 		// BEGIN ERROR CORRECTION
 
-		deltaXdouble = Corrector.adjust(deltaXdouble, "deltaX");	
+		java.util.ArrayList<Double> correctedDeltaX = new java.util.ArrayList<Double>();
+		correctedDeltaX = Corrector.adjust(inputDeltaX, "deltaX");	
 
 		// END ERROR CORRECTION	
 
 		if(exConf.isAutoCalcAggregationOder()) {
-			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(deltaXdouble));
+			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(correctedDeltaX));
 			exConf.setDeadZoneEnhancement(0);
 			exConf.setGenerateLinearLut(false);
 			exConf.setPeakReduction(0);
@@ -124,9 +122,9 @@ public class Manager {
 		System.out.println("aggregation...");
 
 		if(exConf.isExperimentalAggregation()) {
-			aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+			aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 		} else {
-			aggregateDeltaXdouble = Aggregator.performAggregation(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 		}
 
 		// END AGGREGATION
@@ -164,7 +162,7 @@ public class Manager {
 		// print results
 		if(exConf.isShowPreview()) {
 			try {
-				DrawGraphHD.createAndShowGui(Utility.integerListToDoubleList(inputDeltaX), 
+				DrawGraphHD.createAndShowGui(inputDeltaX, 
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), generateDescriptionName(exConf));
 			} catch(Exception e) {
