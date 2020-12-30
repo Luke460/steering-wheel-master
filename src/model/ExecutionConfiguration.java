@@ -2,7 +2,6 @@ package model;
 
 public class ExecutionConfiguration {
 	
-	boolean saveCSV; 
 	boolean saveLUT; 
 	boolean showPreview;
 	boolean autoCalcAggregationOder;
@@ -15,21 +14,12 @@ public class ExecutionConfiguration {
 	int ffbPowerEnhacement;
 
 	public ExecutionConfiguration() {
-		this.saveCSV = false;
 		this.saveLUT = false;
 		this.showPreview = false;
 		this.autoCalcAggregationOder = false;
 		this.generateLinearLut = false;
 		this.experimentalAggregation = false;
 	};
-
-	public boolean isSaveCSV() {
-		return saveCSV;
-	}
-
-	public void setSaveCSV(boolean saveCSV) {
-		this.saveCSV = saveCSV;
-	}
 
 	public boolean isSaveLUT() {
 		return saveLUT;

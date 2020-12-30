@@ -10,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
 
 import static execution.Constants.MAX_RESOLUTION;
 import javax.swing.JOptionPane;
@@ -51,13 +50,7 @@ public class Manager {
 		java.util.ArrayList<Integer> startX = new java.util.ArrayList<Integer>();
 		java.util.ArrayList<Integer> endX = new java.util.ArrayList<Integer>();
 		java.util.ArrayList<Integer> inputDeltaX = new java.util.ArrayList<Integer>();
-		java.util.ArrayList<Double> inputDeltaXDeg = new java.util.ArrayList<Double>();
-
-		java.util.ArrayList<Integer> aggregateDeltaX = null;
 		java.util.ArrayList<Double> aggregateDeltaXdouble = null;
-		java.util.ArrayList<Double> aggregatedeltaXDeg = null;
-
-		String title = null;
 
 		System.out.println("reading input file...");
 
@@ -77,14 +70,10 @@ public class Manager {
 						startX.add(Integer.parseInt(row[1]));
 						endX.add(Integer.parseInt(row[2]));
 						inputDeltaX.add(Integer.parseInt(row[3]));
-						if(exConf.isSaveCSV()) {
-							inputDeltaXDeg.add(Double.parseDouble(row[4]));
-						}
 					}
 
 				} else {
 					firstLine = false;
-					title = line;
 				}
 
 			}
@@ -120,9 +109,6 @@ public class Manager {
 
 		// BEGIN ERROR CORRECTION
 
-		if(exConf.isSaveCSV()) {
-			inputDeltaXDeg = Corrector.adjust(inputDeltaXDeg, "deltaXDeg");
-		}
 		deltaXdouble = Corrector.adjust(deltaXdouble, "deltaX");	
 
 		// END ERROR CORRECTION	
@@ -142,20 +128,12 @@ public class Manager {
 		System.out.println("aggregation...");
 
 		if(exConf.isExperimentalAggregation()) {
-			if(exConf.isSaveCSV()) {
-				aggregatedeltaXDeg = Aggregator.performExperimentalAggregation(inputDeltaXDeg, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
-			}
 			aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 		} else {
-			if(exConf.isSaveCSV()) {
-				aggregatedeltaXDeg = Aggregator.performAggregation(inputDeltaXDeg, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
-			}
 			aggregateDeltaXdouble = Aggregator.performAggregation(deltaXdouble, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 		}
 
 		// END AGGREGATION
-
-		aggregateDeltaX = Utility.doubleListToIntegerList(aggregateDeltaXdouble);
 
 		// BEGIN LUT GENERATION
 		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
@@ -199,38 +177,6 @@ public class Manager {
 		}
 
 		// write results
-
-		if(exConf.isSaveCSV()) {
-			String newCsvFileName = generateFileName(exConf, FileType.csv);
-			System.out.println("generating new csv file '" + newCsvFileName + "'...");
-			Files.deleteIfExists(Paths.get(newCsvFileName));
-			for(int i = -1; i < inputForce.size(); i++) {
-				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newCsvFileName, true))) {
-					if(i == -1) {
-						bw.write(title);
-						bw.newLine();
-						bw.flush();
-					} else {
-						int adjustedEndX = startX.get(i) + aggregateDeltaX.get(i);
-						double adjustedAggregatedeltaXDegValue = Utility.round(aggregatedeltaXDeg.get(i),6);
-						String s = inputForce.get(i) + ", " + 
-								startX.get(i) + ", " +
-								adjustedEndX + ", " + 
-								aggregateDeltaX.get(i) + ", " +
-								String.format(new Locale("en", "US"), "%.6f", adjustedAggregatedeltaXDegValue); 
-						bw.write(s);
-						bw.newLine();
-						bw.flush();
-					}
-				} catch(IOException e) { 
-					e.printStackTrace();
-				}
-			} 
-
-			System.out.println("CSV DONE!");
-			JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newCsvFileName + "'.");
-
-		}
 
 		if(exConf.isSaveLUT()) {
 			correctiveMap = Utility.round(correctiveMap,4);

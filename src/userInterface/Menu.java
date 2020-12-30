@@ -40,7 +40,7 @@ public class Menu extends JPanel{
 	private static final String EXPERIMENTAL_AGGREGATION = "experimental_aggregation";
 	private static final Dimension MENU_DIMENSION = new Dimension(648, 444);
 	JButton previewButton;
-	JButton generateCsvButton;
+	JButton donateButton;
 	JButton generateLutButton;
 	JButton fileBrowserButton;
 	JButton autoButton;
@@ -107,8 +107,8 @@ public class Menu extends JPanel{
 		previewButton = new JButton("Preview");
 		previewButton.addActionListener(performListener);
 
-		generateCsvButton = new JButton("Generate csv");
-		generateCsvButton.addActionListener(performListener);
+		donateButton = new JButton("DONATE <3");
+		donateButton.addActionListener(performListener);
 
 		generateLutButton = new JButton("Generate lut");
 		generateLutButton.addActionListener(performListener);
@@ -116,7 +116,7 @@ public class Menu extends JPanel{
 		Dimension buttonDimension = new Dimension(160, 30);
 		fileBrowserButton.setPreferredSize(buttonDimension);
 		previewButton.setPreferredSize(buttonDimension);
-		generateCsvButton.setPreferredSize(buttonDimension);
+		donateButton.setPreferredSize(buttonDimension);
 		generateLutButton.setPreferredSize(buttonDimension);
 
 		generateLinearLut = new JCheckBox();
@@ -252,7 +252,7 @@ public class Menu extends JPanel{
 		constr.anchor = GridBagConstraints.WEST;
 		layoutPanel.add(previewButton, constr);
 		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(generateCsvButton, constr);
+		layoutPanel.add(donateButton, constr);
 		constr.anchor = GridBagConstraints.EAST;
 		layoutPanel.add(generateLutButton, constr);
 
@@ -279,6 +279,17 @@ public class Menu extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				try {            
 					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator"));  
+				} catch (IOException | URISyntaxException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		donateButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {            
+					Desktop.getDesktop().browse(new URI("https://www.paypal.com/paypalme/furlanoluca"));  
 				} catch (IOException | URISyntaxException e1) {
 					e1.printStackTrace();
 				}
@@ -344,13 +355,6 @@ public class Menu extends JPanel{
 			aggregationSlider.setEnabled(false);
 		}
 		
-		//generateCsvButton
-		if(!generateLinearLut.isSelected()&&deadZoneEnhancementSlider.getValue()==0&&peakReductionSlider.getValue()==0 && ffbPowerEnhacementSlider.getValue()==0) {
-			generateCsvButton.setEnabled(true);
-		} else {
-			generateCsvButton.setEnabled(false);
-		}
-		
 		//linearization
 		if(generateLinearLut.isSelected()) {
 			experimentalAggregation.setEnabled(false);
@@ -395,10 +399,6 @@ public class Menu extends JPanel{
 			Object src = e.getSource();
 			if (src == previewButton){
 				exConf.setShowPreview(true);
-				Manager.execute(exConf);
-			} else if(src == generateCsvButton){
-				exConf.setShowPreview(true);
-				exConf.setSaveCSV(true);
 				Manager.execute(exConf);
 			} else if(src == generateLutButton){
 				exConf.setShowPreview(true);
