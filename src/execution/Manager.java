@@ -112,7 +112,7 @@ public class Manager {
 			exConf.setDeadZoneEnhancement(0);
 			exConf.setGenerateLinearLut(false);
 			exConf.setPeakReduction(0);
-			exConf.setExperimentalAggregation(false);
+			exConf.setLinearizeNearZero(false);
 			exConf.setFfbPowerEnhacement(0);
 			return exConf;
 		}
@@ -121,7 +121,7 @@ public class Manager {
 
 		System.out.println("aggregation...");
 
-		if(exConf.isExperimentalAggregation()) {
+		if(exConf.isLinearizeNearZero()) {
 			aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
 		} else {
 			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
@@ -210,7 +210,7 @@ public class Manager {
 				"-PR" + exConf.getPeakReduction() + 
 				"-PE" + exConf.getFfbPowerEnhacement() + 
 				"-DZ" + (deadZoneEnhancement) + 
-				(exConf.isExperimentalAggregation()&&!exConf.isGenerateLinearLut()?"-LNZ":"") + 
+				(exConf.isLinearizeNearZero()&&!exConf.isGenerateLinearLut()?"-LNZ":"") + 
 				(exConf.isGenerateLinearLut()?"-LL":"") 
 				+ "." + type.name();
 	}
@@ -220,7 +220,7 @@ public class Manager {
 				",PR=" + exConf.getPeakReduction() + 
 				",PE=" + exConf.getFfbPowerEnhacement() +
 				",DZ=" + exConf.getDeadZoneEnhancement() + 
-				",LNZ=" + (exConf.isExperimentalAggregation()&&!exConf.isGenerateLinearLut()?1:0) + 
+				",LNZ=" + (exConf.isLinearizeNearZero()&&!exConf.isGenerateLinearLut()?1:0) + 
 				",LL=" + (exConf.isGenerateLinearLut()?1:0) + 
 				"] " + exConf.getInputCsvPath();
 	}

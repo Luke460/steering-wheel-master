@@ -6,7 +6,7 @@ public class ExecutionConfiguration {
 	boolean showPreview;
 	boolean autoCalcAggregationOder;
 	boolean generateLinearLut;
-	boolean experimentalAggregation;
+	boolean linearizeNearZero;
 	String inputCsvPath;
 	int aggregationOrder;
 	double deadZoneEnhancement;
@@ -18,7 +18,7 @@ public class ExecutionConfiguration {
 		this.showPreview = false;
 		this.autoCalcAggregationOder = false;
 		this.generateLinearLut = false;
-		this.experimentalAggregation = false;
+		this.linearizeNearZero = false;
 	};
 
 	public boolean isSaveLUT() {
@@ -73,16 +73,16 @@ public class ExecutionConfiguration {
 		return generateLinearLut;
 	}
 
-	public void setGenerateLinearLut(boolean deadZoneCorrectionOnly) {
-		this.generateLinearLut = deadZoneCorrectionOnly;
+	public void setGenerateLinearLut(boolean generateLinearLut) {
+		this.generateLinearLut = generateLinearLut;
 	}
 
-	public boolean isExperimentalAggregation() {
-		return experimentalAggregation;
+	public boolean isLinearizeNearZero() {
+		return linearizeNearZero;
 	}
 
-	public void setExperimentalAggregation(boolean experimentalAggregation) {
-		this.experimentalAggregation = experimentalAggregation;
+	public void setLinearizeNearZero(boolean linearizeNearZero) {
+		this.linearizeNearZero = linearizeNearZero;
 	}
 
 	public int getPeakReduction() {

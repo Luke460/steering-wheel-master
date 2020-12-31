@@ -38,7 +38,7 @@ public class Menu extends JPanel{
 	private static final String GENERATE_LINEAR_LUT = "generate_linear_lut";
 	private static final String PEAK_REDUCTION = "peak_reduction";
 	private static final String FFB_POWER_ENHANCEMENT = "ffb_power_enhancement";
-	private static final String EXPERIMENTAL_AGGREGATION = "experimental_aggregation";
+	private static final String LINEARIZE_NEAR_ZERO = "linearize_near_zero";
 	private static final Dimension MENU_DIMENSION = new Dimension(648, 444);
 	JButton previewButton;
 	JButton donateButton;
@@ -126,7 +126,7 @@ public class Menu extends JPanel{
 
 		linearizeNearZero = new JCheckBox();
 		linearizeNearZero.setText("Linearize near zero");
-		linearizeNearZero.setSelected(inputConfig.getBoolean(EXPERIMENTAL_AGGREGATION));
+		linearizeNearZero.setSelected(inputConfig.getBoolean(LINEARIZE_NEAR_ZERO));
 
 		// Add positions label in the slider
 		Hashtable<Integer, JLabel> position1 = new Hashtable<Integer, JLabel>();
@@ -159,7 +159,7 @@ public class Menu extends JPanel{
 		peakReductionSlider.setLabelTable(position1);
 		
 		JLabel ffbPowerEnhacementLabel = new JLabel("FFB power enhancement:");
-		ffbPowerEnhacementSlider = new JSlider(0, 10, config.getInt(PEAK_REDUCTION));
+		ffbPowerEnhacementSlider = new JSlider(0, 10, config.getInt(FFB_POWER_ENHANCEMENT));
 		ffbPowerEnhacementSlider.setPreferredSize(new Dimension(244, 44));
 		ffbPowerEnhacementSlider.setMajorTickSpacing(5);
 		ffbPowerEnhacementSlider.setMinorTickSpacing(1);
@@ -399,7 +399,7 @@ public class Menu extends JPanel{
 		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue()/2.0);
 		config.put(GENERATE_LINEAR_LUT, generateLinearLut.isSelected());
 		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
-		config.put(EXPERIMENTAL_AGGREGATION, linearizeNearZero.isSelected());
+		config.put(LINEARIZE_NEAR_ZERO, linearizeNearZero.isSelected());
 		config.put(FFB_POWER_ENHANCEMENT, ffbPowerEnhacementSlider.getValue());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
@@ -428,7 +428,7 @@ public class Menu extends JPanel{
 				deadZoneEnhancementSlider.setValue((int)(exConf.getDeadZoneEnhancement()*2));
 				peakReductionSlider.setValue(exConf.getPeakReduction());
 				generateLinearLut.setSelected(exConf.isGenerateLinearLut());
-				linearizeNearZero.setSelected(exConf.isExperimentalAggregation());
+				linearizeNearZero.setSelected(exConf.isLinearizeNearZero());
 				ffbPowerEnhacementSlider.setValue(exConf.getFfbPowerEnhacement());
 				updateComponentsStatus();
 			} else if(src == fileBrowserButton){
@@ -469,10 +469,10 @@ public class Menu extends JPanel{
 				JOptionPane.showMessageDialog(null, "Error: unable to read '" + GENERATE_LINEAR_LUT + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
-				exConf.setExperimentalAggregation(config.getBoolean(EXPERIMENTAL_AGGREGATION));
+				exConf.setLinearizeNearZero(config.getBoolean(LINEARIZE_NEAR_ZERO));
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + EXPERIMENTAL_AGGREGATION + "' property in '" + JSON_CONFIG_PATH + "'.");
+				JOptionPane.showMessageDialog(null, "Error: unable to read '" + LINEARIZE_NEAR_ZERO + "' property in '" + JSON_CONFIG_PATH + "'.");
 			}
 			try {
 				exConf.setPeakReduction(config.getInt(PEAK_REDUCTION));
