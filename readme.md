@@ -1,6 +1,11 @@
-# Download
+## Download
 
 + [***Wheel Check Data Aggregator***](https://github.com/Luke460/wheel-check-data-aggregator/releases) ***(latest version)***
+
+## Donate
+
+Donations are not required, but always accepted with pleasure. Thanks for your support!
+ - [***Go to the donation page***](https://www.paypal.com/donate?hosted_button_id=WVSY5VX8TA4ZE)
 
 ---
 
@@ -128,13 +133,8 @@ CURVE=AG0-PR5-DZ5-LL.lut
 Now just place both the .lut file and the .ini file in the following folder:
  - For AC: ```C:\Users\<user_name>\Documents\Assetto Corsa\cfg```
  - For ACC: ```C:\Users\<user_name>\Documents\Assetto Corsa Competizione\Config```
- 
- 
-## Donate
 
-Donations are not required, but always accepted with pleasure. Thanks for your support!
- - [***Go to the donation page***](https://www.paypal.com/donate?hosted_button_id=WVSY5VX8TA4ZE)
-
+---
  
 ## New Features
 
