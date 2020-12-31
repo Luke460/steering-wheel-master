@@ -1,1 +1,1 @@
-{"ffb_power_enhancement":0,"input_file":"example.csv","aggregation_order":5,"peak_reduction":0,"deadzone_enhancement":0,"maximum_ffb":false,"linearize_near_zero":false,"generate_linear_lut":false}
+{"ffb_power_enhancement":0,"input_file":"example.csv","aggregation_order":5,"peak_reduction":0,"deadzone_enhancement":0,"linearize_near_zero":false,"generate_linear_lut":false}
