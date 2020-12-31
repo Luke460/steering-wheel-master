@@ -91,7 +91,7 @@ The following are the settings I currently use on my personal steering wheel. Th
 This preset is noticeably quieter, although the force feedback is slightly weaker:
  - ***Aggregation order***: disabled (because we are going to make a linear lut)
  - ***FFB Peak reduction***: 5 (this option slightly reduce the overall noise of your steering wheel and extend its lifespan)
- - ***Maximum FFB***: 0
+ - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
  - ***Generate linear lut***: selected
  
@@ -99,7 +99,7 @@ This preset is noticeably quieter, although the force feedback is slightly weake
 This preset offers a good compromise between strength and quietness:
  - ***Aggregation order***: disabled (because we are going to make a linear lut)
  - ***FFB Peak reduction***: 0
- - ***Maximum FFB***: 0
+ - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
  - ***Generate linear lut***: selected
 
@@ -107,7 +107,7 @@ This preset offers a good compromise between strength and quietness:
 This preset makes force feedback noticeably stronger, but makes the steering wheel slightly noisy:
  - ***Aggregation order***: disabled (because we are going to make a linear lut)
  - ***FFB Peak reduction***: 0
- - ***Maximum FFB***: 5
+ - ***FFB power enhancement***: 5
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
  - ***Generate linear lut***: selected
 
