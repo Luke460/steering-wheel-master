@@ -195,6 +195,9 @@ public class Menu extends JPanel{
 		linearizeNearZero.setToolTipText(htmlBegin + LINEARIZE_NEAR_ZERO_DESCRIPTION + htmlEnd);
 		generateLinearLut.setToolTipText(htmlBegin + GENERATE_LINEAR_LUT_DESCRIPTION + htmlEnd);
 		donateButton.setToolTipText(htmlBegin + DONATION_DESCRIPTION + htmlEnd);
+		inputCsvSettings.setToolTipText(htmlBegin + CSV_SETTINGS_DESCRIPTION + htmlEnd);
+		previewButton.setToolTipText(htmlBegin + PREVIEW_DESCRIPTION + htmlEnd);
+		generateLutButton.setToolTipText(htmlBegin + GENERATE_LUT_DESCRIPTION + htmlEnd);
 		
 		// BOTTON SIZE
 		Dimension buttonDimension = new Dimension(160, 30);

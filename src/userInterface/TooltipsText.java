@@ -13,4 +13,7 @@ public interface TooltipsText {
 	public static final String LINEARIZE_NEAR_ZERO_DESCRIPTION = "Change the aggregation strategy for low values of the force feedback. It can help remove vibrations in the center of some steering wheels. Activating this option requires you to also increase the deadzone enhancement value."; 
 	public static final String GENERATE_LINEAR_LUT_DESCRIPTION = "The linear lut generation uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.";
 	public static final String DONATION_DESCRIPTION = "Donations are not required, but always accepted with pleasure. Thanks for your support!";
+	public static final String CSV_SETTINGS_DESCRIPTION = "Configure how to read the input csv file.";
+	public static final String PREVIEW_DESCRIPTION = "Displays force feedback and applied correction values ​​on a graph.";
+	public static final String GENERATE_LUT_DESCRIPTION = "Generate a lut file with the current settings.";
 }
