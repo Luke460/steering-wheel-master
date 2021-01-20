@@ -15,7 +15,7 @@ Donations are not required, but always accepted with pleasure. Thanks for your s
 
 This application is free and open source. The development was born to help the simracers community get the most out of their steering wheels, regardless of the price range of the hardware.
 
-This procedure uses as input a force feedback calibration file, and by processing it, is able to produce a lookup table (or ***lut file***).
+This procedure uses as input a ***force feedback calibration file***, and by processing it, is able to produce a lookup table (or ***lut file***).
 
 ...but what does it mean? what is data aggregation?
 
@@ -31,7 +31,7 @@ In the following graph you can see an example of a generated log file for a ***L
 
 In these procedures there is always a remote possibility of damaging your hardware. Only proceed if you are aware of the risk. I take no responsibility for any damage caused by this procedure.
 
-Before to start, you have to create a force feedback calibration file for your own steering wheel. Depending on the program you intend to use, you may need to set the input force column and the delta column.
+Before to start, you have to create a ***force feedback calibration file*** for your own steering wheel. Depending on the program you intend to use, you may need to set the *force column index* and the *delta column index* in the ***CSV settings*** menu.
 
 In this example we will execute a calibration procedure by using ***iRacing force feedback test*** (v1.72), a tool made by David Tucker of iRacing.com that measures the change in the steering wheel position for each input applied.
 The used settings are ***Step Log 2 (linear force test)*** with ***Max Count*** set to ***100***.
