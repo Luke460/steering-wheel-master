@@ -12,6 +12,8 @@ public class ExecutionConfiguration {
 	double deadZoneEnhancement;
 	int peakReduction;
 	int ffbPowerEnhacement;
+	int forceColumnIndex;
+	int deltaColumnIndex;
 
 	public ExecutionConfiguration() {
 		this.saveLUT = false;
@@ -20,6 +22,21 @@ public class ExecutionConfiguration {
 		this.generateLinearLut = false;
 		this.linearizeNearZero = false;
 	};
+	
+	public ExecutionConfiguration(ExecutionConfiguration conf) {
+		this.saveLUT = conf.isSaveLUT();
+		this.showPreview = conf.isShowPreview();
+		this.autoCalcAggregationOder = conf.isAutoCalcAggregationOder();
+		this.generateLinearLut = conf.isGenerateLinearLut();
+		this.linearizeNearZero = conf.isLinearizeNearZero();
+		this.inputCsvPath = conf.getInputCsvPath();
+		this.aggregationOrder = conf.getAggregationOrder();
+		this.deadZoneEnhancement = conf.getDeadZoneEnhancement();
+		this.peakReduction = conf.getPeakReduction();
+		this.ffbPowerEnhacement = conf.getFfbPowerEnhacement();
+		this.forceColumnIndex = conf.getForceColumnIndex();
+		this.deltaColumnIndex = conf.getDeltaColumnIndex();
+	}
 
 	public boolean isSaveLUT() {
 		return saveLUT;
@@ -99,6 +116,22 @@ public class ExecutionConfiguration {
 
 	public void setFfbPowerEnhacement(int ffbPowerEnhacement) {
 		this.ffbPowerEnhacement = ffbPowerEnhacement;
+	}
+
+	public int getForceColumnIndex() {
+		return forceColumnIndex;
+	}
+
+	public void setForceColumnIndex(int forceColumnIndex) {
+		this.forceColumnIndex = forceColumnIndex;
+	}
+
+	public int getDeltaColumnIndex() {
+		return deltaColumnIndex;
+	}
+
+	public void setDeltaColumnIndex(int deltaColumnIndex) {
+		this.deltaColumnIndex = deltaColumnIndex;
 	}
 
 }

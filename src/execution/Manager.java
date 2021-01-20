@@ -10,12 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import static execution.Constants.MAX_RESOLUTION;
-import static execution.Constants.INPUT_FORCE_COLUMN_INDEX;
-import static execution.Constants.MOVEMENT_DELTA_COLUMN_INDEX;
 import javax.swing.JOptionPane;
-
 import model.ExecutionConfiguration;
 import process.Aggregator;
 import process.Corrector;
@@ -66,8 +62,8 @@ public class Manager {
 
 					if(line!=null && !line.equals("")) {
 						String[] row = line.split(cvsSplitBy);
-						inputForce.add(Integer.parseInt(row[INPUT_FORCE_COLUMN_INDEX]));
-						inputDeltaX.add(Double.parseDouble(row[MOVEMENT_DELTA_COLUMN_INDEX]));
+						inputForce.add(Integer.parseInt(row[exConf.getForceColumnIndex()]));
+						inputDeltaX.add(Double.parseDouble(row[exConf.getDeltaColumnIndex()]));
 					}
 
 				} else {
@@ -75,6 +71,11 @@ public class Manager {
 				}
 
 			}
+		
+		if(!Utility.isGrowingForIntegerList(inputForce)) {
+			JOptionPane.showMessageDialog(null, "Invalid input CSV file: force column does not contain increasing values.");
+			return exConf;
+		}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -2,10 +2,6 @@ package execution;
 
 import static execution.Constants.JSON_CONFIG_PATH;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import javax.swing.JOptionPane;
-
 import userInterface.Menu;
 
 public class Main {
@@ -15,15 +11,9 @@ public class Main {
 		System.out.println("START");
 		System.out.println("reading '" + JSON_CONFIG_PATH + "'...");
 
-		// Read Configuration
-		org.json.JSONObject config = null;
-		try {
-			config = new org.json.JSONObject(new String(Files.readAllBytes(Paths.get(JSON_CONFIG_PATH))));
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: unable to read '" + JSON_CONFIG_PATH + "' file.");
-			return;
-		}
+		org.json.JSONObject config = Utility.readConfiguration(JSON_CONFIG_PATH);
+		
+		if(config == null) return;
 		
 		// Open Menu
 		System.out.println("opening Menu...");

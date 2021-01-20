@@ -45,7 +45,7 @@ public class Aggregator {
 		// Ag_1(Ag_1(x)) = Ag_2(x)
 		int i;
 		for (i = 0; i<=7; i++) {
-			if(Utility.isGrowing(aggregateInput)) {
+			if(Utility.isGrowingForDoubleList(aggregateInput)) {
 				return i + plus; //i min value 0, i max value 5
 			} else {
 				aggregateInput = performAggregation(aggregateInput, 1);

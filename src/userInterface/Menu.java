@@ -7,6 +7,7 @@ import javax.swing.event.ChangeListener;
 import org.json.JSONObject;
 
 import execution.Manager;
+import execution.Utility;
 import model.ExecutionConfiguration;
 
 import static execution.Constants.JSON_CONFIG_PATH;
@@ -39,12 +40,15 @@ public class Menu extends JPanel{
 	private static final String PEAK_REDUCTION = "peak_reduction";
 	private static final String FFB_POWER_ENHANCEMENT = "ffb_power_enhancement";
 	private static final String LINEARIZE_NEAR_ZERO = "linearize_near_zero";
+	private static final String FORCE_COLUMN_INDEX = "force_column_index";
+	private static final String DELTA_COLUMN_INDEX = "delta_column_index";
 	private static final Dimension MENU_DIMENSION = new Dimension(648, 444);
 	JButton previewButton;
 	JButton donateButton;
 	JButton generateLutButton;
 	JButton fileBrowserButton;
 	JButton autoButton;
+	JButton inputCsvSettings;
 	JCheckBox generateLinearLut;
 	JCheckBox linearizeNearZero;
 	JTextField inputFileText;
@@ -114,12 +118,6 @@ public class Menu extends JPanel{
 		generateLutButton = new JButton("Generate lut");
 		generateLutButton.addActionListener(performListener);
 
-		Dimension buttonDimension = new Dimension(160, 30);
-		fileBrowserButton.setPreferredSize(buttonDimension);
-		previewButton.setPreferredSize(buttonDimension);
-		donateButton.setPreferredSize(buttonDimension);
-		generateLutButton.setPreferredSize(buttonDimension);
-
 		generateLinearLut = new JCheckBox();
 		generateLinearLut.setText("Generate linear lut");
 		generateLinearLut.setSelected(inputConfig.getBoolean(GENERATE_LINEAR_LUT));
@@ -181,6 +179,9 @@ public class Menu extends JPanel{
 		autoButton = new JButton("Auto");
 		autoButton.addActionListener(performListener);
 		
+		inputCsvSettings = new JButton("CSV settings");
+		inputCsvSettings.addActionListener(performListener);
+		
 		// TOOLTIPS SETUP
 		String htmlBegin = "<html><p width=\"360\">";
 		String htmlEnd = "</p></html>";
@@ -194,6 +195,15 @@ public class Menu extends JPanel{
 		linearizeNearZero.setToolTipText(htmlBegin + LINEARIZE_NEAR_ZERO_DESCRIPTION + htmlEnd);
 		generateLinearLut.setToolTipText(htmlBegin + GENERATE_LINEAR_LUT_DESCRIPTION + htmlEnd);
 		donateButton.setToolTipText(htmlBegin + DONATION_DESCRIPTION + htmlEnd);
+		
+		// BOTTON SIZE
+		Dimension buttonDimension = new Dimension(160, 30);
+		fileBrowserButton.setPreferredSize(buttonDimension);
+		autoButton.setPreferredSize(buttonDimension);
+		inputCsvSettings.setPreferredSize(buttonDimension);
+		previewButton.setPreferredSize(buttonDimension);
+		donateButton.setPreferredSize(buttonDimension);
+		generateLutButton.setPreferredSize(buttonDimension);
 		
 		// UI SETUP
 
@@ -227,6 +237,9 @@ public class Menu extends JPanel{
 		layoutPanel.add(peakReductionLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(peakReductionSlider, constr);
+		
+		constr.gridx=2;
+		layoutPanel.add(inputCsvSettings, constr);
 		
 		//FOURTH ROW
 		constr.gridy++;
@@ -393,7 +406,8 @@ public class Menu extends JPanel{
 		}
 	}
 
-	public void updateConfig(org.json.JSONObject config) {
+	public org.json.JSONObject updateConfig() {
+		org.json.JSONObject config = Utility.readConfiguration(JSON_CONFIG_PATH);
 		config.put(AGGREGATION_ORDER, aggregationSlider.getValue());
 		config.put(INPUT_FILE, inputFileText.getText());
 		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue()/2.0);
@@ -406,13 +420,14 @@ public class Menu extends JPanel{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return config;
 	}
 
 	class PerformListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			updateConfig(config);
+			org.json.JSONObject jsonConfig = updateConfig();
 			ExecutionConfiguration exConf = new ExecutionConfiguration();
-			transferJsonConfigIntoExConf(exConf);
+			transferJsonConfigIntoExConf(jsonConfig, exConf);
 			Object src = e.getSource();
 			if (src == previewButton){
 				exConf.setShowPreview(true);
@@ -431,6 +446,10 @@ public class Menu extends JPanel{
 				linearizeNearZero.setSelected(exConf.isLinearizeNearZero());
 				ffbPowerEnhacementSlider.setValue(exConf.getFfbPowerEnhacement());
 				updateComponentsStatus();
+			} else if(src == inputCsvSettings){
+				transferJsonConfigIntoExConf(jsonConfig,exConf);
+				CsvSettings csvSettings = new CsvSettings();
+				csvSettings.showCSVoption(exConf);
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new CsvFileFilter());
@@ -441,52 +460,65 @@ public class Menu extends JPanel{
 				}
 			}
 		}
-
-		private void transferJsonConfigIntoExConf(ExecutionConfiguration exConf) {
-
-			try {
-				exConf.setInputCsvPath(config.getString(INPUT_FILE));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + INPUT_FILE + "' property in '" + JSON_CONFIG_PATH + "'.");
-			}
-			try {
-				exConf.setAggregationOrder(config.getInt(AGGREGATION_ORDER));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + AGGREGATION_ORDER + "' property in '" + JSON_CONFIG_PATH + "'.");
-			}
-			try {
-				exConf.setDeadZoneEnhancement(config.getDouble(DEADZONE_ENHANCEMENT));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEADZONE_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");
-			}
-			try {
-				exConf.setGenerateLinearLut(config.getBoolean(GENERATE_LINEAR_LUT));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + GENERATE_LINEAR_LUT + "' property in '" + JSON_CONFIG_PATH + "'.");
-			}
-			try {
-				exConf.setLinearizeNearZero(config.getBoolean(LINEARIZE_NEAR_ZERO));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + LINEARIZE_NEAR_ZERO + "' property in '" + JSON_CONFIG_PATH + "'.");
-			}
-			try {
-				exConf.setPeakReduction(config.getInt(PEAK_REDUCTION));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + PEAK_REDUCTION + "' property in '" + JSON_CONFIG_PATH + "'.");
-			}
-			try {
-				exConf.setFfbPowerEnhacement(config.getInt(FFB_POWER_ENHANCEMENT));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error: unable to read '" + FFB_POWER_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");
-			}
-		}
+		
 	}
 
+	public void transferJsonConfigIntoExConf(JSONObject configJson, ExecutionConfiguration exConf) {
+
+		try {
+			exConf.setInputCsvPath(configJson.getString(INPUT_FILE));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + INPUT_FILE + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+		try {
+			exConf.setAggregationOrder(configJson.getInt(AGGREGATION_ORDER));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + AGGREGATION_ORDER + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+		try {
+			exConf.setDeadZoneEnhancement(configJson.getDouble(DEADZONE_ENHANCEMENT));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEADZONE_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+		try {
+			exConf.setGenerateLinearLut(configJson.getBoolean(GENERATE_LINEAR_LUT));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + GENERATE_LINEAR_LUT + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+		try {
+			exConf.setLinearizeNearZero(configJson.getBoolean(LINEARIZE_NEAR_ZERO));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + LINEARIZE_NEAR_ZERO + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+		try {
+			exConf.setPeakReduction(configJson.getInt(PEAK_REDUCTION));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + PEAK_REDUCTION + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+		try {
+			exConf.setFfbPowerEnhacement(configJson.getInt(FFB_POWER_ENHANCEMENT));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + FFB_POWER_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+		try {
+			exConf.setForceColumnIndex(configJson.getInt(FORCE_COLUMN_INDEX));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + FORCE_COLUMN_INDEX + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+		try {
+			exConf.setDeltaColumnIndex(configJson.getInt(DELTA_COLUMN_INDEX));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + DELTA_COLUMN_INDEX + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+	}
+	
 }
