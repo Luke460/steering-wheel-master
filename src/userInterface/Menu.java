@@ -63,9 +63,9 @@ public class Menu extends JPanel{
 
 	public void showMenu(org.json.JSONObject inputConfig){
 		this.config = inputConfig;
-		// Create frame with title Wheel Check Data Aggregator
+		// Create frame
 		JFrame frame= new JFrame(); 
-		frame.setTitle("Wheel Check Data Aggregator");
+		frame.setTitle("Steering Wheel Master");
 		frame.setMinimumSize(MENU_DIMENSION);
 
 		// Panel to define the layout
@@ -312,7 +312,7 @@ public class Menu extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {            
-					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator"));  
+					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/steering-wheel-master"));  
 				} catch (IOException | URISyntaxException e1) {
 					e1.printStackTrace();
 				}
@@ -334,7 +334,7 @@ public class Menu extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {            
-					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/wheel-check-data-aggregator/releases"));  
+					Desktop.getDesktop().browse(new URI("https://github.com/Luke460/steering-wheel-master/releases"));  
 				} catch (IOException | URISyntaxException e1) {
 					e1.printStackTrace();
 				}

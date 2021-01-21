@@ -35,7 +35,7 @@ public class CsvSettings extends JPanel{
 	public void showCSVoption(ExecutionConfiguration inputConfig){
 		this.inputCSVconfig = inputConfig;
 		this.oldCSVconfig = new ExecutionConfiguration(inputConfig);
-		// Create frame with title Wheel Check Data Aggregator
+		// Create frame
 		JFrame frame= new JFrame(); 
 		frame.setTitle("Input CSV settings");
 		frame.setMinimumSize(MENU_DIMENSION);
