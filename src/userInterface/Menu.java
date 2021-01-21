@@ -42,7 +42,7 @@ public class Menu extends JPanel{
 	private static final String LINEARIZE_NEAR_ZERO = "linearize_near_zero";
 	private static final String FORCE_COLUMN_INDEX = "force_column_index";
 	private static final String DELTA_COLUMN_INDEX = "delta_column_index";
-	private static final Dimension MENU_DIMENSION = new Dimension(648, 444);
+	private static final Dimension MENU_DIMENSION = new Dimension(648, 454);
 	JButton previewButton;
 	JButton donateButton;
 	JButton generateLutButton;

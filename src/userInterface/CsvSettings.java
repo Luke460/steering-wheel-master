@@ -19,7 +19,7 @@ public class CsvSettings extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final Dimension MENU_DIMENSION = new Dimension(360, 180);
+	private static final Dimension MENU_DIMENSION = new Dimension(360, 190);
 	private static final String FORCE_COLUMN_INDEX = "force_column_index";
 	private static final String DELTA_COLUMN_INDEX = "delta_column_index";
 	
