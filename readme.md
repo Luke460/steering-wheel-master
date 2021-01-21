@@ -9,7 +9,7 @@ Donations are not required, but always accepted with pleasure. Thanks for your s
 
 ---
 
-# Wheel Check Data Aggregator
+# Steering Wheel Master
 
 [***Steering Wheel Master***](https://github.com/Luke460/steering-wheel-master/releases) is a useful tool that helps to improve the behavior of your steering wheel by aggregating data and eliminating reading errors, dead zones and clipping problems.
 
