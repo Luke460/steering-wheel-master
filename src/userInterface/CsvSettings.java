@@ -19,7 +19,7 @@ public class CsvSettings extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final Dimension MENU_DIMENSION = new Dimension(380, 190);
+	private static final Dimension MENU_DIMENSION = new Dimension(360, 180);
 	private static final String FORCE_COLUMN_INDEX = "force_column_index";
 	private static final String DELTA_COLUMN_INDEX = "delta_column_index";
 	
@@ -58,19 +58,19 @@ public class CsvSettings extends JPanel{
 		// Declare Text fields
 		JLabel forceColumnIndexLabel = new JLabel("Force column index:");
 		forceColumnIndexField = new JTextField();
-		forceColumnIndexField.setPreferredSize(new Dimension(32, 22));
+		forceColumnIndexField.setPreferredSize(new Dimension(42, 22));
 		forceColumnIndexField.setText(""+inputCSVconfig.getForceColumnIndex());
 		
 		// Declare Text fields
 		JLabel deltaColumnIndexLabel = new JLabel("Delta column index:");
 		deltaColumnIndexField = new JTextField();
-		deltaColumnIndexField.setPreferredSize(new Dimension(32, 22));
+		deltaColumnIndexField.setPreferredSize(new Dimension(42, 22));
 		deltaColumnIndexField.setText(""+inputCSVconfig.getDeltaColumnIndex());
 
 		// create event listener for the buttons
 		PerformListener performListener = new PerformListener();
 
-		Dimension buttonDimension = new Dimension(160, 30);
+		Dimension buttonDimension = new Dimension(120, 24);
 		
 		confirmButton = new JButton("Confirm");
 		confirmButton.addActionListener(performListener);
@@ -124,13 +124,17 @@ public class CsvSettings extends JPanel{
 
 	public boolean updateConfig() {
 		try {
-			this.inputCSVconfig.setForceColumnIndex(Integer.parseInt(forceColumnIndexField.getText()));
+			int forceColumnIndex = Integer.parseInt(forceColumnIndexField.getText());
+			if(forceColumnIndex<1) throw new NumberFormatException();
+			this.inputCSVconfig.setForceColumnIndex(forceColumnIndex);
 		}catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Invalid index value for force column!");
 			return false;
 		}
 		try {
-			this.inputCSVconfig.setDeltaColumnIndex(Integer.parseInt(deltaColumnIndexField.getText()));
+			int deltaColumnIndex = Integer.parseInt(deltaColumnIndexField.getText());
+			if(deltaColumnIndex<1) throw new NumberFormatException();
+			this.inputCSVconfig.setDeltaColumnIndex(deltaColumnIndex);
 		}catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Invalid index value for delta column!");
 			return false;
@@ -155,8 +159,6 @@ public class CsvSettings extends JPanel{
 			if (src == confirmButton){
 				if(updateConfig()) {
 					updateJsonConf(inputCSVconfig);
-					System.out.println(inputCSVconfig.getForceColumnIndex());
-					System.out.println(inputCSVconfig.getDeltaColumnIndex());
 					JComponent comp = (JComponent) e.getSource();
 					Window win = SwingUtilities.getWindowAncestor(comp);
 					win.dispose();

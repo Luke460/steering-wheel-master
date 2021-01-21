@@ -62,8 +62,8 @@ public class Manager {
 
 					if(line!=null && !line.equals("")) {
 						String[] row = line.split(cvsSplitBy);
-						inputForce.add(Integer.parseInt(row[exConf.getForceColumnIndex()]));
-						inputDeltaX.add(Double.parseDouble(row[exConf.getDeltaColumnIndex()]));
+						inputForce.add(Integer.parseInt(row[exConf.getForceColumnIndex()-1]));
+						inputDeltaX.add(Double.parseDouble(row[exConf.getDeltaColumnIndex()-1]));
 					}
 
 				} else {

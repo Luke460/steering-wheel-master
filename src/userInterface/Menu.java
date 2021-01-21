@@ -200,13 +200,14 @@ public class Menu extends JPanel{
 		generateLutButton.setToolTipText(htmlBegin + GENERATE_LUT_DESCRIPTION + htmlEnd);
 		
 		// BOTTON SIZE
-		Dimension buttonDimension = new Dimension(160, 30);
-		fileBrowserButton.setPreferredSize(buttonDimension);
-		autoButton.setPreferredSize(buttonDimension);
-		inputCsvSettings.setPreferredSize(buttonDimension);
-		previewButton.setPreferredSize(buttonDimension);
-		donateButton.setPreferredSize(buttonDimension);
-		generateLutButton.setPreferredSize(buttonDimension);
+		Dimension bigButtonDimension = new Dimension(160, 30);
+		Dimension smallButtonDimension = new Dimension(72, 28);
+		fileBrowserButton.setPreferredSize(bigButtonDimension);
+		autoButton.setPreferredSize(smallButtonDimension);
+		inputCsvSettings.setPreferredSize(bigButtonDimension);
+		previewButton.setPreferredSize(bigButtonDimension);
+		donateButton.setPreferredSize(bigButtonDimension);
+		generateLutButton.setPreferredSize(bigButtonDimension);
 		
 		// UI SETUP
 
