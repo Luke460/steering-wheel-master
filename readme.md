@@ -36,17 +36,17 @@ Before to start, you have to create a ***force feedback calibration file*** for 
 In this example we will execute a calibration procedure by using ***iRacing force feedback test*** (v1.72), a tool made by David Tucker of iRacing.com that measures the change in the steering wheel position for each input applied.
 The used settings are ***Step Log 2 (linear force test)*** with ***Max Count*** set to ***100***.
 
-## Let's aggregate!
+## How to use
 
-To run ***Steering Wheel Master***, download the [***latest version***](https://github.com/Luke460/steering-wheel-master/releases), unzip the file and run ***Steering Wheel Master.jar*** (requires Java 7 or later):
+To run ***Steering Wheel Master***, download the [***latest version***](https://github.com/Luke460/steering-wheel-master/releases), unzip the file and run ***SteeringWheelMaster.jar*** (requires Java 7 or later):
 
-[![icon](images/icon.png)](https://github.com/Luke460/steering-wheel-master/releases)
+[![icon](images/Icon.png)](https://github.com/Luke460/steering-wheel-master/releases)
 
-Now you have to locate your ***iRacing force feedback test***'s log file and configure ***Steering Wheel Master***.
+Now you have to locate your ***force feedback calibration file*** and configure ***Steering Wheel Master***.
 
 
-You can choose between **adaptive lut generation** and **linear lut generation**.
- - The **adaptive lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** tend to have clipping issues that can invalidate *iRacing force feedback test* readings, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel instead.
+You can choose between **adaptive lut generation** and **linear lut generation**:
+ - The **adaptive lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel instead.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|---------------|------------------------------------|------------------------|---------------------------|---------------------------------------------------------------|
@@ -64,7 +64,7 @@ You can choose between **adaptive lut generation** and **linear lut generation**
    | ***mixed wheels***      | Thrustmaster TXM or T150     | activate option: ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | 5                                                           |
    | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | activate option: ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | 5                                                           |
 
-**NOTE:** these tips are based on a test with 100 reading values (*iRacing force feedback test: Max Count=100*). If you are using a higher *Max Count* consider to increment the ***aggregation order*** as well (and vice versa). Every steering wheel is different, you may need to find the perfect *aggregation order* for your device!
+**NOTE:** keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
 
  **IN GENERAL** : lower values of ***aggregation order*** makes your force feedback correction more precise, while higher values makes your force feedback smoother.
  - Don't go too high, or you will lose precision in force feedback correction.
