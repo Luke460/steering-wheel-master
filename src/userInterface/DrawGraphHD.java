@@ -85,7 +85,7 @@ public class DrawGraphHD extends JPanel {
 			for (int i = 0; i < singleLine.size(); i++) {
 				double xScale = ((double) getWidth() - 2 * BORDER_GAP) / (singleLine.size() - 1);
 				int x1 = (int) (i * xScale + BORDER_GAP);
-				double yScale = ((double) getHeight() - 2 * BORDER_GAP) / (maxValue - 1);
+				double yScale = ((double) getHeight() - 2 * BORDER_GAP) / (maxValue);
 				int y1 = (int) ((maxValue - singleLine.getValues().get(i)) * yScale + BORDER_GAP);
 				graphPoints.add(new Point(x1, y1));
 			}		
