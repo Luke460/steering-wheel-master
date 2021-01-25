@@ -51,10 +51,10 @@ You can choose between **adaptive lut generation** and **linear lut generation**
    
    | **Steering wheel type** | ***Example*** | **Aggregation options**              | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|---------------|------------------------------------|------------------------|---------------------------|---------------------------------------------------------------|
-   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | activate ***Linearize near zero***, suggested ***aggregation value***: *auto* | 0 | 0                     | 0                                                           |
-   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | activate ***Linearize near zero***, suggested ***aggregation value***: *auto* | 0 | 0                  | 0                                                           |
-   | ***mixed wheels***      | Thrustmaster TXM or T150  | activate ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | 5                                                           |
-   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | activate ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | 5                                                           |
+   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | ***aggregation value***: 2 or *auto* | 0 | 0 | 0 |
+   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | ***aggregation value***: 3 or *auto* | 0 | 0 | 0 |
+   | ***mixed wheels***      | Thrustmaster TXM or T150  | activate option: ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | ~ 5 |
+   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | activate option: ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | ~ 5 |
 
 **NOTE:** keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
 
