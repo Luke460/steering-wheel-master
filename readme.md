@@ -15,7 +15,7 @@ Donations are not required, but always accepted with pleasure. Thanks for your s
 
 This application is free and open source. The development was born to help the simracers community get the most out of their steering wheels, regardless of the price range of the hardware.
 
-This procedure uses as input a ***force feedback calibration file***, and by processing it, is able to produce a lookup table (or ***lut file***).
+This procedure uses as input a ***force feedback calibration file***, and by processing it, is able to produce a customizable lookup table (or ***lut file***).
 
 ...but what does it mean? what is data aggregation?
 
@@ -46,22 +46,14 @@ Now you have to locate your ***force feedback calibration file*** and configure 
 
 
 You can choose between **adaptive lut generation** and **linear lut generation**:
- - The **adaptive lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel instead.
+ - The **adaptive lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** and  ***mixed wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel instead.
+ - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.
    
    | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|---------------|------------------------------------|------------------------|---------------------------|---------------------------------------------------------------|
    | ***direct wheels***     | Fanatec Podium DD1 and DD2 | 2                                 | 0 | 0                     | 0                                                           |
    | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | 3               | 0 | 0                  | 0                                                           |
-   | ***mixed wheels***      | Thrustmaster TXM or T150  | 4                                  | 0 | 0                     | 0                                                           |
-   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | 4     | 0 | 0                    | 0                                                           |
-
- - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.
-   
-   | **Steering wheel type** | ***Example*** | **Aggregation order**              | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
-   |-------------------------|---------------|------------------------------------|------------------------|---------------------------|---------------------------------|
-   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | activate option: ***Generate linear lut*** | 0 | 0                      | 5                                                           |
-   | ***belt wheels***       |  Thrustmaster T300, T500 or Fanatec CSL elite | activate option: ***Generate linear lut*** | 0 | 0                      | 5                                                           |
-   | ***mixed wheels***      | Thrustmaster TXM or T150     | activate option: ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | 5                                                           |
+   | ***mixed wheels***      | Thrustmaster TXM or T150  | activate option: ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | 5                                                           |
    | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | activate option: ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | 5                                                           |
 
 **NOTE:** keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
