@@ -53,9 +53,9 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
    
    | **Steering wheel type** | ***Example*** | **Aggregation options**              | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|---------------|------------------------------------|------------------------|---------------------------|---------------------------------------------------------------|
-   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | ***aggregation value***: 2 or *auto* | 0 | 0 | ~ 0 |
-   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | ***aggregation value***: 3 or *auto* | 0 | 0 | ~ 0 |
-   | ***mixed wheels***      | Thrustmaster TXM or T150  | ***aggregation value***: 4 or *auto* | 0 | 0 | ~ 0 |
+   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | ***aggregation order***: 2 or *auto* | 0 | 0 | ~ 0 |
+   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | ***aggregation order***: 3 or *auto* | 0 | 0 | ~ 0 |
+   | ***mixed wheels***      | Thrustmaster TXM or T150  | ***aggregation order***: 4 or *auto* | 0 | 0 | ~ 0 |
    | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | activate option: ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | ~ 5 |
 
 **NOTE:** keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
