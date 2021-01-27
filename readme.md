@@ -45,9 +45,11 @@ To run ***Steering Wheel Master***, download the [***latest version***](https://
 Now you have to locate your ***force feedback calibration file*** and configure ***Steering Wheel Master***.
 
 
-You can choose between **adaptive lut generation** and **linear lut generation**:
- - The **adaptive lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel instead.
- - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.
+You can choose between **aggregate lut generation** and **linear lut generation**:
+ - The **aggregate lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Leave ***Generate linear lut*** unchecked to use this lut generation method.
+ - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel. Check ***Generate linear lut*** to select this method.
+ 
+Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel.
    
    | **Steering wheel type** | ***Example*** | **Aggregation options**              | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|---------------|------------------------------------|------------------------|---------------------------|---------------------------------------------------------------|
