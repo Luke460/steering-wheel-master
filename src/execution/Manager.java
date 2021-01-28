@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import static execution.Constants.MAX_RESOLUTION;
+import static execution.Constants.*;
 import javax.swing.JOptionPane;
 import model.ExecutionConfiguration;
 import process.Aggregator;
@@ -111,7 +111,7 @@ public class Manager {
 		if(exConf.isAutoCalcAggregationOder()) {
 			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(correctedDeltaX));
 			exConf.setDeadZoneEnhancement(0);
-			exConf.setGenerateLinearLut(false);
+			exConf.setLutGeneration_method(ADVANCED_LUT_GENERATION);
 			exConf.setPeakReduction(0);
 			exConf.setLinearizeNearZero(false);
 			exConf.setFfbPowerEnhacement(0);
@@ -123,9 +123,9 @@ public class Manager {
 		System.out.println("aggregation...");
 
 		if(exConf.isLinearizeNearZero()) {
-			aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+			aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder());
 		} else {
-			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder());
+			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder());
 		}
 
 		// END AGGREGATION
@@ -136,7 +136,7 @@ public class Manager {
 		// END LUT GENERATION
 
 		// BEGIN DEAD CORRECTION ONLY
-		if(exConf.isGenerateLinearLut()) {
+		if(exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)) {
 			correctiveMap = Luter.deadZoneCorrectionOnly(inputForce, aggregateDeltaXdouble);
 		}
 		// END DEAD CORRECTION ONLY
@@ -207,22 +207,22 @@ public class Manager {
 		if (exConf.getDeadZoneEnhancement()%1 != 0) {
 			deadZoneEnhancement += "p";
 		}
-		return "AG" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + 
+		return "AG" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder()) + 
 				"-PR" + exConf.getPeakReduction() + 
 				"-PE" + exConf.getFfbPowerEnhacement() + 
 				"-DZ" + (deadZoneEnhancement) + 
-				(exConf.isLinearizeNearZero()&&!exConf.isGenerateLinearLut()?"-LNZ":"") + 
-				(exConf.isGenerateLinearLut()?"-LL":"") 
+				(exConf.isLinearizeNearZero()&&!exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?"-LNZ":"") + 
+				(exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?"-LL":"") 
 				+ "." + type.name();
 	}
 	
 	private static String generateDescriptionName(ExecutionConfiguration exConf) {
-		return "[AG=" + (exConf.isGenerateLinearLut()?0:exConf.getAggregationOrder()) + 
+		return "[AG=" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder()) + 
 				",PR=" + exConf.getPeakReduction() + 
 				",PE=" + exConf.getFfbPowerEnhacement() +
 				",DZ=" + exConf.getDeadZoneEnhancement() + 
-				",LNZ=" + (exConf.isLinearizeNearZero()&&!exConf.isGenerateLinearLut()?1:0) + 
-				",LL=" + (exConf.isGenerateLinearLut()?1:0) + 
+				",LNZ=" + (exConf.isLinearizeNearZero()&&!exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?1:0) + 
+				",LL=" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?1:0) + 
 				"] " + exConf.getInputCsvPath();
 	}
 

@@ -5,7 +5,7 @@ public class ExecutionConfiguration {
 	boolean saveLUT; 
 	boolean showPreview;
 	boolean autoCalcAggregationOder;
-	boolean generateLinearLut;
+	String lutGeneration_method;
 	boolean linearizeNearZero;
 	String inputCsvPath;
 	int aggregationOrder;
@@ -19,7 +19,6 @@ public class ExecutionConfiguration {
 		this.saveLUT = false;
 		this.showPreview = false;
 		this.autoCalcAggregationOder = false;
-		this.generateLinearLut = false;
 		this.linearizeNearZero = false;
 	};
 	
@@ -27,7 +26,7 @@ public class ExecutionConfiguration {
 		this.saveLUT = conf.isSaveLUT();
 		this.showPreview = conf.isShowPreview();
 		this.autoCalcAggregationOder = conf.isAutoCalcAggregationOder();
-		this.generateLinearLut = conf.isGenerateLinearLut();
+		this.lutGeneration_method = conf.getLutGeneration_method();
 		this.linearizeNearZero = conf.isLinearizeNearZero();
 		this.inputCsvPath = conf.getInputCsvPath();
 		this.aggregationOrder = conf.getAggregationOrder();
@@ -86,12 +85,12 @@ public class ExecutionConfiguration {
 		this.deadZoneEnhancement = deadZoneEnhancement;
 	}
 
-	public boolean isGenerateLinearLut() {
-		return generateLinearLut;
+	public String getLutGeneration_method() {
+		return lutGeneration_method;
 	}
 
-	public void setGenerateLinearLut(boolean generateLinearLut) {
-		this.generateLinearLut = generateLinearLut;
+	public void setLutGeneration_method(String lutGenerationMethod) {
+		this.lutGeneration_method = lutGenerationMethod;
 	}
 
 	public boolean isLinearizeNearZero() {

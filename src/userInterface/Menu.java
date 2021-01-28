@@ -10,7 +10,7 @@ import execution.Manager;
 import execution.Utility;
 import model.ExecutionConfiguration;
 
-import static execution.Constants.JSON_CONFIG_PATH;
+import static execution.Constants.*;
 import static userInterface.TooltipsText.*;
 
 import java.awt.Color;
@@ -33,23 +33,14 @@ import java.util.Hashtable;
 public class Menu extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private static final String INPUT_FILE = "input_file";
-	private static final String AGGREGATION_ORDER = "aggregation_order";
-	private static final String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
-	private static final String GENERATE_LINEAR_LUT = "generate_linear_lut";
-	private static final String PEAK_REDUCTION = "peak_reduction";
-	private static final String FFB_POWER_ENHANCEMENT = "ffb_power_enhancement";
-	private static final String LINEARIZE_NEAR_ZERO = "linearize_near_zero";
-	private static final String FORCE_COLUMN_INDEX = "force_column_index";
-	private static final String DELTA_COLUMN_INDEX = "delta_column_index";
-	private static final Dimension MENU_DIMENSION = new Dimension(648, 454);
+	private static final Dimension MENU_DIMENSION = new Dimension(660, 500);
 	JButton previewButton;
 	JButton donateButton;
 	JButton generateLutButton;
 	JButton fileBrowserButton;
 	JButton autoButton;
 	JButton inputCsvSettings;
-	JCheckBox generateLinearLut;
+	JComboBox<String> lutGenerationMethod;
 	JCheckBox linearizeNearZero;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
@@ -67,15 +58,17 @@ public class Menu extends JPanel{
 		JFrame frame= new JFrame(); 
 		frame.setTitle("Steering Wheel Master");
 		frame.setMinimumSize(MENU_DIMENSION);
+		
+		Dimension labelSize = new Dimension(180, 42);
 
 		// Panel to define the layout
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-		JPanel headingPanel = new JPanel();
+		// Heading Label
 		JLabel headingLabel = new JLabel("Settings:");
+		//headingLabel.setPreferredSize(new Dimension(180, 24));
 		headingLabel.setFont(new Font(headingLabel.getFont().getFontName(), 2, 16));
-		headingPanel.add(headingLabel);
 
 		// Panel to define the layout
 		JPanel layoutPanel = new JPanel(new GridBagLayout());
@@ -83,24 +76,25 @@ public class Menu extends JPanel{
 		GridBagConstraints constr = new GridBagConstraints();
 		constr.insets = new Insets(8, 8, 8, 8);     
 		constr.anchor = GridBagConstraints.WEST;
-
+		
 		// Declare Text fields
 		JLabel inputFileLabel = new JLabel("Input calibration file:");
+		inputFileLabel.setPreferredSize(labelSize);
 		inputFileText = new JTextField();
-		inputFileText.setPreferredSize(new Dimension(236, 22));
+		inputFileText.setPreferredSize(new Dimension(229, 26));
 		inputFileText.setText(config.getString(INPUT_FILE));
 
 		// Link label	
 		final String linkLabel = "Open documentation";
 		documentationLink = new JLabel(linkLabel);
-		documentationLink.setFont(new Font(headingLabel.getFont().getFontName(), 2, 13));
+		documentationLink.setFont(new Font(documentationLink.getFont().getFontName(), 2, 13));
 		documentationLink.setForeground(Color.BLUE);
 		documentationLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		// Updates label	
 		final String updatesLabel = "Check for updates";
 		updatesLink = new JLabel(updatesLabel);
-		updatesLink.setFont(new Font(headingLabel.getFont().getFontName(), 2, 13));
+		updatesLink.setFont(new Font(updatesLink.getFont().getFontName(), 2, 13));
 		updatesLink.setForeground(Color.BLUE);
 		updatesLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -118,9 +112,17 @@ public class Menu extends JPanel{
 		generateLutButton = new JButton("Generate lut");
 		generateLutButton.addActionListener(performListener);
 
-		generateLinearLut = new JCheckBox();
-		generateLinearLut.setText("Generate linear lut");
-		generateLinearLut.setSelected(inputConfig.getBoolean(GENERATE_LINEAR_LUT));
+		JLabel lutGenerationMethodLabel = new JLabel("Lut generation method:");
+		lutGenerationMethodLabel.setPreferredSize(labelSize);
+		String lutGenerationMethodList[] = {ADVANCED_LUT_GENERATION, LINEAR_LUT_GENERATION}; 
+		lutGenerationMethod = new JComboBox<String>(lutGenerationMethodList);
+		lutGenerationMethod.setPreferredSize(new Dimension(228, 26));
+		DefaultListCellRenderer listRenderer;
+		listRenderer = new DefaultListCellRenderer();
+	    listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
+	    lutGenerationMethod.setRenderer(listRenderer);
+	    lutGenerationMethod.setBackground(Color.WHITE);
+		lutGenerationMethod.setSelectedItem(inputConfig.getString(LUT_GENERATION_METHOD));
 
 		linearizeNearZero = new JCheckBox();
 		linearizeNearZero.setText("Linearize near zero");
@@ -138,6 +140,7 @@ public class Menu extends JPanel{
 		}		
 
 		JLabel aggregationLabel = new JLabel("Aggregation order:");
+		aggregationLabel.setPreferredSize(labelSize);
 		aggregationSlider = new JSlider(0, 10, config.getInt(AGGREGATION_ORDER));
 		aggregationSlider.setPreferredSize(new Dimension(244, 44));
 		aggregationSlider.setMajorTickSpacing(5);
@@ -147,6 +150,7 @@ public class Menu extends JPanel{
 		aggregationSlider.setLabelTable(position1); 
 
 		JLabel peakReductionLabel = new JLabel("FFB peak reduction:");
+		peakReductionLabel.setPreferredSize(labelSize);
 		peakReductionSlider = new JSlider(0, 10, config.getInt(PEAK_REDUCTION));
 		peakReductionSlider.setPreferredSize(new Dimension(244, 44));
 		peakReductionSlider.setMajorTickSpacing(5);
@@ -157,6 +161,7 @@ public class Menu extends JPanel{
 		peakReductionSlider.setLabelTable(position1);
 		
 		JLabel ffbPowerEnhacementLabel = new JLabel("FFB power enhancement:");
+		ffbPowerEnhacementLabel.setPreferredSize(labelSize);
 		ffbPowerEnhacementSlider = new JSlider(0, 10, config.getInt(FFB_POWER_ENHANCEMENT));
 		ffbPowerEnhacementSlider.setPreferredSize(new Dimension(244, 44));
 		ffbPowerEnhacementSlider.setMajorTickSpacing(5);
@@ -167,6 +172,7 @@ public class Menu extends JPanel{
 		ffbPowerEnhacementSlider.setLabelTable(position1);
 		
 		JLabel deadZoneEnhancementLabel = new JLabel("Dead zone enhancement:");
+		deadZoneEnhancementLabel.setPreferredSize(labelSize);
 		deadZoneEnhancementSlider = new JSlider(0, 20, (int)(config.getDouble(DEADZONE_ENHANCEMENT)*2));
 		deadZoneEnhancementSlider.setPreferredSize(new Dimension(244, 44));
 		deadZoneEnhancementSlider.setMajorTickSpacing(2);
@@ -193,7 +199,7 @@ public class Menu extends JPanel{
 		ffbPowerEnhacementSlider.setToolTipText(htmlBegin + POWER_ENHANCEMENT_DESCRIPTION + htmlEnd);
 		deadZoneEnhancementSlider.setToolTipText(htmlBegin + DZ_ENHANCEMENT_DESCRIPTION + htmlEnd);
 		linearizeNearZero.setToolTipText(htmlBegin + LINEARIZE_NEAR_ZERO_DESCRIPTION + htmlEnd);
-		generateLinearLut.setToolTipText(htmlBegin + GENERATE_LINEAR_LUT_DESCRIPTION + htmlEnd);
+		lutGenerationMethod.setToolTipText(htmlBegin + LUT_METHOD_DESCRIPTION + htmlEnd);
 		donateButton.setToolTipText(htmlBegin + DONATION_DESCRIPTION + htmlEnd);
 		inputCsvSettings.setToolTipText(htmlBegin + CSV_SETTINGS_DESCRIPTION + htmlEnd);
 		previewButton.setToolTipText(htmlBegin + PREVIEW_DESCRIPTION + htmlEnd);
@@ -211,19 +217,40 @@ public class Menu extends JPanel{
 		
 		// UI SETUP
 
-		// FIRST FOW
-		constr.gridx=0;
+		// HEADING ROW
 		constr.gridy=0;
+		constr.gridx=1;
+		constr.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(headingLabel, constr);
+		constr.anchor = GridBagConstraints.WEST;
+		
+		// INPUT FILE ROW
+		constr.gridy++;
+		constr.gridx=0;
 		layoutPanel.add(inputFileLabel, constr);
 
 		constr.gridx=1;
+		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(inputFileText, constr);
+		constr.anchor = GridBagConstraints.WEST;
 
 		constr.gridx=2;
 		layoutPanel.add(fileBrowserButton, constr);
 		fileBrowserButton.addActionListener(performListener);
 
-		// SECOND ROW
+		// AGGREGATON METHOD ROW
+		constr.gridy++;
+		constr.gridx=0; 
+		layoutPanel.add(lutGenerationMethodLabel, constr);
+		constr.gridx=1;
+		constr.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(lutGenerationMethod, constr);
+		constr.anchor = GridBagConstraints.WEST;
+		constr.gridx=2;
+		layoutPanel.add(inputCsvSettings, constr);
+		
+		
+		// AGGREGATON ORDER ROW
 		constr.gridy++;
 
 		constr.gridx=0; 
@@ -234,53 +261,40 @@ public class Menu extends JPanel{
 		constr.gridx=2;
 		layoutPanel.add(autoButton, constr);
 
-		// THIRD ROW
+		// PEAK REDUCTION ROW
 		constr.gridy++;
 
 		constr.gridx=0; 
 		layoutPanel.add(peakReductionLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(peakReductionSlider, constr);
-		
 		constr.gridx=2;
-		layoutPanel.add(inputCsvSettings, constr);
+		layoutPanel.add(linearizeNearZero, constr);
 		
-		//FOURTH ROW
+		// POWER ENHANCEMENT ROW
 		constr.gridy++;
 		
 		constr.gridx=0; 
 		layoutPanel.add(ffbPowerEnhacementLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(ffbPowerEnhacementSlider, constr);
+		constr.gridx=2;
+		constr.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(updatesLink, constr);
+		constr.anchor = GridBagConstraints.WEST;
 		
-		//FIFTH ROW
+		// DEADZONE ROW
 		constr.gridy++;
 
 		constr.gridx=0; 
 		layoutPanel.add(deadZoneEnhancementLabel, constr);
 		constr.gridx=1;
 		layoutPanel.add(deadZoneEnhancementSlider, constr);
-
-		constr.gridx=2;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(updatesLink, constr);
-		constr.anchor = GridBagConstraints.WEST;
-
-		// SIXTH ROW
-		constr.gridy++;
-
-		constr.gridx=0;
-		layoutPanel.add(linearizeNearZero, constr);
-
-		constr.gridx=1;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(generateLinearLut, constr);
-
 		constr.gridx=2;
 		layoutPanel.add(documentationLink, constr);
 		constr.anchor = GridBagConstraints.WEST;
 
-		//SEVENTH ROW
+		// LAST ROW
 		constr.gridx=0; constr.gridy++;
 		constr.gridwidth = 3;
 		constr.anchor = GridBagConstraints.WEST;
@@ -290,7 +304,6 @@ public class Menu extends JPanel{
 		constr.anchor = GridBagConstraints.EAST;
 		layoutPanel.add(generateLutButton, constr);
 
-		mainPanel.add(headingPanel);
 		mainPanel.add(layoutPanel);
 		
 		addListeners();
@@ -341,7 +354,7 @@ public class Menu extends JPanel{
 			}
 		});
 
-		generateLinearLut.addItemListener(new ItemListener() {
+		lutGenerationMethod.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
@@ -383,14 +396,14 @@ public class Menu extends JPanel{
 	private void updateComponentsStatus() {
 
 		//aggregationSlider
-		if(!generateLinearLut.isSelected()) {
+		if(lutGenerationMethod.getSelectedItem().equals(ADVANCED_LUT_GENERATION)) {
 			aggregationSlider.setEnabled(true);
 		} else {
 			aggregationSlider.setEnabled(false);
 		}
 		
 		//linearization
-		if(generateLinearLut.isSelected()) {
+		if(lutGenerationMethod.getSelectedItem().equals(LINEAR_LUT_GENERATION)) {
 			linearizeNearZero.setEnabled(false);
 		} else {
 			linearizeNearZero.setEnabled(true);
@@ -415,7 +428,7 @@ public class Menu extends JPanel{
 		config.put(AGGREGATION_ORDER, aggregationSlider.getValue());
 		config.put(INPUT_FILE, inputFileText.getText());
 		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue()/2.0);
-		config.put(GENERATE_LINEAR_LUT, generateLinearLut.isSelected());
+		config.put(LUT_GENERATION_METHOD, lutGenerationMethod.getSelectedItem());
 		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
 		config.put(LINEARIZE_NEAR_ZERO, linearizeNearZero.isSelected());
 		config.put(FFB_POWER_ENHANCEMENT, ffbPowerEnhacementSlider.getValue());
@@ -446,13 +459,13 @@ public class Menu extends JPanel{
 				aggregationSlider.setValue(exConf.getAggregationOrder());
 				deadZoneEnhancementSlider.setValue((int)(exConf.getDeadZoneEnhancement()*2));
 				peakReductionSlider.setValue(exConf.getPeakReduction());
-				generateLinearLut.setSelected(exConf.isGenerateLinearLut());
+				lutGenerationMethod.setSelectedItem(exConf.getLutGeneration_method());
 				linearizeNearZero.setSelected(exConf.isLinearizeNearZero());
 				ffbPowerEnhacementSlider.setValue(exConf.getFfbPowerEnhacement());
 				updateComponentsStatus();
 			} else if(src == inputCsvSettings){
 				transferJsonConfigIntoExConf(jsonConfig,exConf);
-				CsvSettings csvSettings = new CsvSettings();
+				CsvSettingsMenu csvSettings = new CsvSettingsMenu();
 				csvSettings.showCSVoption(exConf);
 			} else if(src == fileBrowserButton){
 				JFileChooser fileChooser = new JFileChooser();
@@ -488,10 +501,10 @@ public class Menu extends JPanel{
 			JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEADZONE_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");
 		}
 		try {
-			exConf.setGenerateLinearLut(configJson.getBoolean(GENERATE_LINEAR_LUT));
+			exConf.setLutGeneration_method(configJson.getString(LUT_GENERATION_METHOD));
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: unable to read '" + GENERATE_LINEAR_LUT + "' property in '" + JSON_CONFIG_PATH + "'.");
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + LUT_GENERATION_METHOD + "' property in '" + JSON_CONFIG_PATH + "'.");
 		}
 		try {
 			exConf.setLinearizeNearZero(configJson.getBoolean(LINEARIZE_NEAR_ZERO));

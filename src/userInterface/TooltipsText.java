@@ -11,9 +11,9 @@ public interface TooltipsText {
 	public static final String POWER_ENHANCEMENT_DESCRIPTION = "Increase to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner.";
 	public static final String DZ_ENHANCEMENT_DESCRIPTION = "Increase if you have vibrations in the central area of the steering wheel, decrease if you still have a FFB deadzone with the generated lut.";
 	public static final String LINEARIZE_NEAR_ZERO_DESCRIPTION = "Change the aggregation strategy for low values of the force feedback. It can help remove vibrations in the center of some steering wheels. Activating this option requires you to also increase the deadzone enhancement value."; 
-	public static final String GENERATE_LINEAR_LUT_DESCRIPTION = "The linear lut generation uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.";
+	public static final String LUT_METHOD_DESCRIPTION = "Advanced lut generation uses all the data provided by the csv file to attempt to correct the steering wheel reactions, while linear lut generation uses the csv file only to correct the dead zone.";
 	public static final String DONATION_DESCRIPTION = "Donations are not required, but always accepted with pleasure. Thanks for your support!";
-	public static final String CSV_SETTINGS_DESCRIPTION = "Configure how to read the input csv file.";
+	public static final String CSV_SETTINGS_DESCRIPTION = "Configure how to read the input force feedback calibration file.";
 	public static final String PREVIEW_DESCRIPTION = "Displays force feedback and applied correction values ​​on a graph.";
 	public static final String GENERATE_LUT_DESCRIPTION = "Generate a lut file with the current settings.";
 }

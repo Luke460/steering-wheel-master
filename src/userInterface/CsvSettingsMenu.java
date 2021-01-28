@@ -15,11 +15,11 @@ import java.nio.file.Paths;
 
 import static execution.Constants.JSON_CONFIG_PATH;
 
-public class CsvSettings extends JPanel{
+public class CsvSettingsMenu extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final Dimension MENU_DIMENSION = new Dimension(360, 190);
+	private static final Dimension MENU_DIMENSION = new Dimension(332, 192);
 	private static final String FORCE_COLUMN_INDEX = "force_column_index";
 	private static final String DELTA_COLUMN_INDEX = "delta_column_index";
 	
@@ -88,7 +88,9 @@ public class CsvSettings extends JPanel{
 		layoutPanel.add(forceColumnIndexLabel, constr);
 
 		constr.gridx=1;
+		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(forceColumnIndexField, constr);
+		constr.anchor = GridBagConstraints.WEST;
 
 		// SECOND ROW
 		constr.gridy++;
@@ -97,7 +99,9 @@ public class CsvSettings extends JPanel{
 		layoutPanel.add(deltaColumnIndexLabel, constr);
 
 		constr.gridx=1;
+		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(deltaColumnIndexField, constr);
+		constr.anchor = GridBagConstraints.WEST;
 
 		// THIRD ROW
 		constr.gridy++;
