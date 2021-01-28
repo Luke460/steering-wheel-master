@@ -45,18 +45,18 @@ To run ***Steering Wheel Master***, download the [***latest version***](https://
 Now you have to locate your ***force feedback calibration file*** and configure ***Steering Wheel Master***.
 
 
-You can choose between **aggregate lut generation** and **linear lut generation**:
- - The **aggregate lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. Leave ***Generate linear lut*** unchecked to use this lut generation method.
- - The **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel. Check ***Generate linear lut*** to select this method.
+First of all, you have to choose between **advanced lut generation** and **linear lut generation**:
+ - **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. 
+ - **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.
  
 Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel.
    
-   | **Steering wheel type** | ***Example*** | **Aggregation options**              | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
-   |-------------------------|---------------|------------------------------------|------------------------|---------------------------|---------------------------------------------------------------|
-   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | ***aggregation order***: 2 or *auto* | 0 | 0 | ~ 0 |
-   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | ***aggregation order***: 3 or *auto* | 0 | 0 | ~ 0 |
-   | ***mixed wheels***      | Thrustmaster TXM or T150  | ***aggregation order***: 4 or *auto* | 0 | 0 | ~ 0 |
-   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | activate option: ***Generate linear lut*** | from 0 to 5 | from 0 to 5 | ~ 5 |
+   | **Steering wheel type** | ***Example*** | **Aggregation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
+   |----|----|----|----|----|----|----|
+   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | advanced | 2 or *auto* | 0 | 0 | ~ 0 |
+   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | 3 or *auto* | 0 | 0 | ~ 0 |
+   | ***mixed wheels***      | Thrustmaster TXM or T150  | advanced | 4 or *auto* | 0 | 0 | ~ 0 |
+   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
 
 **NOTE:** keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
 
@@ -86,27 +86,24 @@ The following are the settings I currently use on my personal steering wheel. Th
 
 ### Silent mode (recommended for AC)
 This preset is noticeably quieter, although the force feedback is slightly weaker:
- - ***Aggregation order***: disabled (because we are going to make a linear lut)
+ - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 5 (this option slightly reduce the overall noise of your steering wheel and extend its lifespan)
  - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
- - ***Generate linear lut***: selected
  
 ### Standard mode (always good)
 This preset offers a good compromise between strength and quietness:
- - ***Aggregation order***: disabled (because we are going to make a linear lut)
+ - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
- - ***Generate linear lut***: selected
 
 ### Competitive mode (recommended for ACC)
 This preset makes force feedback noticeably stronger, but makes the steering wheel slightly noisy:
- - ***Aggregation order***: disabled (because we are going to make a linear lut)
+ - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 5
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
- - ***Generate linear lut***: selected
 
 ## How to use LUT files in *Assetto Corsa* and *Assetto Corsa Competizione*
 
