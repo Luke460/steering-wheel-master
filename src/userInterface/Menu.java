@@ -33,7 +33,7 @@ import java.util.Hashtable;
 public class Menu extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private static final Dimension MENU_DIMENSION = new Dimension(660, 500);
+	private static final Dimension MENU_DIMENSION = new Dimension(672, 500);
 	JButton previewButton;
 	JButton donateButton;
 	JButton generateLutButton;
@@ -291,6 +291,7 @@ public class Menu extends JPanel{
 		constr.gridx=1;
 		layoutPanel.add(deadZoneEnhancementSlider, constr);
 		constr.gridx=2;
+		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(documentationLink, constr);
 		constr.anchor = GridBagConstraints.WEST;
 
