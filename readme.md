@@ -51,7 +51,7 @@ First of all, you have to choose between **advanced lut generation** and **linea
  
 Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel.
    
-   | **Steering wheel type** | ***Example*** | **Aggregation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
+   | **Steering wheel type** | ***Example*** | **Lut generation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |----|----|----|----|----|----|----|
    | ***direct wheels***     | Fanatec Podium DD1 and DD2 | advanced | 2 or *auto* | 0 | 0 | ~ 0 |
    | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | 3 or *auto* | 0 | 0 | ~ 0 |
