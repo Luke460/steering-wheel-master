@@ -35,42 +35,40 @@ public class CsvSettingsMenu extends JPanel{
 	public void showCSVoption(ExecutionConfiguration inputConfig){
 		this.inputCSVconfig = inputConfig;
 		this.oldCSVconfig = new ExecutionConfiguration(inputConfig);
-		// Create frame
+
 		JFrame frame= new JFrame(); 
 		frame.setTitle("Input CSV settings");
 		frame.setMinimumSize(MENU_DIMENSION);
+		
+		Dimension fieldSize = new Dimension(42, 22);
+		Dimension headingSize = new Dimension(128, 22);
+		Dimension buttonDimension = new Dimension(120, 24);
 
-		// Panel to define the layout
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
 		JPanel headingPanel = new JPanel();
 		JLabel headingLabel = new JLabel("CSV configuration:");
+		headingLabel.setPreferredSize(headingSize);
 		headingPanel.add(headingLabel);
 
-		// Panel to define the layout
 		JPanel layoutPanel = new JPanel(new GridBagLayout());
-		// Constraints for the layout
 		GridBagConstraints constr = new GridBagConstraints();
 		constr.insets = new Insets(8, 8, 8, 8);     
 		constr.anchor = GridBagConstraints.WEST;
 
-		// Declare Text fields
 		JLabel forceColumnIndexLabel = new JLabel("Force column index:");
 		forceColumnIndexField = new JTextField();
-		forceColumnIndexField.setPreferredSize(new Dimension(42, 22));
+		forceColumnIndexField.setPreferredSize(fieldSize);
 		forceColumnIndexField.setText(""+inputCSVconfig.getForceColumnIndex());
 		
-		// Declare Text fields
 		JLabel deltaColumnIndexLabel = new JLabel("Delta column index:");
 		deltaColumnIndexField = new JTextField();
-		deltaColumnIndexField.setPreferredSize(new Dimension(42, 22));
+		deltaColumnIndexField.setPreferredSize(fieldSize);
 		deltaColumnIndexField.setText(""+inputCSVconfig.getDeltaColumnIndex());
 
 		// create event listener for the buttons
 		PerformListener performListener = new PerformListener();
-
-		Dimension buttonDimension = new Dimension(120, 24);
 		
 		confirmButton = new JButton("Confirm");
 		confirmButton.addActionListener(performListener);
