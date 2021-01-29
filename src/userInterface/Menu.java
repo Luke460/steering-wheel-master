@@ -33,7 +33,7 @@ import java.util.Hashtable;
 public class Menu extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private static final Dimension MENU_DIMENSION = new Dimension(672, 500);
+	private static final Dimension MENU_DIMENSION = new Dimension(700, 506);
 	JButton previewButton;
 	JButton donateButton;
 	JButton generateLutButton;
@@ -59,7 +59,7 @@ public class Menu extends JPanel{
 		frame.setTitle("Steering Wheel Master");
 		frame.setMinimumSize(MENU_DIMENSION);
 		
-		Dimension headingSize = new Dimension(100, 20);
+		Dimension headingSize = new Dimension(100, 24);
 		Dimension sideComponentSize = new Dimension(180, 42);
 		Dimension textFieldSize = new Dimension(230, 26);
 		Dimension sliderSize = new Dimension(244, 44);
@@ -84,19 +84,19 @@ public class Menu extends JPanel{
 		inputFileText.setPreferredSize(textFieldSize);
 		inputFileText.setText(config.getString(INPUT_FILE));
 	
-		final String linkLabel = " Open documentation";
-		documentationLink = new JLabel(linkLabel);
-		documentationLink.setPreferredSize(sideComponentSize);
-		documentationLink.setFont(new Font(documentationLink.getFont().getFontName(), 2, 13));
-		documentationLink.setForeground(Color.BLUE);
-		documentationLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	
-		final String updatesLabel = "  Check for updates";
+		final String updatesLabel = "      Check for updates";
 		updatesLink = new JLabel(updatesLabel);
 		updatesLink.setPreferredSize(sideComponentSize);
 		updatesLink.setFont(new Font(updatesLink.getFont().getFontName(), 2, 13));
 		updatesLink.setForeground(Color.BLUE);
 		updatesLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		final String linkLabel = "    Open documentation";
+		documentationLink = new JLabel(linkLabel);
+		documentationLink.setPreferredSize(sideComponentSize);
+		documentationLink.setFont(new Font(documentationLink.getFont().getFontName(), 2, 13));
+		documentationLink.setForeground(Color.BLUE);
+		documentationLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		// create event listener for the buttons
 		PerformListener performListener = new PerformListener();
@@ -128,7 +128,7 @@ public class Menu extends JPanel{
 		// linearize near zero
 		linearizeNearZero = new JCheckBox();
 		linearizeNearZero.setPreferredSize(sideComponentSize);
-		linearizeNearZero.setText("Linearize near zero");
+		linearizeNearZero.setText(" Linearize near zero");
 		linearizeNearZero.setSelected(inputConfig.getBoolean(LINEARIZE_NEAR_ZERO));
 
 		// Add positions label in the slider
