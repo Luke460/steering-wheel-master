@@ -53,7 +53,6 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
    
    | **Steering wheel type** | ***Example*** | **Lut generation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |----|----|----|----|----|----|----|
-   | ***direct wheels***     | Fanatec Podium DD1 and DD2 | advanced | 2 or *auto* | 0 | 0 | ~ 0 |
    | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | 3 or *auto* | 0 | 0 | ~ 0 |
    | ***mixed wheels***      | Thrustmaster TXM or T150  | advanced | 4 or *auto* | 0 | 0 | ~ 0 |
    | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
