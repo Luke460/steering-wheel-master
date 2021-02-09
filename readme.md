@@ -52,10 +52,13 @@ First of all, you have to choose between **advanced lut generation** and **linea
 Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel.
    
    | **Steering wheel type** | ***Example*** | **Lut generation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
-   |----|----|----|----|----|----|----|
+   |-------------------------|---------------------------|----|----|----|----|----|
    | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | 3 or *auto* | 0 | 0 | ~ 0 |
+   |                         |                                              | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
    | ***mixed wheels***      | Thrustmaster TXM or T150  | advanced | 4 or *auto* | 0 | 0 | ~ 0 |
-   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
+   |                         |                           | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
+   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | advanced | 5 or *auto* | 0 | 0 | ~ 0 |
+   |                         |                                                        | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
 
 **NOTE:** keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
 
