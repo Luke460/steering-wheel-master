@@ -60,11 +60,14 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
    | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | advanced | 5 or *auto* | 0 | 0 | ~ 0 |
    |                         |                                                        | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
 
-**NOTE:** keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
+**NOTE:** 
+ - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
+ - If you are using a high level steering wheel, you probably will not get any benefit by using this application, as its behavior will already be linear and without any dead zone.
 
- **IN GENERAL** : lower values of ***aggregation order*** makes your force feedback correction more precise, while higher values makes your force feedback smoother.
- - Don't go too high, or you will lose precision in force feedback correction.
- - Don't go too low or you will not benefit of the aggregation procedure.
+ **IN GENERAL:** 
+ - Lower values of ***aggregation order*** makes your force feedback correction more precise, while higher values makes your force feedback smoother.
+   - Don't go too high, or you will lose precision in force feedback correction.
+   - Don't go too low or you will not benefit of the aggregation procedure.
  - You can click on ***auto*** to (hopefully) calculate a good *aggregation order* for your steering wheel.
  - You can click on ***CSV settings*** to configure how to read the input csv file.
  - You can increase ***FFB peak reduction*** if you have clipping issues with your steering wheel or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan.
