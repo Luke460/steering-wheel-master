@@ -58,7 +58,7 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
    | ***mixed wheels***      | Thrustmaster TXM or T150  | advanced | 4 or *auto* | 0 | 0 | ~ 0 |
    |                         |                           | linear | - | 0 to 5 | 0 to 5 | ~ 5 |
    | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | advanced | 5 or *auto* | 0 | 0 | ~ 0 |
-   |                         |        *(recommended for Logitech)*                    | linear | - | 0 to 5 | 0 to 5 | ~ 5 |
+   |                         |        *(recommended for Logitech wheels)*             | linear | - | 0 to 5 | 0 to 5 | ~ 5 |
 
 **NOTE:** 
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
