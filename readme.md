@@ -49,16 +49,16 @@ First of all, you have to choose between **advanced lut generation** and **linea
  - **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. 
  - **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.
  
-Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***"linear lut generation"*** for this kind of wheel.
+Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***linear lut generation*** for this kind of wheel.
    
    | **Steering wheel type** | ***Example*** | **Lut generation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|---------------------------|----|----|----|----|----|
    | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | 3 or *auto* | 0 | 0 | ~ 0 |
-   |                         |                                              | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
+   |                         |                                              | linear | - | 0 to 5 | 0 to 5 | ~ 5 |
    | ***mixed wheels***      | Thrustmaster TXM or T150  | advanced | 4 or *auto* | 0 | 0 | ~ 0 |
-   |                         |                           | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
+   |                         |                           | linear | - | 0 to 5 | 0 to 5 | ~ 5 |
    | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | advanced | 5 or *auto* | 0 | 0 | ~ 0 |
-   |                         |                                                        | linear | - | from 0 to 5 | from 0 to 5 | ~ 5 |
+   |                         |        *(recommended for Logitech)*                    | linear | - | 0 to 5 | 0 to 5 | ~ 5 |
 
 **NOTE:** 
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
@@ -78,6 +78,8 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
  - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
+
+**NOTE:** These settings are ***not recommended*** for a ***Logitech G29***, use ***linear lut generation*** for this steering wheel.
 
 Now click on ***Generate lut*** and if everything goes well, you should get the following output message:
 
