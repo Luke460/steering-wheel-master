@@ -69,7 +69,7 @@ public class CsvSettingsMenu extends JPanel{
 		deltaColumnIndexField.setPreferredSize(fieldSize);
 		deltaColumnIndexField.setText(""+inputCSVconfig.getDeltaColumnIndex());
 		
-		JLabel skipFirstRowLabel = new JLabel("Skip first Row");
+		JLabel skipFirstRowLabel = new JLabel("Skip the first line:");
 		skipFirstRowBox = new JCheckBox();
 		skipFirstRowBox.setSelected(inputConfig.isSkipFirstRow());
 
