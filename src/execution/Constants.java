@@ -18,6 +18,7 @@ public interface Constants {
 	public static final String LINEARIZE_NEAR_ZERO = "linearize_near_zero";
 	public static final String FORCE_COLUMN_INDEX = "force_column_index";
 	public static final String DELTA_COLUMN_INDEX = "delta_column_index";
+	public static final String SKIP_FIRST_ROW = "skip_first_row";
 	public static final String ADVANCED_LUT_GENERATION = "advanced lut generation";
 	public static final String LINEAR_LUT_GENERATION = "linear lut generation";
 	

@@ -66,7 +66,7 @@ public class Aggregator {
 			}
 		}
 		lastZeroPosition = Math.max(0, lastZeroPosition);
-		System.out.print("lastZeroPosition="+lastZeroPosition);
+		// System.out.print("lastZeroPosition="+lastZeroPosition);
 		output.addAll(values);
 		// reverse values
 		for(int i = 0; i<lastZeroPosition; i++) {

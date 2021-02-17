@@ -14,13 +14,9 @@ public class ExecutionConfiguration {
 	int ffbPowerEnhacement;
 	int forceColumnIndex;
 	int deltaColumnIndex;
+	boolean skipFirstRow;
 
-	public ExecutionConfiguration() {
-		this.saveLUT = false;
-		this.showPreview = false;
-		this.autoCalcAggregationOder = false;
-		this.linearizeNearZero = false;
-	};
+	public ExecutionConfiguration() {};
 	
 	public ExecutionConfiguration(ExecutionConfiguration conf) {
 		this.saveLUT = conf.isSaveLUT();
@@ -35,6 +31,7 @@ public class ExecutionConfiguration {
 		this.ffbPowerEnhacement = conf.getFfbPowerEnhacement();
 		this.forceColumnIndex = conf.getForceColumnIndex();
 		this.deltaColumnIndex = conf.getDeltaColumnIndex();
+		this.skipFirstRow = conf.isSkipFirstRow();
 	}
 
 	public boolean isSaveLUT() {
@@ -131,6 +128,14 @@ public class ExecutionConfiguration {
 
 	public void setDeltaColumnIndex(int deltaColumnIndex) {
 		this.deltaColumnIndex = deltaColumnIndex;
+	}
+
+	public boolean isSkipFirstRow() {
+		return skipFirstRow;
+	}
+
+	public void setSkipFirstRow(boolean skipFirstRow) {
+		this.skipFirstRow = skipFirstRow;
 	}
 
 }

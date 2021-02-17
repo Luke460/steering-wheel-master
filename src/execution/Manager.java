@@ -56,7 +56,7 @@ public class Manager {
 
 			while ((line = br.readLine()) != null) {
 
-				if(!firstLine) {
+				if(!firstLine || !exConf.isSkipFirstRow()) {
 
 					line = line.replaceAll(" ", "");
 

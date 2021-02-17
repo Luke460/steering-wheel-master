@@ -437,6 +437,7 @@ public class Menu extends JPanel{
 		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
 		config.put(LINEARIZE_NEAR_ZERO, linearizeNearZero.isSelected());
 		config.put(FFB_POWER_ENHANCEMENT, ffbPowerEnhacementSlider.getValue());
+		
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
 		} catch (Exception e) {
@@ -540,6 +541,12 @@ public class Menu extends JPanel{
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read '" + DELTA_COLUMN_INDEX + "' property in '" + JSON_CONFIG_PATH + "'.");
+		}
+		try {
+			exConf.setSkipFirstRow(configJson.getBoolean(SKIP_FIRST_ROW));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + SKIP_FIRST_ROW + "' property in '" + JSON_CONFIG_PATH + "'.");
 		}
 	}
 	

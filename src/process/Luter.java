@@ -113,9 +113,9 @@ public class Luter {
 		for(int i = 1; i<=input.size()-2; i++) {
 			double multiplier = ((maxM-1)/len)*((double)i) + 1.0;
 			      	//^ deve dare 1 quando i è 0, oppure 1/maxValue quando i è = len
-			System.out.println("multiplier: " + multiplier);
+			// System.out.println("multiplier: " + multiplier);
 			double newValue = input.get(i) * multiplier;
-			System.out.println("newValue: " + newValue);
+			// System.out.println("newValue: " + newValue);
 			output.add(newValue);
 		}
 		output.add(1.0);

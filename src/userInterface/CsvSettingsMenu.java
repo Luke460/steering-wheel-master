@@ -19,13 +19,15 @@ public class CsvSettingsMenu extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final Dimension MENU_DIMENSION = new Dimension(320, 200);
+	private static final Dimension MENU_DIMENSION = new Dimension(320, 240);
 	private static final String FORCE_COLUMN_INDEX = "force_column_index";
 	private static final String DELTA_COLUMN_INDEX = "delta_column_index";
+	private static final String SKIP_FIRST_ROW = "skip_first_row";
 	
 	Menu menu;
 	JButton confirmButton;
 	JButton cancelButton;
+	JCheckBox skipFirstRowBox;
 	JTextField forceColumnIndexField;
 	JTextField deltaColumnIndexField;
 	ExecutionConfiguration inputCSVconfig;
@@ -66,6 +68,10 @@ public class CsvSettingsMenu extends JPanel{
 		deltaColumnIndexField = new JTextField();
 		deltaColumnIndexField.setPreferredSize(fieldSize);
 		deltaColumnIndexField.setText(""+inputCSVconfig.getDeltaColumnIndex());
+		
+		JLabel skipFirstRowLabel = new JLabel("Skip first Row");
+		skipFirstRowBox = new JCheckBox();
+		skipFirstRowBox.setSelected(inputConfig.isSkipFirstRow());
 
 		// create event listener for the buttons
 		PerformListener performListener = new PerformListener();
@@ -100,8 +106,19 @@ public class CsvSettingsMenu extends JPanel{
 		constr.anchor = GridBagConstraints.CENTER;
 		layoutPanel.add(deltaColumnIndexField, constr);
 		constr.anchor = GridBagConstraints.WEST;
-
+		
 		// THIRD ROW
+		constr.gridy++;
+
+		constr.gridx=0; 
+		layoutPanel.add(skipFirstRowLabel, constr);
+		
+		constr.gridx=1;
+		constr.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(skipFirstRowBox, constr);
+		constr.anchor = GridBagConstraints.WEST;
+
+		// LAST ROW
 		constr.gridy++;
 
 		constr.gridx=0; 
@@ -141,6 +158,14 @@ public class CsvSettingsMenu extends JPanel{
 			JOptionPane.showMessageDialog(null, "Invalid index value for delta column!");
 			return false;
 		}
+		
+		try {
+			this.inputCSVconfig.setSkipFirstRow(skipFirstRowBox.isSelected());
+		}catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Invalid index value for delta column!");
+			return false;
+		}
+		
 		return true;
 	}
 	
@@ -148,6 +173,7 @@ public class CsvSettingsMenu extends JPanel{
 		org.json.JSONObject config = Utility.readConfiguration(JSON_CONFIG_PATH);
 		config.put(FORCE_COLUMN_INDEX, inputCSVconfig.getForceColumnIndex());
 		config.put(DELTA_COLUMN_INDEX, inputCSVconfig.getDeltaColumnIndex());
+		config.put(SKIP_FIRST_ROW, inputCSVconfig.isSkipFirstRow());
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
 		} catch (Exception e) {
