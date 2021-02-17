@@ -87,7 +87,7 @@ public class Manager {
 			return exConf;
 		} catch ( NumberFormatException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: invalid input file '" + exConf.getInputCsvPath() + "'.");
+			JOptionPane.showMessageDialog(null, "Error: invalid input file '" + exConf.getInputCsvPath() + "' or wrong CSV settings.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Unexpected error while reading " + exConf.getInputCsvPath() + "' file.");
