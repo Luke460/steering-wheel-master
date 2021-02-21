@@ -129,6 +129,12 @@ public class Manager {
 		}
 
 		// END AGGREGATION
+		
+		// BEGIN INTERPOLATION
+		inputForce = Utility.performLinearInterpolationForInt(inputForce);
+		aggregateDeltaXdouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXdouble);
+
+		// END INTERPOLATION
 
 		// BEGIN LUT GENERATION
 		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);

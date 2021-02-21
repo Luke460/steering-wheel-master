@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static execution.Constants.INTERNAL_RESOLUTION;
+
 import javax.swing.JOptionPane;
 
 public class Utility {
@@ -94,6 +96,44 @@ public class Utility {
 			return null;
 		}
 		return config;
+	}
+	
+	public static ArrayList<Integer> performLinearInterpolationForInt(ArrayList<Integer> array){
+		do {
+			array = performSingleLinearInterpolationForInt(array);
+		} while (array.size()<INTERNAL_RESOLUTION);
+		return array;
+	}
+	
+	private static ArrayList<Integer> performSingleLinearInterpolationForInt(ArrayList<Integer> array){
+		ArrayList<Integer> output = new ArrayList<Integer>();
+		for(int i=0; i<array.size()-1; i++) {
+			int current = array.get(i);
+			int next = array.get(i+1);
+			output.add(current);
+			output.add((int)(Math.round((current+next)/2.0)));
+		}
+		output.add(array.get(array.size()-1));
+		return output;
+	}
+	
+	public static ArrayList<Double> performLinearInterpolationForDouble(ArrayList<Double> array){
+		do {
+			array = performSingleLinearInterpolationForDouble(array);
+		} while (array.size()<INTERNAL_RESOLUTION);
+		return array;
+	}
+	
+	private static ArrayList<Double> performSingleLinearInterpolationForDouble(ArrayList<Double> array){
+		ArrayList<Double> output = new ArrayList<Double>();
+		for(int i=0; i<array.size()-1; i++) {
+			double current = array.get(i);
+			double next = array.get(i+1);
+			output.add(current);
+			output.add((current+next)/2.0);
+		}
+		output.add(array.get(array.size()-1));
+		return output;
 	}
 
 }

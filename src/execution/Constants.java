@@ -7,6 +7,7 @@ public interface Constants {
 	public static final String CSV_SETTINGS_JSON_PATH = "csv-settings.json";
 	public static final String INFO_PATH = "graph-info.png";
 	public static final int MAX_RESOLUTION = 1000;
+	public static final int INTERNAL_RESOLUTION = 1000;
 	
 	//// Settings keys
 	public static final String INPUT_FILE = "input_file";

@@ -30,7 +30,7 @@ public class Luter {
 		}
 		
 		corrections.set(corrections.size()-1, 1.0);
-
+		//System.out.println(corrections.toString());
 		return correctLutArray(corrections);
 
 	}
