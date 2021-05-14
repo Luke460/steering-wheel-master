@@ -135,6 +135,14 @@ Now just place both the .lut file and the .ini file in the following folder:
  - For AC: ```C:\Users\<user_name>\Documents\Assetto Corsa\cfg```
  - For ACC: ```C:\Users\<user_name>\Documents\Assetto Corsa Competizione\Config```
 
+## How to use LUT files in *Assetto Corsa* with Content Manager
+
+For Assetto Corsa, if you are using ***Content Manager*** as game launcher, you need to use its interface to set up your lut file as follows:
+
+![1](images/ac-settings.png)
+![2](images/left-menu.png)
+![3](images/ffb-settings.png)
+
 ---
  
 ## New Features
