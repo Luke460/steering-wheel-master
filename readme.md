@@ -91,22 +91,22 @@ Now click on ***Generate lut*** and if everything goes well, you should get the 
 
 The following are the settings I currently use on my personal steering wheel. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%.
 
-### Silent mode (recommended for AC)
-This preset is noticeably quieter, although the force feedback is slightly weaker:
+### Silent mode
+This preset is noticeably quieter, although the force feedback is slightly weaker. Since the peak power is lower, this option preserves the lifespan of the device.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 5 (this option slightly reduce the overall noise of your steering wheel and extend its lifespan)
  - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
  
-### Standard mode (always good)
-This preset offers a good compromise between strength and quietness:
+### Standard mode
+This preset offers a good compromise between strength and quietness. Basically it only removes the dead zone leaving a default behavior.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
 
-### Competitive mode (recommended for ACC)
-This preset makes force feedback noticeably stronger, but makes the steering wheel slightly noisy:
+### Competitive mode
+This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy) by increasing the low and medium values of FFB in a progressive manner. Keep in mind that the maximum peak force is always limited to 100%.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 5
