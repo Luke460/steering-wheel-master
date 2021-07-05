@@ -62,7 +62,9 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
 
 **NOTE:** 
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
- - If you are using a high level steering wheel, you probably will not get any benefit by using this application, as its behavior will already be linear and without any dead zone.
+ - Some ***linear lut generation*** presets are available in the dedicated section below.
+ - The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%.
+ - If you are using a high level steering wheel, you probably will not get any benefit by using this application, as its behavior will already be linear, silent and without any dead zone.
 
  **IN GENERAL:** 
  - Lower values of ***aggregation order*** makes your force feedback correction more precise, while higher values makes your force feedback smoother.
@@ -87,9 +89,9 @@ Now click on ***Generate lut*** and if everything goes well, you should get the 
 
 **DONE:** The generated file is located in the *Steering Wheel Master* folder.
 
-## My personal settings - Logitech G29
+## Linear lut generation presets
 
-The following are the settings I currently use on my personal steering wheel. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%.
+The following settings can be applied to every steering wheel to generate a linear lut. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%.
 
 ### Silent mode
 This preset is noticeably quieter, although the force feedback is slightly weaker. Since the peak power is lower, this option preserves the lifespan of the device.
