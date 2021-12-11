@@ -114,6 +114,9 @@ This preset makes force feedback noticeably stronger (but makes the steering whe
  - ***FFB power enhancement***: 5
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
 
+## My settings (Logitech G29)
+![my-G29-settings](images/my-G29-settings.png)
+
 ## How to use LUT files in *Assetto Corsa* and *Assetto Corsa Competizione*
 
 To allow *AC* and *ACC* to use your lut file, you need to create a text file named *ff_post_process.ini*
