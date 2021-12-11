@@ -107,7 +107,7 @@ This is the standard preset and offers a good compromise between strength and qu
  - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
 
-### Competitive mode
+### Extreme mode
 This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy) by increasing the low and medium values of FFB in a progressive manner. Keep in mind that the maximum peak force is always limited to 100%.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
