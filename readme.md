@@ -38,7 +38,7 @@ The used settings are ***Step Log 2 (linear force test)*** with ***Max Count*** 
 
 ## How to use
 
-To run ***Steering Wheel Master***, download the [***latest version***](https://github.com/Luke460/steering-wheel-master/releases), unzip the file and run ***SteeringWheelMaster.jar*** (requires Java 7 or later):
+To run ***Steering Wheel Master***, download the [***latest version***](https://github.com/Luke460/steering-wheel-master/releases), unzip the file and run ***SteeringWheelMaster.jar*** (requires Java 8 or later):
 
 [![icon](images/Icon.png)](https://github.com/Luke460/steering-wheel-master/releases)
 
@@ -63,19 +63,19 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
 **NOTE:** 
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
  - Some ***linear lut generation*** presets are available in the dedicated section below.
- - The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%.
+ - The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%. Make sure to also disable the centering force of your steering wheel if present.
  - If you are using a high level steering wheel, you probably will not get any benefit by using this application, as its behavior will already be linear, silent and without any dead zone.
 
  **IN GENERAL:** 
  - Lower values of ***aggregation order*** makes your force feedback correction more precise, while higher values makes your force feedback smoother.
    - Don't go too high, or you will lose precision in force feedback correction.
    - Don't go too low or you will not benefit of the aggregation procedure.
- - You can click on ***auto*** to (hopefully) calculate a good *aggregation order* for your steering wheel.
+ - You can click on ***auto*** to generate a series of valid settings for your steering wheel. It works for both linear and advanced lut generation.
  - You can click on ***CSV settings*** to configure how to read the input csv file.
- - You can increase ***FFB peak reduction*** if you have clipping issues with your steering wheel or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan.
+ - You can increase ***FFB peak reduction*** if you have clipping issues with your steering wheel, or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan.
  - You can use ***FFB power enhancement*** to boost your wheel FFB strength. It's mostly intended for steering wheel with low engine power. This option increases the low and medium values of FFB in a progressive manner.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
- - You can decrease ***dead zone enhancement*** if you still have a FFB deadzone with the generated lut.
+ - You can decrease ***dead zone enhancement*** if you still have an FFB dead zone with the generated lut.
  - You can select ***linearize near zero*** to change the aggregation strategy for low values of the force feedback. It can help remove vibrations in the center of some steering wheels. Activating this option requires you to also increase the ***deadzone enhancement*** value.
  - Experiment and play with the ***preview*** button!
  
@@ -91,7 +91,7 @@ Now click on ***Generate lut*** and if everything goes well, you should get the 
 
 ## Linear lut generation presets
 
-The following settings can be applied to every steering wheel to generate a linear lut. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%.
+The following settings can be applied to every steering wheel to generate a linear lut. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%. Make sure to also disable the centering force of your steering wheel if present.
 
 ### Silent mode
 This preset is noticeably quieter, although the force feedback is slightly weaker. Since the peak power is lower, this option preserves the lifespan of the device.
@@ -101,7 +101,7 @@ This preset is noticeably quieter, although the force feedback is slightly weake
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
  
 ### Standard mode
-This preset offers a good compromise between strength and quietness. Basically it only removes the dead zone leaving a default behavior.
+This is the standard preset and offers a good compromise between strength and quietness. Basically it only removes the dead zone leaving a default behavior.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 0
@@ -184,3 +184,5 @@ For Assetto Corsa, if you are using ***Content Manager*** as game launcher, you 
 - [v2.13](https://github.com/Luke460/steering-wheel-master/releases): Improved input csv files compatibility.
 
 - [v3.0](https://github.com/Luke460/steering-wheel-master/releases): A new name: Steering Wheel Master!
+
+- [v3.1](https://github.com/Luke460/steering-wheel-master/releases): Improved 'Auto' feature and default settings. Java 8 is now required.

@@ -30,7 +30,7 @@ public class Manager {
 			return process(exConf);
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error during aggregation process.");
+			JOptionPane.showMessageDialog(null, "Unexpected error: check settings and input file.");
 			return exConf;
 		}
 

@@ -45,7 +45,7 @@ public class Menu extends JPanel{
 	JTextField inputFileText;
 	JSlider aggregationSlider;
 	JSlider peakReductionSlider;
-	JSlider ffbPowerEnhacementSlider;
+	JSlider ffbPowerEnhancementSlider;
 	JSlider deadZoneEnhancementSlider;
 	JSONObject config;
 	JLabel documentationLink;
@@ -165,14 +165,14 @@ public class Menu extends JPanel{
 		
 		JLabel ffbPowerEnhacementLabel = new JLabel("FFB power enhancement:");
 		ffbPowerEnhacementLabel.setPreferredSize(sideComponentSize);
-		ffbPowerEnhacementSlider = new JSlider(0, 10, config.getInt(FFB_POWER_ENHANCEMENT));
-		ffbPowerEnhacementSlider.setPreferredSize(sliderSize);
-		ffbPowerEnhacementSlider.setMajorTickSpacing(5);
-		ffbPowerEnhacementSlider.setMinorTickSpacing(1);
-		ffbPowerEnhacementSlider.setPaintTicks(true);
-		ffbPowerEnhacementSlider.setPaintLabels(true);
-		ffbPowerEnhacementSlider.setPaintTrack(true);
-		ffbPowerEnhacementSlider.setLabelTable(position1);
+		ffbPowerEnhancementSlider = new JSlider(0, 10, config.getInt(FFB_POWER_ENHANCEMENT));
+		ffbPowerEnhancementSlider.setPreferredSize(sliderSize);
+		ffbPowerEnhancementSlider.setMajorTickSpacing(5);
+		ffbPowerEnhancementSlider.setMinorTickSpacing(1);
+		ffbPowerEnhancementSlider.setPaintTicks(true);
+		ffbPowerEnhancementSlider.setPaintLabels(true);
+		ffbPowerEnhancementSlider.setPaintTrack(true);
+		ffbPowerEnhancementSlider.setLabelTable(position1);
 		
 		JLabel deadZoneEnhancementLabel = new JLabel("Dead zone enhancement:");
 		deadZoneEnhancementLabel.setPreferredSize(sideComponentSize);
@@ -199,7 +199,7 @@ public class Menu extends JPanel{
 		aggregationSlider.setToolTipText(htmlBegin + AGGREGATION_ORDER_DESCRIPTION + htmlEnd);
 		autoButton.setToolTipText(htmlBegin + AUTO_DESCRIPTION + htmlEnd);
 		peakReductionSlider.setToolTipText(htmlBegin + PEAK_REDUCTION_DESCRIPTION + htmlEnd);
-		ffbPowerEnhacementSlider.setToolTipText(htmlBegin + POWER_ENHANCEMENT_DESCRIPTION + htmlEnd);
+		ffbPowerEnhancementSlider.setToolTipText(htmlBegin + POWER_ENHANCEMENT_DESCRIPTION + htmlEnd);
 		deadZoneEnhancementSlider.setToolTipText(htmlBegin + DZ_ENHANCEMENT_DESCRIPTION + htmlEnd);
 		linearizeNearZero.setToolTipText(htmlBegin + LINEARIZE_NEAR_ZERO_DESCRIPTION + htmlEnd);
 		lutGenerationMethod.setToolTipText(htmlBegin + LUT_METHOD_DESCRIPTION + htmlEnd);
@@ -247,7 +247,7 @@ public class Menu extends JPanel{
 		layoutPanel.add(lutGenerationMethod, constr);
 		constr.anchor = GridBagConstraints.WEST;
 		constr.gridx=2;
-		layoutPanel.add(inputCsvSettings, constr);
+		layoutPanel.add(autoButton, constr);
 		
 		
 		// AGGREGATON ORDER ROW
@@ -260,7 +260,7 @@ public class Menu extends JPanel{
 		layoutPanel.add(aggregationSlider, constr);
 		constr.anchor = GridBagConstraints.WEST;
 		constr.gridx=2;
-		layoutPanel.add(autoButton, constr);
+		layoutPanel.add(inputCsvSettings, constr);
 
 		// PEAK REDUCTION ROW
 		constr.gridy++;
@@ -281,7 +281,7 @@ public class Menu extends JPanel{
 		layoutPanel.add(ffbPowerEnhacementLabel, constr);
 		constr.gridx=1;
 		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(ffbPowerEnhacementSlider, constr);
+		layoutPanel.add(ffbPowerEnhancementSlider, constr);
 		constr.anchor = GridBagConstraints.WEST;
 		constr.gridx=2;
 		layoutPanel.add(updatesLink, constr);
@@ -389,7 +389,7 @@ public class Menu extends JPanel{
 			}
 		});
 		
-		ffbPowerEnhacementSlider.addChangeListener(new ChangeListener() {
+		ffbPowerEnhancementSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				updateComponentsStatus();
@@ -416,12 +416,12 @@ public class Menu extends JPanel{
 		
 		//compensation
 		if(peakReductionSlider.getValue()==0) {
-			ffbPowerEnhacementSlider.setEnabled(true);
+			ffbPowerEnhancementSlider.setEnabled(true);
 		} else {
-			ffbPowerEnhacementSlider.setEnabled(false);
+			ffbPowerEnhancementSlider.setEnabled(false);
 		}
 		
-		if(ffbPowerEnhacementSlider.getValue()==0) {
+		if(ffbPowerEnhancementSlider.getValue()==0) {
 			peakReductionSlider.setEnabled(true);
 		} else {
 			peakReductionSlider.setEnabled(false);
@@ -436,7 +436,7 @@ public class Menu extends JPanel{
 		config.put(LUT_GENERATION_METHOD, lutGenerationMethod.getSelectedItem());
 		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
 		config.put(LINEARIZE_NEAR_ZERO, linearizeNearZero.isSelected());
-		config.put(FFB_POWER_ENHANCEMENT, ffbPowerEnhacementSlider.getValue());
+		config.put(FFB_POWER_ENHANCEMENT, ffbPowerEnhancementSlider.getValue());
 		
 		try {
 			Files.write(Paths.get(JSON_CONFIG_PATH), config.toString().getBytes());
@@ -460,14 +460,23 @@ public class Menu extends JPanel{
 				exConf.setSaveLUT(true);
 				Manager.execute(exConf);
 			} else if(src == autoButton) {
-				exConf.setAutoCalcAggregationOder(true);
-				exConf = Manager.execute(exConf);
-				aggregationSlider.setValue(exConf.getAggregationOrder());
-				deadZoneEnhancementSlider.setValue((int)(exConf.getDeadZoneEnhancement()*2));
-				peakReductionSlider.setValue(exConf.getPeakReduction());
-				lutGenerationMethod.setSelectedItem(exConf.getLutGeneration_method());
-				linearizeNearZero.setSelected(exConf.isLinearizeNearZero());
-				ffbPowerEnhacementSlider.setValue(exConf.getFfbPowerEnhacement());
+				if(lutGenerationMethod.getSelectedItem().equals(ADVANCED_LUT_GENERATION)) {
+					exConf.setAutoCalcAggregationOder(true);
+					exConf = Manager.execute(exConf);
+					aggregationSlider.setValue(exConf.getAggregationOrder());
+					deadZoneEnhancementSlider.setValue((int) (exConf.getDeadZoneEnhancement() * 2));
+					peakReductionSlider.setValue(exConf.getPeakReduction());
+					lutGenerationMethod.setSelectedItem(exConf.getLutGeneration_method());
+					linearizeNearZero.setSelected(exConf.isLinearizeNearZero());
+					ffbPowerEnhancementSlider.setValue(exConf.getFfbPowerEnhacement());
+				} else {
+					//exConf.setPeakReduction(0);
+					peakReductionSlider.setValue(0);
+					//exConf.setFfbPowerEnhancement(0);
+					ffbPowerEnhancementSlider.setValue(0);
+					//exConf.setDeadZoneEnhancement(10);
+					deadZoneEnhancementSlider.setValue(10);
+				}
 				updateComponentsStatus();
 			} else if(src == inputCsvSettings){
 				transferJsonConfigIntoExConf(jsonConfig,exConf);
