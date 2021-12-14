@@ -47,18 +47,18 @@ Now you have to locate your ***force feedback calibration file*** and configure 
 
 First of all, you have to choose between **advanced lut generation** and **linear lut generation**:
  - **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. 
- - **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel.
+ - **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel (recommended).
  
 Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***linear lut generation*** for this kind of wheel.
    
    | **Steering wheel type** | ***Example*** | **Lut generation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|---------------------------|----|----|----|----|----|
-   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | ~ 5 | 0 | 0 | ~ 0 |
-   |                         |                                              | linear | - | 0 to 5 | 0 to 5 | ~ 5 |
-   | ***mixed wheels***      | Thrustmaster TXM or T150  | advanced | ~ 5 | 0 | 0 | ~ 0 |
-   |                         |                           | linear | - | 0 to 5 | 0 to 5 | ~ 5 |
-   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | advanced | ~ 5 | 0 | 0 | ~ 0 |
-   |                         |        *(recommended for Logitech wheels)*             | linear | - | 0 to 5 | 0 to 5 | ~ 5 |
+   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | 4 with 100 readings (2 with 50) | 0 | 0 | 0 |
+   |                         |        *(recommended)*                                      | linear | - | 0 | 0 | 0 to 3 |
+   | ***mixed wheels***      | Thrustmaster TXM or T150  | advanced | 4-5 with 100 readings (2-3 with 50) | 0 | 0 | 0 |
+   |                         |        *(recommended)*                   | linear | - | 0 | 0 | 2 to 5 |
+   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | advanced | 5 with 100 readings (3 with 50) | 0 | 0 | 0 |
+   |                         |        *(recommended)*             | linear | - | 0 | 0 | 3 to 6 |
 
 **NOTE:** 
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
@@ -107,12 +107,15 @@ This is the standard preset and offers a good compromise between strength and qu
  - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
 
-### Competitive mode
+### Extreme mode
 This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy) by increasing the low and medium values of FFB in a progressive manner. Keep in mind that the maximum peak force is always limited to 100%.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 5
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
+
+## My settings (Logitech G29)
+![my-G29-settings](images/my-G29-settings.png)
 
 ## How to use LUT files in *Assetto Corsa* and *Assetto Corsa Competizione*
 
