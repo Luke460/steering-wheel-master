@@ -75,6 +75,18 @@ public class Utility {
 		}
 		return true;
 	}
+
+	public static double calculateVariance(List<Double> input) {
+		double prevValue = 0;
+		double totalVariance = 0;
+		double maxValue = -1;
+		for(Double value:input) {
+			totalVariance += Math.max(value, prevValue) - Math.min(value, prevValue);
+			if(value>maxValue) maxValue = value;
+			prevValue = value;
+		}
+		return totalVariance/(input.size()*maxValue);
+	}
 	
 	public static boolean isGrowingForIntegerList(List<Integer> input) {
 		double prevValue = -1;

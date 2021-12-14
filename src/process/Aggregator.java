@@ -38,20 +38,17 @@ public class Aggregator {
 	}
 	
 	public static int suggestedAggregationValue(ArrayList<Double> input) {
-		ArrayList<Double> aggregateInput = new ArrayList<Double>();
-		aggregateInput.addAll(input);
-		int plus = 2;
-		// This is possible because in vertical aggregation: 
-		// Ag_1(Ag_1(x)) = Ag_2(x)
-		int i;
-		for (i = 0; i<=7; i++) {
-			if(Utility.isGrowingForDoubleList(aggregateInput)) {
-				return i + plus; //i min value 0, i max value 5
-			} else {
-				aggregateInput = performAggregation(aggregateInput, 1);
-			}
+		// The best part is no part, the best process is no process. [Elon Musk]
+		if(input.size()<=75){
+			// small size: min 2 max 4
+			return 3;
+		} else if(input.size()>75 && input.size()<=125){
+			// standard size: min 3 max 5
+			return 4;
+		} else {
+			// big size: min 4 max 6
+			return 5;
 		}
-		return i + plus; // i max=8, plus=2
 	}
 	
 	public static ArrayList<Double> prepareFirstValuesForAggregation(ArrayList<Double> values) {
