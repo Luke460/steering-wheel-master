@@ -77,10 +77,9 @@ public class Luter {
 	}
 	
 	public static ArrayList<Double> deadZoneCorrectionOnly(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble){
-		int x = findIndexOfLowerValue(aggregateDeltaXdouble, Collections.max(aggregateDeltaXdouble)*0.01);
+		int x = findIndexOfLowerValue(aggregateDeltaXdouble, Collections.max(aggregateDeltaXdouble)*0.02);
 		double firstLutValue = (force.get(x)*1.0)/(Collections.max(force)*1.0);
 		return generateLinearizedLut(1000, firstLutValue);
-
 	}
 	
 	public static ArrayList<Double> reduceForcePeaks(ArrayList<Double> input, int peakForceReduction) {
@@ -139,10 +138,10 @@ public class Luter {
 	private static int findIndexOfLowerValue(ArrayList<Double> input, double targetValue) {
 		
 		if(targetValue==0) return 0;
-		
-		for(int i=0; i<input.size();i++) {
-			if(i!=0 && targetValue>input.get(i-1) && targetValue<=input.get(i)){
-				return i-1;
+		// from last value
+		for(int i=input.size()-1; i>0;i--) {
+			if(input.get(i)<=targetValue){
+				return i;
 			}
 		}
 

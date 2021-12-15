@@ -54,7 +54,7 @@ public class Utility {
 		return output;
 	}
 
-	public static List<Double> correctArrayDimensionsAndValuesForVisualizzation(ArrayList<Double> input, Double targetMaxValue) {
+	public static List<Double> correctArrayDimensionsAndValuesForVisualization(ArrayList<Double> input, Double targetMaxValue) {
 		
 		ArrayList<Double> output = new ArrayList<Double>();
 		double inputMaxValue = Collections.max(input);

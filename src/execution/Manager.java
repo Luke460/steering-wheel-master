@@ -51,7 +51,6 @@ public class Manager {
 		System.out.println("reading input file...");
 
 		// BEGIN READ
-
 		try (BufferedReader br = new BufferedReader(new FileReader(exConf.getInputCsvPath()))) {
 
 			while ((line = br.readLine()) != null) {
@@ -98,16 +97,13 @@ public class Manager {
 			JOptionPane.showMessageDialog(null, "Input file exceeds the maximum resolution: " + MAX_RESOLUTION);
 			return exConf;
 		}
-
 		// END READ
 
 		// BEGIN ERROR CORRECTION
-
-		java.util.ArrayList<Double> correctedDeltaX = new java.util.ArrayList<Double>();
-		correctedDeltaX = Corrector.adjust(inputDeltaX, "deltaX");	
-
+		java.util.ArrayList<Double> correctedDeltaX = Corrector.adjust(inputDeltaX, "deltaX");
 		// END ERROR CORRECTION	
 
+		// BEGIN AUTO FUNCTION
 		if(exConf.isAutoCalcAggregationOder()) {
 			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(correctedDeltaX));
 			exConf.setDeadZoneEnhancement(0);
@@ -117,35 +113,37 @@ public class Manager {
 			exConf.setFfbPowerEnhacement(0);
 			return exConf;
 		}
+		// END AUTO FUNCTION
 
 		// BEGIN AGGREGATION
-
 		System.out.println("aggregation...");
-
-		if(exConf.isLinearizeNearZero()) {
-			aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder());
-		} else {
-			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder());
+		if (exConf.getLutGeneration_method().equals(ADVANCED_LUT_GENERATION)) {
+			if (exConf.isLinearizeNearZero()) {
+				aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION) ? 0 : exConf.getAggregationOrder());
+			} else {
+				aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION) ? 0 : exConf.getAggregationOrder());
+			}
 		}
-
 		// END AGGREGATION
 		
 		// BEGIN INTERPOLATION
 		inputForce = Utility.performLinearInterpolationForInt(inputForce);
-		aggregateDeltaXdouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXdouble);
-
+		if (exConf.getLutGeneration_method().equals(ADVANCED_LUT_GENERATION)) {
+			aggregateDeltaXdouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXdouble);
+		}
 		// END INTERPOLATION
 
 		// BEGIN LUT GENERATION
-		ArrayList<Double> correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
-
-		// END LUT GENERATION
-
-		// BEGIN DEAD CORRECTION ONLY
-		if(exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)) {
+		ArrayList<Double> correctiveMap = null;
+		if(exConf.getLutGeneration_method().equals(ADVANCED_LUT_GENERATION)) {
+			correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
+		} else if(exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)) {
+			// in this case data are not aggregated, so we need to perform an aggregation first
+			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, Aggregator.suggestedAggregationValue(correctedDeltaX));
+			aggregateDeltaXdouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXdouble);
 			correctiveMap = Luter.deadZoneCorrectionOnly(inputForce, aggregateDeltaXdouble);
 		}
-		// END DEAD CORRECTION ONLY
+		// END LUT GENERATION
 
 		// BEGIN PEAK_REDUCTION
 		if(exConf.getPeakReduction()>0 && exConf.getFfbPowerEnhacement()==0) {
@@ -171,7 +169,7 @@ public class Manager {
 			try {
 				DrawGraphHD.createAndShowGui(inputDeltaX, 
 						aggregateDeltaXdouble, 
-						Utility.correctArrayDimensionsAndValuesForVisualizzation(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), generateDescriptionName(exConf));
+						Utility.correctArrayDimensionsAndValuesForVisualization(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), generateDescriptionName(exConf));
 			} catch(Exception e) {
 				e.printStackTrace();
 			}

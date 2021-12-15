@@ -6,20 +6,24 @@ import execution.Utility;
 
 public class Aggregator {
 	
-	public static ArrayList<Double> performExperimentalAggregation(ArrayList<Double> values, int aggregationOrder) {
-		if(aggregationOrder<1) return values;
-		values = prepareFirstValuesForAggregation(values);
-		values = performAggregation(values, aggregationOrder);
-		values = removeNegativeValues(values);
-		return values;
+	public static ArrayList<Double> performExperimentalAggregation(ArrayList<Double> inputValues, int aggregationOrder) {
+		ArrayList<Double> outputValues = new ArrayList<>();
+		outputValues.addAll(inputValues);
+		if(aggregationOrder<1) return outputValues;
+		outputValues = prepareFirstValuesForAggregation(outputValues);
+		outputValues = performAggregation(outputValues, aggregationOrder);
+		outputValues = removeNegativeValues(outputValues);
+		return outputValues;
 		
 	}
 	
-	public static ArrayList<Double> performAggregation(ArrayList<Double> values, int aggregationOrder) {
+	public static ArrayList<Double> performAggregation(ArrayList<Double> inputValues, int aggregationOrder) {
+		ArrayList<Double> outputValues = new ArrayList<>();
+		outputValues.addAll(inputValues);
 		for(int state=0; state<aggregationOrder; state++) {
-			values = aggregateInternal(values);
+			outputValues = aggregateInternal(outputValues);
 		}
-		return values;
+		return outputValues;
 		
 	}
 
@@ -51,7 +55,7 @@ public class Aggregator {
 		}
 	}
 	
-	public static ArrayList<Double> prepareFirstValuesForAggregation(ArrayList<Double> values) {
+	private static ArrayList<Double> prepareFirstValuesForAggregation(ArrayList<Double> values) {
 		ArrayList<Double> output = new ArrayList<Double>();
 		int lastZeroPosition = 0;
 		double requiredValue = values.get(values.size()-1)*0.01;
@@ -73,7 +77,7 @@ public class Aggregator {
 		return output;
 	}
 	
-	public static ArrayList<Double> removeNegativeValues(ArrayList<Double> values) {
+	private static ArrayList<Double> removeNegativeValues(ArrayList<Double> values) {
 		ArrayList<Double> output = new ArrayList<Double>();
 		for(double value:values) {
 			if(value>0) {

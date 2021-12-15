@@ -47,22 +47,22 @@ Now you have to locate your ***force feedback calibration file*** and configure 
 
 First of all, you have to choose between **advanced lut generation** and **linear lut generation**:
  - **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. 
- - **linear lut generation** uses the csv file only to correct the dead zone in order to not to alter the standard behavior of your steering wheel (recommended).
+ - **linear lut generation** uses the csv file only to correct the dead zone in order to not alter the standard behavior of your steering wheel (recommended mode).
  
 Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***linear lut generation*** for this kind of wheel.
    
    | **Steering wheel type** | ***Example*** | **Lut generation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
    |-------------------------|---------------------------|----|----|----|----|----|
    | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | 4 with 100 readings (2 with 50) | 0 | 0 | 0 |
-   |                         |        *(recommended)*                                      | linear | - | 0 | 0 | 0 to 3 |
+   |                         |        *(recommended)*                                      | linear | - | 0 | 0 | ~5 |
    | ***mixed wheels***      | Thrustmaster TXM or T150  | advanced | 4-5 with 100 readings (2-3 with 50) | 0 | 0 | 0 |
-   |                         |        *(recommended)*                   | linear | - | 0 | 0 | 2 to 5 |
+   |                         |        *(recommended)*                   | linear | - | 0 | 0 | ~5 |
    | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | advanced | 5 with 100 readings (3 with 50) | 0 | 0 | 0 |
-   |                         |        *(recommended)*             | linear | - | 0 | 0 | 3 to 6 |
+   |                         |        *(recommended)*             | linear | - | 0 | 0 | ~5 |
 
 **NOTE:** 
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
- - Some ***linear lut generation*** presets are available in the dedicated section below.
+ - The recommended mode is ***linear lut generation***. Some presets are available in the dedicated section below.
  - The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%. Make sure to also disable the centering force of your steering wheel if present.
  - If you are using a high level steering wheel, you probably will not get any benefit by using this application, as its behavior will already be linear, silent and without any dead zone.
 
@@ -76,7 +76,7 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
  - You can use ***FFB power enhancement*** to boost your wheel FFB strength. It's mostly intended for steering wheel with low engine power. This option increases the low and medium values of FFB in a progressive manner.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - You can decrease ***dead zone enhancement*** if you still have an FFB dead zone with the generated lut.
- - You can select ***linearize near zero*** to change the aggregation strategy for low values of the force feedback. It can help remove vibrations in the center of some steering wheels. Activating this option requires you to also increase the ***deadzone enhancement*** value.
+ - You can select ***linearize near zero*** to improve fidelity of low ffb values. Enabling this option may require you to slightly increase the ***dead zone enhancement*** value.
  - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
@@ -188,4 +188,6 @@ For Assetto Corsa, if you are using ***Content Manager*** as game launcher, you 
 
 - [v3.0](https://github.com/Luke460/steering-wheel-master/releases): A new name: Steering Wheel Master!
 
-- [v3.1](https://github.com/Luke460/steering-wheel-master/releases): Improved 'Auto' feature and default settings. Java 8 is now required.
+- [v3.1](https://github.com/Luke460/steering-wheel-master/releases): Improved default settings. Java 8 is now required.
+
+- [v3.2](https://github.com/Luke460/steering-wheel-master/releases): Improved 'Auto' function for both linear and advanced modes.
