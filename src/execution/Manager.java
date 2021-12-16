@@ -101,16 +101,11 @@ public class Manager {
 
 		// BEGIN ERROR CORRECTION
 		java.util.ArrayList<Double> correctedDeltaX = Corrector.adjust(inputDeltaX, "deltaX");
-		// END ERROR CORRECTION	
+		// END ERROR CORRECTION
 
 		// BEGIN AUTO FUNCTION
 		if(exConf.isAutoCalcAggregationOder()) {
 			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(correctedDeltaX));
-			exConf.setDeadZoneEnhancement(0);
-			exConf.setLutGeneration_method(ADVANCED_LUT_GENERATION);
-			exConf.setPeakReduction(0);
-			exConf.setLinearizeNearZero(false);
-			exConf.setFfbPowerEnhacement(0);
 			return exConf;
 		}
 		// END AUTO FUNCTION
@@ -119,9 +114,9 @@ public class Manager {
 		System.out.println("aggregation...");
 		if (exConf.getLutGeneration_method().equals(ADVANCED_LUT_GENERATION)) {
 			if (exConf.isLinearizeNearZero()) {
-				aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION) ? 0 : exConf.getAggregationOrder());
+				aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.getAggregationOrder());
 			} else {
-				aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION) ? 0 : exConf.getAggregationOrder());
+				aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.getAggregationOrder());
 			}
 		}
 		// END AGGREGATION

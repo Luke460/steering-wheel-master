@@ -7,6 +7,9 @@ import execution.Utility;
 
 public class Luter {
 
+	public static final double DEAD_ZONE_MULTIPLIER = 0.005;
+	public static final double DEAD_ZONE_VALUE_PRECISION_INCREMENT = 0.005;
+
 	public static ArrayList<Double> generateCorrectiveArray(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble) {
 
 		ArrayList<Double> corrections = new ArrayList<Double>();
@@ -60,9 +63,10 @@ public class Luter {
 		return output;
 	}
 
-	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, double deadZoneEnhancement) {
-		// remove 
-		double totalDelta = deadZoneEnhancement*0.005; //*1.0;
+	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, double inputDeadZoneEnhancement) {
+		// remove
+		double deadZoneEnhancement = Math.min(inputDeadZoneEnhancement, calculateSuggestedDeadZoneEnhancementValue(input));
+		double totalDelta = deadZoneEnhancement*DEAD_ZONE_MULTIPLIER; //*1.0;
 		ArrayList<Double> output = new ArrayList<Double>();
 		output.addAll(input);
 		for(int i = 0; i<input.size()-1; i++) {
@@ -75,10 +79,23 @@ public class Luter {
 		}
 		return output;
 	}
+
+	public static double calculateSuggestedDeadZoneEnhancementValue(ArrayList<Double> input) {
+		double enhancementValue = 0;
+		while(enhancementValue<10){
+			double totalDelta = enhancementValue*DEAD_ZONE_MULTIPLIER;
+			Double delta = (totalDelta/input.size())*(input.size()-1-1);
+			Double value = input.get(1) - delta;
+			if(value<=0) return enhancementValue;
+			enhancementValue += DEAD_ZONE_VALUE_PRECISION_INCREMENT;
+		}
+		return 10.0;
+	}
 	
 	public static ArrayList<Double> deadZoneCorrectionOnly(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble){
 		int x = findIndexOfLowerValue(aggregateDeltaXdouble, Collections.max(aggregateDeltaXdouble)*0.02);
 		double firstLutValue = (force.get(x)*1.0)/(Collections.max(force)*1.0);
+		System.out.println("firstLutValue: " + firstLutValue);
 		return generateLinearizedLut(1000, firstLutValue);
 	}
 	
