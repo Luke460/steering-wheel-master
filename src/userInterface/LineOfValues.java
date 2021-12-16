@@ -7,14 +7,20 @@ import java.util.List;
 public class LineOfValues {
 
 	private Color color;
+	private boolean countForMaxValue;
 	private List<Double> values;
 	
-	public LineOfValues(Color color, List<Double> values) {
+	public LineOfValues(Color color, List<Double> values, boolean countForMaxValue) {
 		super();
 		this.color = color;
 		this.values = values;
+		this.countForMaxValue = countForMaxValue;
 	}
-	
+
+	public boolean isCountForMaxValue() { return countForMaxValue; }
+
+	public void setCountForMaxValue(boolean countForMaxValue) { this.countForMaxValue = countForMaxValue; }
+
 	public double maxValue() {
 		return Collections.max(this.values);
 	}

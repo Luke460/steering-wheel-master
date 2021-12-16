@@ -75,7 +75,9 @@ public class DrawGraphHD extends JPanel {
 		// find max value
 		double maxValue = 0.0;
 		for(LineOfValues singleLine:this.allLines) {
-			maxValue = Math.max(maxValue, Collections.max(singleLine.getValues()));
+			if(singleLine.isCountForMaxValue()) {
+				maxValue = Math.max(maxValue, Collections.max(singleLine.getValues()));
+			}
 		}
 		
 		// add values and lines
@@ -121,11 +123,11 @@ public class DrawGraphHD extends JPanel {
 		}
 		
 		ArrayList<LineOfValues> lov = new ArrayList<LineOfValues>();
-		LineOfValues deltaXLV = new LineOfValues(Color.red, deltaX);
+		LineOfValues deltaXLV = new LineOfValues(Color.red, deltaX, false);
 		lov.add(deltaXLV);
-		LineOfValues aggDeltaXLV = new LineOfValues(Color.blue, aggregateDeltaX);
+		LineOfValues aggDeltaXLV = new LineOfValues(Color.blue, aggregateDeltaX, true);
 		lov.add(aggDeltaXLV);
-		LineOfValues lutXLV = new LineOfValues(Color.green, correctiveArray);
+		LineOfValues lutXLV = new LineOfValues(Color.green, correctiveArray, true);
 		lov.add(lutXLV);
 		
 		DrawGraphHD graphPanel = new DrawGraphHD(lov);
