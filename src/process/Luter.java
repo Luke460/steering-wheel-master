@@ -8,7 +8,9 @@ import execution.Utility;
 public class Luter {
 
 	public static final double DEAD_ZONE_MULTIPLIER = 0.005;
+	public static final double DEAD_ZONE_PERCENTAGE_THRESHOLD = 0.01;
 	public static final double DEAD_ZONE_VALUE_PRECISION_INCREMENT = 0.005;
+	public static final int DEFAULT_LUT_SIZE = 1000;
 
 	public static ArrayList<Double> generateCorrectiveArray(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble) {
 
@@ -98,6 +100,19 @@ public class Luter {
 		System.out.println("firstLutValue: " + firstLutValue);
 		return generateLinearizedLut(1000, firstLutValue);
 	}
+
+	public static double calculateDeadZonePercentage(ArrayList<Double> values){
+		double maxValue = Collections.max(values);
+		int size = values.size();
+		for(int i=size-1; i>=0; i--){
+			double currentValuePercentage = values.get(i)/maxValue;
+			if(currentValuePercentage<=DEAD_ZONE_PERCENTAGE_THRESHOLD){
+				// we are in the dead zone, what index percentage?
+				return ((i+1)*1d)/(size*1d);
+			}
+		}
+		return 0;
+	}
 	
 	public static ArrayList<Double> reduceForcePeaks(ArrayList<Double> input, int peakForceReduction) {
 		//peakForceReduction = 1,2,3,...,8,9,10
@@ -180,4 +195,12 @@ public class Luter {
 		return input.size()-1;
 	}
 
+	public static ArrayList<Double> generateIdealLut() {
+		ArrayList<Double> lut = new ArrayList<>();
+		for(int i=0;i<DEFAULT_LUT_SIZE;i++){
+			double value = (i * 1d) / DEFAULT_LUT_SIZE;
+			lut.add(Utility.round(value, 4));
+		}
+		return lut;
+	}
 }

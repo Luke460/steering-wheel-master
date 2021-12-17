@@ -14,6 +14,7 @@ import static execution.Constants.*;
 import javax.swing.JOptionPane;
 import model.ExecutionConfiguration;
 import process.Aggregator;
+import process.Calculator;
 import process.Corrector;
 import process.Luter;
 import userInterface.DrawGraphHD;
@@ -106,6 +107,13 @@ public class Manager {
 		// BEGIN AUTO FUNCTION
 		if(exConf.isAutoCalcAggregationOder()) {
 			exConf.setAggregationOrder(Aggregator.suggestedAggregationValue(correctedDeltaX));
+
+			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, Aggregator.suggestedAggregationValue(correctedDeltaX));
+			aggregateDeltaXdouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXdouble);
+			double deadZoneValue = Luter.calculateDeadZonePercentage(aggregateDeltaXdouble);
+			exConf.setDeadZonePercentage(deadZoneValue);
+			System.out.println("deadZoneValue: " + deadZoneValue);
+
 			return exConf;
 		}
 		// END AUTO FUNCTION
@@ -118,6 +126,9 @@ public class Manager {
 			} else {
 				aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.getAggregationOrder());
 			}
+		} else { // LINEAR - just for the chart
+			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, Aggregator.suggestedAggregationValue(correctedDeltaX));
+			aggregateDeltaXdouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXdouble);
 		}
 		// END AGGREGATION
 		
@@ -134,12 +145,15 @@ public class Manager {
 			correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
 		} else if(exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)) {
 			// in this case data are not aggregated, so we need to perform an aggregation first
-			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, Aggregator.suggestedAggregationValue(correctedDeltaX));
-			aggregateDeltaXdouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXdouble);
-			correctiveMap = Luter.deadZoneCorrectionOnly(inputForce, aggregateDeltaXdouble);
+			correctiveMap = Luter.generateIdealLut();
 		}
 		// END LUT GENERATION
 
+		// BEGIN LUT EDITING
+		correctiveMap = Calculator.customizeLut(correctiveMap, exConf.getDeadZonePercentage(), exConf.getGainPercentage(), exConf.getGamma());
+		// END LUT EDITING
+
+		/*
 		// BEGIN PEAK_REDUCTION
 		if(exConf.getPeakReduction()>0 && exConf.getFfbPowerEnhacement()==0) {
 			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getPeakReduction());
@@ -158,6 +172,7 @@ public class Manager {
 			correctiveMap = Luter.enableFullPower(correctiveMap);
 		}
 		// END FFB POWER ENHANCEMENT
+		 */
 
 		// print results
 		if(exConf.isShowPreview()) {
@@ -202,13 +217,13 @@ public class Manager {
 	}
 
 	private static String generateFileName(ExecutionConfiguration exConf, FileType type) {
-		String deadZoneEnhancement = "" + (int)exConf.getDeadZoneEnhancement();
-		if (exConf.getDeadZoneEnhancement()%1 != 0) {
+		String deadZoneEnhancement = "" + (int)exConf.getDeadZonePercentage();
+		if (exConf.getDeadZonePercentage()%1 != 0) {
 			deadZoneEnhancement += "p";
 		}
 		return "AG" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder()) + 
-				"-PR" + exConf.getPeakReduction() + 
-				"-PE" + exConf.getFfbPowerEnhacement() + 
+				"-PR" + exConf.getGainPercentage() +
+				"-PE" + exConf.getGamma() +
 				"-DZ" + (deadZoneEnhancement) + 
 				(exConf.isLinearizeNearZero()&&!exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?"-LNZ":"") + 
 				(exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?"-LL":"") 
@@ -217,9 +232,9 @@ public class Manager {
 	
 	private static String generateDescriptionName(ExecutionConfiguration exConf) {
 		return "[AG=" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder()) + 
-				",PR=" + exConf.getPeakReduction() + 
-				",PE=" + exConf.getFfbPowerEnhacement() +
-				",DZ=" + exConf.getDeadZoneEnhancement() + 
+				",PR=" + exConf.getGainPercentage() +
+				",PE=" + exConf.getGamma() +
+				",DZ=" + exConf.getDeadZonePercentage() +
 				",LNZ=" + (exConf.isLinearizeNearZero()&&!exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?1:0) + 
 				",LL=" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?1:0) + 
 				"] " + exConf.getInputCsvPath();

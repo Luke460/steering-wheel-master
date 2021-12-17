@@ -1,1 +1,1 @@
-{"ffb_power_enhancement":0,"input_file":"example-G29.csv","aggregation_order":5,"peak_reduction":0,"delta_column_index":4,"deadzone_enhancement":0,"force_column_index":1,"lut_geeration_method":"advanced lut generation","linearize_near_zero":false,"skip_first_row":true}
+{"input_file":"example-G29.csv","aggregation_order":4,"delta_column_index":4,"force_column_index":1,"gain_percentage":1,"lut_generation_method":"linear lut generation","gamma":-0.125,"dead_zone_percentage":0.2,"linearize_near_zero":false,"skip_first_row":true}

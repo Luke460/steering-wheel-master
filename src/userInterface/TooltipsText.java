@@ -1,9 +1,9 @@
 package userInterface;
 
 public interface TooltipsText {
-	
-	//// Execution settings
-	
+
+
+	public static final int END_LINE_LIMIT = 360;
 	public static final String FILE_BROWSER_DESCRIPTION = "Choose your input calibration file. Refer to the documentation for more details.";
 	public static final String AGGREGATION_ORDER_DESCRIPTION = "Lower values of aggregation order makes your force feedback correction more precise, while higher values makes your force feedback smoother.";
 	public static final String AUTO_DESCRIPTION = "Basic settings for your wheel. Refer to the documentation page to find the best settings for your steering wheel.";

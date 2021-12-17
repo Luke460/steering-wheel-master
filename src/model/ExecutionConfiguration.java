@@ -9,9 +9,9 @@ public class ExecutionConfiguration {
 	boolean linearizeNearZero;
 	String inputCsvPath;
 	int aggregationOrder;
-	double deadZoneEnhancement;
-	int peakReduction;
-	int ffbPowerEnhacement;
+	double deadZonePercentage;
+	int gainPercentage;
+	int gamma;
 	int forceColumnIndex;
 	int deltaColumnIndex;
 	boolean skipFirstRow;
@@ -26,9 +26,9 @@ public class ExecutionConfiguration {
 		this.linearizeNearZero = conf.isLinearizeNearZero();
 		this.inputCsvPath = conf.getInputCsvPath();
 		this.aggregationOrder = conf.getAggregationOrder();
-		this.deadZoneEnhancement = conf.getDeadZoneEnhancement();
-		this.peakReduction = conf.getPeakReduction();
-		this.ffbPowerEnhacement = conf.getFfbPowerEnhacement();
+		this.deadZonePercentage = conf.getDeadZonePercentage();
+		this.gainPercentage = conf.getGainPercentage();
+		this.gamma = conf.getGamma();
 		this.forceColumnIndex = conf.getForceColumnIndex();
 		this.deltaColumnIndex = conf.getDeltaColumnIndex();
 		this.skipFirstRow = conf.isSkipFirstRow();
@@ -74,12 +74,12 @@ public class ExecutionConfiguration {
 		this.aggregationOrder = aggregationValue;
 	}
 
-	public double getDeadZoneEnhancement() {
-		return deadZoneEnhancement;
+	public double getDeadZonePercentage() {
+		return deadZonePercentage;
 	}
 
-	public void setDeadZoneEnhancement(double deadZoneEnhancement) {
-		this.deadZoneEnhancement = deadZoneEnhancement;
+	public void setDeadZonePercentage(double deadZonePercentage) {
+		this.deadZonePercentage = deadZonePercentage;
 	}
 
 	public String getLutGeneration_method() {
@@ -98,20 +98,20 @@ public class ExecutionConfiguration {
 		this.linearizeNearZero = linearizeNearZero;
 	}
 
-	public int getPeakReduction() {
-		return peakReduction;
+	public int getGainPercentage() {
+		return gainPercentage;
 	}
 
-	public void setPeakReduction(int peakReduction) {
-		this.peakReduction = peakReduction;
+	public void setGainPercentage(int gainPercentage) {
+		this.gainPercentage = gainPercentage;
 	}
 	
-	public int getFfbPowerEnhacement() {
-		return ffbPowerEnhacement;
+	public int getGamma() {
+		return gamma;
 	}
 
-	public void setFfbPowerEnhacement(int ffbPowerEnhacement) {
-		this.ffbPowerEnhacement = ffbPowerEnhacement;
+	public void setGamma(int gamma) {
+		this.gamma = gamma;
 	}
 
 	public int getForceColumnIndex() {
