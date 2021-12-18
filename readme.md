@@ -72,8 +72,8 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
    - Don't go too low or you will not benefit of the aggregation procedure.
  - You can click on ***auto*** to generate a series of valid settings for your steering wheel. It works for both linear and advanced lut generation.
  - You can click on ***CSV settings*** to configure how to read the input csv file.
- - You can increase ***FFB peak reduction*** to reduce the maximum ammount of force sent to your steering wheel by introducing a soft clipping. I recommend leaving this setting at 0 and reducing the gain directly in game (keep in mind that changing the overall gain will also affect the FFB dead zone).
- - You can use ***FFB power enhancement*** to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner, but also increases clipping. I recommend leaving this setting at 0 and keeping the game gain as high as possible.
+ - You can increase ***FFB peak reduction*** to reduce the maximum amount of force sent to your steering wheel by introducing soft clipping. It's recommended to leave this setting at 0 and reduce the gain directly in game (keep in mind that changing the overall gain will also affect the FFB dead zone).
+ - You can use ***FFB power enhancement*** to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner by introducing soft clipping. I recommend leaving this setting at 0 and keeping the game gain as high as possible.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - You can decrease ***dead zone enhancement*** if you still have an FFB dead zone with the generated lut.
  - You can select ***linearize near zero*** to improve fidelity of low ffb values. Enabling this option may require you to slightly increase the ***dead zone enhancement*** value.
