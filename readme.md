@@ -51,7 +51,7 @@ First of all, you have to choose between **advanced lut generation** and **linea
  
 Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***linear lut generation*** for this kind of wheel.
    
-   | **Steering wheel type** | ***Example*** | **Lut generation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **dead zone enhancement** (depends on your wheel dead zone) |
+   | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **Dead zone enhancement** (depends on your steering wheel) |
    |-------------------------|---------------------------|----|----|----|----|----|
    | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | auto | 0 | 0 | 0 |
    |                         |        *(recommended)*                                      | linear | - | 0 | 0 | ~5 |
@@ -170,7 +170,7 @@ For Assetto Corsa, if you are using ***Content Manager*** as game launcher, you 
 
 - [v2.4](https://github.com/Luke460/steering-wheel-master/releases): Higher lut file output resolution.
 
-- [v2.5](https://github.com/Luke460/steering-wheel-master/releases): Added 'Dead zone enhancement' option (not needed on most steering wheels).
+- [v2.5](https://github.com/Luke460/steering-wheel-master/releases): Added 'Dead zone enhancement' option.
 
 - [v2.6](https://github.com/Luke460/steering-wheel-master/releases): Improved 'Dead zone enhancement': slider added.
 
