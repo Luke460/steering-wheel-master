@@ -72,8 +72,8 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
    - Don't go too low or you will not benefit of the aggregation procedure.
  - You can click on ***auto*** to generate a series of valid settings for your steering wheel. It works for both linear and advanced lut generation.
  - You can click on ***CSV settings*** to configure how to read the input csv file.
- - You can increase ***FFB peak reduction*** if you have clipping issues with your steering wheel, or simply you want to reduce the effects of very rough curbs, bumps, strong vibrations, etc. Enabling this option may also slightly reduce the overall noise of your steering wheel and extend its lifespan.
- - You can use ***FFB power enhancement*** to boost your wheel FFB strength. It's mostly intended for steering wheel with low engine power. This option increases the low and medium values of FFB in a progressive manner.
+ - You can increase ***FFB peak reduction*** to reduce the maximum ammount of force sent to your steering wheel by introducing a soft clipping. I recommend leaving this setting at 0 and reducing the gain directly in game (keep in mind that changing the overall gain will also affect the FFB dead zone).
+ - You can use ***FFB power enhancement*** to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner, but also increases clipping. I recommend leaving this setting at 0 and keeping the game gain as high as possible.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - You can decrease ***dead zone enhancement*** if you still have an FFB dead zone with the generated lut.
  - You can select ***linearize near zero*** to improve fidelity of low ffb values. Enabling this option may require you to slightly increase the ***dead zone enhancement*** value.
@@ -93,22 +93,22 @@ Now click on ***Generate lut*** and if everything goes well, you should get the 
 
 The following settings can be applied to every steering wheel to generate a linear lut. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0%. Make sure to also disable the centering force of your steering wheel if present.
 
-### Silent mode
-This preset is noticeably quieter, although the force feedback is slightly weaker. Since the peak power is lower, this option preserves the lifespan of the device.
- - ***Lut generation method***: linear lut generation
- - ***FFB Peak reduction***: 5 (this option slightly reduce the overall noise of your steering wheel and extend its lifespan)
- - ***FFB power enhancement***: 0
- - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
- 
-### Standard mode
-This is the standard preset and offers a good compromise between strength and quietness. Basically it only removes the dead zone leaving a default behavior.
+### Standard mode (recommended for all steering wheels)
+This is the standard preset and offers a good compromise between strength and quietness. Basically it only removes the dead zone leaving a linear behavior.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
 
+### Silent mode
+This preset is noticeably quieter, although the force feedback is slightly weaker and less linear. Since the peak power is lower, this option preserves the lifespan of the device.
+ - ***Lut generation method***: linear lut generation
+ - ***FFB Peak reduction***: 5 (this option slightly reduce the overall noise of your steering wheel and extend its lifespan)
+ - ***FFB power enhancement***: 0
+ - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
+ 
 ### Extreme mode
-This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy) by increasing the low and medium values of FFB in a progressive manner. Keep in mind that the maximum peak force is always limited to 100%.
+This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy and less linear) by increasing the low and medium values of FFB in a progressive manner. Keep in mind that the maximum peak force is always limited to 100%. This option increases clipping.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 5
