@@ -14,6 +14,6 @@ public interface TooltipsText {
 	String LUT_METHOD_DESCRIPTION = "Advanced lut generation uses all the data provided by the csv file to attempt to correct the steering wheel reactions, while linear lut generation uses the csv file only to correct the dead zone.";
 	String DONATION_DESCRIPTION = "Donations are not required, but always accepted with pleasure. Thanks for your support!";
 	String CSV_SETTINGS_DESCRIPTION = "Configure how to read the input force feedback calibration file.";
-	String PREVIEW_DESCRIPTION = "Displays force feedback and applied correction values ​​on a graph.";
+	String PREVIEW_DESCRIPTION = "Displays force feedback and applied correction values on a chart.";
 	String GENERATE_LUT_DESCRIPTION = "Generate a lut file with the current settings.";
 }

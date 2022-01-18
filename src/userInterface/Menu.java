@@ -464,10 +464,10 @@ public class Menu extends JPanel{
 					exConf.setAutoCalcAggregationOder(true);
 					exConf = Manager.execute(exConf);
 					aggregationSlider.setValue(exConf.getAggregationOrder());
-					deadZoneEnhancementSlider.setValue(0);
+					deadZoneEnhancementSlider.setValue(10);
 					peakReductionSlider.setValue(0);
-					linearizeNearZero.setSelected(false);
-					ffbPowerEnhancementSlider.setValue(0);
+					linearizeNearZero.setSelected(true);
+					ffbPowerEnhancementSlider.setValue(5);
 				} else { //LINEAR
 					peakReductionSlider.setValue(0);
 					ffbPowerEnhancementSlider.setValue(0);
