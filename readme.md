@@ -13,7 +13,7 @@ Donations are not required, but always accepted with pleasure. Thanks for your s
 
 [***Steering Wheel Master***](https://github.com/Luke460/steering-wheel-master/releases) is a useful tool that helps to improve the behavior of your steering wheel by aggregating data and eliminating reading errors, dead zones and clipping problems.
 
-This application is free and open source. The development was born to help the simracers community get the most out of their steering wheels, regardless of the price range of the hardware.
+This application is free and open source. The development was born to help the simracers community get the most out of their steering wheels, regardless the price range of the hardware.
 
 This procedure uses as input a ***force feedback calibration file***, and by processing it, is able to produce a customizable lookup table (or ***lut file***).
 
@@ -99,7 +99,7 @@ This is the standard preset and offers a good compromise between strength and qu
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
 
 ### Advanced mode
-This preset uses all the data provided by the csv file to attempt to correct the steering wheel reactions. This preset shoud maximize the fidelity of your FFB response.
+This preset uses all the data provided by the csv file to attempt to correct the steering wheel reactions. This preset should maximize the fidelity of your FFB response.
  - ***Lut generation method***: advanced lut generation
  - ***Aggregation value***: auto
  - ***Linearize near zero***: true
