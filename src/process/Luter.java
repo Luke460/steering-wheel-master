@@ -98,43 +98,30 @@ public class Luter {
 		System.out.println("firstLutValue: " + firstLutValue);
 		return generateLinearizedLut(1000, firstLutValue);
 	}
-	
+
 	public static ArrayList<Double> reduceForcePeaks(ArrayList<Double> input, int peakForceReduction) {
-		//peakForceReduction = 1,2,3,...,8,9,10
-		// 1  -> (100-1*5)*0.1 = 0.95
-		// 10 -> (100-10*5)*0.1 = 0.50
-		int startingPoint = (int) Math.round(input.size()*0.5);
-		double startingValue = input.get(startingPoint);
+		double c = 0.025;
 		ArrayList<Double> output = new ArrayList<Double>();
 		output.addAll(input);
-		double c = 0.0;
-		double x = (peakForceReduction*0.05)/(input.size()-startingPoint);
-		for(int i = startingPoint; i<input.size(); i++) {
-			c += x;
-			double value = startingValue*(c) + input.get(i)*(1.0-c);
-			if(value<output.get(i-1)) {
-				value = output.get(i-1);
-			}
+		for(int i = input.size()-1; i>0; i--) {
+			double specificPeakReduction = peakForceReduction * c * i/(input.size()-1.0);
+			double value = input.get(i)*(1.0-specificPeakReduction);
 			output.set(i, value);
 		}
 		return output;
 	}
-	
+
 	public static ArrayList<Double> enableFullPower(ArrayList<Double> input) {
 		ArrayList<Double> output = new ArrayList<Double>();
-		double maxValue = Collections.max(input);
-		double len = (double) input.size();
-		output.add(input.get(0));
-		double maxM = 1/maxValue;
-		for(int i = 1; i<=input.size()-2; i++) {
-			double multiplier = ((maxM-1)/len)*((double)i) + 1.0;
-			      	//^ deve dare 1 quando i è 0, oppure 1/maxValue quando i è = len
-			// System.out.println("multiplier: " + multiplier);
-			double newValue = input.get(i) * multiplier;
-			// System.out.println("newValue: " + newValue);
+		double maxValue = input.get(input.size()-1);
+		output.add(0.0);
+		double totalDelta = 1.0 - maxValue;
+		for(int i = 1; i<=input.size()-1; i++) {
+			double localDelta = (i*totalDelta)/(1.0*input.size()-1);
+			double newValue = input.get(i) + localDelta;
+			if(newValue>1.0) newValue = 1.0;
 			output.add(newValue);
 		}
-		output.add(1.0);
 		return output;
 	}
 	

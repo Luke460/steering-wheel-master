@@ -154,7 +154,7 @@ public class Manager {
 		
 		// BEGIN FFB POWER ENHANCEMENT
 		if(exConf.getFfbPowerEnhacement()>0 && exConf.getPeakReduction()==0) {
-			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getFfbPowerEnhacement());
+			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getFfbPowerEnhacement()*2);
 			correctiveMap = Luter.enableFullPower(correctiveMap);
 		}
 		// END FFB POWER ENHANCEMENT
