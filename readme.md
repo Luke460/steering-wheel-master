@@ -47,25 +47,24 @@ Now you have to locate your ***force feedback calibration file*** and configure 
 
 First of all, you have to choose between **advanced lut generation** and **linear lut generation**:
  - **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. 
- - **linear lut generation** uses the csv file only to correct the dead zone in order to not alter the standard behavior of your steering wheel (recommended mode).
- 
-Since ***geared wheels*** tend to have clipping issues that can invalidate the ***force feedback calibration file***, I highly recommend to choose ***linear lut generation*** for this kind of wheel.
+ - **linear lut generation** uses the csv file only to correct the dead zone in order to not alter the standard behavior of your steering wheel.
    
-   | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | **Aggregation order** | **FFB peak reduction** | **FFB power enhancement** | **Dead zone enhancement** (depends on your steering wheel) |
-   |-------------------------|---------------------------|----|----|----|----|----|
-   | ***belt wheels***       | Thrustmaster T300, T500 or Fanatec CSL elite | advanced | auto | 0 | 0 | 0 |
-   |                         |        *(recommended)*                                      | linear | - | 0 | 0 | ~5 |
-   | ***mixed wheels***      | Thrustmaster TXM or T150  | advanced | auto | 0 | 0 | 0 |
-   |                         |        *(recommended)*                   | linear | - | 0 | 0 | ~5 |
-   | ***geared wheels***     | Logitech G25, G27, G29, G923 and related XBOX versions | advanced | auto | 0 | 0 | 0 |
-   |                         |        *(recommended)*             | linear | - | 0 | 0 | ~5 |
+   | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | **Aggregation order** | ***Linearize near zero*** | **FFB peak reduction** | **FFB power enhancement** | **Dead zone enhancement** (depends on your steering wheel) |
+   |-------------------------|---------------------------|----|----|----|----|----|----|
+   | ***direct drive*** | Fanatec CLS DD, Podium | advanced | auto | true | 0 | 0 | ~5 |
+   |                         |                                             | linear | - | - | 0 | 0 | ~5 |
+   | ***belt***       | Thrustmaster T300, T500, Fanatec CSL elite | advanced | auto | true | 0 | ~5 | ~5 |
+   |                         |                                             | linear | - | - | 0 | 0 | ~5 |
+   | ***mixed***      | Thrustmaster TXM, T150, T248  | advanced | auto | true | 0 | from 5 to 10 | ~5 |
+   |                         |                           | linear | - | - | 0 | 0 | ~5 |
+   | ***geared***     | Logitech G25, G27, G29, G923 (and related XBOX versions) | advanced | auto | true | 0 | 10 | ~5 |
+   |                         |                     | linear | - | - | 0 | 0 | ~5 |
 
 **NOTE:** 
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
- - The recommended mode is ***linear lut generation***. Some presets are available in the dedicated section below.
  - The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0% to ensure the best FFB dead zone correction. If you need to reduce the ***gain*** in the game, you may need to decrease the ***dead zone enhancement*** slider as well.
  - Make sure to also disable the ***centering force*** of your steering wheel if present.
- - If you are using a high level steering wheel (like a ***direct drive***), you probably will not get any benefit by using this application, as its behavior will already be linear, silent and without any dead zone.
+ - If you are using a high level steering wheel (like a ***direct drive***), you probably will not get any benefit by using this application, as its behavior will already be linear, silent and without any dead zone. You could still use the application to customize the ffb curve according to your needs.
 
  **IN GENERAL:** 
  - Lower values of ***aggregation order*** makes your force feedback correction more precise, while higher values makes your force feedback smoother.
@@ -82,26 +81,33 @@ Since ***geared wheels*** tend to have clipping issues that can invalidate the *
  
 ![menu](images/menu.png)
 
-**NOTE:** These settings are ***not recommended*** for a ***Logitech G29***, use ***linear lut generation*** for this steering wheel.
-
 Now click on ***Generate lut*** and if everything goes well, you should get the following output message:
 
 ![success](images/success.png)
 
 **DONE:** The generated file is located in the *Steering Wheel Master* folder.
 
-## Linear lut generation presets
+## Lut generation presets
 
-The following settings can be applied to every steering wheel to generate a linear lut. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0% to ensure the best FFB dead zone correction. If you need to reduce the gain in the game, you may need to decrease the ***dead zone enhancement*** slider as well. Make sure to also disable the centering force of your steering wheel if present.
+The following settings can be applied to every steering wheel. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0% to ensure the best FFB dead zone correction. If you need to reduce the gain in the game, you may need to decrease the ***dead zone enhancement*** slider as well. Make sure to also disable the centering force of your steering wheel if present.
 
-### Standard mode (recommended for all steering wheels)
+### Standard mode (dead zone correction only)
 This is the standard preset and offers a good compromise between strength and quietness. Basically it only removes the dead zone leaving a linear behavior.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 0
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
 
-### Silent mode
+### Advanced mode
+This preset uses all the data provided by the csv file to attempt to correct the steering wheel reactions. This preset shoud maximize the fidelity of your FFB response.
+ - ***Lut generation method***: advanced lut generation
+ - ***Aggregation value***: auto
+ - ***Linearize near zero***: true
+ - ***FFB Peak reduction***: 0
+ - ***FFB power enhancement***: from 0 to 10 (depends on the steering wheel power: 10 for weak steering wheels like the G29, 0 for a DD)
+ - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
+
+### Safe mode (For very old steering wheels)
 This preset is noticeably quieter, although the force feedback is slightly weaker and less linear. Since the peak power is lower, this option preserves the lifespan of the device.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 5 (this option slightly reduce the overall noise of your steering wheel and extend its lifespan)
@@ -116,7 +122,12 @@ This preset makes force feedback noticeably stronger (but makes the steering whe
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
 
 ## My settings (Logitech G29)
-![my-G29-settings](images/my-G29-settings.png)
+
+### Linear
+![my-G29-settings](images/my-G29-settings-linear.png)
+
+### Advanced
+![my-G29-settings](images/my-G29-settings-advanced.png)
 
 ## How to use LUT files in *Assetto Corsa* and *Assetto Corsa Competizione*
 
