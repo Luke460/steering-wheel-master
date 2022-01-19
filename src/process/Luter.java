@@ -134,10 +134,18 @@ public class Luter {
 		double lastValue = 0.0;
 		for(int i = 1; i<=input.size()-1; i++) {
 			double currentValue = input.get(i);
-			if(currentValue<lastValue){
+			if(currentValue>1.0){
+				currentValue = 1.0;
 				consistencyCorrections++;
 				SimpleLogger.warningLog("Found clipping in the lut");
 			}
+			if(currentValue<lastValue){
+				currentValue = lastValue;
+				consistencyCorrections++;
+				SimpleLogger.warningLog("Found decreasing value in the lut");
+			}
+			output.add(currentValue);
+			lastValue = currentValue;
 		}
 		SimpleLogger.infoLog("Consistency corrections: " + consistencyCorrections);
 		return output;

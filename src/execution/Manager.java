@@ -155,6 +155,9 @@ public class Manager {
 		}
 		// END FFB POWER ENHANCEMENT
 
+		// consistency check
+		correctiveMap = Luter.consistencyCheck(correctiveMap);
+
 		// print results
 		if(exConf.isShowPreview()) {
 			try {
@@ -166,9 +169,6 @@ public class Manager {
 				e.printStackTrace();
 			}
 		}
-
-		// consistency check
-		correctiveMap = Luter.consistencyCheck(correctiveMap);
 
 		// write results
 
