@@ -23,8 +23,7 @@ public class CsvSettingsMenu extends JPanel{
 	private static final String FORCE_COLUMN_INDEX = "force_column_index";
 	private static final String DELTA_COLUMN_INDEX = "delta_column_index";
 	private static final String SKIP_FIRST_ROW = "skip_first_row";
-	
-	Menu menu;
+
 	JButton confirmButton;
 	JButton cancelButton;
 	JCheckBox skipFirstRowBox;

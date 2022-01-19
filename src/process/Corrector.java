@@ -1,13 +1,14 @@
 package process;
 
+import execution.SimpleLogger;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Corrector {
 
 	public static ArrayList<Double> adjust(ArrayList<Double> inputValues, String name) {
-		ArrayList<Double> outputValues = new ArrayList<>();
-		outputValues.addAll(inputValues);
+		ArrayList<Double> outputValues = new ArrayList<>(inputValues);
 		int spikeCounter = 0;
 
 		for(int i = 1; i<=outputValues.size()-2; i++) {
@@ -29,7 +30,7 @@ public class Corrector {
 			if(i >= 3) valueIm3 = outputValues.get(i-3);
 			if(i >= 4) valueIm4 = outputValues.get(i-4);
 			
-			ArrayList<Double> sortedValues = new ArrayList<Double>();
+			ArrayList<Double> sortedValues = new ArrayList<>();
 			
 			sortedValues.add(valueIm1); // 0
 			sortedValues.add(valueIm2); // 1    - - - -
@@ -55,8 +56,8 @@ public class Corrector {
 			
 		}
 
-		System.out.println("[" + name + "] adjusted wrong values: ");
-		System.out.println(" - spikes corrected: " + spikeCounter);
+		SimpleLogger.infoLog("[" + name + "] adjusted wrong values: ");
+		SimpleLogger.infoLog("spikes corrected: " + spikeCounter);
 
 		return outputValues;
 

@@ -8,8 +8,8 @@ public class CsvFileFilter extends FileFilter{
 
 	public boolean accept(File file) {
 		if (file.isDirectory()) return true;
-		String fname = file.getName().toLowerCase();
-		return fname.endsWith("csv");
+		String fName = file.getName().toLowerCase();
+		return fName.endsWith("csv");
 	}
 
 	public String getDescription() {

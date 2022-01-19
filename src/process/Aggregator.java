@@ -2,13 +2,10 @@ package process;
 
 import java.util.ArrayList;
 
-import execution.Utility;
-
 public class Aggregator {
 	
 	public static ArrayList<Double> performExperimentalAggregation(ArrayList<Double> inputValues, int aggregationOrder) {
-		ArrayList<Double> outputValues = new ArrayList<>();
-		outputValues.addAll(inputValues);
+		ArrayList<Double> outputValues = new ArrayList<>(inputValues);
 		if(aggregationOrder<1) return outputValues;
 		outputValues = prepareFirstValuesForAggregation(outputValues);
 		outputValues = performAggregation(outputValues, aggregationOrder);
@@ -18,8 +15,7 @@ public class Aggregator {
 	}
 	
 	public static ArrayList<Double> performAggregation(ArrayList<Double> inputValues, int aggregationOrder) {
-		ArrayList<Double> outputValues = new ArrayList<>();
-		outputValues.addAll(inputValues);
+		ArrayList<Double> outputValues = new ArrayList<>(inputValues);
 		for(int state=0; state<aggregationOrder; state++) {
 			outputValues = aggregateInternal(outputValues);
 		}
@@ -28,7 +24,7 @@ public class Aggregator {
 	}
 
 	private static ArrayList<Double> aggregateInternal(ArrayList<Double> values) {
-		ArrayList<Double> aggregateOutput = new ArrayList<Double>();
+		ArrayList<Double> aggregateOutput = new ArrayList<>();
 		aggregateOutput.add(values.get(0)); // first value
 
 		for(int i = 1; i<values.size()-1; i++) {
@@ -46,7 +42,7 @@ public class Aggregator {
 		if(input.size()<=75){
 			// small size: min 2 max 4
 			return 3;
-		} else if(input.size()>75 && input.size()<=125){
+		} else if(input.size()<=125){
 			// standard size: min 3 max 5
 			return 4;
 		} else {
@@ -56,7 +52,6 @@ public class Aggregator {
 	}
 	
 	private static ArrayList<Double> prepareFirstValuesForAggregation(ArrayList<Double> values) {
-		ArrayList<Double> output = new ArrayList<Double>();
 		int lastZeroPosition = 0;
 		double requiredValue = values.get(values.size()-1)*0.01;
 		// first value must be 0
@@ -68,7 +63,7 @@ public class Aggregator {
 		}
 		lastZeroPosition = Math.max(0, lastZeroPosition);
 		// System.out.print("lastZeroPosition="+lastZeroPosition);
-		output.addAll(values);
+		ArrayList<Double> output = new ArrayList<>(values);
 		// reverse values
 		for(int i = 0; i<lastZeroPosition; i++) {
 			double value = values.get(2*lastZeroPosition-i);
@@ -78,7 +73,7 @@ public class Aggregator {
 	}
 	
 	private static ArrayList<Double> removeNegativeValues(ArrayList<Double> values) {
-		ArrayList<Double> output = new ArrayList<Double>();
+		ArrayList<Double> output = new ArrayList<>();
 		for(double value:values) {
 			if(value>0) {
 				output.add(value);

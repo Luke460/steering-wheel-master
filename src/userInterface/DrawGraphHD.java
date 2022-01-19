@@ -83,7 +83,7 @@ public class DrawGraphHD extends JPanel {
 		// add values and lines
 		
 		for(LineOfValues singleLine:this.allLines) {
-			List<Point> graphPoints = new ArrayList<Point>();
+			List<Point> graphPoints = new ArrayList<>();
 			for (int i = 0; i < singleLine.size(); i++) {
 				double xScale = ((double) getWidth() - 2 * BORDER_GAP) / (singleLine.size() - 1);
 				int x1 = (int) (i * xScale + BORDER_GAP);
@@ -122,7 +122,7 @@ public class DrawGraphHD extends JPanel {
 			e.printStackTrace();
 		}
 		
-		ArrayList<LineOfValues> lov = new ArrayList<LineOfValues>();
+		ArrayList<LineOfValues> lov = new ArrayList<>();
 		LineOfValues deltaXLV = new LineOfValues(Color.red, deltaX, false);
 		lov.add(deltaXLV);
 		LineOfValues aggDeltaXLV = new LineOfValues(Color.blue, aggregateDeltaX, true);

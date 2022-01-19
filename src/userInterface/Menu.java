@@ -530,7 +530,7 @@ public class Menu extends JPanel{
 			JOptionPane.showMessageDialog(null, "Error: unable to read '" + PEAK_REDUCTION + "' property in '" + JSON_CONFIG_PATH + "'.");
 		}
 		try {
-			exConf.setFfbPowerEnhacement(configJson.getInt(FFB_POWER_ENHANCEMENT));
+			exConf.setFfbPowerEnhancement(configJson.getInt(FFB_POWER_ENHANCEMENT));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: unable to read '" + FFB_POWER_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");

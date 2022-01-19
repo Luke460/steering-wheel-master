@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class Utility {
 	
 	public static ArrayList<Integer> doubleListToIntegerList(ArrayList<Double> input) {	
-		java.util.ArrayList<Integer> output = new java.util.ArrayList<Integer>();
+		java.util.ArrayList<Integer> output = new java.util.ArrayList<>();
 		for(double element:input) {
 			output.add((int) Math.round(element));
 		}
@@ -23,7 +23,7 @@ public class Utility {
 	}
 
 	public static ArrayList<Double> integerListToDoubleList(ArrayList<Integer> input) {		
-		java.util.ArrayList<Double> output = new java.util.ArrayList<Double>();
+		java.util.ArrayList<Double> output = new java.util.ArrayList<>();
 		for(double element:input) {
 			output.add(element);
 		}
@@ -39,7 +39,7 @@ public class Utility {
 	}
 	
 	public static ArrayList<Double> round(ArrayList<Double> input, int places) {		
-		java.util.ArrayList<Double> output = new java.util.ArrayList<Double>();
+		java.util.ArrayList<Double> output = new java.util.ArrayList<>();
 		for(double element:input) {
 			output.add(round(element, places));
 		}
@@ -47,7 +47,7 @@ public class Utility {
 	}
 	
 	public static ArrayList<Double> truncateArray(ArrayList<Double> input, int places) {
-		java.util.ArrayList<Double> output = new java.util.ArrayList<Double>();
+		java.util.ArrayList<Double> output = new java.util.ArrayList<>();
 		for(int i = 0; i<input.size(); i+= places) {
 			output.add(input.get(i));
 		}
@@ -56,7 +56,7 @@ public class Utility {
 
 	public static List<Double> correctArrayDimensionsAndValuesForVisualization(ArrayList<Double> input, Double targetMaxValue) {
 		
-		ArrayList<Double> output = new ArrayList<Double>();
+		ArrayList<Double> output = new ArrayList<>();
 		double inputMaxValue = Collections.max(input);
 		for(double value:input) {
 			double newValue = (value*targetMaxValue)/inputMaxValue;
@@ -99,7 +99,7 @@ public class Utility {
 	
 	public static org.json.JSONObject readConfiguration(String path){
 		// Read Configuration
-		org.json.JSONObject config = null;
+		org.json.JSONObject config;
 		try {
 			config = new org.json.JSONObject(new String(Files.readAllBytes(Paths.get(path))));
 		} catch (Exception e) {
@@ -118,7 +118,7 @@ public class Utility {
 	}
 	
 	private static ArrayList<Integer> performSingleLinearInterpolationForInt(ArrayList<Integer> array){
-		ArrayList<Integer> output = new ArrayList<Integer>();
+		ArrayList<Integer> output = new ArrayList<>();
 		for(int i=0; i<array.size()-1; i++) {
 			int current = array.get(i);
 			int next = array.get(i+1);
@@ -137,7 +137,7 @@ public class Utility {
 	}
 	
 	private static ArrayList<Double> performSingleLinearInterpolationForDouble(ArrayList<Double> array){
-		ArrayList<Double> output = new ArrayList<Double>();
+		ArrayList<Double> output = new ArrayList<>();
 		for(int i=0; i<array.size()-1; i++) {
 			double current = array.get(i);
 			double next = array.get(i+1);

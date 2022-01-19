@@ -8,15 +8,15 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		System.out.println("START");
-		System.out.println("reading '" + JSON_CONFIG_PATH + "'...");
+		SimpleLogger.infoLog("START");
+		SimpleLogger.infoLog("reading '" + JSON_CONFIG_PATH + "'...");
 
 		org.json.JSONObject config = Utility.readConfiguration(JSON_CONFIG_PATH);
 		
 		if(config == null) return;
 		
 		// Open Menu
-		System.out.println("opening Menu...");
+		SimpleLogger.infoLog("opening Menu...");
 		Menu menu = new Menu();
 		menu.showMenu(config);
 

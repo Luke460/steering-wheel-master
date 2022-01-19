@@ -11,12 +11,12 @@ public class ExecutionConfiguration {
 	int aggregationOrder;
 	double deadZoneEnhancement;
 	int peakReduction;
-	int ffbPowerEnhacement;
+	int ffbPowerEnhancement;
 	int forceColumnIndex;
 	int deltaColumnIndex;
 	boolean skipFirstRow;
 
-	public ExecutionConfiguration() {};
+	public ExecutionConfiguration() {}
 	
 	public ExecutionConfiguration(ExecutionConfiguration conf) {
 		this.saveLUT = conf.isSaveLUT();
@@ -28,7 +28,7 @@ public class ExecutionConfiguration {
 		this.aggregationOrder = conf.getAggregationOrder();
 		this.deadZoneEnhancement = conf.getDeadZoneEnhancement();
 		this.peakReduction = conf.getPeakReduction();
-		this.ffbPowerEnhacement = conf.getFfbPowerEnhacement();
+		this.ffbPowerEnhancement = conf.getFfbPowerEnhancement();
 		this.forceColumnIndex = conf.getForceColumnIndex();
 		this.deltaColumnIndex = conf.getDeltaColumnIndex();
 		this.skipFirstRow = conf.isSkipFirstRow();
@@ -106,12 +106,12 @@ public class ExecutionConfiguration {
 		this.peakReduction = peakReduction;
 	}
 	
-	public int getFfbPowerEnhacement() {
-		return ffbPowerEnhacement;
+	public int getFfbPowerEnhancement() {
+		return ffbPowerEnhancement;
 	}
 
-	public void setFfbPowerEnhacement(int ffbPowerEnhacement) {
-		this.ffbPowerEnhacement = ffbPowerEnhacement;
+	public void setFfbPowerEnhancement(int ffbPowerEnhancement) {
+		this.ffbPowerEnhancement = ffbPowerEnhancement;
 	}
 
 	public int getForceColumnIndex() {

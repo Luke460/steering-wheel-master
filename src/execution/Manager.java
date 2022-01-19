@@ -20,10 +20,6 @@ import userInterface.DrawGraphHD;
 
 public class Manager {
 
-	public enum FileType {
-		csv, lut
-	}
-
 	public static ExecutionConfiguration execute(ExecutionConfiguration exConf) {
 
 		try {
@@ -38,17 +34,17 @@ public class Manager {
 
 	public static ExecutionConfiguration process(ExecutionConfiguration exConf) throws IOException {
 
-		System.out.println("setting up...");
+		SimpleLogger.infoLog("setting up...");
 
-		String line = "";
+		String line;
 		String cvsSplitBy = ",";
 		boolean firstLine = true;
 
-		java.util.ArrayList<Integer> inputForce = new java.util.ArrayList<Integer>();
-		java.util.ArrayList<Double> inputDeltaX = new java.util.ArrayList<Double>();
+		java.util.ArrayList<Integer> inputForce = new java.util.ArrayList<>();
+		java.util.ArrayList<Double> inputDeltaX = new java.util.ArrayList<>();
 		java.util.ArrayList<Double> aggregateDeltaXdouble = null;
 
-		System.out.println("reading input file...");
+		SimpleLogger.infoLog("reading input file...");
 
 		// BEGIN READ
 		try (BufferedReader br = new BufferedReader(new FileReader(exConf.getInputCsvPath()))) {
@@ -59,7 +55,7 @@ public class Manager {
 
 					line = line.replaceAll(" ", "");
 
-					if(line!=null && !line.equals("")) {
+					if(!line.equals("")) {
 						String[] row = line.split(cvsSplitBy);
 						inputForce.add(Integer.parseInt(row[exConf.getForceColumnIndex()-1]));
 						inputDeltaX.add(Double.parseDouble(row[exConf.getDeltaColumnIndex()-1]));
@@ -111,7 +107,7 @@ public class Manager {
 		// END AUTO FUNCTION
 
 		// BEGIN AGGREGATION
-		System.out.println("aggregation...");
+		SimpleLogger.infoLog("aggregation...");
 		if (exConf.getLutGeneration_method().equals(ADVANCED_LUT_GENERATION)) {
 			if (exConf.isLinearizeNearZero()) {
 				aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.getAggregationOrder());
@@ -141,7 +137,7 @@ public class Manager {
 		// END LUT GENERATION
 
 		// BEGIN PEAK_REDUCTION
-		if(exConf.getPeakReduction()>0 && exConf.getFfbPowerEnhacement()==0) {
+		if(exConf.getPeakReduction()>0 && exConf.getFfbPowerEnhancement()==0) {
 			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getPeakReduction());
 		}
 		// END PEAK_REDUCTION
@@ -153,8 +149,8 @@ public class Manager {
 		// END DEAD_ZONE enhancement
 		
 		// BEGIN FFB POWER ENHANCEMENT
-		if(exConf.getFfbPowerEnhacement()>0 && exConf.getPeakReduction()==0) {
-			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getFfbPowerEnhacement()*2);
+		if(exConf.getFfbPowerEnhancement()>0 && exConf.getPeakReduction()==0) {
+			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getFfbPowerEnhancement()*2);
 			correctiveMap = Luter.enableFullPower(correctiveMap);
 		}
 		// END FFB POWER ENHANCEMENT
@@ -166,17 +162,21 @@ public class Manager {
 						aggregateDeltaXdouble, 
 						Utility.correctArrayDimensionsAndValuesForVisualization(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), generateDescriptionName(exConf));
 			} catch(Exception e) {
+				SimpleLogger.errorLog("Unable to show preview chart: " + e.getMessage());
 				e.printStackTrace();
 			}
 		}
+
+		// consistency check
+		correctiveMap = Luter.consistencyCheck(correctiveMap);
 
 		// write results
 
 		if(exConf.isSaveLUT()) {
 			correctiveMap = Utility.round(correctiveMap,4);
-			String newLutFileName = generateFileName(exConf, FileType.lut);
+			String newLutFileName = generateFileName(exConf);
 			Files.deleteIfExists(Paths.get(newLutFileName));
-			System.out.println("generating new lut file '" + newLutFileName + "'...");
+			SimpleLogger.infoLog("generating new lut file '" + newLutFileName + "'...");
 			double index = 0.0;
 			for(Double value: correctiveMap) {
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newLutFileName, true))) {
@@ -192,7 +192,7 @@ public class Manager {
 				}
 			} 
 
-			System.out.println("LUT DONE!");
+			SimpleLogger.infoLog("LUT DONE!");
 			JOptionPane.showMessageDialog(null, "Process completed! Output file: '" + newLutFileName + "'.");
 
 		}
@@ -201,24 +201,24 @@ public class Manager {
 
 	}
 
-	private static String generateFileName(ExecutionConfiguration exConf, FileType type) {
+	private static String generateFileName(ExecutionConfiguration exConf) {
 		String deadZoneEnhancement = "" + (int)exConf.getDeadZoneEnhancement();
 		if (exConf.getDeadZoneEnhancement()%1 != 0) {
 			deadZoneEnhancement += "p";
 		}
 		return "AG" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder()) + 
 				"-PR" + exConf.getPeakReduction() + 
-				"-PE" + exConf.getFfbPowerEnhacement() + 
+				"-PE" + exConf.getFfbPowerEnhancement() +
 				"-DZ" + (deadZoneEnhancement) + 
 				(exConf.isLinearizeNearZero()&&!exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?"-LNZ":"") + 
 				(exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?"-LL":"") 
-				+ "." + type.name();
+				+ ".lut";
 	}
 	
 	private static String generateDescriptionName(ExecutionConfiguration exConf) {
 		return "[AG=" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder()) + 
 				",PR=" + exConf.getPeakReduction() + 
-				",PE=" + exConf.getFfbPowerEnhacement() +
+				",PE=" + exConf.getFfbPowerEnhancement() +
 				",DZ=" + exConf.getDeadZoneEnhancement() + 
 				",LNZ=" + (exConf.isLinearizeNearZero()&&!exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?1:0) + 
 				",LL=" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?1:0) + 
