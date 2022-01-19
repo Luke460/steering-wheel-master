@@ -104,7 +104,7 @@ public class Utility {
 			config = new org.json.JSONObject(new String(Files.readAllBytes(Paths.get(path))));
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: unable to read '" + path + "' file.");
+			JOptionPane.showMessageDialog(null, "Something went wrong:\nError details: unable to read '" + path + "' file.");
 			return null;
 		}
 		return config;
