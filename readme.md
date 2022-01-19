@@ -13,7 +13,7 @@ Donations are not required, but always accepted with pleasure. Thanks for your s
 
 [***Steering Wheel Master***](https://github.com/Luke460/steering-wheel-master/releases) is a useful tool that helps to improve the behavior of your steering wheel by aggregating data and eliminating reading errors, dead zones and clipping problems.
 
-This application is free and open source. The development was born to help the simracers community get the most out of their steering wheels, regardless of the price range of the hardware.
+This application is free and open source. The development was born to help the simracers community get the most out of their steering wheels, regardless the price range of the hardware.
 
 This procedure uses as input a ***force feedback calibration file***, and by processing it, is able to produce a customizable lookup table (or ***lut file***).
 
@@ -51,13 +51,13 @@ First of all, you have to choose between **advanced lut generation** and **linea
    
    | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | **Aggregation order** | ***Linearize near zero*** | **FFB peak reduction** | **FFB power enhancement** | **Dead zone enhancement** (depends on your steering wheel) |
    |-------------------------|---------------------------|----|----|----|----|----|----|
-   | ***direct drive*** | Fanatec CLS DD, Podium | advanced | auto | true | 0 | 0 | ~5 |
+   | ***direct drive*** | Fanatec CLS DD, Podium | advanced | auto | true | 0 | from 0 to 5 | ~5 |
    |                         |                                             | linear | - | - | 0 | 0 | ~5 |
-   | ***belt***       | Thrustmaster T300, T500, Fanatec CSL elite | advanced | auto | true | 0 | ~5 | ~5 |
+   | ***belt***       | Thrustmaster T300, T500, Fanatec CSL elite | advanced | auto | true | 0 | from 0 to 10 | ~5 |
    |                         |                                             | linear | - | - | 0 | 0 | ~5 |
    | ***mixed***      | Thrustmaster TXM, T150, T248  | advanced | auto | true | 0 | from 5 to 10 | ~5 |
    |                         |                           | linear | - | - | 0 | 0 | ~5 |
-   | ***geared***     | Logitech G25, G27, G29, G923 (and related XBOX versions) | advanced | auto | true | 0 | 10 | ~5 |
+   | ***geared***     | Logitech G25, G27, G29, G923 (and related XBOX versions) | advanced | auto | true | 0 | from 5 to 10 | ~5 |
    |                         |                     | linear | - | - | 0 | 0 | ~5 |
 
 **NOTE:** 
@@ -73,7 +73,7 @@ First of all, you have to choose between **advanced lut generation** and **linea
  - You can click on ***auto*** to generate a series of valid settings for your steering wheel. It works for both linear and advanced lut generation.
  - You can click on ***CSV settings*** to configure how to read the input csv file.
  - You can increase ***FFB peak reduction*** to reduce the maximum amount of force sent to your steering wheel by introducing soft clipping. It's recommended to leave this setting at 0 and reduce the gain directly in game (keep in mind that changing the overall gain will also affect the FFB dead zone).
- - You can use ***FFB power enhancement*** to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner by introducing soft clipping. It's recommended to leave this setting at 0 and keep the game gain as high as possible.
+ - You can use ***FFB power enhancement*** to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner by modifying the FFB curve.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - You can decrease ***dead zone enhancement*** if you still have an FFB dead zone with the generated lut.
  - You can select ***linearize near zero*** to improve fidelity of low ffb values. Enabling this option may require you to slightly increase the ***dead zone enhancement*** value.
@@ -99,7 +99,7 @@ This is the standard preset and offers a good compromise between strength and qu
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
 
 ### Advanced mode
-This preset uses all the data provided by the csv file to attempt to correct the steering wheel reactions. This preset shoud maximize the fidelity of your FFB response.
+This preset uses all the data provided by the csv file to attempt to correct the steering wheel reactions. This preset should maximize the fidelity of your FFB response.
  - ***Lut generation method***: advanced lut generation
  - ***Aggregation value***: auto
  - ***Linearize near zero***: true
@@ -115,7 +115,7 @@ This preset is noticeably quieter, although the force feedback is slightly weake
  - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
  
 ### Extreme mode
-This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy and less linear) by increasing the low and medium values of FFB in a progressive manner (soft clipping). Keep in mind that the maximum peak force is always limited to 100%.
+This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy and less linear) by increasing the low and medium values of FFB in a progressive manner. Keep in mind that the maximum peak force is always limited to 100%.
  - ***Lut generation method***: linear lut generation
  - ***FFB Peak reduction***: 0
  - ***FFB power enhancement***: 5
@@ -203,3 +203,5 @@ For Assetto Corsa, if you are using ***Content Manager*** as game launcher, you 
 - [v3.1](https://github.com/Luke460/steering-wheel-master/releases): Improved default settings. Java 8 is now required.
 
 - [v3.2](https://github.com/Luke460/steering-wheel-master/releases): Improved 'Auto' function for both linear and advanced modes.
+
+- [v3.3](https://github.com/Luke460/steering-wheel-master/releases): Improved 'FFB Peak Reduction' and 'FFB Power Enhancement' functions.
