@@ -137,17 +137,17 @@ public class Manager {
 		}
 		// END LUT GENERATION
 
-		// BEGIN GAIN_REDUCTION
-		if(exConf.getGainReduction()>0) {
-			correctiveMap = Luter.reduceCurve(correctiveMap, exConf.getGainReduction());
-		}
-		// END GAIN_REDUCTION
-
 		// BEGIN DEAD_ZONE enhancement
 		if(exConf.getDeadZoneEnhancement()>0) {
 			correctiveMap = Luter.enhanceDeadZone(correctiveMap, exConf.getDeadZoneEnhancement());
 		}
 		// END DEAD_ZONE enhancement
+
+		// BEGIN GAIN_REDUCTION
+		if(exConf.getGainReduction()>0) {
+			correctiveMap = Luter.reduceCurve(correctiveMap, exConf.getGainReduction());
+		}
+		// END GAIN_REDUCTION
 		
 		// BEGIN FFB POWER ENHANCEMENT
 		if(exConf.getFfbPowerEnhancement()>0) {

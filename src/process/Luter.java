@@ -134,6 +134,8 @@ public class Luter {
 	public static ArrayList<Double> consistencyCheck(ArrayList<Double> input) {
 		ArrayList<Double> output = new ArrayList<>();
 		int consistencyCorrections = 0;
+		int duplicatedValues = 0;
+		int decreasingValues = 0;
 		if(input.get(0)!=0.0){
 			consistencyCorrections++;
 			SimpleLogger.warningLog("First lut value was not 0");
@@ -147,15 +149,22 @@ public class Luter {
 				consistencyCorrections++;
 				SimpleLogger.warningLog("Found clipping in the lut");
 			}
+			if(currentValue==lastValue){
+				duplicatedValues++;
+				//SimpleLogger.warningLog("Found duplicated value in the lut");
+			}
 			if(currentValue<lastValue){
 				currentValue = lastValue;
 				consistencyCorrections++;
-				SimpleLogger.warningLog("Found decreasing value in the lut");
+				decreasingValues++;
+				//SimpleLogger.warningLog("Found decreasing value in the lut");
 			}
 			output.add(currentValue);
 			lastValue = currentValue;
 		}
 		SimpleLogger.infoLog("Consistency corrections: " + consistencyCorrections);
+		SimpleLogger.infoLog("Duplicated lut values count: " + duplicatedValues);
+		SimpleLogger.infoLog("Decreasing lut values count: " + decreasingValues);
 		return output;
 	}
 	
