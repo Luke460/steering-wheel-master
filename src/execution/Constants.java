@@ -6,14 +6,14 @@ public interface Constants {
 	String JSON_CONFIG_PATH = "config.json";
 	String INFO_PATH = "graph-info.png";
 	int MAX_RESOLUTION = 1000;
-	int INTERNAL_RESOLUTION = 5000;
+	int INTERNAL_RESOLUTION = 10000;
 	
 	//// Settings keys
 	String INPUT_FILE = "input_file";
 	String AGGREGATION_ORDER = "aggregation_order";
-	String DEADZONE_ENHANCEMENT = "deadzone_enhancement";
-	String LUT_GENERATION_METHOD = "lut_geeration_method";
-	String PEAK_REDUCTION = "peak_reduction";
+	String DEAD_ZONE_ENHANCEMENT = "dead_zone_enhancement";
+	String LUT_GENERATION_METHOD = "lut_generation_method";
+	String GAIN_REDUCTION = "gain_reduction";
 	String FFB_POWER_ENHANCEMENT = "ffb_power_enhancement";
 	String LINEARIZE_NEAR_ZERO = "linearize_near_zero";
 	String FORCE_COLUMN_INDEX = "force_column_index";

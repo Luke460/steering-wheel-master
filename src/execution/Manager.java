@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+
 import static execution.Constants.*;
 import javax.swing.JOptionPane;
 import model.ExecutionConfiguration;
@@ -136,11 +137,11 @@ public class Manager {
 		}
 		// END LUT GENERATION
 
-		// BEGIN PEAK_REDUCTION
-		if(exConf.getPeakReduction()>0 && exConf.getFfbPowerEnhancement()==0) {
-			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getPeakReduction());
+		// BEGIN GAIN_REDUCTION
+		if(exConf.getGainReduction()>0) {
+			correctiveMap = Luter.reduceCurve(correctiveMap, exConf.getGainReduction());
 		}
-		// END PEAK_REDUCTION
+		// END GAIN_REDUCTION
 
 		// BEGIN DEAD_ZONE enhancement
 		if(exConf.getDeadZoneEnhancement()>0) {
@@ -149,9 +150,8 @@ public class Manager {
 		// END DEAD_ZONE enhancement
 		
 		// BEGIN FFB POWER ENHANCEMENT
-		if(exConf.getFfbPowerEnhancement()>0 && exConf.getPeakReduction()==0) {
-			correctiveMap = Luter.reduceForcePeaks(correctiveMap, exConf.getFfbPowerEnhancement()*2);
-			correctiveMap = Luter.enableFullPower(correctiveMap);
+		if(exConf.getFfbPowerEnhancement()>0) {
+			correctiveMap = Luter.alterLutCurve(correctiveMap, exConf.getFfbPowerEnhancement());
 		}
 		// END FFB POWER ENHANCEMENT
 
@@ -213,7 +213,7 @@ public class Manager {
 			deadZoneEnhancement += "p";
 		}
 		return "AG" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder()) + 
-				"-PR" + exConf.getPeakReduction() + 
+				"-GR" + exConf.getGainReduction() +
 				"-PE" + exConf.getFfbPowerEnhancement() +
 				"-DZ" + (deadZoneEnhancement) + 
 				(exConf.isLinearizeNearZero()&&!exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?"-LNZ":"") + 
@@ -223,7 +223,7 @@ public class Manager {
 	
 	private static String generateDescriptionName(ExecutionConfiguration exConf) {
 		return "[AG=" + (exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?0:exConf.getAggregationOrder()) + 
-				",PR=" + exConf.getPeakReduction() + 
+				",GR=" + exConf.getGainReduction() +
 				",PE=" + exConf.getFfbPowerEnhancement() +
 				",DZ=" + exConf.getDeadZoneEnhancement() + 
 				",LNZ=" + (exConf.isLinearizeNearZero()&&!exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)?1:0) + 

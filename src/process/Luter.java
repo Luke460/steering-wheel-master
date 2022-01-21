@@ -3,8 +3,10 @@ package process;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import execution.LineManager;
 import execution.SimpleLogger;
 import execution.Utility;
+import model.Point;
 
 public class Luter {
 
@@ -98,29 +100,35 @@ public class Luter {
 		return generateLinearizedLut(firstLutValue);
 	}
 
-	public static ArrayList<Double> reduceForcePeaks(ArrayList<Double> input, int peakForceReduction) {
-		double c = 0.025;
-		ArrayList<Double> output = new ArrayList<>(input);
-		for(int i = input.size()-1; i>0; i--) {
-			double specificPeakReduction = peakForceReduction * c * i/(input.size()-1.0);
-			double value = input.get(i)*(1.0-specificPeakReduction);
-			output.set(i, value);
+	public static ArrayList<Double> reduceCurve(ArrayList<Double> inputList, int alterationParameter) {
+		ArrayList<Double> output = new ArrayList<Double>();
+		double prevValue = 0.0;
+		int count = 0;
+		for(int i=0; i<inputList.size(); i++) {
+			if(i%((40/alterationParameter))==0){
+				output.add(prevValue);
+			} else {
+				output.add(inputList.get(count));
+				prevValue = inputList.get(count);
+				count++;
+			}
 		}
 		return output;
 	}
 
-	public static ArrayList<Double> enableFullPower(ArrayList<Double> input) {
-		ArrayList<Double> output = new ArrayList<>();
-		double maxValue = input.get(input.size()-1);
-		output.add(0.0);
-		double totalDelta = 1.0 - maxValue;
-		for(int i = 1; i<=input.size()-1; i++) {
-			double localDelta = (i*totalDelta)/(1.0*input.size()-1);
-			double newValue = input.get(i) + localDelta;
-			if(newValue>1.0) newValue = 1.0;
-			output.add(newValue);
+	public static ArrayList<Double> alterLutCurve(ArrayList<Double> inputList, int alterationParameter) {
+		ArrayList<Point> input = LineManager.transformIntoLine(inputList);
+		double c = 0.025;
+		ArrayList<Point> output = new ArrayList<>();
+		double maxX = input.get(input.size()-1).getX();
+		for(Point point: input) {
+
+			double xRel = point.getX()/maxX;
+			double multiplier = 1.0 + (Math.sin(xRel*Math.PI)*(-alterationParameter)*c);
+			Point newPoint = new Point(point.getX()*multiplier, point.getY());
+			output.add(newPoint);
 		}
-		return output;
+		return LineManager.transformIntoArray(output);
 	}
 
 	public static ArrayList<Double> consistencyCheck(ArrayList<Double> input) {

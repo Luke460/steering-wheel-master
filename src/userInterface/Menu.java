@@ -44,7 +44,7 @@ public class Menu extends JPanel{
 	JCheckBox linearizeNearZero;
 	JTextField inputFileText;
 	JSlider aggregationSlider;
-	JSlider peakReductionSlider;
+	JSlider gainReductionSlider;
 	JSlider ffbPowerEnhancementSlider;
 	JSlider deadZoneEnhancementSlider;
 	JSONObject config;
@@ -152,16 +152,16 @@ public class Menu extends JPanel{
 		aggregationSlider.setPaintLabels(true);   		         
 		aggregationSlider.setLabelTable(position1); 
 
-		JLabel peakReductionLabel = new JLabel("FFB peak reduction:");
-		peakReductionLabel.setPreferredSize(sideComponentSize);
-		peakReductionSlider = new JSlider(0, 10, config.getInt(PEAK_REDUCTION));
-		peakReductionSlider.setPreferredSize(sliderSize);
-		peakReductionSlider.setMajorTickSpacing(5);
-		peakReductionSlider.setMinorTickSpacing(1);
-		peakReductionSlider.setPaintTicks(true);
-		peakReductionSlider.setPaintLabels(true);
-		peakReductionSlider.setPaintTrack(true);
-		peakReductionSlider.setLabelTable(position1);
+		JLabel gainReductionLabel = new JLabel("FFB gain reduction:");
+		gainReductionLabel.setPreferredSize(sideComponentSize);
+		gainReductionSlider = new JSlider(0, 10, config.getInt(GAIN_REDUCTION));
+		gainReductionSlider.setPreferredSize(sliderSize);
+		gainReductionSlider.setMajorTickSpacing(5);
+		gainReductionSlider.setMinorTickSpacing(1);
+		gainReductionSlider.setPaintTicks(true);
+		gainReductionSlider.setPaintLabels(true);
+		gainReductionSlider.setPaintTrack(true);
+		gainReductionSlider.setLabelTable(position1);
 		
 		JLabel ffbPowerEnhacementLabel = new JLabel("FFB power enhancement:");
 		ffbPowerEnhacementLabel.setPreferredSize(sideComponentSize);
@@ -176,7 +176,7 @@ public class Menu extends JPanel{
 		
 		JLabel deadZoneEnhancementLabel = new JLabel("Dead zone enhancement:");
 		deadZoneEnhancementLabel.setPreferredSize(sideComponentSize);
-		deadZoneEnhancementSlider = new JSlider(0, 20, (int)(config.getDouble(DEADZONE_ENHANCEMENT)*2));
+		deadZoneEnhancementSlider = new JSlider(0, 20, (int)(config.getDouble(DEAD_ZONE_ENHANCEMENT)*2));
 		deadZoneEnhancementSlider.setPreferredSize(sliderSize);
 		deadZoneEnhancementSlider.setMajorTickSpacing(2);
 		deadZoneEnhancementSlider.setMinorTickSpacing(1);
@@ -198,7 +198,7 @@ public class Menu extends JPanel{
 		fileBrowserButton.setToolTipText(htmlBegin + FILE_BROWSER_DESCRIPTION + htmlEnd);
 		aggregationSlider.setToolTipText(htmlBegin + AGGREGATION_ORDER_DESCRIPTION + htmlEnd);
 		autoButton.setToolTipText(htmlBegin + AUTO_DESCRIPTION + htmlEnd);
-		peakReductionSlider.setToolTipText(htmlBegin + PEAK_REDUCTION_DESCRIPTION + htmlEnd);
+		gainReductionSlider.setToolTipText(htmlBegin + GAIN_REDUCTION_DESCRIPTION + htmlEnd);
 		ffbPowerEnhancementSlider.setToolTipText(htmlBegin + POWER_ENHANCEMENT_DESCRIPTION + htmlEnd);
 		deadZoneEnhancementSlider.setToolTipText(htmlBegin + DZ_ENHANCEMENT_DESCRIPTION + htmlEnd);
 		linearizeNearZero.setToolTipText(htmlBegin + LINEARIZE_NEAR_ZERO_DESCRIPTION + htmlEnd);
@@ -262,14 +262,14 @@ public class Menu extends JPanel{
 		constr.gridx=2;
 		layoutPanel.add(inputCsvSettings, constr);
 
-		// PEAK REDUCTION ROW
+		// GAIN REDUCTION ROW
 		constr.gridy++;
 
 		constr.gridx=0; 
-		layoutPanel.add(peakReductionLabel, constr);
+		layoutPanel.add(gainReductionLabel, constr);
 		constr.gridx=1;
 		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(peakReductionSlider, constr);
+		layoutPanel.add(gainReductionSlider, constr);
 		constr.anchor = GridBagConstraints.WEST;
 		constr.gridx=2;
 		layoutPanel.add(linearizeNearZero, constr);
@@ -382,7 +382,7 @@ public class Menu extends JPanel{
 			}
 		});
 		
-		peakReductionSlider.addChangeListener(new ChangeListener() {
+		gainReductionSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				updateComponentsStatus();
@@ -413,28 +413,16 @@ public class Menu extends JPanel{
 		} else {
 			linearizeNearZero.setEnabled(true);
 		}
-		
-		//compensation
-		if(peakReductionSlider.getValue()==0) {
-			ffbPowerEnhancementSlider.setEnabled(true);
-		} else {
-			ffbPowerEnhancementSlider.setEnabled(false);
-		}
-		
-		if(ffbPowerEnhancementSlider.getValue()==0) {
-			peakReductionSlider.setEnabled(true);
-		} else {
-			peakReductionSlider.setEnabled(false);
-		}
+
 	}
 
 	public org.json.JSONObject updateConfig() {
 		org.json.JSONObject config = Utility.readConfiguration(JSON_CONFIG_PATH);
 		config.put(AGGREGATION_ORDER, aggregationSlider.getValue());
 		config.put(INPUT_FILE, inputFileText.getText());
-		config.put(DEADZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue()/2.0);
+		config.put(DEAD_ZONE_ENHANCEMENT, deadZoneEnhancementSlider.getValue()/2.0);
 		config.put(LUT_GENERATION_METHOD, lutGenerationMethod.getSelectedItem());
-		config.put(PEAK_REDUCTION, peakReductionSlider.getValue());
+		config.put(GAIN_REDUCTION, gainReductionSlider.getValue());
 		config.put(LINEARIZE_NEAR_ZERO, linearizeNearZero.isSelected());
 		config.put(FFB_POWER_ENHANCEMENT, ffbPowerEnhancementSlider.getValue());
 		
@@ -465,11 +453,11 @@ public class Menu extends JPanel{
 					exConf = Manager.execute(exConf);
 					aggregationSlider.setValue(exConf.getAggregationOrder());
 					deadZoneEnhancementSlider.setValue(10);
-					peakReductionSlider.setValue(0);
+					gainReductionSlider.setValue(0);
 					linearizeNearZero.setSelected(true);
 					ffbPowerEnhancementSlider.setValue(5);
 				} else { //LINEAR
-					peakReductionSlider.setValue(0);
+					gainReductionSlider.setValue(0);
 					ffbPowerEnhancementSlider.setValue(0);
 					deadZoneEnhancementSlider.setValue(10);
 				}
@@ -506,10 +494,10 @@ public class Menu extends JPanel{
 			JOptionPane.showMessageDialog(null, "Error: unable to read '" + AGGREGATION_ORDER + "' property in '" + JSON_CONFIG_PATH + "'.");
 		}
 		try {
-			exConf.setDeadZoneEnhancement(configJson.getDouble(DEADZONE_ENHANCEMENT));
+			exConf.setDeadZoneEnhancement(configJson.getDouble(DEAD_ZONE_ENHANCEMENT));
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEADZONE_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + DEAD_ZONE_ENHANCEMENT + "' property in '" + JSON_CONFIG_PATH + "'.");
 		}
 		try {
 			exConf.setLutGeneration_method(configJson.getString(LUT_GENERATION_METHOD));
@@ -524,10 +512,10 @@ public class Menu extends JPanel{
 			JOptionPane.showMessageDialog(null, "Error: unable to read '" + LINEARIZE_NEAR_ZERO + "' property in '" + JSON_CONFIG_PATH + "'.");
 		}
 		try {
-			exConf.setPeakReduction(configJson.getInt(PEAK_REDUCTION));
+			exConf.setGainReduction(configJson.getInt(GAIN_REDUCTION));
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error: unable to read '" + PEAK_REDUCTION + "' property in '" + JSON_CONFIG_PATH + "'.");
+			JOptionPane.showMessageDialog(null, "Error: unable to read '" + GAIN_REDUCTION + "' property in '" + JSON_CONFIG_PATH + "'.");
 		}
 		try {
 			exConf.setFfbPowerEnhancement(configJson.getInt(FFB_POWER_ENHANCEMENT));

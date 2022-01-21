@@ -10,7 +10,7 @@ public class ExecutionConfiguration {
 	String inputCsvPath;
 	int aggregationOrder;
 	double deadZoneEnhancement;
-	int peakReduction;
+	int gainReduction;
 	int ffbPowerEnhancement;
 	int forceColumnIndex;
 	int deltaColumnIndex;
@@ -27,7 +27,7 @@ public class ExecutionConfiguration {
 		this.inputCsvPath = conf.getInputCsvPath();
 		this.aggregationOrder = conf.getAggregationOrder();
 		this.deadZoneEnhancement = conf.getDeadZoneEnhancement();
-		this.peakReduction = conf.getPeakReduction();
+		this.gainReduction = conf.getGainReduction();
 		this.ffbPowerEnhancement = conf.getFfbPowerEnhancement();
 		this.forceColumnIndex = conf.getForceColumnIndex();
 		this.deltaColumnIndex = conf.getDeltaColumnIndex();
@@ -98,12 +98,12 @@ public class ExecutionConfiguration {
 		this.linearizeNearZero = linearizeNearZero;
 	}
 
-	public int getPeakReduction() {
-		return peakReduction;
+	public int getGainReduction() {
+		return gainReduction;
 	}
 
-	public void setPeakReduction(int peakReduction) {
-		this.peakReduction = peakReduction;
+	public void setGainReduction(int gainReduction) {
+		this.gainReduction = gainReduction;
 	}
 	
 	public int getFfbPowerEnhancement() {
