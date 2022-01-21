@@ -105,8 +105,9 @@ public class Luter {
 		double prevValue = 0.0;
 		int count = 0;
 		for(int i=0; i<inputList.size(); i++) {
-			if(i%((40/alterationParameter))==0){
-				output.add(prevValue);
+			if(i!=0 && i%((40/alterationParameter))==0){
+				double customValue = (prevValue + inputList.get(count))/2;
+				output.add(customValue);
 			} else {
 				output.add(inputList.get(count));
 				prevValue = inputList.get(count);
@@ -122,7 +123,6 @@ public class Luter {
 		ArrayList<Point> output = new ArrayList<>();
 		double maxX = input.get(input.size()-1).getX();
 		for(Point point: input) {
-
 			double xRel = point.getX()/maxX;
 			double multiplier = 1.0 + (Math.sin(xRel*Math.PI)*(-alterationParameter)*c);
 			Point newPoint = new Point(point.getX()*multiplier, point.getY());
