@@ -43,11 +43,11 @@ public class Aggregator {
 			// small size: min 2 max 4
 			return 3;
 		} else if(input.size()<=125){
-			// standard size: min 3 max 5
-			return 4;
-		} else {
-			// big size: min 4 max 6
+			// standard size: min 4 max 6
 			return 5;
+		} else {
+			// big size: min 6 max 10
+			return 8;
 		}
 	}
 	
