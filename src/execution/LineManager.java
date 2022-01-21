@@ -44,4 +44,26 @@ public class LineManager {
         return output;
     }
 
+    public static ArrayList<Double> transformIntoArray_new(ArrayList<Point> input){
+        ArrayList<Double> output = new ArrayList<>();
+        for(int i = 1; i<input.size(); i++){
+            double prevActualX=input.get(i-1).getX();
+            double actualX = input.get(i).getX();
+            double xCast = Math.floor(actualX);
+            double actualValue = input.get(i).getY();
+            double prevValue = input.get(i-1).getY();
+            double correctedValue;
+            if(xCast==prevActualX) {
+                correctedValue = prevValue;
+            } else if (xCast==actualX) {
+                correctedValue = actualValue;
+            } else {
+                correctedValue = prevValue + ((actualValue-prevValue)*(xCast-prevActualX))/(actualX-prevActualX);
+            }
+            output.add(correctedValue);
+        }
+        output.add(input.get(input.size()-1).getY());
+        return output;
+    }
+
 }
