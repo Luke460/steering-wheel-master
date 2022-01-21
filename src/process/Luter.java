@@ -193,4 +193,19 @@ public class Luter {
 		return input.size()-1;
 	}
 
+    public static ArrayList<Double> calculateLutResult(ArrayList<Double> inputDelta, ArrayList<Double> correctiveMap) {
+		ArrayList<Double> output = new ArrayList<>();
+		double lutResolution=correctiveMap.size();
+		for (int i = 0; i < lutResolution; i++){
+			// game force from 0.0 to 1.0
+			double gameForce = i/(lutResolution-1);
+			int lutIndex = (int) Math.round(gameForce*1000);
+			double lutResult = correctiveMap.get(lutIndex);
+			// lutResult/1.0 : index:inputForce.size()-1
+			int index = (int) Math.round((lutResult*(inputDelta.size()-1))/1.0);
+			double simulatedReaction = inputDelta.get(index);
+			output.add(simulatedReaction);
+		}
+		return output;
+    }
 }

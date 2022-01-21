@@ -111,7 +111,7 @@ public class DrawGraphHD extends JPanel {
 		return GRAPH_DIMENSION;
 	}
 
-	public static void createAndShowGui(List<Double> deltaX, List<Double> aggregateDeltaX, List<Double> correctiveArray, String name) {
+	public static void createAndShowGui(List<Double> deltaX, List<Double> aggregateDeltaX, List<Double> correctiveArray, List<Double>simulatedResult, String name) {
 
 		BufferedImage myPicture;
 		JLabel picLabel = null;
@@ -129,7 +129,9 @@ public class DrawGraphHD extends JPanel {
 		lov.add(aggDeltaXLV);
 		LineOfValues lutXLV = new LineOfValues(Color.green, correctiveArray, true);
 		lov.add(lutXLV);
-		
+		LineOfValues simXLV = new LineOfValues(Color.gray, simulatedResult, true);
+		lov.add(simXLV);
+
 		DrawGraphHD graphPanel = new DrawGraphHD(lov);
 		
 		JPanel main = new JPanel();

@@ -158,12 +158,18 @@ public class Manager {
 		// consistency check
 		correctiveMap = Luter.consistencyCheck(correctiveMap);
 
+		// result simulation
+		ArrayList<Double> resultPreview = Luter.calculateLutResult(aggregateDeltaXdouble, correctiveMap);
+
 		// print results
 		if(exConf.isShowPreview()) {
 			try {
 				DrawGraphHD.createAndShowGui(inputDeltaX, 
-						aggregateDeltaXdouble, 
-						Utility.correctArrayDimensionsAndValuesForVisualization(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)), generateDescriptionName(exConf));
+						aggregateDeltaXdouble,
+						Utility.correctArrayDimensionsAndValuesForVisualization(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)),
+						resultPreview,
+						generateDescriptionName(exConf)
+						);
 			} catch(Exception e) {
 				SimpleLogger.errorLog("Unable to show preview chart: " + e.getMessage());
 				e.printStackTrace();
