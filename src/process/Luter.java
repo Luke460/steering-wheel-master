@@ -10,7 +10,7 @@ import model.Point;
 
 public class Luter {
 
-	public static final double DEAD_ZONE_MULTIPLIER = 0.005;
+	public static final double DEAD_ZONE_AUTO_CALC_MULTIPLIER = 0.005;
 	public static final double DEAD_ZONE_VALUE_PRECISION_INCREMENT = 0.005;
 
 	public static ArrayList<Double> generateCorrectiveArray(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble) {
@@ -65,32 +65,13 @@ public class Luter {
 		return output;
 	}
 
-	public static ArrayList<Double> enhanceDeadZone_old(ArrayList<Double> input, double inputDeadZoneEnhancement) {
-		// remove
-		double deadZoneEnhancement = Math.min(inputDeadZoneEnhancement, calculateSuggestedDeadZoneEnhancementValue(input));
-		double totalDelta = deadZoneEnhancement*DEAD_ZONE_MULTIPLIER; //*1.0;
-		ArrayList<Double> output = new ArrayList<>(input);
-		for(int i = 0; i<input.size()-1; i++) {
-			double delta = (totalDelta/input.size())*(input.size()-1-i);
-			double value = input.get(i) - delta;
-			if(value<0) {
-				value=0.0;
-			}
-			output.set(i, value);
-		}
-		return output;
-	}
-
 	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, double inputDeadZoneEnhancement) {
 		// remove
 		double deadZoneEnhancement = Math.min(inputDeadZoneEnhancement, calculateSuggestedDeadZoneEnhancementValue(input));
-		double totalDelta = deadZoneEnhancement*DEAD_ZONE_MULTIPLIER; //*1.0;
 		ArrayList<Double> output = new ArrayList<>(input);
 		output.set(input.size()-1, input.get(input.size()-1));
-		double divPoint = input.size()-1;
-		double minValue = input.get(1);
 		double l = input.size()-1;
-		double k = (inputDeadZoneEnhancement*DEAD_ZONE_MULTIPLIER*l)+1.0;
+		double k = (inputDeadZoneEnhancement * 0.0125 *l)+1.0;
 		for(int i = input.size()-2; i>=1; i--) {
 			// increase every x in a progressive manner
 			double deltaX = ((k-1.0)*(l-i))/l;
@@ -102,8 +83,8 @@ public class Luter {
 			if(x1>=1) {
 				v1 = input.get(x1);
 				v2 = input.get(x2);
-				value = Utility.getValueBetweenPoints(x1, x2, v1, v2, targetX);
-				SimpleLogger.infoLog("i: " + i + " | v1: " + v1 + " | v2: " + v2 + " | value: " + value);
+				//value = Utility.getValueBetweenPoints(x1, x2, v1, v2, targetX);
+				value = (v1+v2)/2.0;
 			} else {
 				value = 0;
 			}
@@ -140,7 +121,7 @@ public class Luter {
 	public static double calculateSuggestedDeadZoneEnhancementValue(ArrayList<Double> input) {
 		double enhancementValue = 0;
 		while(enhancementValue<10){
-			double totalDelta = enhancementValue*DEAD_ZONE_MULTIPLIER;
+			double totalDelta = enhancementValue * DEAD_ZONE_AUTO_CALC_MULTIPLIER;
 			double delta = (totalDelta/input.size())*(input.size()-1-1);
 			double value = input.get(1) - delta;
 			if(value<=0) return enhancementValue;

@@ -149,11 +149,8 @@ public class Utility {
 	}
 
 	public static double getValueBetweenPoints(double x1, double x2, double v1, double v2, double xt){
-		if(xt==x1) return v1;
-		if(xt==x2) return v2;
 		double vt = (((x2-xt)*(v2-v1))/(x2-x1))+v1;
-		if(vt>v1 || vt>v2) return Math.max(v1, v2);
-		if(vt<v1 || vt<v2) return Math.min(v1, v2);
+		//SimpleLogger.infoLog("x1: " + x1 + " | x2: " + x2 + " | v1: " + v1 + " | v2: " + v2 + " | xt: " + xt + " | vt: " + vt);
 		return vt;
 	}
 

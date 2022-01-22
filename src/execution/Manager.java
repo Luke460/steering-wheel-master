@@ -156,7 +156,7 @@ public class Manager {
 		// END FFB POWER ENHANCEMENT
 
 		// consistency check
-		//correctiveMap = Luter.consistencyCheck(correctiveMap);
+		correctiveMap = Luter.consistencyCheck(correctiveMap);
 
 		// result simulation
 		ArrayList<Double> resultPreview = Luter.calculateLutResult(aggregateDeltaXdouble, correctiveMap);
