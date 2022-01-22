@@ -65,7 +65,7 @@ public class Luter {
 		return output;
 	}
 
-	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, double inputDeadZoneEnhancement) {
+	public static ArrayList<Double> enhanceDeadZone_old(ArrayList<Double> input, double inputDeadZoneEnhancement) {
 		// remove
 		double deadZoneEnhancement = Math.min(inputDeadZoneEnhancement, calculateSuggestedDeadZoneEnhancementValue(input));
 		double totalDelta = deadZoneEnhancement*DEAD_ZONE_MULTIPLIER; //*1.0;
@@ -79,6 +79,62 @@ public class Luter {
 			output.set(i, value);
 		}
 		return output;
+	}
+
+	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, double inputDeadZoneEnhancement) {
+		// remove
+		double deadZoneEnhancement = Math.min(inputDeadZoneEnhancement, calculateSuggestedDeadZoneEnhancementValue(input));
+		double totalDelta = deadZoneEnhancement*DEAD_ZONE_MULTIPLIER; //*1.0;
+		ArrayList<Double> output = new ArrayList<>(input);
+		output.set(input.size()-1, input.get(input.size()-1));
+		double divPoint = input.size()-1;
+		double minValue = input.get(1);
+		double l = input.size()-1;
+		double k = (inputDeadZoneEnhancement*DEAD_ZONE_MULTIPLIER*l)+1.0;
+		for(int i = input.size()-2; i>=1; i--) {
+			// increase every x in a progressive manner
+			double deltaX = ((k-1.0)*(l-i))/l;
+			double targetX = i-deltaX;
+			int x1 = (int) targetX;
+			int x2 = x1+1;
+			double v1, v2;
+			double value;
+			if(x1>=1) {
+				v1 = input.get(x1);
+				v2 = input.get(x2);
+				value = Utility.getValueBetweenPoints(x1, x2, v1, v2, targetX);
+				SimpleLogger.infoLog("i: " + i + " | v1: " + v1 + " | v2: " + v2 + " | value: " + value);
+			} else {
+				value = 0;
+			}
+			if(value<0) {
+				value=0.0;
+			}
+			output.set(i, Utility.round(value,5));
+		}
+		output.set(0, 0.0);
+		output = fixInitialValues(output);
+		return output;
+	}
+
+	private static ArrayList<Double> fixInitialValues(ArrayList<Double> array) {
+		int startingIndex = -1;
+		double minValue = array.get(1);
+		int count = 0;
+		for(int i = array.size()-1; i>0; i--){
+			double value = array.get(i);
+			if(startingIndex == -1 && value == 0){
+				startingIndex = i+1;
+				minValue = array.get(i+1);
+			}
+			if(value == 0) {
+				count++;
+				double valueToRotate = array.get(startingIndex+count);
+				value = minValue - (valueToRotate - minValue);
+				array.set(i, value);
+			}
+		}
+		return array;
 	}
 
 	public static double calculateSuggestedDeadZoneEnhancementValue(ArrayList<Double> input) {
