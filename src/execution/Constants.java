@@ -6,7 +6,7 @@ public interface Constants {
 	String JSON_CONFIG_PATH = "config.json";
 	String INFO_PATH = "graph-info.png";
 	int MAX_RESOLUTION = 1000;
-	int INTERNAL_RESOLUTION = 10000;
+	int INTERNAL_RESOLUTION = 1000;
 	
 	//// Settings keys
 	String INPUT_FILE = "input_file";

@@ -3,6 +3,7 @@ package process;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import execution.Constants;
 import execution.LineManager;
 import execution.SimpleLogger;
 import execution.Utility;
@@ -19,8 +20,8 @@ public class Luter {
 		double maxDeltaX = Collections.max(aggregateDeltaXdouble);
 		double maxForce = Collections.max(force) + 0.0;
 
-		for(double i = 0; i<= 1; i+=0.001) {
-			i = Utility.round(i,3);
+		for(double i = 0; i<= 1; i+= 1/(Constants.INTERNAL_RESOLUTION*1.0)) {
+			i = Utility.round(i,6);
 			double targetDeltaX = i*maxDeltaX;
 			int x = findIndexOfLowerValue(aggregateDeltaXdouble, targetDeltaX);
 			
@@ -66,8 +67,6 @@ public class Luter {
 	}
 
 	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, double inputDeadZoneEnhancement) {
-		// remove
-		double deadZoneEnhancement = Math.min(inputDeadZoneEnhancement, calculateSuggestedDeadZoneEnhancementValue(input));
 		ArrayList<Double> output = new ArrayList<>(input);
 		output.set(input.size()-1, input.get(input.size()-1));
 		double l = input.size()-1;
@@ -161,7 +160,12 @@ public class Luter {
 		double maxX = input.get(input.size()-1).getX();
 		for(Point point: input) {
 			double xRel = point.getX()/maxX;
-			double deltaX = ((Math.sin(xRel*Math.PI)*(alterationParameter)*c))*(inputList.size()-1);
+			double deltaX;
+			if(xRel<0.5){
+				deltaX = Math.sin(xRel*Math.PI)*alterationParameter*c*(inputList.size()-1);
+			} else {
+				deltaX = Math.sqrt(Math.sin(xRel*Math.PI))*alterationParameter*c*(inputList.size()-1);
+			}
 			Point newPoint = new Point(point.getX()-deltaX, point.getY());
 			output.add(newPoint);
 		}
@@ -211,8 +215,8 @@ public class Luter {
 		ArrayList<Double> output = new ArrayList<>();
 		output.add(0.0);
 		output.add(firstLutValue);
-		double delta = (1-firstLutValue)/(1000 -1.0);
-		for(int i = 2; i< 1000; i++) {
+		double delta = (1-firstLutValue)/(Constants.INTERNAL_RESOLUTION -1.0);
+		for(int i = 2; i< Constants.INTERNAL_RESOLUTION; i++) {
 			output.add(output.get(i-1)+delta);
 		}
 		output.add(1.0);
