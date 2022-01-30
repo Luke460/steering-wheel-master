@@ -103,7 +103,7 @@ public class Luter {
 	}
 
 	private static ArrayList<Double> cleanFirstXValues(ArrayList<Double> input) {
-		int valuesToIgnore = (int) (Constants.INTERNAL_RESOLUTION*0.1);
+		int valuesToIgnore = (int) (Constants.INTERNAL_RESOLUTION*0.05);
 		ArrayList<Double> output = new ArrayList<>(input);
 		for(int i=0; i<= input.size()-1; i++){
 			double value = input.get(i);
