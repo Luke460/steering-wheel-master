@@ -52,7 +52,7 @@ public class Luter {
 		return output;
 	}
 
-	private static ArrayList<Double> fixInitialValues_old(ArrayList<Double> input) {
+	private static ArrayList<Double> fixInitialValuesWithRotation(ArrayList<Double> input) {
 		// clean first ten values
 		ArrayList<Double> array = cleanFirstXValues(input);
 		// correct
@@ -77,7 +77,7 @@ public class Luter {
 
 	private static ArrayList<Double> fixInitialValues(ArrayList<Double> input) {
 		// clean first ten values
-		final int positions = 10;
+		final int positions =  (int) (Constants.INTERNAL_RESOLUTION*0.025);
 		double subMinDelta = 0;
 		ArrayList<Double> array = cleanFirstXValues(input);
 		// correct
@@ -92,6 +92,10 @@ public class Luter {
 			}
 			if(!start) {
 				value = array.get(i+1) - subMinDelta;
+				if(value<0) {
+					SimpleLogger.warningLog("forced to zero a negative lut value");
+					value = 0;
+				}
 				array.set(i, value);
 			}
 		}
@@ -99,7 +103,7 @@ public class Luter {
 	}
 
 	private static ArrayList<Double> cleanFirstXValues(ArrayList<Double> input) {
-		int valuesToIgnore = 10;
+		int valuesToIgnore = (int) (Constants.INTERNAL_RESOLUTION*0.1);
 		ArrayList<Double> output = new ArrayList<>(input);
 		for(int i=0; i<= input.size()-1; i++){
 			double value = input.get(i);

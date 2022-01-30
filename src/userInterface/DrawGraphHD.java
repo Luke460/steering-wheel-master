@@ -21,8 +21,8 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class DrawGraphHD extends JPanel {
-	//private static final Dimension GRAPH_DIMENSION = new Dimension(720, 720);
-	private static final Dimension GRAPH_DIMENSION = new Dimension(1200, 1200);
+	private static final Dimension GRAPH_DIMENSION = new Dimension(720, 720);
+	//private static final Dimension GRAPH_DIMENSION = new Dimension(1200, 1200);
 	private static final int BORDER_GAP = 20;
 	private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
 	private static final int X_HATCH_CNT = 20;
