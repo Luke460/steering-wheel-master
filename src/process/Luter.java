@@ -82,8 +82,7 @@ public class Luter {
 			if(x1>=1) {
 				v1 = input.get(x1);
 				v2 = input.get(x2);
-				//value = Utility.getValueBetweenPoints(x1, x2, v1, v2, targetX);
-				value = (v1+v2)/2.0;
+				value = Utility.getValueBetweenPoints(x1, x2, v1, v2, targetX);
 			} else {
 				value = 0;
 			}
@@ -143,7 +142,7 @@ public class Luter {
 		for(int i=0; i<inputList.size(); i++) {
 			if(i!=0 && i%((40/alterationParameter))==0){
 				double customValue = (prevValue + inputList.get(count))/2;
-				output.add(customValue);
+						output.add(customValue);
 			} else {
 				output.add(inputList.get(count));
 				prevValue = inputList.get(count);
@@ -169,7 +168,7 @@ public class Luter {
 			Point newPoint = new Point(point.getX()-deltaX, point.getY());
 			output.add(newPoint);
 		}
-		return LineManager.transformIntoArray(output);
+		return LineManager.transformIntoFixedArray(output);
 	}
 
 	public static ArrayList<Double> consistencyCheck(ArrayList<Double> input) {

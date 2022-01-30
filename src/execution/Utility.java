@@ -149,8 +149,10 @@ public class Utility {
 	}
 
 	public static double getValueBetweenPoints(double x1, double x2, double v1, double v2, double xt){
-		double vt = (((x2-xt)*(v2-v1))/(x2-x1))+v1;
-		//SimpleLogger.infoLog("x1: " + x1 + " | x2: " + x2 + " | v1: " + v1 + " | v2: " + v2 + " | xt: " + xt + " | vt: " + vt);
+		if(xt==x1) return v1;
+		if(xt==x2) return v2;
+		if(xt<x1 || xt>x2) throw new IllegalArgumentException("xt out of bounds");
+		double vt = (((x1-xt)*(v2-v1))/(x1-x2))+v1;
 		return vt;
 	}
 
