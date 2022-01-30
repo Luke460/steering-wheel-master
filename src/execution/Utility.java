@@ -14,22 +14,6 @@ import javax.swing.JOptionPane;
 
 public class Utility {
 	
-	public static ArrayList<Integer> doubleListToIntegerList(ArrayList<Double> input) {	
-		java.util.ArrayList<Integer> output = new java.util.ArrayList<>();
-		for(double element:input) {
-			output.add((int) Math.round(element));
-		}
-		return output;
-	}
-
-	public static ArrayList<Double> integerListToDoubleList(ArrayList<Integer> input) {		
-		java.util.ArrayList<Double> output = new java.util.ArrayList<>();
-		for(double element:input) {
-			output.add(element);
-		}
-		return output;
-	}
-	
 	public static double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 
@@ -45,14 +29,6 @@ public class Utility {
 		}
 		return output;
 	}
-	
-	public static ArrayList<Double> truncateArray(ArrayList<Double> input, int places) {
-		java.util.ArrayList<Double> output = new java.util.ArrayList<>();
-		for(int i = 0; i<input.size(); i+= places) {
-			output.add(input.get(i));
-		}
-		return output;
-	}
 
 	public static List<Double> correctArrayDimensionsAndValuesForVisualization(ArrayList<Double> input, Double targetMaxValue) {
 		
@@ -65,27 +41,6 @@ public class Utility {
 		
 		return output;
 		
-	}
-	
-	public static boolean isGrowingForDoubleList(List<Double> input) {
-		double prevValue = -1;
-		for(Double value:input) {
-			if(prevValue>value) return false;
-			prevValue = value;
-		}
-		return true;
-	}
-
-	public static double calculateVariance(List<Double> input) {
-		double prevValue = 0;
-		double totalVariance = 0;
-		double maxValue = -1;
-		for(Double value:input) {
-			totalVariance += Math.max(value, prevValue) - Math.min(value, prevValue);
-			if(value>maxValue) maxValue = value;
-			prevValue = value;
-		}
-		return totalVariance/(input.size()*maxValue);
 	}
 	
 	public static boolean isGrowingForIntegerList(List<Integer> input) {

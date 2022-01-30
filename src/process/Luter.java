@@ -11,37 +11,6 @@ import model.Point;
 
 public class Luter {
 
-	public static final double DEAD_ZONE_AUTO_CALC_MULTIPLIER = 0.005;
-	public static final double DEAD_ZONE_VALUE_PRECISION_INCREMENT = 0.005;
-
-	public static ArrayList<Double> generateCorrectiveArray_old(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble) {
-
-		ArrayList<Double> corrections = new ArrayList<>();
-		double maxDeltaX = Collections.max(aggregateDeltaXdouble);
-		double maxForce = Collections.max(force) + 0.0;
-
-		for(double i = 0; i<= 1; i+= 1/(Constants.INTERNAL_RESOLUTION*1.0)) {
-			i = Utility.round(i,10);
-			double targetDeltaX = i*maxDeltaX; // this is actually the target value
-			int lowerX = findIndexOfLowerValue(aggregateDeltaXdouble, targetDeltaX);
-			//int upperX = findIndexOfHigherValue(aggregateDeltaXdouble, targetDeltaX);
-
-			double correctForce = force.get(lowerX);
-
-			correctForce = (correctForce/maxForce);
-			
-			if(correctForce>maxForce) {
-				correctForce = maxForce;
-			}
-			
-			corrections.add(correctForce);
-		}
-		
-		corrections.set(corrections.size()-1, 1.0);
-		return correctLutArray(corrections);
-
-	}
-
 	public static ArrayList<Double> generateCorrectiveArray(ArrayList<Integer> force, ArrayList<Double> delta) {
 		ArrayList<Point> output = new ArrayList<>();
 		double maxForce = Collections.max(force);
@@ -51,31 +20,6 @@ public class Luter {
 			output.add(p);
 		}
 		return LineManager.transformIntoFixedArray(output);
-	}
-	
-	public static ArrayList<Double> correctLutArray(ArrayList<Double> input){
-		ArrayList<Double> output = new ArrayList<>();
-		for(int i=0; i<input.size(); i++) {
-			double currentValue = input.get(i);
-			int indexStart = findIndexOfLowerValue(input, currentValue)+1;
-			int indexPlus = findIndexOfHigherValue(input, currentValue);
-			double plusValue = input.get(indexPlus);
-			double newValue;
-			double deltaI = indexPlus - indexStart;
-			double deltaValue = plusValue - currentValue;
-			if(deltaI!=0) {
-				newValue = (i-indexStart)*(deltaValue/deltaI) + currentValue;
-			} else {
-				newValue = currentValue;
-			}
-			if(newValue>1.0) {
-				newValue=1.0;
-			}
-			output.add(newValue);
-		}
-		output.set(0, 0.0);
-		output.set(input.size()-1, 1.0);
-		return output;
 	}
 
 	public static ArrayList<Double> enhanceDeadZone(ArrayList<Double> input, double inputDeadZoneEnhancement) {
@@ -110,7 +54,7 @@ public class Luter {
 
 	private static ArrayList<Double> fixInitialValues(ArrayList<Double> input) {
 		// clean first ten values
-		ArrayList<Double> array = cleanFirstXValues(input, 10);
+		ArrayList<Double> array = cleanFirstXValues(input);
 		// correct
 		int startingIndex = -1;
 		double minValue = array.get(1);
@@ -131,30 +75,18 @@ public class Luter {
 		return array;
 	}
 
-	private static ArrayList<Double> cleanFirstXValues(ArrayList<Double> input, int valuesToIgnore) {
-		int count = valuesToIgnore;
+	private static ArrayList<Double> cleanFirstXValues(ArrayList<Double> input) {
+		int valuesToIgnore = 10;
 		ArrayList<Double> output = new ArrayList<>(input);
 		for(int i=0; i<= input.size()-1; i++){
 			double value = input.get(i);
-			if(value>0 && count>0){
+			if(value>0 && valuesToIgnore>0){
 				output.set(i, 0.0);
-				count--;
+				valuesToIgnore--;
 			}
-			if(count<=0) break;
+			if(valuesToIgnore<=0) break;
 		}
 		return output;
-	}
-
-	public static double calculateSuggestedDeadZoneEnhancementValue(ArrayList<Double> input) {
-		double enhancementValue = 0;
-		while(enhancementValue<10){
-			double totalDelta = enhancementValue * DEAD_ZONE_AUTO_CALC_MULTIPLIER;
-			double delta = (totalDelta/input.size())*(input.size()-1-1);
-			double value = input.get(1) - delta;
-			if(value<=0) return enhancementValue;
-			enhancementValue += DEAD_ZONE_VALUE_PRECISION_INCREMENT;
-		}
-		return 10.0;
 	}
 	
 	public static ArrayList<Double> deadZoneCorrectionOnly(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble){
@@ -165,7 +97,7 @@ public class Luter {
 	}
 
 	public static ArrayList<Double> reduceCurve(ArrayList<Double> inputList, int alterationParameter) {
-		ArrayList<Double> output = new ArrayList<Double>();
+		ArrayList<Double> output = new ArrayList<>();
 		double prevValue = 0.0;
 		int count = 0;
 		for(int i=0; i<inputList.size(); i++) {
@@ -262,19 +194,6 @@ public class Luter {
 		}
 
 		return 0;
-	}
-	
-	private static int findIndexOfHigherValue(ArrayList<Double> input, double targetValue) {
-
-		// from first value
-		for(int i=0; i<input.size()-1;i++) {
-			double value = input.get(i);
-			if(value>targetValue){
-				return i;
-			}
-		}
-
-		return input.size()-1;
 	}
 
     public static ArrayList<Double> calculateLutResult(ArrayList<Double> inputDelta, ArrayList<Double> correctiveMap) {

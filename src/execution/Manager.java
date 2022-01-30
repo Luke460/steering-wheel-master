@@ -43,7 +43,7 @@ public class Manager {
 
 		java.util.ArrayList<Integer> inputForce = new java.util.ArrayList<>();
 		java.util.ArrayList<Double> inputDeltaX = new java.util.ArrayList<>();
-		java.util.ArrayList<Double> aggregateDeltaXdouble = null;
+		java.util.ArrayList<Double> aggregateDeltaXDouble = new java.util.ArrayList<>();
 
 		SimpleLogger.infoLog("reading input file...");
 
@@ -111,9 +111,9 @@ public class Manager {
 		SimpleLogger.infoLog("aggregation...");
 		if (exConf.getLutGeneration_method().equals(ADVANCED_LUT_GENERATION)) {
 			if (exConf.isLinearizeNearZero()) {
-				aggregateDeltaXdouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.getAggregationOrder());
+				aggregateDeltaXDouble = Aggregator.performExperimentalAggregation(correctedDeltaX, exConf.getAggregationOrder());
 			} else {
-				aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, exConf.getAggregationOrder());
+				aggregateDeltaXDouble = Aggregator.performAggregation(correctedDeltaX, exConf.getAggregationOrder());
 			}
 		}
 		// END AGGREGATION
@@ -121,19 +121,19 @@ public class Manager {
 		// BEGIN INTERPOLATION
 		inputForce = Utility.performLinearInterpolationForInt(inputForce);
 		if (exConf.getLutGeneration_method().equals(ADVANCED_LUT_GENERATION)) {
-			aggregateDeltaXdouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXdouble);
+			aggregateDeltaXDouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXDouble);
 		}
 		// END INTERPOLATION
 
 		// BEGIN LUT GENERATION
-		ArrayList<Double> correctiveMap = null;
+		ArrayList<Double> correctiveMap;
 		if(exConf.getLutGeneration_method().equals(ADVANCED_LUT_GENERATION)) {
-			correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXdouble);
-		} else if(exConf.getLutGeneration_method().equals(LINEAR_LUT_GENERATION)) {
+			correctiveMap = Luter.generateCorrectiveArray(inputForce, aggregateDeltaXDouble);
+		} else  { // Linear lut generation
 			// in this case data are not aggregated, so we need to perform an aggregation first
-			aggregateDeltaXdouble = Aggregator.performAggregation(correctedDeltaX, Aggregator.suggestedAggregationValue(correctedDeltaX));
-			aggregateDeltaXdouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXdouble);
-			correctiveMap = Luter.deadZoneCorrectionOnly(inputForce, aggregateDeltaXdouble);
+			aggregateDeltaXDouble = Aggregator.performAggregation(correctedDeltaX, Aggregator.suggestedAggregationValue(correctedDeltaX));
+			aggregateDeltaXDouble = Utility.performLinearInterpolationForDouble(aggregateDeltaXDouble);
+			correctiveMap = Luter.deadZoneCorrectionOnly(inputForce, aggregateDeltaXDouble);
 		}
 		// END LUT GENERATION
 
@@ -159,14 +159,14 @@ public class Manager {
 		correctiveMap = Luter.consistencyCheck(correctiveMap);
 
 		// result simulation
-		ArrayList<Double> resultPreview = Luter.calculateLutResult(aggregateDeltaXdouble, correctiveMap);
+		ArrayList<Double> resultPreview = Luter.calculateLutResult(aggregateDeltaXDouble, correctiveMap);
 
 		// print results
 		if(exConf.isShowPreview()) {
 			try {
 				DrawGraphHD.createAndShowGui(inputDeltaX, 
-						aggregateDeltaXdouble,
-						Utility.correctArrayDimensionsAndValuesForVisualization(correctiveMap, Collections.max(aggregateDeltaXdouble)*correctiveMap.get(correctiveMap.size()-1)),
+						aggregateDeltaXDouble,
+						Utility.correctArrayDimensionsAndValuesForVisualization(correctiveMap, Collections.max(aggregateDeltaXDouble)*correctiveMap.get(correctiveMap.size()-1)),
 						resultPreview,
 						generateDescriptionName(exConf)
 						);
