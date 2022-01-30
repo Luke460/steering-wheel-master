@@ -14,18 +14,19 @@ public class Luter {
 	public static final double DEAD_ZONE_AUTO_CALC_MULTIPLIER = 0.005;
 	public static final double DEAD_ZONE_VALUE_PRECISION_INCREMENT = 0.005;
 
-	public static ArrayList<Double> generateCorrectiveArray(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble) {
+	public static ArrayList<Double> generateCorrectiveArray_old(ArrayList<Integer> force, ArrayList<Double> aggregateDeltaXdouble) {
 
 		ArrayList<Double> corrections = new ArrayList<>();
 		double maxDeltaX = Collections.max(aggregateDeltaXdouble);
 		double maxForce = Collections.max(force) + 0.0;
 
 		for(double i = 0; i<= 1; i+= 1/(Constants.INTERNAL_RESOLUTION*1.0)) {
-			i = Utility.round(i,6);
-			double targetDeltaX = i*maxDeltaX;
-			int x = findIndexOfLowerValue(aggregateDeltaXdouble, targetDeltaX);
-			
-			double correctForce = force.get(x);
+			i = Utility.round(i,10);
+			double targetDeltaX = i*maxDeltaX; // this is actually the target value
+			int lowerX = findIndexOfLowerValue(aggregateDeltaXdouble, targetDeltaX);
+			//int upperX = findIndexOfHigherValue(aggregateDeltaXdouble, targetDeltaX);
+
+			double correctForce = force.get(lowerX);
 
 			correctForce = (correctForce/maxForce);
 			
@@ -39,6 +40,17 @@ public class Luter {
 		corrections.set(corrections.size()-1, 1.0);
 		return correctLutArray(corrections);
 
+	}
+
+	public static ArrayList<Double> generateCorrectiveArray(ArrayList<Integer> force, ArrayList<Double> delta) {
+		ArrayList<Point> output = new ArrayList<>();
+		double maxForce = Collections.max(force);
+		double maxDelta = Collections.max(delta);
+		for(int i=0; i<=force.size()-1; i++){
+			Point p = new Point(delta.get(i)/maxDelta, force.get(i)/maxForce);
+			output.add(p);
+		}
+		return LineManager.transformIntoFixedArray(output);
 	}
 	
 	public static ArrayList<Double> correctLutArray(ArrayList<Double> input){
@@ -96,7 +108,10 @@ public class Luter {
 		return output;
 	}
 
-	private static ArrayList<Double> fixInitialValues(ArrayList<Double> array) {
+	private static ArrayList<Double> fixInitialValues(ArrayList<Double> input) {
+		// clean first ten values
+		ArrayList<Double> array = cleanFirstXValues(input, 10);
+		// correct
 		int startingIndex = -1;
 		double minValue = array.get(1);
 		int count = 0;
@@ -114,6 +129,20 @@ public class Luter {
 			}
 		}
 		return array;
+	}
+
+	private static ArrayList<Double> cleanFirstXValues(ArrayList<Double> input, int valuesToIgnore) {
+		int count = valuesToIgnore;
+		ArrayList<Double> output = new ArrayList<>(input);
+		for(int i=0; i<= input.size()-1; i++){
+			double value = input.get(i);
+			if(value>0 && count>0){
+				output.set(i, 0.0);
+				count--;
+			}
+			if(count<=0) break;
+		}
+		return output;
 	}
 
 	public static double calculateSuggestedDeadZoneEnhancementValue(ArrayList<Double> input) {
@@ -227,7 +256,7 @@ public class Luter {
 		if(targetValue==0) return 0;
 		// from last value
 		for(int i=input.size()-1; i>0;i--) {
-			if(input.get(i)<=targetValue){
+			if(input.get(i)<targetValue){
 				return i;
 			}
 		}
@@ -236,13 +265,11 @@ public class Luter {
 	}
 	
 	private static int findIndexOfHigherValue(ArrayList<Double> input, double targetValue) {
-		
-		if(targetValue==0) return 0;
-		
-		for(int i=input.size()-1; i>0;i--) {
-			double prevValue = input.get(i-1);
+
+		// from first value
+		for(int i=0; i<input.size()-1;i++) {
 			double value = input.get(i);
-			if(targetValue>=prevValue && targetValue<value){
+			if(value>targetValue){
 				return i;
 			}
 		}
@@ -252,11 +279,11 @@ public class Luter {
 
     public static ArrayList<Double> calculateLutResult(ArrayList<Double> inputDelta, ArrayList<Double> correctiveMap) {
 		ArrayList<Double> output = new ArrayList<>();
-		double lutResolution=correctiveMap.size();
+		double lutResolution=Constants.INTERNAL_RESOLUTION;
 		for (int i = 0; i < lutResolution; i++){
 			// game force from 0.0 to 1.0
 			double gameForce = i/(lutResolution-1);
-			int lutIndex = (int) Math.round(gameForce*1000);
+			int lutIndex = (int) Math.round(gameForce*lutResolution);
 			double lutResult = correctiveMap.get(lutIndex);
 			// lutResult/1.0 : index:inputForce.size()-1
 			int index = (int) Math.round((lutResult*(inputDelta.size()-1))/1.0);

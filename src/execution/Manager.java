@@ -183,12 +183,11 @@ public class Manager {
 			String newLutFileName = generateFileName(exConf);
 			Files.deleteIfExists(Paths.get(newLutFileName));
 			SimpleLogger.infoLog("generating new lut file '" + newLutFileName + "'...");
-			double index = 0.0;
-			for(Double value: correctiveMap) {
+			for(int i = 0; i<= LUT_RESOLUTION; i++) {
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newLutFileName, true))) {
-					String s = index + "|" + value; 
-					index = index + (1.0/(double)correctiveMap.size());
-					index = Utility.round(index,3);
+					double value = correctiveMap.get(i*(INTERNAL_RESOLUTION/LUT_RESOLUTION));
+					double index = Utility.round((i/(LUT_RESOLUTION*1.0)),4);
+					String s = index + "|" + value;
 					bw.write(s);
 					bw.newLine();
 					bw.flush();
