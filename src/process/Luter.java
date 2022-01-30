@@ -52,7 +52,7 @@ public class Luter {
 		return output;
 	}
 
-	private static ArrayList<Double> fixInitialValues(ArrayList<Double> input) {
+	private static ArrayList<Double> fixInitialValues_old(ArrayList<Double> input) {
 		// clean first ten values
 		ArrayList<Double> array = cleanFirstXValues(input);
 		// correct
@@ -69,6 +69,29 @@ public class Luter {
 				count++;
 				double valueToRotate = array.get(startingIndex+count);
 				value = minValue - (valueToRotate - minValue);
+				array.set(i, value);
+			}
+		}
+		return array;
+	}
+
+	private static ArrayList<Double> fixInitialValues(ArrayList<Double> input) {
+		// clean first ten values
+		final int positions = 10;
+		double subMinDelta = 0;
+		ArrayList<Double> array = cleanFirstXValues(input);
+		// correct
+		boolean start = true;
+		for(int i = array.size()-1; i>0; i--){
+			double value = array.get(i);
+			if(start  && value == 0){
+				start = false;
+				int startingIndex = i+1;
+				subMinDelta = (array.get(startingIndex+positions) - array.get(startingIndex))/(positions*1.0);
+				i=i+positions;
+			}
+			if(!start) {
+				value = array.get(i+1) - subMinDelta;
 				array.set(i, value);
 			}
 		}

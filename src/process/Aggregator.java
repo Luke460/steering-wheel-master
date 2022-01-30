@@ -7,7 +7,7 @@ public class Aggregator {
 	public static ArrayList<Double> performExperimentalAggregation(ArrayList<Double> inputValues, int aggregationOrder) {
 		ArrayList<Double> outputValues = new ArrayList<>(inputValues);
 		if(aggregationOrder<1) return outputValues;
-		outputValues = prepareFirstValuesForAggregation(outputValues);
+		outputValues = linearizeFirstValues(outputValues);
 		outputValues = performAggregation(outputValues, aggregationOrder);
 		outputValues = removeNegativeValues(outputValues);
 		return outputValues;
@@ -51,7 +51,7 @@ public class Aggregator {
 		}
 	}
 	
-	private static ArrayList<Double> prepareFirstValuesForAggregation(ArrayList<Double> values) {
+	public static ArrayList<Double> linearizeFirstValues(ArrayList<Double> values) {
 		int lastZeroPosition = 0;
 		double requiredValue = values.get(values.size()-1)*0.01;
 		// first value must be 0

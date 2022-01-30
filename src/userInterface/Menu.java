@@ -414,6 +414,13 @@ public class Menu extends JPanel{
 			linearizeNearZero.setEnabled(true);
 		}
 
+		// dead zone enhancement
+		if(linearizeNearZero.isSelected()){
+			deadZoneEnhancementSlider.setEnabled(true);
+		} else {
+			deadZoneEnhancementSlider.setEnabled(false);
+		}
+
 	}
 
 	public org.json.JSONObject updateConfig() {

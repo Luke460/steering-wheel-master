@@ -138,7 +138,7 @@ public class Manager {
 		// END LUT GENERATION
 
 		// BEGIN DEAD_ZONE enhancement
-		if(exConf.getDeadZoneEnhancement()>0) {
+		if(exConf.getDeadZoneEnhancement()>0 && exConf.isLinearizeNearZero()) {
 			correctiveMap = Luter.enhanceDeadZone(correctiveMap, exConf.getDeadZoneEnhancement());
 		}
 		// END DEAD_ZONE enhancement
