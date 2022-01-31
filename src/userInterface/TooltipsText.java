@@ -8,7 +8,7 @@ public interface TooltipsText {
 	String AGGREGATION_ORDER_DESCRIPTION = "Lower values of aggregation order makes your force feedback correction more precise, while higher values makes your force feedback smoother.";
 	String AUTO_DESCRIPTION = "Basic settings for your wheel. Refer to the documentation page to find the best settings for your steering wheel.";
 	String GAIN_REDUCTION_DESCRIPTION = "Increase to reduce the maximum amount of force sent to your steering wheel in a progressive manner.";
-	String POWER_ENHANCEMENT_DESCRIPTION = "Increase to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner by introducing soft clipping.";
+	String POWER_ENHANCEMENT_DESCRIPTION = "Increase to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner by modifying the FFB curve.";
 	String DZ_ENHANCEMENT_DESCRIPTION = "Increase if you have vibrations in the central area of the steering wheel, decrease if you still have a FFB dead zone with the generated lut.";
 	String LINEARIZE_NEAR_ZERO_DESCRIPTION = "Improve the force feedback for steering wheels with a noticeable dead zone. Enabling this option requires adjustment of the dead zone enhancement value.";
 	String LUT_METHOD_DESCRIPTION = "Advanced lut generation uses all the data provided by the csv file to attempt to correct the steering wheel reactions, while linear lut generation uses the csv file only to correct the dead zone.";
