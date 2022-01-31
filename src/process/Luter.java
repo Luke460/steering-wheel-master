@@ -125,7 +125,7 @@ public class Luter {
 
 	public static ArrayList<Double> reduceCurve(ArrayList<Double> inputList, int alterationParameter) {
 		Double maxY = inputList.get(inputList.size()-1);
-		Double maxYTargetPercentage = (10-(alterationParameter*0.5))*0.1;
+		Double maxYTargetPercentage = Utility.round((10-(alterationParameter*0.5))*0.1, 5);
 		SimpleLogger.infoLog("maxYTargetPercentage: " + maxYTargetPercentage);
 		Double maxYTarget = maxY * maxYTargetPercentage;
 		ArrayList<Point> inputPoints = LineManager.transformIntoLine(inputList);
