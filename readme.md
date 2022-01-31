@@ -76,7 +76,7 @@ First of all, you have to choose between **advanced lut generation** and **linea
  - You can use ***FFB power enhancement*** to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner by modifying the FFB curve.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - You can decrease ***dead zone enhancement*** if you still have an FFB dead zone with the generated lut.
- - You can select ***linearize near zero*** to improve fidelity of low ffb values. Enabling this option may require you to slightly increase the ***dead zone enhancement*** value.
+ - You can select ***linearize near zero*** to improve the force feedback for steering wheels with a noticeable dead zone. Enabling this option requires adjustment of the ***dead zone enhancement*** value.
  - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
@@ -102,10 +102,10 @@ This is the standard preset and offers a good compromise between strength and qu
 This preset uses all the data provided by the csv file to attempt to correct the steering wheel reactions. This preset should maximize the fidelity of your FFB response.
  - ***Lut generation method***: advanced lut generation
  - ***Aggregation value***: auto
- - ***Linearize near zero***: true
+ - ***Linearize near zero***: true for steering wheels with a noticeable dead zone, false otherwise.
  - ***FFB Gain reduction***: 0
  - ***FFB power enhancement***: from 0 to 10 (depends on the steering wheel power: 10 for weak steering wheels like the G29, 0 for a DD)
- - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
+ - ***Dead zone enhancement***: 5 or disabled (this value depends on your wheel dead zone, but should be similar to this value)
  
 ### Extreme mode
 This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy and less linear) by increasing the low and medium values of FFB in a progressive manner. Keep in mind that the maximum peak force is always limited to 100%.

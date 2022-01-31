@@ -124,19 +124,20 @@ public class Luter {
 	}
 
 	public static ArrayList<Double> reduceCurve(ArrayList<Double> inputList, int alterationParameter) {
-		ArrayList<Double> output = new ArrayList<>();
-		double prevValue = 0.0;
-		int count = 0;
-		for(int i=0; i<inputList.size(); i++) {
-			if(i!=0 && i%((40/alterationParameter))==0){
-				double customValue = (prevValue + inputList.get(count))/2;
-						output.add(customValue);
+		Double maxY = inputList.get(inputList.size()-1);
+		Double maxYTargetPercentage = (10-(alterationParameter*0.5))*0.1;
+		SimpleLogger.infoLog("maxYTargetPercentage: " + maxYTargetPercentage);
+		Double maxYTarget = maxY * maxYTargetPercentage;
+		ArrayList<Point> inputPoints = LineManager.transformIntoLine(inputList);
+		for(int i = inputPoints.size()-1; i>=0; i--){
+			double y = inputPoints.get(i).getY();
+			if(y>maxYTarget){
+				inputPoints.remove(i);
 			} else {
-				output.add(inputList.get(count));
-				prevValue = inputList.get(count);
-				count++;
+				break;
 			}
 		}
+		ArrayList<Double> output = LineManager.transformIntoFixedArray(inputPoints);
 		return output;
 	}
 
