@@ -40,13 +40,22 @@ public class Aggregator {
 	public static int suggestedAggregationValue(ArrayList<Double> input) {
 		// The best part is no part, the best process is no process. [Elon Musk]
 		if(input.size()<=75){
-			// small size: min 2 max 4
+			// small size(50): 3
 			return 3;
 		} else if(input.size()<=125){
-			// standard size: min 4 max 6
+			// standard size(100): 4
+			return 4;
+		} else if(input.size()<=175){
+			// big size(150): 5
 			return 5;
+		} else if(input.size()<=225){
+			// large size(200): 6
+			return 6;
+		} else if(input.size()<=275){
+			// huge size(250): 7
+			return 7;
 		} else {
-			// big size: min 6 max 10
+			// you are definitely insane: 8
 			return 8;
 		}
 	}
