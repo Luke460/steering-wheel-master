@@ -415,9 +415,9 @@ public class Menu extends JPanel{
 		}
 
 		// dead zone enhancement
-		if(linearizeNearZero.isSelected()){
+		if(linearizeNearZero.isSelected() || lutGenerationMethod.getSelectedItem().equals(LINEAR_LUT_GENERATION)){
 			deadZoneEnhancementSlider.setEnabled(true);
-		} else {
+		} else if (lutGenerationMethod.getSelectedItem().equals(ADVANCED_LUT_GENERATION) && !linearizeNearZero.isSelected()){
 			deadZoneEnhancementSlider.setEnabled(false);
 		}
 
