@@ -45,7 +45,7 @@ public class Luter {
 			if(value<0) {
 				value=0.0;
 			}
-			output.set(i, Utility.round(value,5));
+			output.set(i, Utility.round(value,8));
 		}
 		output.set(0, 0.0);
 		output = fixInitialValues(output);

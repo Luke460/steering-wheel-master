@@ -179,7 +179,7 @@ public class Manager {
 		// write results
 
 		if(exConf.isSaveLUT()) {
-			correctiveMap = Utility.round(correctiveMap,4);
+			correctiveMap = Utility.round(correctiveMap,5);
 			String newLutFileName = generateFileName(exConf);
 			Files.deleteIfExists(Paths.get(newLutFileName));
 			SimpleLogger.infoLog("generating new lut file '" + newLutFileName + "'...");
