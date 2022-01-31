@@ -137,7 +137,7 @@ ENABLED=1
 VALUE=1
 
 [LUT]
-CURVE=AG0-PR5-DZ5-LL.lut
+CURVE=NAME-OF-YOUR-LUT-FILE.lut
 ```
 **NOTE:** You need to set the ***CURVE*** variable with the name of ***your*** LUT file.
 
