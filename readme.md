@@ -49,7 +49,7 @@ First of all, you have to choose between **advanced lut generation** and **linea
  - **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. 
  - **linear lut generation** uses the csv file only to correct the dead zone in order to not alter the standard behavior of your steering wheel.
    
-   | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | **Aggregation order** | ***Linearize near zero*** | **FFB gain reduction** | **FFB power enhancement** | **Dead zone enhancement** (depends on your steering wheel) |
+   | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | **Aggregation order** | ***Linearize FFB near zero*** | **FFB gain reduction** | **FFB power enhancement** | **Dead zone enhancement** (depends on your steering wheel) |
    |-------------------------|---------------------------|----|----|----|----|----|----|
    | ***direct drive*** | Fanatec CLS DD, Podium | advanced | auto | false | 0 | from 0 to 5 | - |
    |                         |                                             | linear | - | - | 0 | 0 | ~5 |
@@ -67,16 +67,16 @@ First of all, you have to choose between **advanced lut generation** and **linea
  - If you are using a high level steering wheel (like a ***direct drive***), you probably will not get any benefit by using this application, as its behavior will already be linear, silent and without any dead zone. You could still use the application to customize the ffb curve according to your needs.
 
  **IN GENERAL:** 
- - Lower values of ***aggregation order*** makes your force feedback correction more precise, while higher values makes your force feedback smoother.
+ - Lower values of ***aggregation order*** makes your force feedback correction more precise, while higher values makes your force feedback correction smoother.
    - Don't go too high, or you will lose precision in force feedback correction.
-   - Don't go too low or you will not benefit of the aggregation procedure.
- - You can click on ***auto*** to generate a series of valid settings for your steering wheel. It works for both linear and advanced lut generation.
+   - Don't go too low otherwise you will not benefit of the aggregation procedure.
+ - You can click on ***auto*** to generate a set of valid settings for your steering wheel. It works for both linear and advanced lut generation.
  - You can click on ***CSV settings*** to configure how to read the input csv file.
  - You can increase ***FFB gain reduction*** to reduce the maximum amount of force sent to your steering wheel in a progressive manner.
  - You can use ***FFB power enhancement*** to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner by modifying the FFB curve.
  - You can increase ***dead zone enhancement*** if you have vibrations in the central area of the steering wheel.
  - You can decrease ***dead zone enhancement*** if you still have an FFB dead zone with the generated lut.
- - You can select ***linearize near zero*** to improve the force feedback for steering wheels with a noticeable dead zone. Enabling this option requires adjustment of the ***dead zone enhancement*** value.
+ - You can select ***linearize FFB near zero*** to improve the force feedback for steering wheels with a noticeable dead zone. Enabling this option requires adjustment of the ***dead zone enhancement*** value.
  - Experiment and play with the ***preview*** button!
  
 ![menu](images/menu.png)
@@ -102,7 +102,7 @@ This is the standard preset and offers a good compromise between strength and qu
 This preset uses all the data provided by the csv file to attempt to correct the steering wheel reactions. This preset should maximize the fidelity of your FFB response.
  - ***Lut generation method***: advanced lut generation
  - ***Aggregation value***: auto
- - ***Linearize near zero***: true for steering wheels with a noticeable dead zone, false otherwise.
+ - ***Linearize FFB near zero***: true for steering wheels with a noticeable dead zone, false otherwise.
  - ***FFB Gain reduction***: 0
  - ***FFB power enhancement***: from 0 to 10 (depends on the steering wheel power: 10 for weak steering wheels like the G29, 0 for a DD)
  - ***Dead zone enhancement***: 5 or disabled (this value depends on your wheel dead zone, but should be similar to this value)

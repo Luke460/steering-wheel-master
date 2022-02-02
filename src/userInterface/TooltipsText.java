@@ -5,8 +5,8 @@ public interface TooltipsText {
 	//// Execution settings
 	
 	String FILE_BROWSER_DESCRIPTION = "Choose your input calibration file. Refer to the documentation for more details.";
-	String AGGREGATION_ORDER_DESCRIPTION = "Lower values of aggregation order makes your force feedback correction more precise, while higher values makes your force feedback smoother.";
-	String AUTO_DESCRIPTION = "Basic settings for your wheel. Refer to the documentation page to find the best settings for your steering wheel.";
+	String AGGREGATION_ORDER_DESCRIPTION = "Lower values of aggregation order makes your force feedback correction more precise, while higher values makes your force feedback correction smoother.";
+	String AUTO_DESCRIPTION = "Generate a set of valid settings for your steering wheel. Refer to the documentation page to find the best settings for your steering wheel.";
 	String GAIN_REDUCTION_DESCRIPTION = "Increase to reduce the maximum amount of force sent to your steering wheel in a progressive manner.";
 	String POWER_ENHANCEMENT_DESCRIPTION = "Increase to boost your wheel FFB strength. This option increases the low and medium values of FFB in a progressive manner by modifying the FFB curve.";
 	String DZ_ENHANCEMENT_DESCRIPTION = "Increase if you have vibrations in the central area of the steering wheel, decrease if you still have a FFB dead zone with the generated lut.";

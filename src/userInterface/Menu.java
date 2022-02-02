@@ -74,9 +74,9 @@ public class Menu extends JPanel{
 		headingLabel.setFont(new Font(headingLabel.getFont().getFontName(), 2, 18));
 
 		JPanel layoutPanel = new JPanel(new GridBagLayout());
-		GridBagConstraints constr = new GridBagConstraints();
-		constr.insets = new Insets(8, 8, 8, 8);     
-		constr.anchor = GridBagConstraints.WEST;
+		GridBagConstraints gridPosition = new GridBagConstraints();
+		gridPosition.insets = new Insets(8, 8, 8, 8);
+		gridPosition.anchor = GridBagConstraints.WEST;
 		
 		JLabel inputFileLabel = new JLabel("Input calibration file:");
 		inputFileLabel.setPreferredSize(sideComponentSize);
@@ -128,7 +128,7 @@ public class Menu extends JPanel{
 		// linearize near zero
 		linearizeNearZero = new JCheckBox();
 		linearizeNearZero.setPreferredSize(sideComponentSize);
-		linearizeNearZero.setText(" Linearize near zero");
+		linearizeNearZero.setText(" Linearize FFB near zero");
 		linearizeNearZero.setSelected(inputConfig.getBoolean(LINEARIZE_NEAR_ZERO));
 
 		// Add positions label in the slider
@@ -163,8 +163,8 @@ public class Menu extends JPanel{
 		gainReductionSlider.setPaintTrack(true);
 		gainReductionSlider.setLabelTable(position1);
 		
-		JLabel ffbPowerEnhacementLabel = new JLabel("FFB power enhancement:");
-		ffbPowerEnhacementLabel.setPreferredSize(sideComponentSize);
+		JLabel ffbPowerEnhancementLabel = new JLabel("FFB power enhancement:");
+		ffbPowerEnhancementLabel.setPreferredSize(sideComponentSize);
 		ffbPowerEnhancementSlider = new JSlider(0, 10, config.getInt(FFB_POWER_ENHANCEMENT));
 		ffbPowerEnhancementSlider.setPreferredSize(sliderSize);
 		ffbPowerEnhancementSlider.setMajorTickSpacing(5);
@@ -208,7 +208,7 @@ public class Menu extends JPanel{
 		previewButton.setToolTipText(htmlBegin + PREVIEW_DESCRIPTION + htmlEnd);
 		generateLutButton.setToolTipText(htmlBegin + GENERATE_LUT_DESCRIPTION + htmlEnd);
 		
-		// BOTTON SETUP
+		// BUTTONS SETUP
 		fileBrowserButton.setPreferredSize(bigButtonDimension);
 		autoButton.setPreferredSize(smallButtonDimension);
 		inputCsvSettings.setPreferredSize(bigButtonDimension);
@@ -217,97 +217,97 @@ public class Menu extends JPanel{
 		generateLutButton.setPreferredSize(bigButtonDimension);
 		
 		// UI SETUP
-		constr.anchor = GridBagConstraints.WEST;
+		gridPosition.anchor = GridBagConstraints.WEST;
 		
 		// HEADING ROW
-		constr.gridy=0;
-		constr.gridx=1;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(headingLabel, constr);
-		constr.anchor = GridBagConstraints.WEST;
+		gridPosition.gridy=0;
+		gridPosition.gridx=1;
+		gridPosition.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(headingLabel, gridPosition);
+		gridPosition.anchor = GridBagConstraints.WEST;
 		
 		// INPUT FILE ROW
-		constr.gridy++;
-		constr.gridx=0;
-		layoutPanel.add(inputFileLabel, constr);
-		constr.gridx=1;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(inputFileText, constr);
-		constr.anchor = GridBagConstraints.WEST;
-		constr.gridx=2;
-		layoutPanel.add(fileBrowserButton, constr);
+		gridPosition.gridy++;
+		gridPosition.gridx=0;
+		layoutPanel.add(inputFileLabel, gridPosition);
+		gridPosition.gridx=1;
+		gridPosition.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(inputFileText, gridPosition);
+		gridPosition.anchor = GridBagConstraints.WEST;
+		gridPosition.gridx=2;
+		layoutPanel.add(fileBrowserButton, gridPosition);
 		fileBrowserButton.addActionListener(performListener);
 
-		// AGGREGATON METHOD ROW
-		constr.gridy++;
-		constr.gridx=0; 
-		layoutPanel.add(lutGenerationMethodLabel, constr);
-		constr.gridx=1;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(lutGenerationMethod, constr);
-		constr.anchor = GridBagConstraints.WEST;
-		constr.gridx=2;
-		layoutPanel.add(autoButton, constr);
+		// AGGREGATION METHOD ROW
+		gridPosition.gridy++;
+		gridPosition.gridx=0;
+		layoutPanel.add(lutGenerationMethodLabel, gridPosition);
+		gridPosition.gridx=1;
+		gridPosition.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(lutGenerationMethod, gridPosition);
+		gridPosition.anchor = GridBagConstraints.WEST;
+		gridPosition.gridx=2;
+		layoutPanel.add(autoButton, gridPosition);
 		
 		
-		// AGGREGATON ORDER ROW
-		constr.gridy++;
+		// AGGREGATION ORDER ROW
+		gridPosition.gridy++;
 
-		constr.gridx=0; 
-		layoutPanel.add(aggregationLabel, constr);
-		constr.gridx=1;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(aggregationSlider, constr);
-		constr.anchor = GridBagConstraints.WEST;
-		constr.gridx=2;
-		layoutPanel.add(inputCsvSettings, constr);
+		gridPosition.gridx=0;
+		layoutPanel.add(aggregationLabel, gridPosition);
+		gridPosition.gridx=1;
+		gridPosition.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(aggregationSlider, gridPosition);
+		gridPosition.anchor = GridBagConstraints.WEST;
+		gridPosition.gridx=2;
+		layoutPanel.add(inputCsvSettings, gridPosition);
 
 		// GAIN REDUCTION ROW
-		constr.gridy++;
+		gridPosition.gridy++;
 
-		constr.gridx=0; 
-		layoutPanel.add(gainReductionLabel, constr);
-		constr.gridx=1;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(gainReductionSlider, constr);
-		constr.anchor = GridBagConstraints.WEST;
-		constr.gridx=2;
-		layoutPanel.add(linearizeNearZero, constr);
+		gridPosition.gridx=0;
+		layoutPanel.add(gainReductionLabel, gridPosition);
+		gridPosition.gridx=1;
+		gridPosition.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(gainReductionSlider, gridPosition);
+		gridPosition.anchor = GridBagConstraints.WEST;
+		gridPosition.gridx=2;
+		layoutPanel.add(updatesLink, gridPosition);
 		
 		// POWER ENHANCEMENT ROW
-		constr.gridy++;
+		gridPosition.gridy++;
 		
-		constr.gridx=0; 
-		layoutPanel.add(ffbPowerEnhacementLabel, constr);
-		constr.gridx=1;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(ffbPowerEnhancementSlider, constr);
-		constr.anchor = GridBagConstraints.WEST;
-		constr.gridx=2;
-		layoutPanel.add(updatesLink, constr);
+		gridPosition.gridx=0;
+		layoutPanel.add(ffbPowerEnhancementLabel, gridPosition);
+		gridPosition.gridx=1;
+		gridPosition.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(ffbPowerEnhancementSlider, gridPosition);
+		gridPosition.anchor = GridBagConstraints.WEST;
+		gridPosition.gridx=2;
+		layoutPanel.add(documentationLink, gridPosition);
 		
-		// DEADZONE ROW
-		constr.gridy++;
+		// DEAD ZONE ROW
+		gridPosition.gridy++;
 
-		constr.gridx=0; 
-		layoutPanel.add(deadZoneEnhancementLabel, constr);
-		constr.gridx=1;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(deadZoneEnhancementSlider, constr);
-		constr.anchor = GridBagConstraints.WEST;
-		constr.gridx=2;
-		layoutPanel.add(documentationLink, constr);
+		gridPosition.gridx=0;
+		layoutPanel.add(deadZoneEnhancementLabel, gridPosition);
+		gridPosition.gridx=1;
+		gridPosition.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(deadZoneEnhancementSlider, gridPosition);
+		gridPosition.anchor = GridBagConstraints.WEST;
+		gridPosition.gridx=2;
+		layoutPanel.add(linearizeNearZero, gridPosition);
 
 		// LAST ROW
-		constr.gridy++;
-		constr.gridx=0;
-		layoutPanel.add(previewButton, constr);
-		constr.gridx=1;
-		constr.anchor = GridBagConstraints.CENTER;
-		layoutPanel.add(donateButton, constr);
-		constr.anchor = GridBagConstraints.WEST;
-		constr.gridx=2;
-		layoutPanel.add(generateLutButton, constr);
+		gridPosition.gridy++;
+		gridPosition.gridx=0;
+		layoutPanel.add(previewButton, gridPosition);
+		gridPosition.gridx=1;
+		gridPosition.anchor = GridBagConstraints.CENTER;
+		layoutPanel.add(donateButton, gridPosition);
+		gridPosition.anchor = GridBagConstraints.WEST;
+		gridPosition.gridx=2;
+		layoutPanel.add(generateLutButton, gridPosition);
 
 		mainPanel.add(layoutPanel);
 		
