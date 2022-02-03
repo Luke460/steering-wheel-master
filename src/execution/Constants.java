@@ -5,6 +5,7 @@ public interface Constants {
 	//// Execution settings
 	String JSON_CONFIG_PATH = "config.json";
 	String INFO_PATH = "graph-info.png";
+	int OUTPUT_LUT_ROUNDING_PRECISION = 6;
 	int MAX_RESOLUTION = 1000;
 	int INTERNAL_RESOLUTION = 10000;
 	int LUT_RESOLUTION = 1000;

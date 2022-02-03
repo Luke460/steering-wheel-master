@@ -45,7 +45,7 @@ public class Luter {
 			if(value<0) {
 				value=0.0;
 			}
-			output.set(i, Utility.round(value,8));
+			output.set(i, value);
 		}
 		output.set(0, 0.0);
 		output = fixInitialValues(output);
@@ -125,7 +125,8 @@ public class Luter {
 
 	public static ArrayList<Double> reduceCurve(ArrayList<Double> inputList, int alterationParameter) {
 		Double maxY = inputList.get(inputList.size()-1);
-		Double maxYTargetPercentage = Utility.round((10-(alterationParameter*0.5))*0.1, 5);
+		int percentageRoundingPrecision = 6; // it's just a target percentage, precision is not needed
+		Double maxYTargetPercentage = Utility.round((10-(alterationParameter*0.5))*0.1, percentageRoundingPrecision);
 		SimpleLogger.infoLog("maxYTargetPercentage: " + maxYTargetPercentage);
 		Double maxYTarget = maxY * maxYTargetPercentage;
 		ArrayList<Point> inputPoints = LineManager.transformIntoLine(inputList);
