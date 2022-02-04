@@ -52,7 +52,7 @@ First of all, you have to choose between **advanced lut generation** and **linea
    | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | **Aggregation order** | ***Linearize FFB near zero*** | **FFB gain reduction** | **FFB power enhancement** | **Dead zone enhancement** (depends on your steering wheel) |
    |-------------------------|---------------------------|----|----|----|----|----|----|
    | ***direct drive*** | Fanatec CLS DD, Podium | advanced | auto | false | 0 | from 0 to 5 | - |
-   |                         |                                             | linear | - | - | 0 | 0 | ~5 |
+   |                         |                                             | linear | - | - | 0 | 0 | ~2 |
    | ***belt***       | Thrustmaster T300, T500, Fanatec CSL elite | advanced | auto | false | 0 | from 0 to 10 | - |
    |                         |                                             | linear | - | - | 0 | 0 | ~5 |
    | ***mixed***      | Thrustmaster TXM, T150, T248  | advanced | auto | true/false | 0 | from 5 to 10 | ~5 |
@@ -96,7 +96,7 @@ This is the standard preset and offers a good compromise between strength and qu
  - ***Lut generation method***: linear lut generation
  - ***FFB Gain reduction***: 0
  - ***FFB power enhancement***: 0
- - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
+ - ***Dead zone enhancement***: this value depends on your wheel dead zone, refer to the previous section.
 
 ### Advanced mode
 This preset uses all the data provided by the csv file to attempt to correct the steering wheel reactions. This preset should maximize the fidelity of your FFB response.
@@ -104,15 +104,15 @@ This preset uses all the data provided by the csv file to attempt to correct the
  - ***Aggregation value***: auto
  - ***Linearize FFB near zero***: true for steering wheels with a noticeable dead zone, false otherwise.
  - ***FFB Gain reduction***: 0
- - ***FFB power enhancement***: from 0 to 10 (depends on the steering wheel power: 10 for weak steering wheels like the G29, 0 for a DD)
- - ***Dead zone enhancement***: 5 or disabled (this value depends on your wheel dead zone, but should be similar to this value)
+ - ***FFB power enhancement***: from 0 to 10 (depends on the steering wheel power: 10 for weak steering wheels like the G29, 0 for a DD).
+ - ***Dead zone enhancement***: this value depends on your wheel dead zone, refer to the previous section.
  
 ### Extreme mode
 This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy and less linear) by increasing the low and medium values of FFB in a progressive manner. Keep in mind that the maximum peak force is always limited to 100%.
  - ***Lut generation method***: linear lut generation
  - ***FFB Gain reduction***: 0
  - ***FFB power enhancement***: 5
- - ***Dead zone enhancement***: 5 (this value depends on your wheel dead zone, but should be similar to this value)
+ - ***Dead zone enhancement***: this value depends on your wheel dead zone, refer to the previous section.
 
 ## My settings (Logitech G29)
 
