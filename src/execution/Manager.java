@@ -18,6 +18,9 @@ import process.Aggregator;
 import process.Corrector;
 import process.Luter;
 import userInterface.DrawGraphHD;
+import utililty.NumberWriter;
+import utililty.SimpleLogger;
+import utililty.Utility;
 
 public class Manager {
 
@@ -183,10 +186,12 @@ public class Manager {
 			String newLutFileName = generateFileName(exConf);
 			Files.deleteIfExists(Paths.get(newLutFileName));
 			SimpleLogger.infoLog("generating new lut file '" + newLutFileName + "'...");
+			NumberWriter indexWriter = new NumberWriter(OUTPUT_INDEX_LUT_ROUNDING_PRECISION);
+			NumberWriter valueWriter = new NumberWriter(OUTPUT_VALUE_LUT_ROUNDING_PRECISION);
 			for(int i = 0; i<= LUT_RESOLUTION; i++) {
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter(newLutFileName, true))) {
-					double value = correctiveMap.get(i*(INTERNAL_RESOLUTION/LUT_RESOLUTION));
-					double index = Utility.round((i/(LUT_RESOLUTION*1.0)),OUTPUT_LUT_ROUNDING_PRECISION);
+					String value = valueWriter.getStringValue(correctiveMap.get(i*(INTERNAL_RESOLUTION/LUT_RESOLUTION)));
+					String index = indexWriter.getStringValue(i/(LUT_RESOLUTION*1.0));
 					String s = index + "|" + value;
 					bw.write(s);
 					bw.newLine();

@@ -2,7 +2,7 @@ package userInterface;
 
 import javax.swing.*;
 
-import execution.Utility;
+import utililty.Utility;
 import model.ExecutionConfiguration;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
