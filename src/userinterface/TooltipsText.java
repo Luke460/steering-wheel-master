@@ -1,4 +1,4 @@
-package userInterface;
+package userinterface;
 
 public interface TooltipsText {
 	

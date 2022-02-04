@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import execution.Constants;
-import utililty.LineManager;
-import utililty.SimpleLogger;
-import utililty.Utility;
+import utility.LineManager;
+import utility.SimpleLogger;
+import utility.Utility;
 import model.Point;
 
 public class Luter {

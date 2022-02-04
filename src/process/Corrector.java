@@ -1,6 +1,6 @@
 package process;
 
-import utililty.SimpleLogger;
+import utility.SimpleLogger;
 
 import java.util.ArrayList;
 import java.util.Collections;

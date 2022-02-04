@@ -1,4 +1,4 @@
-package utililty;
+package utility;
 
 public class SimpleLogger {
 

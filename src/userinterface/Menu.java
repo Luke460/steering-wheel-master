@@ -1,4 +1,4 @@
-package userInterface;
+package userinterface;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -7,12 +7,12 @@ import javax.swing.event.ChangeListener;
 import org.json.JSONObject;
 
 import execution.Manager;
-import utililty.CsvFileFilter;
-import utililty.Utility;
+import utility.CsvFileFilter;
+import utility.Utility;
 import model.ExecutionConfiguration;
 
 import static execution.Constants.*;
-import static userInterface.TooltipsText.*;
+import static userinterface.TooltipsText.*;
 
 import java.awt.Color;
 import java.awt.Cursor;

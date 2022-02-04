@@ -1,4 +1,4 @@
-package utililty;
+package utility;
 
 import java.io.File;
 

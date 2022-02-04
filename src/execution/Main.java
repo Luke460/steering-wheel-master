@@ -2,9 +2,9 @@ package execution;
 
 import static execution.Constants.JSON_CONFIG_PATH;
 
-import userInterface.Menu;
-import utililty.SimpleLogger;
-import utililty.Utility;
+import userinterface.Menu;
+import utility.SimpleLogger;
+import utility.Utility;
 
 import javax.swing.*;
 

@@ -1,9 +1,7 @@
-package utililty;
+package utility;
 
 import execution.Constants;
 import model.Point;
-import utililty.SimpleLogger;
-import utililty.Utility;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -17,10 +17,10 @@ import model.ExecutionConfiguration;
 import process.Aggregator;
 import process.Corrector;
 import process.Luter;
-import userInterface.DrawGraphHD;
-import utililty.NumberWriter;
-import utililty.SimpleLogger;
-import utililty.Utility;
+import userinterface.DrawGraphHD;
+import utility.NumberWriter;
+import utility.SimpleLogger;
+import utility.Utility;
 
 public class Manager {
 

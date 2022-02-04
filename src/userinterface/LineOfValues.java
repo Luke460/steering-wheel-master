@@ -1,4 +1,4 @@
-package userInterface;
+package userinterface;
 
 import java.awt.Color;
 import java.util.Collections;
