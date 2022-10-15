@@ -200,3 +200,5 @@ For Assetto Corsa, if you are using ***Content Manager*** as game launcher, you 
 - [v3.3](https://github.com/Luke460/steering-wheel-master/releases): Improved 'FFB Peak Reduction' and 'FFB Power Enhancement' functions.
 
 - [v3.4](https://github.com/Luke460/steering-wheel-master/releases): Rewritten the entire calculation algorithm for maximum accuracy.
+
+- [v3.5](https://github.com/Luke460/steering-wheel-master/releases): Multiple input csv selection to maximize accuracy.
