@@ -1,5 +1,14 @@
 package execution;
 
+import static execution.Constants.ADVANCED_LUT_GENERATION;
+import static execution.Constants.FILE_NAME_SEPARATOR;
+import static execution.Constants.INTERNAL_RESOLUTION;
+import static execution.Constants.LINEAR_LUT_GENERATION;
+import static execution.Constants.LUT_RESOLUTION;
+import static execution.Constants.MAX_RESOLUTION;
+import static execution.Constants.OUTPUT_INDEX_LUT_ROUNDING_PRECISION;
+import static execution.Constants.OUTPUT_VALUE_LUT_ROUNDING_PRECISION;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -9,10 +18,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
-import static execution.Constants.*;
 import javax.swing.JOptionPane;
+
 import model.ExecutionConfiguration;
 import process.Aggregator;
 import process.Corrector;
@@ -40,10 +51,6 @@ public class Manager {
 
 		SimpleLogger.infoLog("setting up...");
 
-		String line;
-		String cvsSplitBy = ",";
-		boolean firstLine = true;
-
 		java.util.ArrayList<Integer> inputForce = new java.util.ArrayList<>();
 		java.util.ArrayList<Double> inputDeltaX = new java.util.ArrayList<>();
 		java.util.ArrayList<Double> aggregateDeltaXDouble = new java.util.ArrayList<>();
@@ -51,30 +58,13 @@ public class Manager {
 		SimpleLogger.infoLog("reading input file...");
 
 		// BEGIN READ
-		try (BufferedReader br = new BufferedReader(new FileReader(exConf.getInputCsvPath()))) {
-
-			while ((line = br.readLine()) != null) {
-
-				if(!firstLine || !exConf.isSkipFirstRow()) {
-
-					line = line.replaceAll(" ", "");
-
-					if(!line.equals("")) {
-						String[] row = line.split(cvsSplitBy);
-						inputForce.add(Integer.parseInt(row[exConf.getForceColumnIndex()-1]));
-						inputDeltaX.add(Double.parseDouble(row[exConf.getDeltaColumnIndex()-1]));
-					}
-
-				} else {
-					firstLine = false;
-				}
-
+		try {
+			readInputFileList(exConf, inputForce, inputDeltaX);
+			
+			if(!Utility.isGrowingForIntegerList(inputForce)) {
+				JOptionPane.showMessageDialog(null, "Invalid input CSV file: force column does not contain increasing values.");
+				return exConf;
 			}
-		
-		if(!Utility.isGrowingForIntegerList(inputForce)) {
-			JOptionPane.showMessageDialog(null, "Invalid input CSV file: force column does not contain increasing values.");
-			return exConf;
-		}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -84,9 +74,18 @@ public class Manager {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: cannot read " + exConf.getInputCsvPath() + "' file.");
 			return exConf;
-		} catch ( NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error: invalid input file '" + exConf.getInputCsvPath() + "' or wrong CSV settings.");
+			return exConf;
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Invalid input file list. All files must have the same number of values.");
+			return exConf;
+		}catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Invalid input file list. All files must have the same number of values.");
+			return exConf;
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Unexpected error while reading " + exConf.getInputCsvPath() + "' file.");
@@ -209,6 +208,58 @@ public class Manager {
 
 		return exConf;
 
+	}
+
+	private static void readInputFileList(ExecutionConfiguration exConf, ArrayList<Integer> inputForce, ArrayList<Double> inputDeltaX)
+			throws IOException, FileNotFoundException {
+		String cvsSplitBy = ",";
+		String[] files = exConf.getInputCsvPath().split(FILE_NAME_SEPARATOR);
+		List<String> fileList = Arrays.asList(files);
+		Integer prevFileLength = null;
+		int fileCounter = 0;
+		for(String fileName:fileList) {
+			fileCounter++;
+			String line;
+			boolean firstLine = true;
+			try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+				int validLineCounter = 0;
+				while ((line = br.readLine()) != null) {
+					if(!firstLine || !exConf.isSkipFirstRow()) {
+
+						line = line.replaceAll(" ", "");
+
+						if(!line.equals("")) {
+							String[] row = line.split(cvsSplitBy);
+							if(fileCounter==1) {
+								inputForce.add(Integer.parseInt(row[exConf.getForceColumnIndex()-1]));
+								inputDeltaX.add(Double.parseDouble(row[exConf.getDeltaColumnIndex()-1]));
+							} else {
+								int newInputForceValue = Integer.parseInt(row[exConf.getForceColumnIndex()-1]);
+								int prevTotalInputForceValue = inputForce.get(validLineCounter);
+								inputForce.set(validLineCounter, newInputForceValue+prevTotalInputForceValue);
+
+								double newinputDeltaX = Double.parseDouble(row[exConf.getDeltaColumnIndex()-1]);
+								double prevTotalInputDeltaX = inputDeltaX.get(validLineCounter);
+								inputDeltaX.set(validLineCounter, newinputDeltaX+prevTotalInputDeltaX);
+							}
+						}
+						validLineCounter++;
+					} else {
+						firstLine = false;
+					}
+
+				}
+				if(prevFileLength!=null && prevFileLength!=validLineCounter) {
+					throw new IllegalArgumentException("Invalid input file list. All files must have the same number of values.");
+				}
+			}
+			
+		}
+		
+		for(int i = 0; i<inputForce.size(); i++) {
+			inputForce.set(i, inputForce.get(i)/fileCounter);
+			inputDeltaX.set(i, inputDeltaX.get(i)/fileCounter);
+		}
 	}
 
 	private static String generateFileName(ExecutionConfiguration exConf) {

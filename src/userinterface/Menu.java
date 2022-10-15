@@ -29,7 +29,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.List;
 
 public class Menu extends JPanel{
 
@@ -456,32 +458,48 @@ public class Menu extends JPanel{
 				exConf.setSaveLUT(true);
 				Manager.execute(exConf);
 			} else if(src == autoButton) {
-				if(lutGenerationMethod.getSelectedItem().equals(ADVANCED_LUT_GENERATION)) {
-					exConf.setAutoCalcAggregationOder(true);
-					exConf = Manager.execute(exConf);
-					aggregationSlider.setValue(exConf.getAggregationOrder());
-					deadZoneEnhancementSlider.setValue(10);
-					gainReductionSlider.setValue(0);
-					linearizeNearZero.setSelected(true);
-					ffbPowerEnhancementSlider.setValue(5);
-				} else { //LINEAR
-					gainReductionSlider.setValue(0);
-					ffbPowerEnhancementSlider.setValue(0);
-					deadZoneEnhancementSlider.setValue(10);
-				}
+				manageAutoSettings(exConf);
 				updateComponentsStatus();
 			} else if(src == inputCsvSettings){
 				transferJsonConfigIntoExConf(jsonConfig,exConf);
 				CsvSettingsMenu csvSettings = new CsvSettingsMenu();
 				csvSettings.showCSVoption(exConf);
 			} else if(src == fileBrowserButton){
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setFileFilter(new CsvFileFilter());
-				int n = fileChooser.showOpenDialog(Menu.this);
-				if (n == JFileChooser.APPROVE_OPTION) {
-					File f = fileChooser.getSelectedFile();	         
-					inputFileText.setText(f.getPath());
+				getSelectedFiles();
+			}
+		}
+
+		private void manageAutoSettings(ExecutionConfiguration exConf) {
+			if(lutGenerationMethod.getSelectedItem().equals(ADVANCED_LUT_GENERATION)) {
+				exConf.setAutoCalcAggregationOder(true);
+				exConf = Manager.execute(exConf);
+				aggregationSlider.setValue(exConf.getAggregationOrder());
+				deadZoneEnhancementSlider.setValue(10);
+				gainReductionSlider.setValue(0);
+				linearizeNearZero.setSelected(true);
+				ffbPowerEnhancementSlider.setValue(5);
+			} else { //LINEAR
+				gainReductionSlider.setValue(0);
+				ffbPowerEnhancementSlider.setValue(0);
+				deadZoneEnhancementSlider.setValue(10);
+			}
+		}
+
+		private void getSelectedFiles() {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setFileFilter(new CsvFileFilter());
+			fileChooser.setMultiSelectionEnabled(true);
+			int n = fileChooser.showOpenDialog(Menu.this);
+			if (n == JFileChooser.APPROVE_OPTION) {
+				File[] fileArray = fileChooser.getSelectedFiles();
+				List<File> fileList = Arrays.asList(fileArray);
+				String fileNameContainer = "";
+				for(File file:fileList) {
+					fileNameContainer += file.getPath();
+					fileNameContainer += FILE_NAME_SEPARATOR;
 				}
+				String adjustedFileList = fileNameContainer.substring(0, fileNameContainer.length()-FILE_NAME_SEPARATOR.length());
+				inputFileText.setText(adjustedFileList);
 			}
 		}
 		
