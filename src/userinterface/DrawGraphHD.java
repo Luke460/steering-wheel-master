@@ -126,12 +126,12 @@ public class DrawGraphHD extends JPanel {
 		ArrayList<LineOfValues> lov = new ArrayList<>();
 		LineOfValues deltaXLV = new LineOfValues(Color.red, deltaX, false);
 		lov.add(deltaXLV);
+		LineOfValues simXLV = new LineOfValues(Color.gray, simulatedResult, true);
+		lov.add(simXLV);
 		LineOfValues aggDeltaXLV = new LineOfValues(Color.blue, aggregateDeltaX, true);
 		lov.add(aggDeltaXLV);
 		LineOfValues lutXLV = new LineOfValues(Color.green, correctiveArray, true);
 		lov.add(lutXLV);
-		LineOfValues simXLV = new LineOfValues(Color.gray, simulatedResult, true);
-		lov.add(simXLV);
 
 		DrawGraphHD graphPanel = new DrawGraphHD(lov);
 		
