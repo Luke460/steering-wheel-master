@@ -125,7 +125,7 @@ Remember to adjust the value of the ***Dead zone enhancement***. More info in th
 ### Linear (recommended settings)
 ![my-G29-settings](images/my-G29-settings-linear.png)
 
-### Advanced
+### Advanced (not recommended)
 ![my-G29-settings](images/my-G29-settings-advanced.png)
 
 ## How to use LUT files in *Assetto Corsa* and *Assetto Corsa Competizione*
