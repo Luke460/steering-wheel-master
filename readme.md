@@ -47,7 +47,7 @@ Now you have to locate your ***force feedback calibration file*** and configure 
 
 First of all, you have to choose between **advanced lut generation** and **linear lut generation**:
  - **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. The accuracy of the correction depends on the used calibration tool.
- - **linear lut generation** [recommended mode] uses the csv file only to correct the dead zone in order to not alter the standard behavior of your steering wheel.
+ - **linear lut generation** (recommended mode) uses the csv file only to correct the dead zone in order to not alter the standard behavior of your steering wheel.
  
  In both cases you can also customize the FFB curve according to your personal preferences.
    
