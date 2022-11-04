@@ -68,7 +68,7 @@ First of all, you have to choose between **advanced lut generation** and **linea
  - Make sure to also disable the ***centering force*** of your steering wheel if present.
  - If you are using a high level steering wheel (like a ***direct drive***), you probably will not get any benefit by using this application, as its behavior will already be linear, silent and without any dead zone, but you can use the application to customize the ffb curve according to your needs.
 
- **IN GENERAL:** 
+ **GENERAL TIPS:** 
  - Lower values of ***aggregation order*** makes your force feedback correction more precise, while higher values makes your force feedback correction smoother.
    - Don't go too high, or you will lose precision in force feedback correction.
    - Don't go too low otherwise you will not benefit of the aggregation procedure.
@@ -119,6 +119,8 @@ This preset makes force feedback noticeably stronger (but makes the steering whe
  - ***Dead zone enhancement***: this value depends on your wheel dead zone, refer to the previous section.
 
 ## My settings (Logitech G29)
+
+Remember to adjust the value of *Dead zone enhancement*. More info in the *GENERAL TIPS* section above.
 
 ### Linear (recommended settings)
 ![my-G29-settings](images/my-G29-settings-linear.png)
