@@ -120,7 +120,7 @@ This preset makes force feedback noticeably stronger (but makes the steering whe
 
 ## My settings (Logitech G29)
 
-Remember to adjust the value of *Dead zone enhancement*. More info in the *GENERAL TIPS* section above.
+Remember to adjust the value of the ***Dead zone enhancement***. More info in the **GENERAL TIPS** section above.
 
 ### Linear (recommended settings)
 ![my-G29-settings](images/my-G29-settings-linear.png)
