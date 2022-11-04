@@ -46,8 +46,10 @@ Now you have to locate your ***force feedback calibration file*** and configure 
 
 
 First of all, you have to choose between **advanced lut generation** and **linear lut generation**:
- - **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. 
- - **linear lut generation** uses the csv file only to correct the dead zone in order to not alter the standard behavior of your steering wheel.
+ - **advanced lut generation** uses all the data provided by the csv file to attempt to correct the steering wheel reactions. The accuracy of the correction depends on the used calibration tool.
+ - **linear lut generation** [recommended mode] uses the csv file only to correct the dead zone in order to not alter the standard behavior of your steering wheel.
+ 
+ In both cases you can also customize the FFB curve according to your personal preferences.
    
    | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | **Aggregation order** | ***Linearize FFB near zero*** | **FFB gain reduction** | **FFB power enhancement** | **Dead zone enhancement** (depends on your steering wheel) |
    |-------------------------|---------------------------|----|----|----|----|----|----|
@@ -79,6 +81,8 @@ First of all, you have to choose between **advanced lut generation** and **linea
  - You can select ***linearize FFB near zero*** to improve the force feedback for steering wheels with a noticeable dead zone. Enabling this option requires adjustment of the ***dead zone enhancement*** value.
  - Experiment and play with the ***preview*** button!
  
+**NOTE:** The following settings are NOT recommended for the G29. More presets in the following sections.
+ 
 ![menu](images/menu.png)
 
 Now click on ***Generate lut*** and if everything goes well, you should get the following output message:
@@ -107,7 +111,7 @@ This preset uses all the data provided by the csv file to attempt to correct the
  - ***FFB power enhancement***: from 0 to 10 (depends on the steering wheel power: 10 for weak steering wheels like the G29, 0 for a DD).
  - ***Dead zone enhancement***: this value depends on your wheel dead zone, refer to the previous section.
  
-### Extreme mode
+### Competitive mode
 This preset makes force feedback noticeably stronger (but makes the steering wheel slightly noisy and less linear) by increasing the low and medium values of FFB in a progressive manner. Keep in mind that the maximum peak force is always limited to 100%.
  - ***Lut generation method***: linear lut generation
  - ***FFB Gain reduction***: 0
@@ -116,7 +120,7 @@ This preset makes force feedback noticeably stronger (but makes the steering whe
 
 ## My settings (Logitech G29)
 
-### Linear
+### Linear (recommended settings)
 ![my-G29-settings](images/my-G29-settings-linear.png)
 
 ### Advanced
