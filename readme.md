@@ -17,7 +17,7 @@ This application is free and open source. The development was born to help the s
 
 This procedure uses as input a ***force feedback calibration file***, and by processing it, is able to produce a customizable lookup table (or ***lut file***).
 
-...but what does it mean? what is data aggregation?
+...but what does it means? what is data aggregation?
 
 ## Data Aggregation example
 
