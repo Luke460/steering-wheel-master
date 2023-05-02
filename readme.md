@@ -56,13 +56,13 @@ First of all, you have to choose between **advanced lut generation** and **linea
  ***General settings:***
    | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | ***Linearize FFB near zero*** | **Dead zone enhancement** (depends on your steering wheel) |
    |-------------------------|---------------------------|----|----|----|
-   | ***direct drive*** | Fanatec CLS DD, Podium | advanced | false | - |
+   | ***direct drive*** | Fanatec CLS DD, Podium | advanced | off | - |
    |                         |                                             | linear | - | ~2 |
-   | ***belt***       | Thrustmaster T300, T500, Fanatec CSL elite | advanced | false | - |
+   | ***belt***       | Thrustmaster T300, T500, Fanatec CSL elite | advanced | off | - |
    |                         |                                             | linear | - | ~5 |
-   | ***mixed***      | Thrustmaster TXM, T150, T248  | advanced | true/false | ~5 |
+   | ***mixed***      | Thrustmaster TXM, T150, T248  | advanced | on/off | ~5 |
    |                         |                           | linear | - | ~5 |
-   | ***geared***     | Logitech G25, G27, G29, G923 (and related XBOX versions) | advanced | true | ~5 |
+   | ***geared***     | Logitech G25, G27, G29, G923 (and related XBOX versions) | advanced | on | ~5 |
    |                         |                     | linear | - | ~5 |
 
 **NOTE:** 
