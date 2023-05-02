@@ -53,7 +53,7 @@ First of all, you have to choose between **advanced lut generation** and **linea
  
  In both cases you can also customize the FFB curve according to your personal preferences.
    
- ***General settings:***
+ **GENERAL SETTINGS:**
    | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | ***Linearize FFB near zero*** | **Dead zone enhancement** (depends on your steering wheel) |
    |-------------------------|---------------------------|----|----|----|
    | ***direct drive*** | Fanatec CLS DD, Podium | advanced | off | - |
