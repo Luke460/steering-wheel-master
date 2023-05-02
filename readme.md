@@ -53,16 +53,17 @@ First of all, you have to choose between **advanced lut generation** and **linea
  
  In both cases you can also customize the FFB curve according to your personal preferences.
    
-   | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | **Aggregation order** | ***Linearize FFB near zero*** | **FFB gain reduction** | **FFB power enhancement** | **Dead zone enhancement** (depends on your steering wheel) |
-   |-------------------------|---------------------------|----|----|----|----|----|----|
-   | ***direct drive*** | Fanatec CLS DD, Podium | advanced | auto | false | 0 | from 0 to 5 | - |
-   |                         |                                             | linear | - | - | 0 | from 0 to 5 | ~2 |
-   | ***belt***       | Thrustmaster T300, T500, Fanatec CSL elite | advanced | auto | false | 0 | from 5 to 10 | - |
-   |                         |                                             | linear | - | - | 0 | from 0 to 5 | ~5 |
-   | ***mixed***      | Thrustmaster TXM, T150, T248  | advanced | auto | true/false | 0 | from 5 to 10 | ~5 |
-   |                         |                           | linear | - | - | 0 | from 0 to 5 | ~5 |
-   | ***geared***     | Logitech G25, G27, G29, G923 (and related XBOX versions) | advanced | auto | true | 0 | from 5 to 10 | ~5 |
-   |                         |                     | linear | - | - | 0 | from 0 to 5 | ~5 |
+ ***General settings:***
+   | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | ***Linearize FFB near zero*** | **Dead zone enhancement** (depends on your steering wheel) |
+   |-------------------------|---------------------------|----|----|----|
+   | ***direct drive*** | Fanatec CLS DD, Podium | advanced | false | - |
+   |                         |                                             | linear | - | ~2 |
+   | ***belt***       | Thrustmaster T300, T500, Fanatec CSL elite | advanced | false | - |
+   |                         |                                             | linear | - | ~5 |
+   | ***mixed***      | Thrustmaster TXM, T150, T248  | advanced | true/false | ~5 |
+   |                         |                           | linear | - | ~5 |
+   | ***geared***     | Logitech G25, G27, G29, G923 (and related XBOX versions) | advanced | true | ~5 |
+   |                         |                     | linear | - | ~5 |
 
 **NOTE:** 
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
@@ -96,6 +97,13 @@ Now click on ***Generate lut*** and if everything goes well, you should get the 
 ## Lut generation presets
 
 The following settings can be applied to every steering wheel. The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0% to ensure the best FFB dead zone correction. If you need to reduce the gain in the game, you may need to decrease the ***dead zone enhancement*** slider as well. Make sure to also disable the centering force of your steering wheel if present.
+
+   | **Steering wheel type** | **Standard mode** | **Advanced mode** | **Competitive mode** |
+   | ----------------------- | ------------------| ----------------- | -------------------- |
+   | ***direct drive***      | OK | OK | OK |
+   | ***belt***              | OK | INACCURATE | OK |
+   | ***mixed***             | OK | INACCURATE | OK |
+   | ***geared***            | OK | INACCURATE | OK |
 
 ### Standard mode (dead zone correction only)
 This is the standard preset and offers a good compromise between strength and quietness. Basically it only removes the dead zone leaving a linear behavior.
