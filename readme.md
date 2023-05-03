@@ -54,16 +54,16 @@ First of all, you have to choose between **advanced lut generation** and **linea
  In both cases you can also customize the FFB curve according to your personal preferences.
    
  **GENERAL SETTINGS:**
-   | **Steering wheel type** | **Steering wheel name** | **Lut generation method** | ***Linearize FFB near zero*** | **Dead zone enhancement** (depends on your steering wheel) |
-   |-------------------------|---------------------------|----|----|----|
-   | ***direct drive*** | Fanatec CLS DD, Podium | advanced | off | - |
-   |                         |                                             | linear | - | ~2 |
-   | ***belt***       | Thrustmaster T300, T500, Fanatec CSL elite | advanced | off | - |
-   |                         |                                             | linear | - | ~5 |
-   | ***mixed***      | Thrustmaster TXM, T150, T248  | advanced | on/off | ~5 |
-   |                         |                           | linear | - | ~5 |
-   | ***geared***     | Logitech G25, G27, G29, G923 (and related XBOX versions) | advanced | on | ~5 |
-   |                         |                     | linear | - | ~5 |
+   | **Steering wheel type** | **Steering wheel name**                         | **Lut generation method** | ***Linearize FFB near zero*** | **Dead zone enhancement** (depends on your steering wheel) |
+   |-------------------------|-------------------------------------------------|---------------------------|-------------------------------|--------------------------|
+   | ***direct drive***      | Fanatec CLS DD, Fanatec Podium, Moza R5, R9, ...| advanced                  | off                           | -                        |
+   |                         |                                                 | linear                    | -                             | ~2                       |
+   | ***belt***              | Thrustmaster T300, T500, Fanatec CSL elite      | advanced                  | off                           | -                        |
+   |                         |                                                 | linear                    | -                             | ~5                       |
+   | ***mixed***             | Thrustmaster TXM, T150, T248                    | advanced                  | on/off                        | ~5                       |
+   |                         |                                                 | linear                    | -                             | ~5                       |
+   | ***geared***            | Logitech G25, G27, G29, G923 (and related XBOX versions) | advanced         | on                            | ~5                       |
+   |                         |                                                 | linear                    | -                             | ~5                       |
 
 **NOTE:** 
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
@@ -100,10 +100,10 @@ The following settings can be applied to every steering wheel. The in-game **FFB
 
    | **Steering wheel type** | **Standard mode** | **Advanced mode** | **Competitive mode** |
    | ----------------------- | ------------------| ----------------- | -------------------- |
-   | ***direct drive***      | OK | OK | OK |
-   | ***belt***              | OK | INACCURATE | OK |
-   | ***mixed***             | OK | INACCURATE | OK |
-   | ***geared***            | OK | INACCURATE | OK |
+   | ***direct drive***      | ok                | ok                | ok                   |
+   | ***belt***              | ok                | inaccurate        | ok                   |
+   | ***mixed***             | ok                | inaccurate        | ok                   |
+   | ***geared***            | ok                | inaccurate        | ok                   |
 
 ### Standard mode (dead zone correction only)
 This is the standard preset and offers a good compromise between strength and quietness. Basically it only removes the dead zone leaving a linear behavior.
