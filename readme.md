@@ -69,6 +69,7 @@ First of all, you have to choose between **advanced lut generation** and **linea
  - Keep in mind that every steering wheel is different, you may need to find the perfect settings for your own device!
  - The in-game **FFB gain** must be set to 100% and the **minimum FFB** must be set to 0% to ensure the best FFB dead zone correction. If you need to reduce the ***gain*** in the game, you may need to decrease the ***dead zone enhancement*** slider as well.
  - Make sure to also disable the ***centering force*** of your steering wheel if present.
+ - I highly recommend to add "road effects" only when you're happy with your LUT and FFB settings.
  - If you are using a high level steering wheel (like a ***direct drive***), you probably will not get any benefit by using this application, as its behavior will already be linear, silent and without any dead zone, but you can use the application to customize the ffb curve according to your needs.
 
  **GENERAL TIPS:** 
@@ -130,7 +131,8 @@ This preset makes force feedback noticeably stronger (but makes the steering whe
 
 ## My settings (Logitech G29)
 
-Remember to adjust the value of the ***Dead zone enhancement***. More info in the **GENERAL TIPS** section above
+Remember to adjust the value of the ***Dead zone enhancement***. More info in the **GENERAL TIPS** section above.
+
 **NOTE:** I highly recommend to add "road effects" only when you're happy with your LUT and FFB settings.
 
 ### Linear (recommended settings)
