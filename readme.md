@@ -130,7 +130,8 @@ This preset makes force feedback noticeably stronger (but makes the steering whe
 
 ## My settings (Logitech G29)
 
-Remember to adjust the value of the ***Dead zone enhancement***. More info in the **GENERAL TIPS** section above.
+Remember to adjust the value of the ***Dead zone enhancement***. More info in the **GENERAL TIPS** section above
+**NOTE:** I highly recommend to add "road effects" only when you're happy with your LUT and FFB settings.
 
 ### Linear (recommended settings)
 ![my-G29-settings](images/my-G29-settings-linear.png)
