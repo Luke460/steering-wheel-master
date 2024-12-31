@@ -7,6 +7,10 @@
 Donations are not required, but always accepted with pleasure. Thanks for your support!
  - [***Go to the donation page***](https://www.paypal.com/donate?hosted_button_id=WVSY5VX8TA4ZE)
 
+## Try the new application
+
+ - [***Force Feedback Manager***](https://github.com/Luke460/force-feedback-manager)
+
 ---
 
 # Steering Wheel Master
