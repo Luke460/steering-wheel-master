@@ -9,7 +9,7 @@ Donations are not required, but always accepted with pleasure. Thanks for your s
 
 ## Try the new application
 
- - [***Force Feedback Manager***](https://github.com/Luke460/force-feedback-manager)
+ - [***Force Feedback Manager:***](https://github.com/Luke460/force-feedback-manager) a streamlined version of Steering Wheel Master.
 
 ---
 
