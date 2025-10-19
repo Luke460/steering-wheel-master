@@ -20,7 +20,9 @@ Donations are not required, but always accepted with pleasure. Thanks for your s
 
 This application is free and open source. The development was born to help the simracers community get the most out of their steering wheels, regardless the price range of the hardware.
 
-This procedure uses as input a ***force feedback calibration file***, and by processing it, is able to produce a customizable lookup table (or ***lut file***).
+***Steering Wheel Master*** is currently supported in ***Assetto Corsa*** and ***Assetto Corsa Competizione***.
+
+This application uses as input a ***force feedback calibration file***, and by processing it, is able to produce a customizable lookup table (or ***lut file***).
 
 ...but what does it means? what is data aggregation?
 
